@@ -5,6 +5,7 @@ import os
 from scipy import integrate
 from tqdm import tqdm
 from pvlib import iotools
+from bifacial_radiance import main as main
 
 
 class spectral_property(object):
@@ -244,8 +245,8 @@ def generate_spectra(metdata, simulation_path, ground_material='Gravel', spectra
     Parameters
     ----------
     metdata : bifacial_radiance MetObj
-        DESCRIPTION.
-    simulation_path: bifacial_radiance MetObj
+        MetObj containing weather data, with a datetime index.
+    simulation_path: string or path
         path of simulation directory
     ground_material : string, optional
         type of ground material for spectral simulation. Options include:
@@ -389,7 +390,7 @@ def generate_spectra(metdata, simulation_path, ground_material='Gravel', spectra
     
     return (spectral_alb, spectral_dni, spectral_dhi, None)
 
-def generate_spectral_tmys(wavelengths, spectra_folder, weather_file, location_name, output_folder):
+def generate_spectral_tmys(wavelengths, spectra_folder, metdata, location_name, output_folder):
     """
     Generate a series of TMY-like files with per-wavelength irradiance. There will be one file per 
     wavelength. These are necessary to run a spectral simulation with gencumsky
@@ -400,8 +401,8 @@ def generate_spectral_tmys(wavelengths, spectra_folder, weather_file, location_n
         array or list of integer wavelengths to simulate, in units [nm]. example: [300,325,350]
     spectra_folder: (path or str)
         File path or path-like string pointing to the folder contained the SMARTS generated spectra
-    weather_file: (path or str)
-        File path or path-like string pointing to the weather file used for spectra generation
+    metdata: pandas DataFrame
+        DataFrame containing the weather data, with a datetime index.
     location_name: 
         _description_
     output_folder: 
@@ -413,8 +414,10 @@ def generate_spectral_tmys(wavelengths, spectra_folder, weather_file, location_n
     spectra_files.sort()
 
     # -- read in the weather file and format
-    (tmydata, metdata) = iotools.read_tmy3(weather_file, coerce_year=2021)
-    tmydata.index = tmydata.index+pd.Timedelta(hours=1)
+    #(tmydata, metdata) = main.RadianceObj.readWeatherFile(weatherFile=weather_file, coerce_year=2021)
+    #(tmydata, metdata) = iotools.read_tmy3(weather_file, coerce_year=2021)
+    tmydata = metdata.tmydata.copy()
+    #tmydata.index = tmydata.index+pd.Timedelta(hours=1)
     tmydata.rename(columns={'dni':'DNI',
                             'dhi':'DHI',
                             'temp_air':'DryBulb',
@@ -426,8 +429,9 @@ def generate_spectral_tmys(wavelengths, spectra_folder, weather_file, location_n
     dtindex = tmydata.index
 
     # -- grab the weather file header to reproduce location meta-data
-    with open(weather_file, 'r') as wf:
-        header = wf.readline()
+    # with open(weather_file, 'r') as wf:
+    #     header = wf.readline()
+    header = metdata.metadata.copy()
     
     # -- read in a spectra file to copy wavelength-index
     temp = pd.read_csv(os.path.join(spectra_folder,spectra_files[0]), header=1, index_col = 0)
@@ -476,8 +480,82 @@ def generate_spectral_tmys(wavelengths, spectra_folder, weather_file, location_n
             wave_df.loc[col[0],col[1]] = spectra_df[col].loc[wave]
         
         with open(fileName, 'w', newline='') as ict:
-            for line in header:
-                ict.write(line)
+            # for line in header:
+            #     ict.write(line)
             wave_df.to_csv(ict, index=False)
 
+
+def integrated_spectrum(spectra_folder, metdata ):
+    """
+    Generate integrated sums across the full spectra
+    
+    Paramters:
+    ----------
+    spectra_folder: (path or str)
+        File path or path-like string pointing to the folder contained the SMARTS generated spectra
+    metdata: pandas DataFrame
+        DataFrame containing the weather data, with a datetime index.
+        
+
+    Returns:
+    -------
+    integrated_sums: (list)
+        list of integrated sums for DNI, DHI, DNI*ALB, DHI*ALB
+    """
+
+    # -- read in the spectra files
+    spectra_files = next(os.walk(spectra_folder))[2]
+    spectra_files.sort()
+
+    # -- read in the weather file and format
+    #(tmydata, metdata) = main.RadianceObj.readWeatherFile(weatherFile=weather_file, coerce_year=2021)
+    #(tmydata, metdata) = iotools.read_tmy3(weather_file, coerce_year=2021)
+    tmydata = metdata.tmydata.copy()
+    #tmydata.index = tmydata.index+pd.Timedelta(hours=1)
+    tmydata.rename(columns={'dni':'DNI',
+                            'dhi':'DHI',
+                            'temp_air':'DryBulb',
+                            'wind_speed':'Wspd',
+                            'ghi':'GHI',
+                            'relative_humidity':'RH',
+                            'albedo':'Alb'
+                            }, inplace=True)
+    dtindex = tmydata.index
+
+    # -- grab the weather file header to reproduce location meta-data
+    # with open(weather_file, 'r') as wf:
+    #     header = wf.readline()
+    header = metdata.metadata.copy()
+    
+    # -- read in a spectra file to copy wavelength-index
+    temp = pd.read_csv(os.path.join(spectra_folder,spectra_files[0]), header=1, index_col = 0)
+
+    # -- copy and reproduce the datetime index
+    dates = []
+    for file in spectra_files:
+        take = file[4:-4]
+        if take not in dates:
+            dates.append(take)
+    dates = pd.to_datetime(dates,format='%y_%m_%d_%H').tz_localize(dtindex.tz)
+
+    # -- create a multi-index of columns [timeindex:alb,dni,dhi,ghi]
+    iterables = [dates,['ALB','DHI','DNI','GHI']]
+    multi_index = pd.MultiIndex.from_product(iterables, names=['time_index','irr_type'])
+
+    # -- create empty dataframe
+    spectra_df = pd.DataFrame(index=temp.index,columns=multi_index)
+     # -- fill with irradiance data
+    for file in spectra_files:
+        a = pd.to_datetime(file[4:-4],format='%y_%m_%d_%H').tz_localize(dtindex.tz)
+        b = file[:3].upper()
+        spectra_df[a,b] = pd.read_csv(os.path.join(spectra_folder,file),header=1, index_col=0)
+    integrated_sums = pd.DataFrame(index=dates, columns=['Sum_DNI', 'Sum_DHI', 'Sum_DNI_ALB', 'Sum_DHI_ALB'])
+    for col in spectra_df.columns:
+        integrated_sums.loc[col[0], 'Sum_DNI'] = integrate.trapezoid(spectra_df[col[0], 'DNI'], spectra_df.index)
+        integrated_sums.loc[col[0], 'Sum_DHI'] = integrate.trapezoid(spectra_df[col[0], 'DHI'], spectra_df.index)
+        integrated_sums.loc[col[0], 'Sum_DNI_ALB'] = integrate.trapezoid(spectra_df[col[0], 'DNI'] * spectra_df[col[0], 'ALB'], spectra_df.index)
+        integrated_sums.loc[col[0], 'Sum_DHI_ALB'] = integrate.trapezoid(spectra_df[col[0], 'DHI'] * spectra_df[col[0], 'ALB'], spectra_df.index)
+
+    return integrated_sums
+    
     

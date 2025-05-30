@@ -987,7 +987,7 @@ class RadianceObj(SuperClass):
                             coerce_year=coerce_year, label=label,
                             tz_convert_val=tz_convert_val)
         
-        return self.metdata
+        return self.metdata, metadata
         
 
     def readWeatherData(self, metadata, metdata, starttime=None, 
@@ -3244,10 +3244,41 @@ class RadianceObj(SuperClass):
             output_folder = os.path.join('data','spectral_tmys')
         if not os.path.exists(output_folder):
             os.makedirs(output_folder, exist_ok=True)
+
+        metdata, metadata = self.readWeatherFile(weatherFile=weather_file)
         
         su.generate_spectral_tmys(wavelengths=wavelengths, spectra_folder=spectra_folder,
-                                  weather_file=weather_file, location_name=location_name,
+                                  metdata=self.metdata, location_name=location_name,
                                   output_folder=output_folder)
+        
+    def integrated_spectrum(self,weather_file, spectra_folder):
+        """
+        Generate integrated sum of spectrum from SMARTS generated spectra for use in normalization equations
+        
+        Paramters:
+        ----------
+        weather_file: (path or str)
+            File path or path-like string pointing to the weather file used for spectra generation.
+            The structure of this file, and it's meta-data, will be copied into the new files.
+        spectra_folder: (path or str)
+            File path or path-like string pointing to the folder contained the SMARTS generated spectra
+
+        Returns:
+        --------
+        spectrum: dict
+            Dictionary with the integrated spectrum sums for DNI, DHI, DNI-albedo product, and DHI-albedo-product
+        """
+        from bifacial_radiance import spectral_utils as su
+
+        if spectra_folder is None:
+            spectra_folder = 'spectra'
+        
+        metdata, metadata = self.readWeatherFile(weatherFile=weather_file)
+        
+        spectrum = su.integrated_spectrum(spectra_folder=spectra_folder,
+                                  metdata=self.metdata)
+        return spectrum
+
 
 # End RadianceObj definition
 
