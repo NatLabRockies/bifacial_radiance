@@ -238,7 +238,7 @@ def spectral_albedo_smarts_SRRL(YEAR, MONTH, DAY, HOUR, ZONE,
    
 
 def generate_spectra(metdata, simulation_path, ground_material='Gravel', spectra_folder=None, scale_spectra=False,
-                     scale_albedo=False, scale_albedo_nonspectral_sim=False, scale_upper_bound=2500):
+                     scale_albedo=False, scale_albedo_nonspectral_sim=False, scale_upper_bound=2500, min_wavelength=280, max_wavelength=4000):
     """
     generate spectral curve for particular material.  Requires pySMARTS 
 
@@ -296,7 +296,10 @@ def generate_spectra(metdata, simulation_path, ground_material='Gravel', spectra
         dni = metdata.dni[idx]
         dhi = metdata.dhi[idx]
         ghi = metdata.ghi[idx]
-        alb = metdata.albedo[idx]
+        if metdata.albedo is not None:
+            alb = metdata.albedo[idx]
+        else:
+            alb = 0.2
         solpos = metdata.solpos.iloc[idx]
         zen = float(solpos.zenith)
         azm = float(solpos.azimuth) - 180
@@ -311,7 +314,7 @@ def generate_spectra(metdata, simulation_path, ground_material='Gravel', spectra
         
         # generate the base spectra
         try:
-            spectral_dni, spectral_dhi, spectral_ghi = spectral_irradiance_smarts(zen, azm, min_wavelength=280)
+            spectral_dni, spectral_dhi, spectral_ghi = spectral_irradiance_smarts(zen, azm, min_wavelength=min_wavelength, max_wavelength=max_wavelength)
         except:
             if scale_albedo_nonspectral_sim:
                 walb[dt] = 0.0

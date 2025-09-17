@@ -1097,7 +1097,7 @@ class RadianceObj(SuperClass):
             # put correct keys on m = metadata dict
 
             m['altitude'] = _firstlist([m.get('altitude'), m.get('elevation')])
-            m['TZ'] = _firstlist([m.get('TZ'), m.get('Time Zone'), m.get('timezone')])
+            m['TZ'] = _firstlist([m.get('TZ'), m.get('Time Zone'), m.get('timezone'), m.get('tz')])
            
             if not m.get('city'):
                 try:
@@ -3146,12 +3146,12 @@ class RadianceObj(SuperClass):
         
             
     def generate_spectra(self, metdata=None, simulation_path=None, ground_material=None, scale_spectra=False,
-                         scale_albedo=False, scale_albedo_nonspectral_sim=False, scale_upper_bound=2500):
+                         scale_albedo=False, scale_albedo_nonspectral_sim=False, scale_upper_bound=2500, min_wavelength=280, max_wavelength=4000):
         '''
         Generate spectral irradiance files for spectral simulations using pySMARTS
         Or
         Generate an hourly albedo weighted by pySMARTS spectral irradiances
-
+        #
         Parameters
         ----------
         metdata : radianceObject.metdata, optional
@@ -3209,14 +3209,15 @@ class RadianceObj(SuperClass):
                             scale_spectra=scale_spectra,
                             scale_albedo=scale_albedo,
                             scale_albedo_nonspectral_sim=scale_albedo_nonspectral_sim,
-                            scale_upper_bound=scale_upper_bound)
+                            scale_upper_bound=scale_upper_bound,
+                            min_wavelength=min_wavelength, max_wavelength=max_wavelength)
         
         if scale_albedo_nonspectral_sim:
             self.metdata.albedo = weighted_alb.values
         return (spectral_alb, spectral_dni, spectral_dhi, weighted_alb)
 
-    def generate_spectral_tmys(self, wavelengths, weather_file, location_name, spectra_folder=None,
-                               output_folder=None):
+    def generate_spectral_tmys(self, wavelengths, location_name, spectra_folder=None,
+                               output_folder=None, source="TMY"):
         """
         Generate a series of TMY-like files with per-wavelength irradiance. There will be one file
         per wavelength. These are necessary to run a spectral simulation with gencumsky
@@ -3245,13 +3246,13 @@ class RadianceObj(SuperClass):
         if not os.path.exists(output_folder):
             os.makedirs(output_folder, exist_ok=True)
 
-        metdata, metadata = self.readWeatherFile(weatherFile=weather_file)
+        
         
         su.generate_spectral_tmys(wavelengths=wavelengths, spectra_folder=spectra_folder,
                                   metdata=self.metdata, location_name=location_name,
                                   output_folder=output_folder)
         
-    def integrated_spectrum(self,weather_file, spectra_folder):
+    def integrated_spectrum(self, spectra_folder):
         """
         Generate integrated sum of spectrum from SMARTS generated spectra for use in normalization equations
         
@@ -3273,7 +3274,7 @@ class RadianceObj(SuperClass):
         if spectra_folder is None:
             spectra_folder = 'spectra'
         
-        metdata, metadata = self.readWeatherFile(weatherFile=weather_file)
+        
         
         spectrum = su.integrated_spectrum(spectra_folder=spectra_folder,
                                   metdata=self.metdata)
