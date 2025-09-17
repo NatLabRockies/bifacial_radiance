@@ -57,6 +57,7 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
     demo = bifacial_radiance.RadianceObj(
         simulationParamsDict['simulationname'], path=testfolder)  # Create a RadianceObj 'object'
 
+
     # Save INIFILE in folder
     inifilename = os.path.join(
         simulationParamsDict['testfolder'],  'simulation.ini')
@@ -122,7 +123,7 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
                                          'axisofrotationTorqueTube']
     """
     kwargs = moduleParamsDict
-    
+    kwargs['rewriteModulefile'] = simulationParamsDict['rewriteModule']
     if torquetubeParamsDict:
         if not 'visible' in torquetubeParamsDict:
             torquetubeParamsDict['visible'] = simulationParamsDict['torqueTube']
@@ -130,15 +131,9 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
             torquetubeParamsDict['axisofrotation'] = simulationParamsDict[
                                          'axisofrotationTorqueTube']
         
-    if simulationParamsDict['moduletype'] in A:
-        if simulationParamsDict['rewriteModule'] is True:
-            
-            module = demo.makeModule(name=simulationParamsDict['moduletype'],
-                                         tubeParams=torquetubeParamsDict,
-                                         cellModule=cellModule, 
-                                         frameParams=frameParamsDict,
-                                         omegaParams=omegaParamsDict, **kwargs)
+    if (simulationParamsDict['moduletype'] in A) and not (kwargs['rewriteModulefile']):
 
+        module = simulationParamsDict['moduletype']
         print("\nUsing Pre-determined Module Type: %s " %
               simulationParamsDict['moduletype'])
     else:
@@ -166,7 +161,7 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
 
     if simulationParamsDict['tracking'] == False and simulationParamsDict['cumulativeSky'] == True:
     # Fixed gencumsky condition
-        scene = demo.makeScene(module=simulationParamsDict['moduletype'], 
+        scene = demo.makeScene(module=module, 
                                sceneDict=sceneParamsDict, customtext=customObject)
         demo.genCumSky(demo.gencumsky_metfile)  
         
@@ -178,9 +173,9 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
             
         octfile = demo.makeOct(demo.getfilelist())
         analysis = bifacial_radiance.AnalysisObj(octfile, demo.name)
-        frontscan, backscan = analysis.moduleAnalysis(scene, analysisParamsDict['modWanted'],
-                                                      analysisParamsDict['rowWanted'],
-                                                      analysisParamsDict['sensorsy'])
+        frontscan, backscan = analysis.moduleAnalysis(scene, modWanted=analysisParamsDict['modWanted'],
+                                                      rowWanted=analysisParamsDict['rowWanted'],
+                                                      sensorsy=analysisParamsDict['sensorsy'])
         analysis.analysis(octfile, demo.name, frontscan, backscan)
         print('Bifacial ratio yearly average:  %0.3f' %
               (np.mean(analysis.Wm2Back) / np.mean(analysis.Wm2Front)))
@@ -188,6 +183,9 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
 
     else:
     # Run everything through TrackerDict.    
+        # check for deprecated axis_azimuth
+        if  (sceneParamsDict.get('axis_azimuth') is not None) and (sceneParamsDict.get('azimuth') is None):
+            sceneParamsDict['azimuth'] = sceneParamsDict['axis_azimuth']
 
         if simulationParamsDict['tracking'] == False:
             trackerdict = demo.set1axis(metdata, 
@@ -196,7 +194,7 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
                                         azimuth=sceneParamsDict['azimuth']) 
         else:
             trackerdict = demo.set1axis(metdata, gcr=sceneParamsDict['gcr'],
-                                        azimuth=sceneParamsDict['axis_azimuth'],
+                                        azimuth=sceneParamsDict['azimuth'],
                                         limit_angle=trackingParamsDict['limit_angle'],
                                         angledelta=trackingParamsDict['angle_delta'],
                                         backtrack=trackingParamsDict['backtrack'],
@@ -210,7 +208,7 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
             trackerdict = demo.gendaylit1axis()                
 
         trackerdict = demo.makeScene1axis(trackerdict=trackerdict,
-                                          module=simulationParamsDict['moduletype'],
+                                          module=module,
                                           sceneDict=sceneParamsDict,
                                           cumulativesky=simulationParamsDict['cumulativeSky'], customtext=customObject)
 

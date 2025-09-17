@@ -54,7 +54,7 @@ print("bifacial_radiance version ", br.__version__)
 #  
 # While we have HPC scripts to do the below simulation, this journals runs all of the above so it might take some time, as there are 109 combinations of parameters explored
 
-# In[7]:
+# In[ ]:
 
 
 import bifacial_radiance
@@ -64,7 +64,7 @@ import numpy as np
 import pandas as pd
 
 
-# In[8]:
+# In[ ]:
 
 
 testfolder = str(Path().resolve().parent.parent / 'bifacial_radiance' / 'TEMP' /  'Tutorial_18')
@@ -76,7 +76,7 @@ resultsfolder = os.path.join(testfolder, 'results')
 
 # ## General Parameters and Variables
 
-# In[9]:
+# In[ ]:
 
 
 lat = 18.202142
@@ -99,12 +99,12 @@ azimuth = 180
 nMods = 20
 nRows = 7
 numpanels = 1
-moduletype = 'test-module'
+module_name = 'test-module'
 hpc = False
 sim_general_name = 'tutorial_18'
 
 
-# In[10]:
+# In[ ]:
 
 
 if not os.path.exists(os.path.join(testfolder, 'EPWs')):
@@ -118,7 +118,7 @@ else:
 
 # ## 1. Loop to Raytrace and sample irradiance at where Three would be located
 
-# In[15]:
+# In[ ]:
 
 
 demo = bifacial_radiance.RadianceObj(sim_general_name,str(testfolder))  
@@ -152,9 +152,10 @@ for ch in range (0, len(clearance_heights)):
                 coffeeplant_x = (x+xgap)/2
                 coffeeplant_y = pitch/2
 
-                demo.makeModule(name=moduletype, x=x, y=y, xgap = xgap)
-                sceneDict = {'tilt':tilt,'pitch':pitch,'clearance_height':clearance_height,'azimuth':azimuth, 'nMods': nMods, 'nRows': nRows} 
-                scene = demo.makeScene(moduletype=moduletype,sceneDict=sceneDict, radname = sim_name)
+                demo.makeModule(name=module_name, x=x, y=y, xgap = xgap)
+                sceneDict = {'tilt':tilt, 'pitch':pitch, 'clearance_height':clearance_height, 'azimuth':azimuth,
+                             'nMods': nMods, 'nRows':nRows} 
+                scene = demo.makeScene(module=module_name, sceneDict=sceneDict, radname=sim_name)
                 octfile = demo.makeOct(octname = demo.basename )  
                 analysis = bifacial_radiance.AnalysisObj(octfile=octfile, name=sim_name)
 
@@ -180,13 +181,13 @@ for ch in range (0, len(clearance_heights)):
 
 # ### Option 1: Raytrace of Empty Field
 
-# In[13]:
+# In[ ]:
 
 
 sim_name = 'EMPTY'
-demo.makeModule(name=moduletype, x=0.001, y=0.001, xgap = 0)
+demo.makeModule(name=module_name, x=0.001, y=0.001, xgap = 0)
 sceneDict = {'tilt':0,'pitch':2,'clearance_height':0.005,'azimuth':180, 'nMods': 1, 'nRows': 1} 
-scene = demo.makeScene(moduletype=moduletype,sceneDict=sceneDict, radname = sim_name)
+scene = demo.makeScene(module=module_name,sceneDict=sceneDict, radname = sim_name)
 octfile = demo.makeOct(octname = demo.basename)  
 analysis = bifacial_radiance.AnalysisObj(octfile=octfile, name=sim_name)
 frontscan, backscan = analysis.moduleAnalysis(scene=scene, sensorsy=1)
@@ -205,12 +206,11 @@ puerto_rico_Year = data['Wm2Front'][0]
 print("YEARLY TOTAL Wh/m2:", puerto_rico_Year)
 
 
-
 # <a id='step2b'></a>
 
 # ### Option 2: Weather File
 
-# In[14]:
+# In[ ]:
 
 
 # Indexes for start of each month of interest in TMY3 8760 hours file
@@ -410,9 +410,9 @@ for ch in range (0, len(clearance_heights)):
                 coffeeplant_x = (x+xgap)/2
                 coffeeplant_y = pitch
 
-                demo.makeModule(name=moduletype, x=x, y=y, xgap = xgap)
+                demo.makeModule(name=module_name, x=x, y=y, xgap = xgap)
                 sceneDict = {'tilt':tilt,'pitch':pitch,'clearance_height':clearance_height,'azimuth':azimuth, 'nMods': nMods, 'nRows': nRows} 
-                scene = demo.makeScene(moduletype=moduletype,sceneDict=sceneDict, radname = sim_name)
+                scene = demo.makeScene(module=module_name,sceneDict=sceneDict, radname = sim_name)
 
                 # Appending the Trees here
                 text = ''
@@ -511,9 +511,9 @@ coffeeplant_x = (x+xgap)/2
 coffeeplant_y = pitch
 
 demo.gendaylit(4020)
-demo.makeModule(name=moduletype, x=x, y=y, xgap = xgap)
+demo.makeModule(name=module_name, x=x, y=y, xgap = xgap)
 sceneDict = {'tilt':tilt,'pitch':pitch,'clearance_height':clearance_height,'azimuth':azimuth, 'nMods': nMods, 'nRows': nRows} 
-scene = demo.makeScene(moduletype=moduletype,sceneDict=sceneDict, radname = sim_name)
+scene = demo.makeScene(module=module_name,sceneDict=sceneDict, radname = sim_name)
 
 
 for ii in range(0,3):

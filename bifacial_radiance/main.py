@@ -60,7 +60,7 @@ from subprocess import Popen, PIPE  # replacement for os.system()
 import pandas as pd
 import numpy as np 
 import warnings
-
+from deprecated import deprecated
 
 
 global DATA_PATH # path to data files including module.json.  Global context
@@ -280,8 +280,8 @@ def _subhourlydatatoGencumskyformat(gencumskydata, label='right'):
     tzinfo = gencumskydata.index.tzinfo
     padstart = pd.to_datetime('%s-%s-%s %s:%s' % (gencumskydata.index.year[0],1,1,1,0 ) ).tz_localize(tzinfo)
     padend = pd.to_datetime('%s-%s-%s %s:%s' % (gencumskydata.index.year[0]+1,1,1,0,0) ).tz_localize(tzinfo)
-    gencumskydata.iloc[0] = 0  # set first datapt to zero to forward fill w zeros
-    gencumskydata.iloc[-1] = 0  # set last datapt to zero to forward fill w zeros
+    #gencumskydata.iloc[0] = 0  # set first datapt to zero to forward fill w zeros
+    #gencumskydata.iloc[-1] = 0  # set last datapt to zero to forward fill w zeros
     # check if index exists. I'm sure there is a way to do this backwards.
     if any(gencumskydata.index.isin([padstart])):
         print("Data starts on Jan. 01")
@@ -374,9 +374,28 @@ class RadianceObj(SuperClass):
 
         return getResults(self.trackerdict, self.cumulativesky)
     
+    @property
+    @deprecated(reason='RadianceObj.Wm2Front has been abandoned'+\
+                        '  Please use values recorded in ' +
+                        '  AnalysisObj.Wm2Front or RadianceObj.results.',
+                version='0.5.0' )
+    def Wm2Front(self):
+        return None
+    
+    @property
+    @deprecated(reason='RadianceObj.Wm2Back has been abandoned'+\
+                        '  Please use values recorded in ' +
+                        '  AnalysisObj.Wm2Back or RadianceObj.results.',
+                version='0.5.0')
+    def Wm2Back(self):
+        return None
+    
+    
     def __repr__(self):
         #return str(self.__dict__)  
-        return str(type(self)) + ' : ' + str({key: self.__dict__[key] for key in self.columns if (key != 'trackerdict') &  (key != 'results') }) 
+        return str(type(self)) + ' : ' +  str({key: self.__dict__[key] 
+                     for key in self.columns if key not in ('trackerdict', 'results', 'Wm2Front','Wm2Back') }) 
+    
     def __init__(self, name=None, path=None, hpc=False):
         '''
         initialize RadianceObj with path of Radiance materials and objects,
@@ -405,11 +424,6 @@ class RadianceObj(SuperClass):
         #self.radfiles = []      # scene rad files for oconv, compiled from self.scenes
         self.scenes = []        # array of scenefiles to be compiled
         self.octfile = []       #octfile name for analysis
-        self.Wm2Front = 0       # cumulative tabulation of front W/m2
-        self.Wm2Back = 0        # cumulative tabulation of rear W/m2
-        self.backRatio = 0      # ratio of rear / front Wm2
-        #self.nMods = None        # number of modules per row
-        #self.nRows = None        # number of rows per scene
         self.hpc = hpc           # HPC simulation is being run. Some read/write functions are modified
         self.compiledResults = pd.DataFrame(None) # DataFrame of cumulative results, output from self.calculatePerformance1axis()
 
@@ -669,6 +683,7 @@ class RadianceObj(SuperClass):
 
     
     # loadtrackerdict not updated to match new trackerdict configuration
+    @deprecated(version='0.5.0')
     def loadtrackerdict(self, trackerdict=None, fileprefix=None):
         """
         Use :py:class:`bifacial_radiance.load._loadtrackerdict` 
@@ -684,8 +699,8 @@ class RadianceObj(SuperClass):
         if trackerdict is None:
             trackerdict = self.trackerdict
         (trackerdict, totaldict) = loadTrackerDict(trackerdict, fileprefix)
-        self.Wm2Front = totaldict['Wm2Front']
-        self.Wm2Back = totaldict['Wm2Back']
+        #self.Wm2Front = totaldict['Wm2Front']
+        #self.Wm2Back = totaldict['Wm2Back']
     
     def returnOctFiles(self):
         """
@@ -729,30 +744,6 @@ class RadianceObj(SuperClass):
         self.materialfiles = materialfilelist
         return materialfilelist
 
-    '''
-    def getResults(self, trackerdict=None):  #DEPRECATED IN FAVOR OF self.results
-        """
-        Iterate over trackerdict and return irradiance results
-        following analysis1axis runs
-
-        Parameters
-        ----------
-        trackerdict : dict, optional
-            trackerdict, after analysis1axis has been run
-
-        Returns
-        -------
-        results : Pandas.DataFrame
-            dataframe containing irradiance scan results.
-
-        """
-        from bifacial_radiance.load import getResults
-        
-        if trackerdict is None:
-            trackerdict = self.trackerdict
-
-        return getResults(trackerdict, self.cumulativesky)
-    '''
     
     def sceneNames(self, scenes=None):
         if scenes is None: scenes = self.scenes
@@ -970,12 +961,12 @@ class RadianceObj(SuperClass):
         if source.lower() =='epw':
             if label is None:
                 label = 'right'
-            metdata, metadata = self._readEPW(weatherFile, label=label)
+            metdata, metadata = self._readEPW(weatherFile, label=label, coerce_year=coerce_year)
 
         if source.lower() =='tmy3':
             if label is None:
                 label = 'right'
-            metdata, metadata = self._readTMY(weatherFile, label=label)
+            metdata, metadata = self._readTMY(weatherFile, label=label, coerce_year=coerce_year)
 
         if source.lower() =='sam':
             if label is None:
@@ -1368,15 +1359,20 @@ class RadianceObj(SuperClass):
         
         
         import pvlib
+        import packaging.version as version
         #(tmydata, metadata) = pvlib.tmy.readtmy3(filename=tmyfile) #pvlib<=0.6
-        try:
-            (tmydata, metadata) = pvlib.iotools.tmy.read_tmy3(filename=tmyfile,
-                                                          coerce_year=coerce_year,
-                                                          map_variables=True)
-        except TypeError:  # pvlib < 0.10
-            (tmydata, metadata) = pvlib.iotools.tmy.read_tmy3(filename=tmyfile,
-                                                          coerce_year=coerce_year)
         
+        try:
+            if version.Version(pvlib.__version__) >= version.Version('0.10'):
+                (tmydata, metadata) = pvlib.iotools.tmy.read_tmy3(filename=tmyfile,
+                                                              coerce_year=coerce_year,
+                                                              map_variables=True)
+            else:  # pvlib < 0.10
+                (tmydata, metadata) = pvlib.iotools.tmy.read_tmy3(filename=tmyfile,
+                                                              coerce_year=coerce_year)
+        except Exception as E:
+            
+            raise Exception('Error in pvlib.read_tmy3:', E)
         try:
             tmydata = _convertTMYdate(tmydata, metadata) 
         except KeyError:
@@ -1520,7 +1516,14 @@ class RadianceObj(SuperClass):
                                                          coerce_year=coerce_year) #pvlib>0.6.1
         #pvlib uses -1hr offset that needs to be un-done. 
         tmydata.index = tmydata.index+pd.Timedelta(hours=1) 
+        # need to check for leap year here and add a day just in case
+        # use indices to check for a leap day and advance it to March 1st
+        leapday = (tmydata.index.month == 2) & (tmydata.index.day == 29)
+        index2 = tmydata.index.to_series()
+        index2.loc[leapday] +=  datetime.timedelta(days=1)
+        tmydata.set_index(index2, inplace=True)
 
+        
         # rename different field parameters to match output from 
         # pvlib.tmy.readtmy: DNI, DHI, DryBulb, Wspd
         tmydata.rename(columns={'dni':'DNI',
@@ -2082,7 +2085,7 @@ class RadianceObj(SuperClass):
             print('Creating ~%d skyfiles. '%(len(trackerdict.keys())))
         count = 0  # counter to get number of skyfiles created, just for giggles
 
-        trackerdict2={}
+        trackerdict2=TrackerDict({})
         #for i in range(0, len(trackerdict.keys())):
         for key in trackerdict.keys():
             time_target = pd.to_datetime(key, format="%Y-%m-%d_%H%M").tz_localize(int(self.metdata.timezone*3600))
@@ -2757,9 +2760,9 @@ class RadianceObj(SuperClass):
     def analysis1axis(self, trackerdict=None, singleindex=None, accuracy='low',
                       customname=None, modWanted=None, rowWanted=None, 
                       sensorsy=9, sensorsx=1,  
-                      modscanfront = None, modscanback = None, relative=False, 
+                      modscanfront=None, modscanback=None, relative=False, 
                       debug=False, sceneNum=0, append=True, 
-                      frontsurfaceoffset = None, backsurfaceoffset=None):
+                      frontsurfaceoffset=0.005, backsurfaceoffset=0.005):
         """
         Loop through trackerdict and runs linescans for each scene and scan in there.
         If multiple scenes exist in the trackerdict, only ONE scene can be analyzed at a 
@@ -3123,7 +3126,7 @@ class RadianceObj(SuperClass):
                             
                         
                 
-            else:
+            else: #cumulative analysis
                 if module is None:
                     for key in keys:  # loop over trackerdict to find first available module
                         try:
@@ -3385,8 +3388,8 @@ class GroundObj(SuperClass):
                       f'{self._nonzeromean(self.ReflAvg):0.3f} avg\n'
                       f'{self.ReflAvg[self.ReflAvg != 0].__len__()} nonzero albedo values.')
         except IndexError as e:
-            print('albedo.shape should be 3 column (N x 3)')
-            raise e
+            raise Exception('albedo.shape needs to be 3 column (N x 3)')
+
     
     def printGroundMaterials(self, materialString=None):
         """
@@ -3655,7 +3658,7 @@ class SceneObj(SuperClass):
         ''' INITIALIZE VARIABLES '''
         text = '!xform '
 
-        text += '-rx %s -t %s %s %s ' %(tilt, 0, 0, hubheight)
+        text += '-rx %s -t %s %s %s ' %(tilt, 0, 0, np.float16(hubheight))
         
         # create nMods-element array along x, nRows along y. 1cm module gap.
         text += '-a %s -t %s 0 0 -a %s -t 0 %s 0 ' %(nMods, self.module.scenex, nRows, pitch)
@@ -3694,7 +3697,7 @@ class SceneObj(SuperClass):
         with open(radfile, 'wb') as f:
             f.write(text.encode('ascii'))
 
-        self.gcr = self.module.sceney / pitch
+        self.gcr = round(self.module.sceney / pitch, 6)
         self.text = text
         self.radfiles = radfile
         self.sceneDict = sceneDict
@@ -4193,11 +4196,11 @@ class MetObj(SuperClass):
             #times = [str(i)[5:-12].replace('-','_').replace(' ','_') for i in self.datetime]
             times = [i.strftime('%Y-%m-%d_%H%M') for i in self.datetime]
             #trackerdict = dict.fromkeys(times)
-            trackerdict = {}
+            trackerdict = TrackerDict({})
             for i,time in enumerate(times) :
                 # remove NaN tracker theta from trackerdict
                 if (self.ghi[i] > 0) & (~np.isnan(self.tracker_theta[i])):
-                    trackerdict[time] = {
+                    trackerdict[time] = TrackerDict({
                                         'surf_azm':self.surface_azimuth[i],
                                         'surf_tilt':self.surface_tilt[i],
                                         'theta':self.tracker_theta[i],
@@ -4206,7 +4209,7 @@ class MetObj(SuperClass):
                                         'dhi':self.dhi[i],
                                         'temp_air':self.temp_air[i],
                                         'wind_speed':self.wind_speed[i]
-                                        }
+                                        })
 
         return trackerdict
 
@@ -4305,7 +4308,7 @@ class MetObj(SuperClass):
         def _roundArbitrary(x, base=angledelta):
             # round to nearest 'base' value.
             # mask NaN's to avoid rounding error message
-            return base * (x/float(base)).round()
+            return base * (x/float(base)).round() + 0 #remove negative zeros
 
         if angledelta == 0:
             raise ZeroDivisionError('Angledelta = 0. Use None instead')
@@ -4350,7 +4353,7 @@ class MetObj(SuperClass):
         trackerdict = dict.fromkeys(theta_list)
 
         for theta in sorted(trackerdict):  
-            trackerdict[theta] = {}
+            trackerdict[theta] = TrackerDict({})
             csvfile = os.path.join('EPWs', '1axis_{}.csv'.format(theta))
             tempdata = trackingdata[trackingdata['theta_round'] == theta]
 
@@ -4425,7 +4428,7 @@ class AnalysisObj(SuperClass):
     def __printval__(self, attr):
         try:
             t = getattr(self,attr, None)[0]
-        except (TypeError, KeyError):
+        except (TypeError, KeyError, IndexError):
             t = None
         if isinstance(t, (np.floating, float)) : 
             return np.array(getattr(self,attr)).round(3).tolist()
@@ -4767,10 +4770,14 @@ class AnalysisObj(SuperClass):
                 
         # rename columns if only rear data was originally passed
         if rearswapflag:
-            df = df.rename(columns={'Wm2Front':'Wm2Back','mattype':'rearMat'})
+            df = df.rename(columns={'Wm2Front':'Wm2Back','mattype':'rearMat',
+                                    'x':'rearX', 'y':'rearY', 'z':'rearZ'})
         # set attributes of analysis to equal columns of df
         for col in df.columns:
-            setattr(self, col, np.array(df[col])) #cdeline: changed from list to np.array on 3/16/24   
+            setattr(self, col, np.array(df[col])) #cdeline: changed from list to np.array on 3/16/24  
+        # swap back for the savefile
+        if rearswapflag:
+            df = df.rename(columns={'rearX':'x', 'rearY':'y', 'rearZ':'z'})
         # only save a subset
         df = df.drop(columns=['backRatio'], errors='ignore')
         df.to_csv(os.path.join("results", savefile), sep=',',
@@ -4830,7 +4837,7 @@ class AnalysisObj(SuperClass):
 
     def moduleAnalysis(self, scene, modWanted=None, rowWanted=None,
                        sensorsy=9, sensorsx=1, 
-                       frontsurfaceoffset=0.001, backsurfaceoffset=0.001, 
+                       frontsurfaceoffset=0.005, backsurfaceoffset=0.005, 
                        modscanfront=None, modscanback=None, relative=False, 
                        debug=False):
         
@@ -4967,9 +4974,9 @@ class AnalysisObj(SuperClass):
             modulez = 0.02
             
         if frontsurfaceoffset is None:
-            frontsurfaceoffset = 0.001
+            frontsurfaceoffset = 0.005
         if backsurfaceoffset is None:
-            backsurfaceoffset = 0.001
+            backsurfaceoffset = 0.005
         
         # The Sensor routine below needs a "hub-height", not a clearance height.
         # The below complicated check checks to see if height (deprecated) is passed,
@@ -5006,8 +5013,12 @@ class AnalysisObj(SuperClass):
 
         if modWanted is None:
             modWanted = round(nMods / 1.99)
+        else:
+            modWanted = round(modWanted)
         if rowWanted is None:
             rowWanted = round(nRows / 1.99)
+        else:
+            rowWanted = round(rowWanted)
         self.modWanted = modWanted
         self.rowWanted = rowWanted
         if debug is True:
@@ -5043,7 +5054,7 @@ class AnalysisObj(SuperClass):
 
         xstartfront = x1 + x2 + x3 + originx
         xstartback = x1 + x2 + x4 + originx
-
+        
         ystartfront = y1 + y2 + y3 + originy
         ystartback = y1 + y2 + y4 + originy
 
@@ -5116,10 +5127,22 @@ class AnalysisObj(SuperClass):
                 
             firstsensorxstartfront = xstartfront+xinc_front
             firstsensorxstartback = xstartback+xinc_back
-            firstsensorystartfront = ystartfront+yinc_front
-            firstsensorystartback = ystartback+yinc_back
-            firstsensorzstartfront = zstartfront + zinc_front
-            firstsensorzstartback = zstartback + zinc_back
+            # check to make sure sensorsy don't line up with gaps in between cellModule
+            if ((getattr(scene.module, 'cellModule', None)) and
+                (sensorsy_front == scene.module.cellModule.numcellsy-1)):
+                firstsensorystartfront = ystartfront+yinc_front/2
+                firstsensorzstartfront = zstartfront + zinc_front/2
+            else:
+                firstsensorystartfront = ystartfront+yinc_front
+                firstsensorzstartfront = zstartfront + zinc_front
+            if ((getattr(scene.module, 'cellModule', None)) and
+                (sensorsy_back == scene.module.cellModule.numcellsy-1)):
+                firstsensorystartback = ystartback+yinc_back/2
+                firstsensorzstartback = zstartback + zinc_back/2
+            else:
+                firstsensorystartback = ystartback+yinc_back
+                firstsensorzstartback = zstartback + zinc_back
+
         
             ## Correct positions for sensorsx other than 1
             # TODO: At some point, this equations can include the case where 
@@ -5168,15 +5191,15 @@ class AnalysisObj(SuperClass):
             print("Final Start Coordinate Front", xstartfront, ystartfront, zstartfront)
             print("Increase Coordinates", xinc_front, yinc_front, zinc_front)
         
-        frontscan = {'xstart': firstsensorxstartfront, 'ystart': firstsensorystartfront,
-                     'zstart': firstsensorzstartfront,
-                     'xinc':xinc_front, 'yinc': yinc_front, 'zinc':zinc_front,
+        frontscan = {'xstart': np.float16(firstsensorxstartfront), 'ystart': np.float16(firstsensorystartfront),
+                     'zstart': np.float16(firstsensorzstartfront),
+                     'xinc': np.float16(xinc_front), 'yinc': np.float16(yinc_front), 'zinc': np.float16(zinc_front),
                      'sx_xinc':sx_xinc_front, 'sx_yinc':sx_yinc_front,
                      'sx_zinc':sx_zinc_front, 
                      'Nx': sensorsx_front, 'Ny':sensorsy_front, 'Nz':1, 'orient':front_orient }
-        backscan = {'xstart':firstsensorxstartback, 'ystart': firstsensorystartback,
-                     'zstart': firstsensorzstartback,
-                     'xinc':xinc_back, 'yinc': yinc_back, 'zinc':zinc_back,
+        backscan = {'xstart': np.float16(firstsensorxstartback), 'ystart': np.float16(firstsensorystartback),
+                     'zstart': np.float16(firstsensorzstartback),
+                     'xinc': np.float16(xinc_back), 'yinc': np.float16(yinc_back), 'zinc': np.float16(zinc_back),
                      'sx_xinc':sx_xinc_back, 'sx_yinc':sx_yinc_back,
                      'sx_zinc':sx_zinc_back, 
                      'Nx': sensorsx_back, 'Ny':sensorsy_back, 'Nz':1, 'orient':back_orient }
@@ -5272,9 +5295,9 @@ class AnalysisObj(SuperClass):
         yinc = groundsensorspacing * np.cos((azimuth)*dtor)
         zinc = 0
         
-        groundscan = {'xstart': xstart, 'ystart': ystart,
-                     'zstart': zstart,
-                     'xinc':xinc, 'yinc': yinc, 'zinc':zinc,
+        groundscan = {'xstart': np.float16(xstart), 'ystart': np.float16(ystart),
+                     'zstart': np.float16(zstart),
+                     'xinc':np.float16(xinc), 'yinc': np.float16(yinc), 'zinc':np.float16(zinc),
                      'sx_xinc':0, 'sx_yinc':0,
                      'sx_zinc':0,
                      'Nx': sensorsgroundx, 'Ny':sensorsground, 'Nz':1,
@@ -5283,7 +5306,7 @@ class AnalysisObj(SuperClass):
         return groundscan
       
     def analyzeRow(self, octfile, scene, rowWanted=None, name=None, 
-                   sensorsy=None, sensorsx=None ):
+                   sensorsy=9, sensorsx=1 ):
         '''
         Function to Analyze every module in the row. 
 
@@ -5317,7 +5340,7 @@ class AnalysisObj(SuperClass):
         nMods = scene.sceneDict['nMods']
 
         if rowWanted == None:
-            rowWanted = round(self.nRows / 1.99)
+            rowWanted = round(scene.sceneDict['nRows']/ 1.99)
             
         if name is None:
                 name = 'RowAnalysis_'+str(rowWanted)
@@ -5607,3 +5630,10 @@ def quickExample(testfolder=None):
     return analysis
 
 
+class TrackerDict(dict):
+    def __getitem__(self, key):
+        if key == 'scene':
+             warnings.warn('Key `scene` deprecated. Please use the new key: `scenes` '+\
+                  'which returns a list of SceneObj rather than a single SceneObj', DeprecationWarning)
+             return super().__getitem__('scenes')
+        return super().__getitem__(key)

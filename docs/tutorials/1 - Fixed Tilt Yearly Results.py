@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 
 # This information helps with debugging and getting support :)
@@ -48,7 +48,7 @@ print("bifacial_radiance version ", br.__version__)
 # 
 # 
 
-# In[1]:
+# In[2]:
 
 
 import os
@@ -68,7 +68,7 @@ if not os.path.exists(testfolder):
 
 # This will load bifacial_radiance and other libraries from python that will be useful for this Jupyter Journal:
 
-# In[2]:
+# In[3]:
 
 
 try:
@@ -83,7 +83,7 @@ import numpy as np
 
 # ## 2. Create a Radiance Object
 
-# In[3]:
+# In[4]:
 
 
 # Create a RadianceObj 'object' named bifacial_example. no whitespace allowed
@@ -101,7 +101,7 @@ demo = RadianceObj('tutorial_1',str(testfolder))
 
 # To see more options of ground materials available (located on ground.rad), run this function without any input. 
 
-# In[4]:
+# In[5]:
 
 
 # Input albedo number or material name like 'concrete'.  
@@ -110,7 +110,7 @@ demo.setGround()  # This prints available materials.
 
 # If a number between 0 and 1 is passed, it assumes it's an albedo value. For this example, we want a high-reflectivity rooftop albedo surface, so we will set the albedo to 0.62
 
-# In[5]:
+# In[6]:
 
 
 albedo = 0.62
@@ -123,7 +123,7 @@ demo.setGround(albedo)
 # 
 # There are various options provided in bifacial_radiance to load weatherfiles. getEPW is useful because you just set the latitude and longitude of the location and it donwloads the meteorologicla data for any location. 
 
-# In[6]:
+# In[7]:
 
 
 # Pull in meteorological data using pyEPW for any global lat/lon
@@ -134,7 +134,7 @@ epwfile = demo.getEPW(lat = 37.5, lon = -77.6)  # This location corresponds to R
 # 
 # To load the data, use readWeatherFile. This reads EPWs, TMY meterological data, or even your own data as long as it follows TMY data format (With any time resoultion).
 
-# In[7]:
+# In[8]:
 
 
 # Read in the weather data pulled in above. 
@@ -149,7 +149,7 @@ metdata = demo.readWeatherFile(epwfile, coerce_year=2001)
 # or using gencumulativesky to generate a cumulativesky for the entire year.
 # 
 
-# In[8]:
+# In[9]:
 
 
 fullYear = True
@@ -178,7 +178,8 @@ else:
 # </div>
 # 
 
-# In[9]:
+# In[10]:
+
 
 
 module_type = 'test-module' 
@@ -188,7 +189,8 @@ print(module)
 
 # In case you want to use a pre-defined module or a module you've created previously, they are stored in a JSON format in data/module.json, and the options available can be called with printModules:
 
-# In[10]:
+# In[11]:
+
 
 
 availableModules = demo.printModules()
@@ -203,7 +205,8 @@ availableModules = demo.printModules()
 #  Azimuth gets measured from N = 0, so for South facing modules azimuth should equal 180 degrees
 # 
 
-# In[11]:
+# In[12]:
+
 
 
 sceneDict = {'tilt':10,'pitch':3,'clearance_height':0.2,'azimuth':180, 'nMods': 20, 'nRows': 7} 
@@ -211,7 +214,8 @@ sceneDict = {'tilt':10,'pitch':3,'clearance_height':0.2,'azimuth':180, 'nMods': 
 
 # To make the scene we have to create a Scene Object through the method makeScene. This method will create a .rad file in the objects folder, with the parameters specified in sceneDict and the module created above.  You can alternatively pass a string with the name of the `moduletype`.
 
-# In[12]:
+# In[13]:
+
 
 
 scene = demo.makeScene(module,sceneDict)
@@ -224,7 +228,8 @@ scene = demo.makeScene(module,sceneDict)
 # Radiance requires an "Oct" file that combines the ground, sky and the scene object into it. 
 # The method makeOct does this for us.
 
-# In[13]:
+# In[14]:
+
 
 
 octfile = demo.makeOct(demo.getfilelist())  
@@ -232,7 +237,8 @@ octfile = demo.makeOct(demo.getfilelist())
 
 # To see what files got merged into the octfile, you can use the helper method getfilelist. This is useful for advanced simulations too, specially when you want to have different Scene objects in the same simulation, or if you want to add other custom elements to your scene (like a building, for example)
 
-# In[14]:
+# In[15]:
+
 
 
 demo.getfilelist()
@@ -247,7 +253,8 @@ demo.getfilelist()
 
 # First let's create the Analysis Object
 
-# In[15]:
+# In[16]:
+
 
 
 analysis = AnalysisObj(octfile, demo.basename)
@@ -255,7 +262,8 @@ analysis = AnalysisObj(octfile, demo.basename)
 
 # Then let's specify the sensor location. If no parameters are passed to moduleAnalysis, it will scan the center module of the center row:
 
-# In[16]:
+# In[17]:
+
 
 
 frontscan, backscan = analysis.moduleAnalysis(scene)
@@ -266,7 +274,8 @@ frontscan, backscan = analysis.moduleAnalysis(scene)
 # ![Simple example for south facing module](../images_wiki/Journal1Pics/frontscan_backscan.png)
 # Analysis saves the measured irradiances in the front and in the back on the results folder.  Prints out the ratio of the average of the rear and front irradiance values along a chord of the module.
 
-# In[17]:
+# In[18]:
+
 
 
 results = analysis.analysis(octfile, demo.basename, frontscan, backscan)  
@@ -274,7 +283,8 @@ results = analysis.analysis(octfile, demo.basename, frontscan, backscan)
 
 # The results are also automatically saved in the results folder. Some of our input/output functions can be used to read the results and work with them, for example:
 
-# In[18]:
+# In[19]:
+
 
 
 load.read1Result('results\irr_tutorial_1.csv')
@@ -286,7 +296,8 @@ load.read1Result('results\irr_tutorial_1.csv')
 # 
 # Assuming that our module has a bifaciality factor (rear to front performance) of 90%, our <u> bifacial gain </u> is of:
 
-# In[19]:
+# In[20]:
+
 
 
 bifacialityfactor = 0.9
@@ -305,6 +316,7 @@ print('Annual bifacial ratio: %0.2f ' %( np.mean(analysis.Wm2Back) * bifaciality
 # In[20]:
 
 
+
 ## Comment the ! line below to run rvu from the Jupyter notebook instead of your terminal.
 ## Simulation will stop until you close the rvu window
 
@@ -318,6 +330,7 @@ print('Annual bifacial ratio: %0.2f ' %( np.mean(analysis.Wm2Back) * bifaciality
 # ***rvu -vf views\front.vp -e .01 tutorial_1.oct***
 
 # In[21]:
+
 
 
 ## Comment the line below to run rvu from the Jupyter notebook instead of your terminal.

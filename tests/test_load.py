@@ -12,6 +12,7 @@ to run unit tests, run pytest from the command line in the bifacial_radiance dir
 
 import bifacial_radiance
 import os, pytest
+import numpy as np
 
 # try navigating to tests directory so tests run from here.
 try:
@@ -22,7 +23,8 @@ except:
 TESTDIR = os.path.dirname(__file__)  # this folder
 MET_FILENAME = 'USA_CO_Boulder.724699_TMY2.epw'
 TEST_FILE = os.path.join('results','test_2001-01-01_1000.csv')
-
+TEST_FILE2_FRONT = os.path.join(TESTDIR, 'results', 'test_irr_1axis_2021-06-17_1300_Front.csv')
+TEST_FILE2_BACK = os.path.join(TESTDIR, 'results', 'test_irr_1axis_2021-06-17_1300_Back.csv')
 
 
 # test load function on a dummy csv file in the /tests/ directory
@@ -42,12 +44,18 @@ def test_load_trackerdict():
     trackerdict = demo.set1axis(cumulativesky = False)
     print(trackerdict)
     demo.loadtrackerdict(trackerdict,fileprefix = 'test_')
-    assert demo.Wm2Front[0] == pytest.approx(166.3, abs = 0.01)
+    # test that Wm2Front is deprecated
+    with pytest.warns(DeprecationWarning):
+        demo.Wm2Front
+    with pytest.warns(DeprecationWarning):
+        demo.Wm2Back
+    #assert demo.Wm2Front[0] == pytest.approx(166.3, abs = 0.01)
+
 
 def test_cleanResult():
     # example of setting NaN's when the scan intersects undesired material
     # test_01_01_10.csv has some ground and sky references
-    import numpy as np
+
     resultsDF = bifacial_radiance.load.read1Result(TEST_FILE)
     cleanedDF = bifacial_radiance.load.cleanResult(resultsDF)
     assert np.isnan(cleanedDF.Wm2Front.loc[4]) 
@@ -118,3 +126,11 @@ def test_celllevel_module():
                          'ycell': 0.15,
                          'xcellgap': 0.01,
                          'ycellgap': 0.01}
+    
+def test_GH419_front_and_back_sensors():
+    resultsDF_front = bifacial_radiance.load.read1Result(TEST_FILE2_FRONT)
+    cleanedDF_front = bifacial_radiance.load.cleanResult(resultsDF_front)
+    
+    resultsDF_back = bifacial_radiance.load.read1Result(TEST_FILE2_BACK)
+    cleanedDF_back = bifacial_radiance.load.cleanResult(resultsDF_back)
+    assert np.isnan(cleanedDF_back.Wm2Back.loc[4]) 

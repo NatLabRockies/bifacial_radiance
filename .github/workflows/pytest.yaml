@@ -18,6 +18,10 @@ jobs:
           '-r requirements.txt .[all]',
           '--upgrade --upgrade-strategy=eager .[all]'
         ]
+        include:
+          - python-version: "3.12"
+            env: '--upgrade --upgrade-strategy=eager .[all]'
+
 
     steps:
     - uses: actions/checkout@v4
@@ -40,7 +44,8 @@ jobs:
 
     - name: Install SMARTS 2.9.5
       run: |
-        wget https://www.nrel.gov/grid/solar-resource/assets/data/smarts-295-linux-tar.gz -O /tmp/smarts.tar.gz
+        wget 'https://www.nrel.gov/media/docs/libraries/grid/smarts-295-linux-tar.gz?sfvrsn=ef08b59d_1&download=true' -O /tmp/smarts.tar.gz 
+        #wget https://www.nrel.gov/grid/solar-resource/assets/data/smarts-295-linux-tar.gz -O /tmp/smarts.tar.gz
         tar -xvf /tmp/smarts.tar.gz
         unlink $PWD/SMARTS_295_Linux/smarts295bat
         sed -i 's/batch=.FALSE./batch=.TRUE./g' $PWD/SMARTS_295_Linux/Source_code/smarts295.f

@@ -82,7 +82,9 @@ def test_SingleModule_gencumsky_modelchain():
     assert analysis.mattype[0][:12] == 'a4.1.a0.test'
     assert analysis.rearMat[0][:12] == 'a4.1.a0.test'
     assert np.mean(analysis.x) == pytest.approx(0)
-    assert np.mean(analysis.rearY) == pytest.approx(0.00017, abs = 0.00001)
+    rearY = [-0.373, -0.28, -0.186, -0.093, 0.0, 0.094, 0.188, 0.281, 0.375]
+    for (a,b) in zip(rearY, analysis.rearY):
+        assert a == pytest.approx(b, abs=.001)
     if DEBUG:
         print(np.mean(analysis.Wm2Front))
         print(np.mean(analysis.Wm2Back))

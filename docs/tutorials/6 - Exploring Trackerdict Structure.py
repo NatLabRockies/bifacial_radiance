@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# # NOTE: this notebook is not updated for v0.5.0
+
+# In[1]:
 
 
 # This information helps with debugging and getting support :)
@@ -30,14 +32,14 @@ print("bifacial_radiance version ", br.__version__)
 
 # ## 1. Create a short Simulation + tracker dictionary beginning to end for 1 day
 
-# In[1]:
+# In[2]:
 
 
 import bifacial_radiance
 from pathlib import Path
 import os
 
-testfolder = str(Path().resolve().parent.parent / 'bifacial_radiance' / 'Tutorial_06')
+testfolder = str(Path().resolve().parent.parent / 'bifacial_radiance' / 'TEMP' / 'Tutorial_06')
 if not os.path.exists(testfolder):
     os.makedirs(testfolder)              
 

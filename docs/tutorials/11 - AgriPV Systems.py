@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 # This information helps with debugging and getting support :)
@@ -56,7 +56,7 @@ print("bifacial_radiance version ", br.__version__)
 # 
 # The magic is that, for doing the carport we see in the figure, we are going to do a 4-up configuration of modules (**numpanels**), and we are going to repeat that 3-UP 6 times (**nMods**)
 
-# In[1]:
+# In[2]:
 
 
 import os
@@ -70,7 +70,7 @@ if not os.path.exists(testfolder):
 print ("Your simulation will be stored in %s" % testfolder)
 
 
-# In[2]:
+# In[3]:
 
 
 from bifacial_radiance import *   
@@ -78,7 +78,7 @@ import numpy as np
 import pandas as pd
 
 
-# In[3]:
+# In[4]:
 
 
 simulationname = 'tutorial_11'
@@ -147,7 +147,8 @@ octfile = demo.makeOct(demo.getfilelist())
 # 
 # ***rvu -vf views\front.vp -e .01 tutorial_11.oct***
 
-# In[4]:
+# In[5]:
+
 
 
 ## Comment the ! line below to run rvu from the Jupyter notebook instead of your terminal.
@@ -168,7 +169,7 @@ octfile = demo.makeOct(demo.getfilelist())
 # 
 # Positions of the piles could be done more programatically, but they are kinda estimated at the moment. 
 
-# In[5]:
+# In[7]:
 
 
 torquetubelength = module.scenex*(nMods) 
@@ -192,7 +193,7 @@ customObject = demo.makeCustomObject(name,text)
 demo.appendtoScene(radfile=scene.radfiles, customObject=customObject, text="!xform -rz 0")
 
 
-# In[6]:
+# In[8]:
 
 
 name='Pile'
@@ -220,7 +221,8 @@ octfile = demo.makeOct()  # makeOct combines all of the ground, sky and object f
 # 
 # 
 
-# In[7]:
+# In[9]:
+
 
 
 ## Comment the ! line below to run rvu from the Jupyter notebook instead of your terminal.
@@ -240,7 +242,7 @@ octfile = demo.makeOct()  # makeOct combines all of the ground, sky and object f
 # 
 # We are also increasign the number of points sampled accross the collector width, with the  variable **sensorsy** passed to **moduleanalysis**. We are also increasing the step between sampling points, to be able to sample in between the rows.
 
-# In[8]:
+# In[10]:
 
 
 analysis = AnalysisObj(octfile, demo.name)  
@@ -248,13 +250,13 @@ sensorsy = 20
 frontscan, backscan = analysis.moduleAnalysis(scene, sensorsy=sensorsy)
 
 
-# In[9]:
+# In[11]:
 
 
 groundscan = frontscan
 
 
-# In[10]:
+# In[12]:
 
 
 groundscan['zstart'] = 0.05  # setting it 5 cm from the ground.
@@ -263,7 +265,7 @@ groundscan['yinc'] = pitch/(sensorsy-1)   # increasing spacing so it covers all 
 groundscan
 
 
-# In[11]:
+# In[13]:
 
 
 analysis.analysis(octfile, simulationname+"_groundscan", groundscan, backscan)  # compare the back vs front irradiance  
@@ -281,13 +283,13 @@ analysis.analysis(octfile, simulationname+"_groundscan", groundscan, backscan)  
 
 # ![AgriPV modeled step 4](../images_wiki/AdvancedJournals/spacing_between_modules.PNG)
 
-# In[12]:
+# In[14]:
 
 
 import seaborn as sns
 
 
-# In[13]:
+# In[ ]:
 
 
 sensorsx = 20
@@ -306,7 +308,7 @@ for i in range (0, sensorsx): # Will map 20 points
 
 # Read all the files generated into one dataframe
 
-# In[14]:
+# In[ ]:
 
 
 filestarter = "irr_tutorial_11_groundscan_"
@@ -347,21 +349,21 @@ resultsdf['filename'] = filenamed
 
 # Creating a new dataframe where  each element in the front irradiance list is a column. Also transpose and reverse so it looks like a top-down view of the ground.
 
-# In[15]:
+# In[ ]:
 
 
 df3 = pd.DataFrame(resultsdf['br_Wm2Front'].to_list())
 reversed_df = df3.T.iloc[::-1]
 
 
-# In[16]:
+# In[ ]:
 
 
 sns.set(rc={'figure.figsize':(11.7,8.27)})
 print(sns)
 
 
-# In[17]:
+# In[ ]:
 
 
 # Plot
@@ -381,7 +383,7 @@ print('')
 # 
 # 
 
-# In[18]:
+# In[ ]:
 
 
 name='Center_Grass'

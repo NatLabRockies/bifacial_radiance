@@ -39,7 +39,7 @@ setup(
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
     #version='0.4.4',
-    use_scm_version={"fallback_version":"0.4.3"},
+    use_scm_version={"fallback_version":"0.4.4"},
     description='Tools to interface with Radiance for the PV researcher',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -75,6 +75,7 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
             ],
 
     # What does your project relate to?
@@ -101,6 +102,7 @@ setup(
         'pyradiance',
         'scipy > 1.6.0',
         'tqdm',
+        'deprecated',
         ],
 
     # List additional groups of dependencies here (e.g. development
@@ -114,11 +116,11 @@ setup(
             'ipython',
             'sphinx >= 1.8.0',
             'sphinx-autoapi>=1.1.0',
-            'pydata-sphinx-theme==0.8.1',
-            'nbsphinx==0.8.8',
+            'pydata-sphinx-theme>=0.14.4',
+            'nbsphinx>=0.8.8',
             # sphinx-gallery is used indirectly for nbsphinx thumbnail galleries; see:
             # https://nbsphinx.readthedocs.io/en/0.6.0/subdir/gallery.html#Creating-Thumbnail-Galleries
-            'sphinx-gallery==0.8.1',
+            'sphinx-gallery>=0.8.1',
             'tqdm',
         ],
         'all': [

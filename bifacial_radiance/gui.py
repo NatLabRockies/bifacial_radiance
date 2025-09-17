@@ -371,7 +371,11 @@ class Window(tk.Tk):
             if savetitle is None:
                 savetitle = inputvariablefile
                 
-            bifacial_radiance.load.savedictionariestoConfigurationIniFile(simulationParamsDict, sceneParamsDict, timeControlParamsDict, moduleParamsDict, trackingParamsDict, torquetubeParamsDict, analysisParamsDict, cellModuleDict, inifilename=savetitle)
+            bifacial_radiance.load.savedictionariestoConfigurationIniFile(simulationParamsDict, sceneParamsDict, 
+                                                                          timeControlParamsDict, moduleParamsDict, 
+                                                                          trackingParamsDict, torquetubeParamsDict, 
+                                                                          analysisParamsDict, cellModuleDict, 
+                                                                          inifilename=savetitle)
             print("Saved all Values to %s " % savetitle)
             
             

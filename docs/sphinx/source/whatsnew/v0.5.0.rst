@@ -11,18 +11,20 @@ Deprecations
 * :py:class:`~bifacial_radiance.RadianceObj.makeScene1axis`.`appendtoScene` is deprecated in favor of :py:class:`~bifacial_radiance.makeScene1axis`.`customtext` 
 * `Wm2Front` and `Wm2Back` are no longer attributes of  :py:class:`~bifacial_radiance.RadianceObj` object. Results are now tracked in :py:class:`~bifacial_radiance.AnalysisObj.results` and :py:class:`~bifacial_radiance.RadianceObj.results` for trackerDict simulations.
 
+
 API Changes
 ~~~~~~~~~~~~
 * Final irradiance and performance data are stored in: :py:class:`~bifacial_radiance.AnalysisObj.results` and :py:class:`~bifacial_radiance.RadianceObj.results`.
 * Results generated with the above can be saved with the :py:class:`~bifacial_radiance.RadianceObj.exportTrackerDict`, which saves an Hourly, Monthly and Yearly .csvs in the results folder.
-* NSRDB weather data can now be loaded using :py:class:`~bifacial_radiance.RadianceObj.NSRDBWeatherData`.
+* `trackerdict['key']['scene']` has been renamed  `trackerdict['key']['scenes']` and now returns a list of SceneObjs.
+* Raw NSRDB weather data can now be loaded using :py:class:`~bifacial_radiance.RadianceObj.readWeatherData`.
 * :py:class:`~bifacial_radiance.AnalysisObj.analysis` updated to allow single (front-only) scans in support of AgriPV modeling.  Pass `None` to `backscan` for single-sided scan. (:pull:`499`)
 * :py:class:`~bifacial_radiance.makeScene`.`append` added to allow multiple scenes to be attached to a single RadianceObj.  Default: False (over-write the scene). (:pull:`487`)
 * :py:class:`~bifacial_radiance.makeScene1axis`.`append` added to allow multiple scenes to be attached to a single RadianceObj.  Default: False (over-write the scene). (:pull:`487`)
 * `scene.appendtoscene` functionality added (add more detail here, fix hyperlinks). (:pull:`487`)
 * trackerdict stores list of :py:class:`~bifacial_radiance.AnalysisObj` objects in trackerdict['key']['AnalysisObj']. (:pull:`487`)
 * :py:class:`~modelchain.runModelChain` returns only `RadianceObj` value, not `AnalysisObj` as well. (:pull:`487`)
-
+* :py:class:`~bifacial_radiance.AnalysisObj.moduleAnalysis` has new input parameters `frontsurfaceoffset` and `backsurfaceoffset`, to adjust the scan distance from the module surface front or rear. default 0.005 (:pull:`567`)
 
 Enhancements
 ~~~~~~~~~~~~
@@ -41,6 +43,9 @@ Bug fixes
 * Fixed typo on Opacity calculation factor (:issue:`426`)
 * Updated Github Actions to use Node20: checkout@v4,  setup-python@v5, coactions/setup-xvfb, setup-buildx-action@v3 (:pull:`517`)
 * Fix PerformanceWarning and SettingWithCopyWarning (:issue:`515`)
+* Fix error where rearX, rearY, rearZ parameters are not properly saved (:issue:`501`)
+* More appropriate significant digits saved and displayed. (this changed some x,y,z values by < .003 due to rounding differences.)  (:pull:`558`)
+* :py:func:`bifacial_radiance.AnalysisObj.analyzeRow` default values changed for `sensorsy` and `sensorsx` from `None` to 9 and 1, respectively (:pull:`558`)
 
 Documentation
 ~~~~~~~~~~~~~~

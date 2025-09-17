@@ -156,7 +156,11 @@ def test_Radiance_1axis_gendaylit_modelchains():
     #V 0.2.5 fixed the gcr passed to set1axis. (since gcr was not being passd to set1axis, gcr was default 0.33 default). 
     assert(demo2.compiledResults.Gfront_mean[0] == pytest.approx(205.0, 0.01) ) # was 214 in v0.2.3  # was 205 in early v0.2.4  
     assert(demo2.compiledResults.Grear_mean[0] == pytest.approx(43.0, 0.1) )
-    assert demo2.trackerdict['2001-01-01_1100']['scenes'][0].text.__len__() == 134
+    assert(demo2.compiledResults.x.mean() == pytest.approx(np.array([-10.65, -11.59]), 0.005) )
+    assert(demo2.compiledResults.y.mean() == pytest.approx(np.array([1.491, 1.491]), 0.005) )
+    # test that trackerdict['scene'] is deprecated
+    with pytest.warns(DeprecationWarning):
+        assert demo2.trackerdict['2001-01-01_1100']['scene'][0].text.__len__() == 134
     assert demo2.trackerdict['2001-01-01_1100']['scenes'][0].text[23:28] == " 2.0 "
     demo2.exportTrackerDict(savefile = 'results\exportedTrackerDict.csv', reindex=True)
     # Run groundscan
@@ -164,6 +168,7 @@ def test_Radiance_1axis_gendaylit_modelchains():
     results_ground = tracker_ground['2001-01-01_1100']['AnalysisObj'][2]
     assert results_ground.sensorsground == 56
     assert results_ground.mattype[0] == 'groundplane'
+
 
 """    
 def test_RadianceObj_1axis_gendaylit_end_to_end():
@@ -263,7 +268,7 @@ def test_1axis_gencumSky():
 
     trackerdict = demo.makeOct1axis(trackerdict=minitrackerdict, singleindex=-5) # just run this for one timestep: -5 degrees
     trackerdict = demo.analysis1axis( modWanted=7, rowWanted=3, sensorsy=2, sceneNum=0) 
-    assert trackerdict[-5.0]['AnalysisObj'][0].x[0] == -10.76304
+    assert trackerdict[-5.0]['AnalysisObj'][0].x[0] == pytest.approx(-10.766, abs=.001)
     modscanfront = {}
     modscanfront = {'xstart': -5}
     trackerdict = demo.analysis1axis( sensorsy=2, modscanfront=modscanfront, sceneNum=0, customname='_test2') 
@@ -298,19 +303,17 @@ def test_SceneObj_makeSceneNxR_lowtilt():
     (frontscan,backscan) = analysis.moduleAnalysis(scene)
     
     assert frontscan.pop('orient') == '-0.000 0.174 -0.985'# was 0,0,-11 in v0.2.4
-    assert frontscan == pytest.approx({'Nx': 1, 'Ny': 9, 'Nz': 1,  'xinc': 0,  'yinc': 0.093556736536159757,
-                              'xstart': 4.627616431348303e-17,'ystart': -0.3778735578756446, 
-                              'zinc': 0.016496576878358378, 'zstart': 0.23717753969161476,
-                              'sx_xinc': 0.0, 'sx_yinc':0.0, 'sx_zinc':0.0})
+    assert frontscan == pytest.approx({'Nx': 1, 'Ny': 9, 'Nz': 1,  'xinc': 0,  'yinc': 0.09357,
+                              'xstart': 0,'ystart': -0.3787, 'zinc': 0.0165, 'zstart': 0.2411,
+                              'sx_xinc': 0.0, 'sx_yinc':0.0, 'sx_zinc':0.0}, abs=.001)
                                
     assert backscan.pop('orient') == '0.000 -0.174 0.985' # was 0,0,1 in v0.2.4
-    assert backscan == pytest.approx({'Nx': 1, 'Ny': 9, 'Nz': 1,  'xinc': 0, 'yinc': 0.093556736536159757,
-                              'xstart': 4.580831740657635e-17,  'ystart': -0.3740532979669721, 'zinc': 0.016496576878358378,
-                              'zstart': 0.21551176912534617,
-                                'sx_xinc': 0.0, 'sx_yinc':0.0, 'sx_zinc':0.0})
+    assert backscan == pytest.approx({'Nx': 1, 'Ny': 9, 'Nz': 1,  'xinc': 0, 'yinc': 0.09357,
+                              'xstart': 0,  'ystart': -0.3733, 'zinc': 0.0165,'zstart': 0.2115,
+                                'sx_xinc': 0.0, 'sx_yinc':0.0, 'sx_zinc':0.0}, abs=.001)
                         # zstart was 0.01 and zinc was 0 in v0.2.2
     #assert scene.text == '!xform -rz -90 -t -0.795 0.475 0 -rx 10 -t 0 0 0.2 -a 20 -t 1.6 0 0 -a 7 -t 0 1.5 0 -i 1 -t -15.9 -4.5 0 -rz 0 objects\\simple_panel.rad'
-    assert scene.text[0:117] == '!xform -rx 10 -t 0 0 0.2824828843917919 -a 20 -t 1.6 0 0 -a 7 -t 0 1.5 0 -i 1 -t -14.4 -4.5 0 -rz 0 -t 0 0 0 "objects' #linux has different directory structure and will error here.
+    assert scene.text[0:105] == '!xform -rx 10 -t 0 0 0.2825 -a 20 -t 1.6 0 0 -a 7 -t 0 1.5 0 -i 1 -t -14.4 -4.5 0 -rz 0 -t 0 0 0 "objects' #linux has different directory structure and will error here.
 
 def test_SceneObj_makeSceneNxR_hightilt():
     # test _makeSceneNxR(tilt, height, pitch, orientation = None, azimuth = 180, nMods = 20, nRows = 7, radname = None)
@@ -342,19 +345,19 @@ def test_SceneObj_makeSceneNxR_hightilt():
     '''   
     assert [float(x) for x in temp.split(' ')] == pytest.approx([-0.906, -0.016, -0.423]) #was 0,0,-1 in v0.2.4
 
-    assert frontscan == pytest.approx({'Nx': 1, 'Ny': 9, 'Nz': 1, 'xinc': -0.040142620018581696, 'xstart': 0.1796000448657153, 'yinc': -0.0007006920388131139,
-                                'ystart': 0.0031349304442418674, 'zinc': 0.08609923976848174,'zstart':  0.2949742232650364,
-                                'sx_xinc': 0.0, 'sx_yinc':0.0, 'sx_zinc':0.0})
+    assert frontscan == pytest.approx({'Nx': 1, 'Ny': 9, 'Nz': 1, 'xinc': -0.04013, 'xstart': 0.1832, 'yinc': -0.0007,
+                                'ystart': 0.00313, 'zinc': 0.0861,'zstart':  0.296,
+                                'sx_xinc': 0.0, 'sx_yinc':0.0, 'sx_zinc':0.0}, abs=.001)
                                
     temp2 = backscan.pop('orient')
     assert [float(x) for x in temp2.split(' ')] == pytest.approx([0.906, 0.016, 0.423]) #was 0,0,1 in v0.2.4
     assert backscan == pytest.approx({'Nx': 1, 'Ny': 9, 'Nz': 1, 
-                            'xinc': -0.040142620018581696, 'xstart': 0.15966431032235584, 
-                            'yinc': -0.0007006920388131139, 'ystart': 0.0027869509033958163, 
-                            'zinc': 0.08609923976848174, 'zstart': 0.28567662150674106,
-                            'sx_xinc': 0.0, 'sx_yinc':0.0, 'sx_zinc':0.0})
+                            'xinc': -0.0401, 'xstart': 0.156, 
+                            'yinc': -0.0007, 'ystart': 0.002787, 
+                            'zinc': 0.0861, 'zstart': 0.284,
+                            'sx_xinc': 0.0, 'sx_yinc':0.0, 'sx_zinc':0.0}, abs=.001)
     #assert scene.text == '!xform -rz -90 -t -0.795 0.475 0 -rx 65 -t 0 0 0.2 -a 20 -t 1.6 0 0 -a 7 -t 0 1.5 0 -i 1 -t -15.9 -4.5 0 -rz 91 objects\\simple_panel.rad'
-    assert scene.text[0:118] == '!xform -rx 65 -t 0 0 0.6304961988424087 -a 20 -t 1.6 0 0 -a 7 -t 0 1.5 0 -i 1 -t -14.4 -4.5 0 -rz 91 -t 0 0 0 "objects'
+    assert scene.text[0:106] == '!xform -rx 65 -t 0 0 0.6304 -a 20 -t 1.6 0 0 -a 7 -t 0 1.5 0 -i 1 -t -14.4 -4.5 0 -rz 91 -t 0 0 0 "objects'
     
 
  
@@ -402,7 +405,7 @@ def test_SingleModule_HPC():
 
     octfile = demo.makeOct(demo.getfilelist())  # makeOct combines all of the ground, sky and object files into a .oct file.
     analysis = bifacial_radiance.AnalysisObj(octfile, demo.name, hpc=True)  # return an analysis object including the scan dimensions for back irradiance
-    (frontscan,backscan) = analysis.moduleAnalysis(scene, sensorsy=1)
+    (frontscan,backscan) = analysis.moduleAnalysis(scene, sensorsy=1, debug=True, frontsurfaceoffset=None, backsurfaceoffset=None)
     analysis.analysis(octfile, demo.name, frontscan, backscan)  # compare the back vs front irradiance  
     assert analysis.mattype[0][:12] == 'a0.0.a0.test'
     assert analysis.rearMat[0][:12] == 'a0.0.a0.test'
@@ -440,7 +443,8 @@ def test_left_label_metdata():
     
     demo = bifacial_radiance.RadianceObj('test')
     metdata2 = demo.readWeatherFile(weatherFile=MET_FILENAME, label='right', coerce_year=2001)
-    pd.testing.assert_frame_equal(metdata1.solpos[:-1], metdata2.solpos[:-1])
+    #pd.testing.assert_frame_equal(metdata1.solpos[:-1], metdata2.solpos[:-1])
+    assert all(metdata1.ghi == metdata2.ghi)
     assert metdata2.solpos.index[0] == pd.to_datetime('2001-01-01 07:42:00 -7')
 
     
@@ -461,17 +465,25 @@ def test_analyzeRow():
     scene = demo.makeScene('test-module',sceneDict) #makeScene creates a .rad file with 20 modules per row, 7 rows.
     octfile = demo.makeOct(demo.getfilelist())  # makeOct combines all of the ground, sky and object files into a .oct file.
     analysis = bifacial_radiance.AnalysisObj(octfile, demo.name)  # return an analysis object including the scan dimensions for back irradiance
-    rowscan = analysis.analyzeRow(octfile = octfile, scene = scene, name = name, 
-                                  rowWanted = 1, sensorsy = [3,3])
+    rowscan = analysis.analyzeRow(octfile=octfile, scene=scene, name=name, 
+                                  rowWanted=1, sensorsy=[5,3])
     assert len(rowscan) == 2
     assert rowscan.keys()[2] == 'z'
-    assert len(rowscan[rowscan.keys()[2]][0]) == 3
+    assert len(rowscan[rowscan.keys()[2]][0]) == 5
     # Assert z is the same for two different modules
     assert rowscan[rowscan.keys()[2]][0][0] == rowscan[rowscan.keys()[2]][1][0]
     # Assert Y is different for two different modules
     assert rowscan[rowscan.keys()[1]][0][0]+2 == rowscan[rowscan.keys()[1]][1][0]
-    assert (analysis.__printval__('x')[1] == 0) & (analysis.x[1] != 0)
-
+    assert (analysis.__printval__('x')[2] == 0) & (analysis.x[2] == 0)
+    assert any( analysis.__printval__('Wm2Front') != analysis.Wm2Front)
+    temp = analysis.__repr__() # does the repr compile at all?
+    assert analysis.rearX == pytest.approx([0.25, 0, -0.25])
+    assert analysis.x == pytest.approx([.333, .167, 0, -.167, -.333], abs=.001)
+    # test default xscan and yscan = 1
+    rowscan = analysis.analyzeRow(octfile=octfile, scene=scene, name=name, 
+                                  rowWanted=1, sensorsy=None, sensorsx=None)
+    assert analysis.x == pytest.approx([0])
+    assert analysis.rearX == pytest.approx([0])
     
 def test_addMaterialGroundRad():  
     # test addMaterialGroundRad.  requires metdata for boulder. 
@@ -521,7 +533,7 @@ def test_verticalmoduleSouthFacing():
     assert analysis.x[1] == analysis.x[2]
     assert round(analysis.x[0]) == 0
     assert round(analysis.x[0]) == 0
-    assert analysis.z[3] == 2.9
+    assert analysis.z[3] == pytest.approx(2.9, abs=0.002)
 
 def test_verticalmoduleEastFacing():  
     # test full routine for Vertical Modules.  
@@ -550,7 +562,7 @@ def test_verticalmoduleEastFacing():
     assert analysis.x[1] == analysis.x[2]
     assert round(analysis.y[0]) == 0
     assert round(analysis.y[0]) == 0
-    assert analysis.z[3] == 2.9
+    assert analysis.z[3] == pytest.approx(2.9, abs=0.003)
     
 def test_tiltandazimuthModuleTest():  
     # test full routine for Vertical Modules.  
@@ -617,6 +629,10 @@ def test_readWeatherFile_subhourly():
     assert gencumsky_file2.iloc[11,0] == pytest.approx(284.0, abs=0.1)
     assert metdata.elevation == 497
     assert metdata.timezone == 2
+    # test McGuire AFB epwfile
+    metdata2 = demo.readWeatherFile(weatherFile='USA_NJ_McGuire.AFB.724096_TMY3.epw', coerce_year=2000)
+    leapday = (metdata2.tmydata.index.month == 2) & (metdata2.tmydata.index.day == 29)
+    assert leapday.sum() == 0
 
 def test_nsrdb_readWeatherFile():
     # initial test of NSRDBWeatherData in main.py
@@ -633,6 +649,7 @@ def test_nsrdb_readWeatherFile():
     assert metData.label == 'center'
     assert metData.timezone == -7
     
+    metData= radObj.readWeatherFile('Custom_WeatherFile_TMY3format_15mins_2021_wTrackerAngles_BESTFieldData_2.csv')
     
 def test_customTrackerAngles():
     # TODO: I think with the end test on this function the 
@@ -712,3 +729,20 @@ def test_raypath():
     assert '.' in re.split(':|;', os.environ['RAYPATH'])
     
     os.environ['RAYPATH'] = raypath0    
+
+def test_GH256_nomodule_error():
+    moduletype = 'moduletypeNOTonJason'
+    startdate= '09_23_08'
+    enddate = '09_23_08'
+    demo = bifacial_radiance.RadianceObj('test')
+    metdata = demo.readWeatherFile(MET_FILENAME, starttime=startdate, endtime=enddate)
+    demo.setGround()
+    sceneDict = {'pitch': 7,'hub_height':2, 'nMods':1, 'nRows': 1, 'module_type':moduletype}
+    trackerdict = demo.set1axis(metdata = metdata, cumulativesky = False)
+    foodict = demo.gendaylit1axis()
+    with pytest.raises(Exception):
+        foodict = demo.makeScene1axis(trackerdict=foodict, module=moduletype, 
+                                      sceneDict=sceneDict, cumulativesky=False)
+    
+
+    

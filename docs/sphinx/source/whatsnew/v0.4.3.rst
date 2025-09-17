@@ -2,34 +2,34 @@
 
 v0.4.3 (Aug 27 2024)
 ------------------------
-Bugfix Release  ...
+Bugfix Release 
 
 
 API Changes
 ~~~~~~~~~~~~
-* A new function can now be called to compile results and report out final irradiance and performance data: :func:`bifacial_radiance.RadianceObj.compileResults`. (This is a temporary function soon to be deprecated)
+* A new function can now be called to compile results and report out final irradiance and performance data: ``RadianceObj.compileResults``. (This is a temporary function soon to be deprecated)
 * Multiple modules and rows can now be selected in a single analysis scan. ``modWanted`` and ``rowWanted`` inputs in :py:class:`~bifacial_radiance.RadianceObj.analysis1axis` can now be a list, to select multiple rows and modules for scans. (:issue:`405`)(:pull:`408`)
-* To support multiple modules and row scans for 1axis simulations, outputs like Wm2Front are now stored in ``trackerdict``.``Results``  (:issue:`405`)(:pull:`408`)
-* :func:`.mismatch.mad_fn` has new functionality and input parameter `axis`. If a 2D matrix or dataframe is passed in as data, MAD is calculated along the row (default) or along the columns by passing 'axis=1'
-* :func:`bifacial_radiance.mismatch.mismatch_fit3` has been deprecated in favour of :func:`bifacial_radiance.mismatch.mismatch_fit2` which has a greater agreement with anual energy yield data (:issue:`520`)
+* To support multiple modules and row scans for 1axis simulations, outputs like Wm2Front are now stored in ``trackerdict.Results``  (:issue:`405`)(:pull:`408`)
+* ``mismatch.mismatch.mad_fn`` has new functionality and input parameter ``axis``. If a 2D matrix or dataframe is passed in as data, MAD is calculated along the row (default) or along the columns by passing 'axis=1'
+* ``mismatch.mismatch_fit3`` has been deprecated in favour of ``mismatch.mismatch_fit2`` which has a greater agreement with anual energy yield data (:issue:`520`)
 
 Enhancements
 ~~~~~~~~~~~~
-* Added :func:`bifacial_radiance.mismatch.mismatch_fit2`, similar to :func:`bifacial_radiance.mismatch.mismatch_fit3`, with the recommended coefficients of the original publication. (:pull:`520`)
+* Added ``mismatch.mismatch_fit2``, similar to ``mismatch.mismatch_fit3``, with the recommended coefficients of the original publication. (:pull:`520`)
 * Including `pyRadiance` as a requirement to help streamline RADIANCE installation and calls in a future release. (:pull:`532`)
 
 Bug fixes
 ~~~~~~~~~
-* Fixed error passing all of `sceneDict` into :func:`~bifacial_radiance.RadianceObj.makeScene1axis`. (:issue:`502`)
-* Fixed  Pandas 2.0 errors by re-factoring :func:`.mismatch.mad_fn`  (:issue:`449`)
+* Fixed error passing all of ``sceneDict`` into py:class:`~bifacial_radiance.RadianceObj.makeScene1axis`. (:issue:`502`)
+* Fixed  Pandas 2.0 errors by re-factoring py:class:`bifacial_radiance.mismatch.mad_fn`  (:issue:`449`)
 * Switch from un-supported Versioneer to setuptools_scm  (:issue:`519`)
 * Numpy 2.0 compatibility bug  (:issue:`521`)
-* Fixed bug in :func:`bifacial_radiance.mismatch.mismatch_fit3` where the function was not returning the correct values. It has also been deprecated in favour of :func:`bifacial_radiance.mismatch.mismatch_fit2` which has a greater agreement with anual energy yield data (:issue:`520`)
+* Fixed bug in ``mismatch.mismatch_fit3`` where the function was not returning the correct values. It has also been deprecated in favour of ``mismatch.mismatch_fit2`` which has a greater agreement with anual energy yield data (:issue:`520`)
 * Updated Github Actions to use Node20: checkout@v4,  setup-python@v5, coactions/setup-xvfb, setup-buildx-action@v3 (:pull:`517`)
 * Updated Github Actions to make Coveralls fail silently if it has an internal server error (:pull:`517`)
 * Fix PerformanceWarning and SettingWithCopyWarning (:issue:`515`)
 * Switch from Versioneer to setuptools_scm (:pull:`522`)
-* Enable `coerce_year`=None if the TMYfile is all the same year (:issue:`526`)
+* Enable ``coerce_year=None`` if the TMYfile is all the same year (:issue:`526`)
 
 Documentation
 ~~~~~~~~~~~~~~
@@ -37,7 +37,7 @@ Documentation
 * Updates to example notebooks 
 * Reduce number of digits in makeScene .rad file titles. (:pull:`503`)
 * Reduce number of digits saved to files in \results  (:pull:`534`)
-* In the sceneDict reported in the trackerdict, save both `clearance_height` and `hub_height` parameters. (:pull:`503`)
+* In the sceneDict reported in the trackerdict, save both ``clearance_height`` and ``hub_height`` parameters. (:pull:`503`)
 
 Contributors
 ~~~~~~~~~~~~

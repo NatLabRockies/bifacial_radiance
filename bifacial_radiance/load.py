@@ -7,6 +7,8 @@ If no path was provided for the RadianceObj to build its scene, it defaults to
 TEMP folder in bifacial_radiance \\ bifacial_radiance
 
 """
+from deprecated import deprecated
+
 ''' DEPRECATED - doesn't work with python3
 def load_inputvariablesfile(inputfile):
     """
@@ -211,10 +213,11 @@ def cleanResult(resultsDF, matchers=None):
     
     if matchers is None:
         matchers = ['sky','pole','tube','bar','ground', '3267', '1540']
-    
-    resultsDF.loc[resultsDF.mattype.str.contains('|'.join(matchers)),'Wm2Front'] = np.nan
-    resultsDF.loc[resultsDF.rearMat.str.contains('|'.join(matchers)),'Wm2Back'] = np.nan
-    
+    if ('mattype' in resultsDF) & ('Wm2Front' in resultsDF) :
+        resultsDF.loc[resultsDF.mattype.str.contains('|'.join(matchers)),'Wm2Front'] = np.nan
+    if ('rearMat' in resultsDF) & ('Wm2Back' in resultsDF) :
+        resultsDF.loc[resultsDF.rearMat.str.contains('|'.join(matchers)),'Wm2Back'] = np.nan
+
     return resultsDF
 
 
@@ -245,9 +248,14 @@ def loadTrackerDict(trackerdict, fileprefix=None):
         ``finalkey`` (last index file in directory)
 
     """
-       
+    # TODO: get this module working   
     import re, os
     import numpy as np
+    
+    print('Warning: loadTrackerDict has not been updated to the new v0.5.0' +\
+          ' dictionary structure and is currently incomplete. Please' +\
+          ' reach out at github.com/NREL/bifacial_radiance/issues if' +\
+          ' this is functionality you need.\n')
 
     # get list of filenames in \results\
     filelist = sorted(os.listdir('results'))
@@ -459,7 +467,11 @@ def _exportTrackerDict(trackerdict, savefile, cumulativesky=False, reindex=False
         D4join.to_csv(savefile4)
 
     return
-    
+
+
+@deprecated(reason='load.deepcleanResult has been abandoned'+\
+                    '  Please use load.cleanResult instead',
+            version='0.5.0')    
 def deepcleanResult(resultsDict, sensorsy, numpanels, automatic=True):
     """    
     Cleans results file read by read1Result. If automatic = False, user is
@@ -467,6 +479,10 @@ def deepcleanResult(resultsDict, sensorsy, numpanels, automatic=True):
     and removes sky, ground, and other materials (side of module, for example).
     If you pass in results from a file with only _Front or _Back parameters,
     only the corresponding Frontresults or Backresults will be returned.
+    
+    .. deprecated:: 0.5.0
+       This cleaning routine is deprecated in favor of :func:`cleanResult` which 
+       is more stable
     
     Parameters
     -----------
@@ -610,8 +626,10 @@ def readconfigurationinputfile(inifile=None):
     trackingParamsDict : Dictionary
     torquetubeParamsDict : Dictionary
     analysisParamsDict : Dictionary
-    cellLevelModuleParamsDict : Dictionary
+    cellModuleDict : Dictionary
     CECMod : Dictionary
+    frameParamsDict : Dictionary
+    omegaParamsDict : Dictionary
     
     """
 
@@ -623,13 +641,17 @@ def readconfigurationinputfile(inifile=None):
     import ast
     
     def boolConvert(d):
-        """ convert strings 'True' and 'False' to boolean
+        """ convert strings 'True' and 'False' to boolean and convert numbers to float
         """
         for key,value in d.items():
             if value.lower() == 'true': 
                 d[key] = True
             elif value.lower() == 'false':
                 d[key] = False
+            try:
+                d[key] = float(value)
+            except ValueError:
+                pass
         return d
     
     if inifile is None:
@@ -654,7 +676,7 @@ def readconfigurationinputfile(inifile=None):
             
     if simulationParamsDict['selectTimes']:
         if config.has_section("timeControlParamsDict"):
-            timeControlParamsDict = boolConvert(confdict['timeControlParamsDict'])
+            timeControlParamsDict = confdict['timeControlParamsDict']
            
     if simulationParamsDict['getEPW']:
         try:
@@ -712,6 +734,10 @@ def readconfigurationinputfile(inifile=None):
         except:
             moduleParamsDict['zgap'] = 0.1 #Default
             print("Load Warning: moduleParamsDict['zgap'] not specified, setting to default value: %s" % moduleParamsDict['zgap'] ) 
+        if 'glass' in moduleParamsDict2:
+            moduleParamsDict['glass'] = moduleParamsDict2['glass']
+        if moduleParamsDict2.get('glassEdge'):
+            moduleParamsDict['glassEdge'] = moduleParamsDict2['glassEdge']
 
         try: 
             moduleParamsDict['customtext'] = moduleParamsDict2['customtext']
@@ -723,40 +749,18 @@ def readconfigurationinputfile(inifile=None):
         except:
             moduleParamsDict['customObject'] = ''
         
-        if 'Efficiency' in moduleParamsDict2:
-            moduleParamsDict['Efficiency'] = moduleParamsDict2['Efficiency']
-            print("'Efficiency' input found in moduleParamsDict. This value "+
-                  "will be propagated but is not currently used in "+
-                  "bifacial_radiance\n.")            
-            
-        if 'Temp_coeff' in moduleParamsDict2:
-            moduleParamsDict['Temp_coeff'] = moduleParamsDict2['Temp_coeff']
-            print("'Temp_coeff' input found in moduleParamsDict. This value "+
-                  "will be propagated but is not currently used in "+
-                  "bifacial_radiance\n.")            
-
-        if 'Peak_Power' in moduleParamsDict2:
-            moduleParamsDict['Peak_Power'] = moduleParamsDict2['Peak_Power']
-            print("'Peak_Power' input found in moduleParamsDict. This value "+
-                  "will be propagated but is not currently used in "+
-                  "bifacial_radiance\n.")         
-            
-        if 'Module_name' in moduleParamsDict2:
-            moduleParamsDict['Module_name'] = moduleParamsDict2['Module_name']
-            print("'Module_name' input found in moduleParamsDict. This value "+
-                  "will be propagated but is not currently used in "+
-                  "bifacial_radiance\n.")         
-            
         if simulationParamsDict['cellLevelModule']:    
             if config.has_section("cellLevelModuleParamsDict"):
-                cellLevelModuleParamsDict = confdict['cellLevelModuleParamsDict']
+                cellModuleDict = confdict['cellLevelModuleParamsDict']
                 try: # being lazy so just validating the whole dictionary as a whole. #TODO: validate individually maybe.            
-                    cellLevelModuleParamsDict['numcellsx'] = int(cellLevelModuleParamsDict['numcellsx'])
-                    cellLevelModuleParamsDict['numcellsy'] = int(cellLevelModuleParamsDict['numcellsy'])
-                    cellLevelModuleParamsDict['xcell'] = round(float(cellLevelModuleParamsDict['xcell']),3)
-                    cellLevelModuleParamsDict['xcellgap'] = round(float(cellLevelModuleParamsDict['xcellgap']),3)
-                    cellLevelModuleParamsDict['ycell'] = round(float(cellLevelModuleParamsDict['ycell']),3)
-                    cellLevelModuleParamsDict['ycellgap'] = round(float(cellLevelModuleParamsDict['ycellgap']),3)
+                    cellModuleDict['numcellsx'] = int(cellModuleDict['numcellsx'])
+                    cellModuleDict['numcellsy'] = int(cellModuleDict['numcellsy'])
+                    cellModuleDict['xcell'] = round(float(cellModuleDict['xcell']),3)
+                    cellModuleDict['xcellgap'] = round(float(cellModuleDict['xcellgap']),3)
+                    cellModuleDict['ycell'] = round(float(cellModuleDict['ycell']),3)
+                    cellModuleDict['ycellgap'] = round(float(cellModuleDict['ycellgap']),3)
+                    if 'centerJB' in cellModuleDict:
+                        cellModuleDict['centerJB'] = round(float(cellModuleDict['centerJB']),3)
                 except: 
                     print("Load Warning: celllevelModule set to True,",\
                           "but celllevelModule parameters are missing/not numbers.")
@@ -771,12 +775,12 @@ def readconfigurationinputfile(inifile=None):
                     except:
                         print("Attempted to load x and y instead of celllevelModule parameters,",\
                               "Failed, so default values for cellLevelModule will be passed")
-                        cellLevelModuleParamsDict['numcellsx'] = 12
-                        cellLevelModuleParamsDict['numcellsy'] = 6
-                        cellLevelModuleParamsDict['xcell'] = 0.15
-                        cellLevelModuleParamsDict['xcellgap'] = 0.1
-                        cellLevelModuleParamsDict['ycell'] = 0.15 
-                        cellLevelModuleParamsDict['ycellgap'] = 0.1
+                        cellModuleDict['numcellsx'] = 12
+                        cellModuleDict['numcellsy'] = 6
+                        cellModuleDict['xcell'] = 0.15
+                        cellModuleDict['xcellgap'] = 0.1
+                        cellModuleDict['ycell'] = 0.15 
+                        cellModuleDict['ycellgap'] = 0.1
             else: # no cellleveldictionary passed
                 print("Load Warning: celllevelmodule selected, but no dictionary was passed in input file.",\
                       "attempting to proceed with regular custom module and setting celllevelmodule to false")
@@ -811,8 +815,8 @@ def readconfigurationinputfile(inifile=None):
         else:
             print("Load Warning: no valid time to restrict weather data passed"
                   "Simulating default day 06/21 at noon")
-            timeControlParamsDict['starttime']='06_21_12_00'
-            timeControlParamsDict['endtime']='06_21_12_00'
+            timeControlParamsDict['starttime']='06_21_12'
+            timeControlParamsDict['endtime']='06_21_12'
 
     #NEEDED sceneParamsDict parameters
     sceneParamsDict={}
@@ -843,7 +847,14 @@ def readconfigurationinputfile(inifile=None):
         sceneParamsDict['customObject'] = sceneParamsDict2['customObject']
         
     if simulationParamsDict['tracking']:
-        sceneParamsDict['axis_azimuth']=round(float(sceneParamsDict2['axis_azimuth']),2)
+        if 'axis_aziumth' in sceneParamsDict2:
+            azimuth = round(float(sceneParamsDict2['axis_azimuth']),2)
+        elif sceneParamsDict2.get('azimuth'):
+            azimuth = sceneParamsDict2.get('azimuth')
+        else:
+            raise Exception(f'Neither "axis_azimuth" or "azimuth" in .inifile {inifile}' )
+            
+        sceneParamsDict['azimuth']=round(float(azimuth),2)
         sceneParamsDict['hub_height']=round(float(sceneParamsDict2['hub_height']),2)
         
         if config.has_section("trackingParamsDict"):
@@ -897,18 +908,18 @@ def readconfigurationinputfile(inifile=None):
     if config.has_section("analysisParamsDict"):
         analysisParamsDict = boolConvert(confdict['analysisParamsDict'])
         try: 
-            analysisParamsDict['sensorsy']=ast.literal_eval(analysisParamsDict['sensorsy']) 
-        except:
+            analysisParamsDict['sensorsy']=ast.literal_eval(str(analysisParamsDict['sensorsy'])) 
+        except ValueError:
+            print("Load Warning: improper analysisParamsDict['sensorsy']"
+                  " passed: %s, setting to default value: 9" % analysisParamsDict['sensorsy'] )
             analysisParamsDict['sensorsy'] = 9 #Default
-            print("Load Warning: improper or no analysisParamsDict['sensorsy']"
-                  " passed, setting to default value: %s" % analysisParamsDict['sensorsy'] )    
         try: 
-            analysisParamsDict['modWanted']=ast.literal_eval(analysisParamsDict['modWanted']) 
+            analysisParamsDict['modWanted']=ast.literal_eval(str(analysisParamsDict['modWanted'])) 
         except:
             analysisParamsDict['modWanted'] = None #Default
             print("analysisParamsDict['modWanted'] set to middle module by default" )    
         try: 
-            analysisParamsDict['rowWanted']=ast.literal_eval(analysisParamsDict['rowWanted']) 
+            analysisParamsDict['rowWanted']=ast.literal_eval(str(analysisParamsDict['rowWanted'])) 
         except:
             analysisParamsDict['rowWanted'] = None #Default
             print("analysisParamsDict['rowWanted'] set to middle row by default" )    
@@ -930,6 +941,7 @@ def readconfigurationinputfile(inifile=None):
                   "R_sh_ref, R_s, and Adjust."
                   "Performance calculations, if performed, will use default module")
 
+
     # Add omegas, frames, piles here
     if config.has_section("omegaParamsDict"):
         omegaParamsDict = confdict['omegaParamsDict']
@@ -939,7 +951,7 @@ def readconfigurationinputfile(inifile=None):
             omegaParamsDict['y_omega'] = round(float(omegaParamsDict['y_omega']),3)
             omegaParamsDict['omega_thickness'] = round(float(omegaParamsDict['omega_thickness']),3)
             omegaParamsDict['x_omega3'] = round(float(omegaParamsDict['x_omega3']),3)
-            omegaParamsDict['inverted'] = ast.literal_eval(omegaParamsDict['inverted'])
+            omegaParamsDict['inverted'] = ast.literal_eval(str(omegaParamsDict['inverted']))
         except: 
             print("Load Warning: Omega Parameters passed, ",\
                   "but some parameters are missing/not numbers.")
@@ -986,8 +998,8 @@ def readconfigurationinputfile(inifile=None):
     try: analysisParamsDict
     except: analysisParamsDict = None
     
-    try: cellLevelModuleParamsDict
-    except: cellLevelModuleParamsDict = None
+    try: cellModuleDict
+    except: cellModuleDict = None
 
     try: CECModParamsDict
     except: CECModParamsDict = None
@@ -1001,18 +1013,18 @@ def readconfigurationinputfile(inifile=None):
     try: omegaParamsDict
     except: omegaParamsDict = None
         
-    #returnParams = Params(simulationParamsDict, sceneParamsDict, timeControlParamsDict, moduleParamsDict, trackingParamsDict, torquetubeParamsDict, analysisParamsDict, cellLevelModuleParamsDict, CECModParamsDict)
-    #return returnParams
+    # end readconfigurationinputfile
     return (simulationParamsDict, sceneParamsDict, timeControlParamsDict, 
             moduleParamsDict, trackingParamsDict, torquetubeParamsDict, 
-           analysisParamsDict, cellLevelModuleParamsDict, CECModParamsDict,
+           analysisParamsDict, cellModuleDict, CECModParamsDict,
            frameParamsDict, omegaParamsDict, pilesParamsDict)
+
 
 
 def savedictionariestoConfigurationIniFile(simulationParamsDict, sceneParamsDict, 
                                            timeControlParamsDict=None, moduleParamsDict=None, 
                                            trackingParamsDict=None, torquetubeParamsDict=None, 
-                                           analysisParamsDict=None, cellLevelModuleParamsDict=None, 
+                                           analysisParamsDict=None, cellModuleDict=None, 
                                            CECModParamsDict=None, frameParamsDict=None, 
                                            omegaParamsDict=None, pilesParamsDict=None,
                                            inifilename=None):
@@ -1034,7 +1046,7 @@ def savedictionariestoConfigurationIniFile(simulationParamsDict, sceneParamsDict
         Default None 
     analysisParamsDict
         Default None, 
-    cellLevelModuleParamsDict
+    cellModuleDict
         Default None    
     
     Returns
@@ -1065,20 +1077,23 @@ def savedictionariestoConfigurationIniFile(simulationParamsDict, sceneParamsDict
     try: config['analysisParamsDict'] = analysisParamsDict
     except: pass
     
-    try: config['cellLevelModuleParamsDict'] = cellLevelModuleParamsDict
+    try: config['cellLevelModuleParamsDict'] = cellModuleDict
     except: pass
 
     try: config['CECModParamsDict'] = CECModParamsDict
     except: pass
 
-    try: config['frameParamsDict'] = frameParamsDict
-    except: pass
+    if frameParamsDict:    
+        try: config['frameParamsDict'] = frameParamsDict
+        except: pass
 
-    try: config['omegaParamsDict'] = omegaParamsDict
-    except: pass
+    if omegaParamsDict:
+        try: config['omegaParamsDict'] = omegaParamsDict
+        except: pass
 
-    try: config['pilesParamsDict'] = pilesParamsDict
-    except: pass
+    if pilesParamsDict:
+        try: config['pilesParamsDict'] = pilesParamsDict
+        except: pass
 
     if inifilename is None:
         inifilename = 'example.ini'

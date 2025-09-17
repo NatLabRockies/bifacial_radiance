@@ -52,7 +52,7 @@ print("bifacial_radiance version ", br.__version__)
 # 
 # So far we've used "from bifacial_radiance import *" to import all the bifacial_radiance files into our working space in jupyter. For this journal we will do a "import bifacial_radiance" . This method of importing requires a different call for some functions as you'll see below. For example, instead of calling demo = RadianceObj(path = testfolder) as on Tutorial 2, in this case we will neeed to do demo = bifacial_radiance.RadianceObj(path = testfolder). 
 
-# In[1]:
+# In[2]:
 
 
 import bifacial_radiance
@@ -68,7 +68,7 @@ from pathlib import Path
 # 
 # Just like in the condensed version show at the end of Tutorial 2, for this tutorial we will be starting all of our system variables from the beginning of the jupyter journal, instead than throughout the different cells (for the most part)
 
-# In[2]:
+# In[3]:
 
 
 testfolder = Path().resolve().parent.parent / 'bifacial_radiance' / 'TEMP' / 'Tutorial_03'
@@ -119,7 +119,7 @@ material = 'black'   # Torque tube of this material (0% reflectivity)
 # 
 # We now constrain the days of our analysis in the readWeatherFile import step.  For this example we are doing just two days in January. Format has to be a 'MM_DD' or 'YYYY-MM-DD_HHMM'
 
-# In[3]:
+# In[4]:
 
 
 demo = bifacial_radiance.RadianceObj(simulationName, path = str(testfolder))  # Adding a simulation name. This is optional.
@@ -142,7 +142,7 @@ metdata = demo.readWeatherFile(weatherFile=epwfile, starttime=starttime, endtime
 # Since we are making a cell-level module, the dimensions for x and y of the module will be calculated by the software -- dummy values can be initially passed just to get started, but these values are overwritten by addCellModule()
 #     </div>
 
-# In[4]:
+# In[5]:
 
 
 numcellsx = 6
@@ -179,7 +179,7 @@ print(f'Cell-module parameters: {mymodule.cellModule}')
 #     
 # Collector Width gets saved in your module parameters (and later on your scene and trackerdict) as "sceney". You can calculate your collector width with the equation, or you can use this method to know your GCR:
 
-# In[5]:
+# In[6]:
 
 
 # For more options on makemodule, see the help description of the function.  
@@ -198,14 +198,14 @@ print(f"\nModuleObj data keys: {mymodule.keys}")
 # 
 # For doing hourly simulations, remember to set **cumulativesky = False** here!
 
-# In[6]:
+# In[7]:
 
 
 trackerdict = demo.set1axis(metdata=metdata, limit_angle=limit_angle, backtrack=backtrack, 
                             gcr=gcr, cumulativesky=False)
 
 
-# In[7]:
+# In[8]:
 
 
 print ("Trackerdict created by set1axis: %s " % (len(demo.trackerdict))) 
@@ -214,7 +214,7 @@ print ("Trackerdict created by set1axis: %s " % (len(demo.trackerdict)))
 # set1axis initializes the trackerdictionary Trackerdict. Trackerdict contains all hours selected from the weatherfile as keys. For example: trackerdict['2021-01-13_1200']. It is a return variable on many of the 1axis functions, but it is also stored inside of your Radiance Obj (i.e. demo.trackerdict). In this journal we are storing it as a variable to mute the option (otherwise it prints the returned trackerdict contents every time)
 # 
 
-# In[8]:
+# In[9]:
 
 
 display(trackerdict['2021-01-13_1200'])
@@ -231,7 +231,7 @@ display(trackerdict['2021-01-13_1200'])
 # 
 # For this example we are doing just two days in January. The ability to limit the time using gendaylit1axis is deprecated.  Use readWeatherFile instead.
 
-# In[9]:
+# In[10]:
 
 
 trackerdict = demo.gendaylit1axis() 
@@ -240,7 +240,7 @@ trackerdict = demo.gendaylit1axis()
 # Since we passed startdate and enddate to gendaylit, it will prune our trackerdict to only the desired days.
 # Let's explore our trackerdict:
 
-# In[10]:
+# In[11]:
 
 
 trackerkeys = sorted(trackerdict.keys())
@@ -256,7 +256,7 @@ display(trackerdict[trackerkeys[0]])
 # 
 # We can use gcr or pitch fo our scene dictionary.
 
-# In[11]:
+# In[12]:
 
 
 sceneDict = {'pitch': pitch,'hub_height':hub_height, 'nMods':nMods, 'nRows': nRows}  
@@ -268,13 +268,13 @@ trackerdict = demo.makeScene1axis(trackerdict=trackerdict, module=mymodule, scen
 # The scene parameteres are now stored in the trackerdict. To view them and to access them:
 #     
 
-# In[12]:
+# In[13]:
 
 
 display(trackerdict[trackerkeys[0]])
 
 
-# In[13]:
+# In[14]:
 
 
 pprint.pprint(demo.trackerdict[trackerkeys[5]]['scenes'][0].__dict__)
@@ -290,13 +290,13 @@ pprint.pprint(demo.trackerdict[trackerkeys[5]]['scenes'][0].__dict__)
 # 
 # Options of hours:
 
-# In[14]:
+# In[15]:
 
 
 print(trackerkeys)
 
 
-# In[15]:
+# In[16]:
 
 
 demo.makeOct1axis(singleindex='2021-01-13_0800')
@@ -307,14 +307,14 @@ print('\n\nHourly bifi gain: {:0.3}'.format(sum(temp['Wm2Back'][0]) / sum(temp['
 
 # The trackerdict now contains information about the octfile, as well as the Analysis Object results
 
-# In[16]:
+# In[17]:
 
 
 print ("\n Contents of trackerdict for sample hour after analysis1axis: ")
 display(trackerdict[trackerkeys[0]])
 
 
-# In[17]:
+# In[18]:
 
 
 pprint.pprint(trackerdict[trackerkeys[0]]['AnalysisObj'][0].__dict__)
@@ -326,7 +326,7 @@ pprint.pprint(trackerdict[trackerkeys[0]]['AnalysisObj'][0].__dict__)
 
 # You could do a list of indices following a similar procedure:
 
-# In[18]:
+# In[19]:
 
 
 for time in ['2021-01-13_0900','2021-01-13_1300']:  
@@ -355,7 +355,7 @@ display(results)
 # Note that the bifacial gain printed above is for the accumulated irradiance between the hours modeled so far. 
 # That is, demo.Wm2Back and demo.Wm2Front are for January 13, 8AM, 9AM and  1 PM. Compare demo.Wm2back below with what we had before:
 
-# In[19]:
+# In[20]:
 
 
 
@@ -370,7 +370,7 @@ index = 0
 print(f"Gain for timestamp {results.loc[index,'timestamp']}: " +       f"{sum(results.loc[index,'Wm2Back']) / sum(results.loc[index,'Wm2Front']):0.3}")
 
 
-# In[20]:
+# In[21]:
 
 
 
@@ -471,11 +471,11 @@ demo.setGround(albedo)
 epwfile = demo.getEPW(lat,lon) 
 metdata = demo.readWeatherFile(epwfile, starttime=startdate, endtime=enddate)  
 mymodule = bifacial_radiance.ModuleObj(name=moduletype, xgap=xgap, ygap=ygap,   
-                zgap=zgap, numpanels=numpanels,cellModule=cellModuleParams, tubeParams=tubeParams)
-sceneDict = {'pitch':pitch,'hub_height':hub_height, 'nMods': nMods, 'nRows': nRows}  
-demo.set1axis(limit_angle = limit_angle, backtrack = backtrack, gcr = gcr, cumulativesky = cumulativesky)
+                zgap=zgap, numpanels=numpanels, cellModule=cellModuleParams, tubeParams=tubeParams)
+sceneDict = {'pitch':pitch, 'hub_height':hub_height, 'nMods': nMods, 'nRows':nRows}  
+demo.set1axis(limit_angle=limit_angle, backtrack=backtrack, gcr=gcr, cumulativesky=cumulativesky)
 demo.gendaylit1axis()
-demo.makeScene1axis(module=mymodule,sceneDict=sceneDict) #makeScene creates a .rad file with 20 modules per row, 7 rows.
+demo.makeScene1axis(module=mymodule, sceneDict=sceneDict) #makeScene creates a .rad file with 20 modules per row, 7 rows.
 demo.makeOct1axis()
 demo.analysis1axis()
 print(demo.results)

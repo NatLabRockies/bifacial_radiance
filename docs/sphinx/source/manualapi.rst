@@ -137,6 +137,7 @@ Power and Mismatch
    AnalysisObj.calculatePerformance
    ModuleObj.addCEC
    mismatch.mismatch_fit2
+   mismatch.mad_fn
 
 AgriPV Ground Scans
 -------------------

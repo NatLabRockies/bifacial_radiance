@@ -1,29 +1,40 @@
 .. _whatsnew_0440:
 
-v0.4.4 (XX / XX / 2024)
-------------------------
-Bugfix Release  ...
+v0.4.4 (October / 14 / 2024)
+----------------------------
+Bugfix Release with important updates to correct the indexing of trackerdict and gendaylit1axis
 
 
 API Changes
 ~~~~~~~~~~~~
-* New input parameter to :py:class:`~bifacial_radiance.ModuleObj and :py:class:`~bifacial_radiance.RadianceObj.makeModule`:  `glassEdge`.  If :py:class:`~bifacial_radiance.RadianceObj.makeModule` `glass` = True, then this extends the glass past the absorber edge by this total amount (half in each x and y direction). Default 10mm.
-* Module glass thickness can be changed. In :py:class:`~bifacial_radiance.RadianceObj.makeModule`, if `glass` = True, then setting the `z` parameter will indicate the total (front + back) glass thickness with the 1mm absorber in the middle.  The default is z = 10mm.
+* New input parameter to :py:class:`~bifacial_radiance.ModuleObj and :py:func:`~bifacial_radiance.RadianceObj.makeModule`:  ``glassEdge``.  If :py:class:`~bifacial_radiance.RadianceObj.makeModule` ``glass`` = True, then this extends the glass past the absorber edge by this total amount (half in each x and y direction). Default 10mm.
+* Module glass thickness can be changed. In :py:func:`~bifacial_radiance.RadianceObj.makeModule`, if ``glass`` = True, then setting the ``z`` parameter will indicate the total (front + back) glass thickness with the 1mm absorber in the middle.  The default is z = 10mm.
 
 Enhancements
 ~~~~~~~~~~~~
 * Conduct an automated check for proper radiance RAYPATH setting (:issue:`525`)(:pull:`537`)
 
 
+Deprecations
+~~~~~~~~~~~~~~
+* .ini files loaded with :py:func:`bifacial_radiance.load.readconfigurationinputfile` use ``azimuth`` key instead of ``axis_azimuth`` (:issue:`438`)(:pull:`551`)
+* :py:func:`bifacial_radiance.load.deepcleanResult` is now deprecated in favor of :py:func:`~bifacial_radiance.load.cleanResult` and will be removed to its own example notebook in a future release (:issue:`556`)
+* :py:func:`bifacial_radiance.mismatch.analysisIrradianceandPowerMismatch` is being removed to its own example notebook in a future release. (:issue:`556`)
+
 Bug fixes
 ~~~~~~~~~
 * Fixed a major error with indexing the irradiance conditions with :py:func:`~bifacial_radiance.RadianceObj.gendaylit1axis`. This could result in the trackerdict entry being mismatched from the metdata resource. (:issue:`441`)
 * versioning with setuptools_scm- set fallback_version to bifirad v0.4.3 to prevent crashes if git is not present (:issue:`535`)(:pull:`539`)
+* :py:func:`bifacial_radiance.load.readconfigurationinputfile` now properly handles loading moduleObj parameters from .ini files: ``glass``, ``glassEdge``, ``frameParamsDict``, ``omegaParamsDict`` (:pull:`551`)
+* Fixed a leap year bug in   :py:func:`~bifacial_radiance.RadianceObj.readWeatherFile` that crashed if epwfiles are loaded that include leap year data (like Feb. 28 2020). (:issue:`552`)
+* Bug fix in :py:func:`bifacial_radiance.load.cleanResult` that wouldn't work with files created when front and rear scan are different lengths.  (:issue:`419`)
+* GUI bug fixes where the sensorsy was not loading correctly, module .rad file was not being re-written, and an invalid default timestamp is used. 
+* Bug fix in :py:func:`bifacial_radiance.AnalysisObj.moduleAnalysis` when sensorsY equals numCellsy-1 and the scan lines up in the gaps between cells.  shift scan by half a cell.
 
 Documentation
 ~~~~~~~~~~~~~~
-* No longer provide a warning message when both `hub_height` and `clearance_height` are passed to :py:class:`~bifacial_radiance.AnalysisObj.moduleAnalysis`  (:pull:`540`)
-* More useful __repr__ output in :py:class:`~bifacial_radiance.AnalysisObj and :py:class:`~bifacial_radiance.MetObj   (:issue:`471`)
+* No longer provide a warning message when both ``hub_height`` and ``clearance_height`` are passed to :py:func:`~bifacial_radiance.AnalysisObj.moduleAnalysis`  (:pull:`540`)
+* More useful ``__repr__`` output in :py:class:`~bifacial_radiance.AnalysisObj` and :py:class:`~bifacial_radiance.MetObj`   (:issue:`471`)
 
 Contributors
 ~~~~~~~~~~~~

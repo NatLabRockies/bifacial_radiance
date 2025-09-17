@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 # This information helps with debugging and getting support :)
@@ -20,7 +20,7 @@ print("bifacial_radiance version ", br.__version__)
 
 # # Load packages
 
-# In[1]:
+# In[2]:
 
 
 """alewis 2022"""
@@ -29,6 +29,7 @@ import numpy as np
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 #Import bifacial radiance code 
 try:
@@ -39,16 +40,16 @@ except ImportError:
 
 # # Inputs for location, PV system, reflectors, etc
 
-# In[3]:
+# In[4]:
 
 
 # Define locations within file system
-testfolder = Path().resolve().parent.parent / 'bifacial_radiance' / 'TEMP' / 'SAT_Reflectors_example'
+test_folder = Path().resolve().parent.parent / 'bifacial_radiance' / 'TEMP' / 'SAT_Reflectors_example'
 
 # Another option using relative address; for some operative systems you might need '/' instead of '\'
 # testfolder = os.path.abspath(r'..\..\bifacial_radiance\TEMP')  
 
-print ("Your simulation will be stored in %s" % testfolder)
+print ("Your simulation will be stored in %s" % test_folder)
 
 if not os.path.exists(test_folder):
     os.makedirs(test_folder)  

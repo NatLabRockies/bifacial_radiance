@@ -63,6 +63,8 @@ def test_RGB_timeseries():
     albedo_bad = np.array([[0.2, 0.3, 0.4, 0.5], [0.12, 0.13, 0.26, 0.5]]) # invalid
     ground = pytest.warns(UserWarning, bifacial_radiance.GroundObj, albedo_bad)
     np.testing.assert_allclose(_groundtest(ground), testvals_const)
+    with pytest.raises(Exception):
+        temp = bifacial_radiance.GroundObj(np.array([[.1,.2],[.1,.2]]))
 
 def test_printGroundMaterials():
     ground = bifacial_radiance.GroundObj('litesoil')
@@ -71,3 +73,9 @@ def test_printGroundMaterials():
 def test_albedo_greaterthan_one():
     ground = bifacial_radiance.GroundObj(2)
     assert ground.ReflAvg[0] == 1
+    
+def test_repr_and_normval(): 
+    ground = bifacial_radiance.GroundObj()
+    groundstr = ground.__repr__()
+    ground = bifacial_radiance.GroundObj([0.1, 0.2])
+    assert ground.normval == pytest.approx([0.10034, 0.20068])

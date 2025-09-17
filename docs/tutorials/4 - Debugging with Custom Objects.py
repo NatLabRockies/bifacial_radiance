@@ -189,6 +189,7 @@ octfile = demo.makeOct(demo.getfilelist())  # makeOct combines all of the ground
 
 
 
+
 ## Comment the line below to run rvu from the Jupyter notebook instead of your terminal.
 ## Simulation will stop until you close the rvu window
 
@@ -302,6 +303,7 @@ octfile = demo.makeOct(demo.getfilelist())
 # At this point you should be able to go into a command window (cmd.exe) and check the geometry, and the marker should be there.  
 
 # In[ ]:
+
 
 
 

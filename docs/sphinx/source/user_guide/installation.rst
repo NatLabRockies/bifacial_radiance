@@ -116,7 +116,7 @@ Alternative Installation: Windows Subsystem for Linux:
 
 PYTHON
 -------
-You will need python installed to run bifacial_radiance. We suggest using the latest release of `Anaconda with Python 3.9 <https://www.anaconda.com/distribution/>`_ (Python 3.7 is still supported but in the process of being deprecated). Anaconda will install ``Spyder`` to work with the python scripts, and also it will install ``Jupyter``, which is the tool we use for our `tutorial trainings <https://github.com/NREL/bifacial_radiance/tree/master/docs/tutorials>`_
+You will need python installed to run bifacial_radiance. We suggest using the latest release of `Anaconda with Python 3.11 <https://www.anaconda.com/download/>`_ . Anaconda will install ``Spyder`` to work with the python scripts, and also it will install ``Jupyter``, which is the tool we use for our `tutorial trainings <https://github.com/NREL/bifacial_radiance/tree/master/docs/tutorials>`_
 
 
 Alternative Installation: Windows Subsystem for Linux:

@@ -5,7 +5,7 @@ Created on Tue Mar 26 20:16:47 2019
 @author: sayala
 """
 
-#from load import * 
+from deprecated import deprecated
 
 
 
@@ -300,7 +300,8 @@ def mad_fn(data, axis='index'):
         return _mad_1D(data)
 
 
-
+@deprecated(reason='This analysis script will be moved to its own tutorial' +\
+            ' file in a future release.', version='0.5.0')
 def analysisIrradianceandPowerMismatch(testfolder, writefiletitle, portraitorlandscape, bififactor, numcells=72, downsamplingmethod='byCenter'):
     r'''
     Use this when sensorsy calculated with bifacial_radiance > cellsy

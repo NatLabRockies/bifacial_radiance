@@ -46,7 +46,7 @@ print("bifacial_radiance version ", br.__version__)
 # 
 # This will generate the results over which we will perform the mismatch analysis. Here we are doing only 1 day to make this faster.
 
-# In[1]:
+# In[2]:
 
 
 import bifacial_radiance
@@ -58,7 +58,7 @@ if not os.path.exists(testfolder):
     os.makedirs(testfolder)
 
 simulationName = 'tutorial_8'
-moduletype = "test-module"
+moduletype = "PVmodule"
 albedo = 0.25 
 lat = 37.5   
 lon = -77.6
@@ -130,7 +130,7 @@ demo.analysis1axis(sensorsy = sensorsy);
 #     - Upsample
 # 
 
-# In[2]:
+# In[3]:
 
 
 resultfolder = os.path.join(testfolder, 'results')

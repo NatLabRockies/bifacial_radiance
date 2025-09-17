@@ -112,7 +112,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'bifacial_radiance'
-copyright = u'2019, NREL'
+copyright = u'2024, NREL'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -145,10 +145,7 @@ html_theme = "pydata_sphinx_theme"
 # https://pydata-sphinx-theme.rtfd.io/en/latest/user_guide/configuring.html
 html_theme_options = {
     "github_url": "https://github.com/NREL/bifacial_radiance",
-    "sphinx-favicon": [
-        {"rel": "icon", "sizes": "16x16", "href": "favicon-16x16.png"},
-        {"rel": "icon", "sizes": "32x32", "href": "favicon-32x32.png"},
-    ],
+
     "icon_links": [
         {
             "name": "StackOverflow",
@@ -163,10 +160,15 @@ html_theme_options = {
     ],
     #"use_edit_page_button": True,
     "show_toc_level": 1,
-    #"footer_items": ["copyright", "sphinx-version", "sidebar-ethical-ads"],
-    "footer_start": ["copyright", "sphinx-version", "sidebar-ethical-ads"],
-    #"left_sidebar_end": [],
+    #"footer_start": ["copyright"],
+    #"footer_center": ["sphinx-version"],
 }
+# Add favicons from extension sphinx_favicon
+favicons = [
+    {"rel": "icon", "sizes": "16x16", "href": "favicon-16x16.png"},
+    {"rel": "icon", "sizes": "32x32", "href": "favicon-32x32.png"},
+]
+
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -197,7 +199,7 @@ nbsphinx_thumbnails = {
     'tutorials/6 - Exploring Trackerdict Structure': '_images/bifacial_radiance.png',
     'tutorials/7 - Multiple Scene Objects':'_images/MultipleSceneObject_AnalysingSceneObj2_Row1_Module4.PNG',
     'tutorials/8 - Electrical Mismatch Method':'_images/Mismatch_Definition_Example.PNG',
-    'tutorials/9 - Torquetube Shading':'_images/tutorials_9_-_Torquetube_Shading_23_1.png',
+    'tutorials/9 - Torquetube Shading':'_images/tutorials_9_-_Torquetube_Shading_24_1.png',
     'tutorials/11 - AgriPV Systems': '_images/AgriPV_2.PNG',
     'tutorials/13 - Modeling Modules with Glass': '_images/Glass_tilted_reflection.PNG',
     'tutorials/14 - Cement Racking Albedo Improvements': '_images/Pavers.PNG',

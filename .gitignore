@@ -20,6 +20,7 @@ tests/simulation.ini
 # bifacial_radiance temp folder
 bifacial_radiance/TEMP/
 TEMP/
+bifacial_radiance/bifacial_radiance/ #this is sometimes accidentally created
 
 # bifacial_radiance other
 bifacial_radiance/data/source/

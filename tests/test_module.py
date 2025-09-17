@@ -93,7 +93,7 @@ def test_moduleFrameandOmegas():
     loopTorquetube = [True, True, True, True, False, False, False, False ]
     loopOmega = [omegaParams, omegaParams, None, None, omegaParams, omegaParams, None, None]
     loopFrame = [frameParams, None, frameParams, None, frameParams,  None, frameParams, None]
-    expectedModuleZ = [3.179, 3.149, 3.179, 3.149, 3.129, 3.099, 3.129, 3.099]
+    expectedModuleZ = [3.176, 3.145, 3.176, 3.145, 3.125, 3.095, 3.125, 3.095]
     
     # test inverted=True on the first test
     loopOmega[0]['inverted'] = True
@@ -118,14 +118,14 @@ def test_moduleFrameandOmegas():
         scene = demo.makeScene(module,sceneDict)
         analysis = bifacial_radiance.AnalysisObj()  # return an analysis object including the scan dimensions for back irradiance
         frontscan, backscan = analysis.moduleAnalysis(scene, sensorsy=1) # Gives us the dictionaries with coordinates
-        assert backscan['zstart'] == expectedModuleZ[ii]
+        assert backscan['zstart'] == pytest.approx(expectedModuleZ[ii], abs=.001)
         
         # read the data back from module.json and check again
         module = demo.makeModule(name='test-module')
         scene = demo.makeScene('test-module',sceneDict)
         analysis = bifacial_radiance.AnalysisObj()  # return an analysis object including the scan dimensions for back irradiance
         frontscan, backscan = analysis.moduleAnalysis(scene, sensorsy=1)
-        assert backscan['zstart'] == expectedModuleZ[ii]
+        assert backscan['zstart'] == pytest.approx(expectedModuleZ[ii], abs=.001)
     # do it again by passing everying at once
     module = bifacial_radiance.ModuleObj(name='test-module',x=2, y=1, zgap = zgap,
                                           frameParams=frameParams, omegaParams=omegaParams,
@@ -134,7 +134,7 @@ def test_moduleFrameandOmegas():
     scene = demo.makeScene(module, sceneDict)
     analysis = bifacial_radiance.AnalysisObj()  # return an analysis object including the scan dimensions for back irradiance
     frontscan, backscan = analysis.moduleAnalysis(scene, sensorsy=1) # Gives us the dictionaries with coordinates
-    assert backscan['zstart'] == expectedModuleZ[0]
+    assert backscan['zstart'] == pytest.approx(expectedModuleZ[0], abs=.001)
     
     # omega default values
     module.addOmega()
@@ -151,7 +151,7 @@ def test_moduleFrameandOmegas():
     scene = demo.makeScene(module, sceneDict)
     analysis = bifacial_radiance.AnalysisObj()  # return an analysis object including the scan dimensions for back irradiance
     frontscan, backscan = analysis.moduleAnalysis(scene, sensorsy=10) # Gives us the dictionaries with coordinates
-    assert backscan['xstart'] == pytest.approx(0.792)
+    assert backscan['xstart'] == pytest.approx(0.792, abs=.001)
     
 def test_GlassModule():
     # test the cell-level module generation 
@@ -165,6 +165,35 @@ def test_GlassModule():
     module = demo.makeModule(name='test-module', glass=True, x=1, y=2, z=0.005, glassEdge=0.02) 
     assert module.text == '! genbox black test-module 1 2 0.001 | xform -t -0.5 -1.0 0 -a 1 -t 0 2.0' +\
         ' 0\r\n! genbox stock_glass test-module_Glass 1.02 2.02 0.005 | xform -t -0.51 -1.01 -0.0025 -a 1 -t 0 2.0 0'
+
+def test_inifile():
+    # test loading a module from a simulation .ini file
+    INIFILE = os.path.join(TESTDIR, "ini_soltec.ini")
+
+    (simulationParamsDict, sceneParamsDict, timeControlParamsDict, moduleParamsDict, trackingParamsDict, 
+     torquetubeParamsDict, analysisParamsDict, cellLevelModuleParamsDict, CECMod, frameParamsDict, 
+     omegaParamsDict, *kwargs )= bifacial_radiance.load.readconfigurationinputfile(inifile=INIFILE)
+    
+    simulationParamsDict['testfolder'] = TESTDIR
+    name = "_test_inifile_module"
+    demo = bifacial_radiance.RadianceObj(name)  # Create a RadianceObj 'object'
+    module = demo.makeModule(name='test-module', tubeParams=torquetubeParamsDict, cellModule=cellLevelModuleParamsDict,
+                              frameParams=frameParamsDict, omegaParams=omegaParamsDict, 
+                              **moduleParamsDict)
+    # check that there's a cellPVmodule, torque tube, framesides, framelegs, mod_adj, verti, tt_adj,
+    assert module.glass == True
+    assert module.glassEdge == 0.02
+    assert module.text.find('genbox black cellPVmodule 0.15 0.15 0.001 | xform -t -1.375 -1.375') > 0
+    assert module.text.find('genbox Metal_Grey hextube1a 2.926 0.05 0.0866') > 0
+    assert module.text.find('genbox Metal_Grey frameside 0.003 1.3') > 0
+    assert module.text.find('genbox Metal_Grey frameleg 0.017 1.3') > 0
+    assert module.text.find('genbox Metal_Grey frameside 2.894 0.003 0.017') > 0
+    assert module.text.find('genbox Metal_Grey mod_adj 0.05 1.5 0.009 | xform -t 1.41 -0.75 0.136') > 0
+    assert module.text.find('genbox Metal_Grey verti 0.009 1.5 0.1 | xform -t 1.451 -0.75 0.045') > 0
+    assert module.text.find('genbox Metal_Grey tt_adj 0.003 1.5 0.009 | xform -t 1.46 -0.75 0.045') > 0
+    
+    
+    
     
 def test_CECmodule():
     # Test adding CEC module in various ways
