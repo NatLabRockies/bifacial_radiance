@@ -96,6 +96,7 @@ setup(
     install_requires=[
         'pandas ',
         'pvlib >= 0.8.0',
+        'pyradiance >= 1.0.0',
         'pvmismatch',
         'configparser',
         'requests',

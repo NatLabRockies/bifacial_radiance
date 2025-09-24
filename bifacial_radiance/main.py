@@ -62,6 +62,15 @@ import numpy as np
 import warnings
 from deprecated import deprecated
 
+# PyRadiance imports.
+# TODO: remove this if/else and just have the import
+try:
+    import pyradiance
+    PYRADIANCE_AVAILABLE = True
+except ImportError:
+    PYRADIANCE_AVAILABLE = False
+    warnings.warn("pyradiance not available. Falling back to subprocess calls for RADIANCE commands.", ImportWarning)
+
 
 global DATA_PATH # path to data files including module.json.  Global context
 DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data'))
@@ -1734,17 +1743,63 @@ class RadianceObj(SuperClass):
                   '{}.  '.format(metdata.datetime[timeindex])+
                   'Re-calculated elevation: {:0.2}'.format(sunalt))
 
-        # Note - -W and -O1 option is used to create full spectrum analysis in units of Wm-2
-         #" -L %s %s -g %s \n" %(dni/.0079, dhi/.0079, self.ground.ReflAvg) + \
-        skyStr = ("# start of sky definition for daylighting studies\n" + \
-            "# location name: " + str(locName) + " LAT: " + str(lat)
-            +" LON: " + str(lon) + " Elev: " + str(elev) + "\n"
-            "# Sun position calculated w. PVLib\n" + \
-            "!gendaylit -ang %s %s" %(sunalt, sunaz)) + \
-            " -W %s %s -g %s -O 1 \n" %(dni, dhi, ground.ReflAvg[groundindex]) + \
-            "skyfunc glow sky_mat\n0\n0\n4 1 1 1 0\n" + \
-            "\nsky_mat source sky\n0\n0\n4 0 0 1 180\n" + \
-            ground._makeGroundString(index=groundindex, cumulativesky=False)
+        # Use pyradiance.gendaylit if available, otherwise use traditional RADIANCE command string
+        # TODO: pyradiance.gendaylit(timezone=) from MetObj.metadata
+        # TODO: figure out makeGroundString
+        if PYRADIANCE_AVAILABLE:
+            try:
+                # Use pyradiance to generate daylit sky - note this generates the sky directly
+                # rather than as a command string in a .rad file
+                import datetime as dt
+                time_obj = metdata.datetime[timeindex]
+                
+                # Convert to datetime if needed
+                if hasattr(time_obj, 'to_pydatetime'):
+                    time_obj = time_obj.to_pydatetime()
+                
+                gendaylit_output = pyradiance.gendaylit(
+                    dt=time_obj,
+                    latitude=lat, longitude=lon, timezone=int(timeZone*15),
+                    dirnorm=dni, diffhor=dhi,
+                    grefl=ground.ReflAvg[groundindex]
+                )
+                
+                # Convert bytes to string and create sky string
+                if isinstance(gendaylit_output, bytes):
+                    gendaylit_sky = gendaylit_output.decode('latin1')
+                else:
+                    gendaylit_sky = gendaylit_output
+                
+                skyStr = ("# start of sky definition for daylighting studies\n" + \
+                    "# location name: " + str(locName) + " LAT: " + str(lat)
+                    +" LON: " + str(lon) + " Elev: " + str(elev) + "\n"
+                    "# Sky generated with PyRadiance gendaylit\n" + \
+                    gendaylit_sky + "\n" + \
+                    ground._makeGroundString(index=groundindex, cumulativesky=False))
+                    
+            except Exception as e:
+                print(f"PyRadiance gendaylit failed: {e}. Falling back to RADIANCE command string.")
+                # Fall back to original RADIANCE command string
+                skyStr = ("# start of sky definition for daylighting studies\n" + \
+                    "# location name: " + str(locName) + " LAT: " + str(lat)
+                    +" LON: " + str(lon) + " Elev: " + str(elev) + "\n"
+                    "# Sun position calculated w. PVLib\n" + \
+                    "!gendaylit -ang %s %s" %(sunalt, sunaz)) + \
+                    " -W %s %s -g %s -O 1 \n" %(dni, dhi, ground.ReflAvg[groundindex]) + \
+                    "skyfunc glow sky_mat\n0\n0\n4 1 1 1 0\n" + \
+                    "\nsky_mat source sky\n0\n0\n4 0 0 1 180\n" + \
+                    ground._makeGroundString(index=groundindex, cumulativesky=False)
+        else:
+            # Use traditional RADIANCE command string
+            skyStr = ("# start of sky definition for daylighting studies\n" + \
+                "# location name: " + str(locName) + " LAT: " + str(lat)
+                +" LON: " + str(lon) + " Elev: " + str(elev) + "\n"
+                "# Sun position calculated w. PVLib\n" + \
+                "!gendaylit -ang %s %s" %(sunalt, sunaz)) + \
+                " -W %s %s -g %s -O 1 \n" %(dni, dhi, ground.ReflAvg[groundindex]) + \
+                "skyfunc glow sky_mat\n0\n0\n4 1 1 1 0\n" + \
+                "\nsky_mat source sky\n0\n0\n4 0 0 1 180\n" + \
+                ground._makeGroundString(index=groundindex, cumulativesky=False)
 
         time = metdata.datetime[timeindex]
         #filename = str(time)[2:-9].replace('-','_').replace(' ','_').replace(':','_')
@@ -1808,16 +1863,52 @@ class RadianceObj(SuperClass):
             print('usage: make sure to run setGround() before gendaylit()')
             return
         
-        
-        # Note: -W and -O1 are used to create full spectrum analysis in units of Wm-2       
-         #" -L %s %s -g %s \n" %(dni/.0079, dhi/.0079, self.ground.ReflAvg) + \
-        skyStr =   ("# start of sky definition for daylighting studies\n" + \
-            "# Manual inputs of DNI, DHI, SunAlt and SunAZ into Gendaylit used \n" + \
-            "!gendaylit -ang %s %s" %(sunalt, sunaz)) + \
-            " -W %s %s -g %s -O 1 \n" %(dni, dhi, self.ground.ReflAvg[groundindex]) + \
-            "skyfunc glow sky_mat\n0\n0\n4 1 1 1 0\n" + \
-            "\nsky_mat source sky\n0\n0\n4 0 0 1 180\n" + \
-            self.ground._makeGroundString(index=groundindex, cumulativesky=False)
+
+        # Use pyradiance.gendaylit if available, otherwise use traditional RADIANCE command string
+        if PYRADIANCE_AVAILABLE:
+            try:
+                # For manual mode, we need to construct a datetime - use current year/month/day with sun position
+                import datetime as dt
+                current_time = dt.datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+                
+                gendaylit_output = pyradiance.gendaylit(
+                    dt=current_time,
+                    latitude=self.latitude, longitude=self.longitude,
+                    timezone=int(self.timezone*15) if hasattr(self, 'timezone') else 0,
+                    dirnorm=dni, diffhor=dhi,
+                    grefl=self.ground.ReflAvg[groundindex]
+                )
+                
+                # Convert bytes to string and create sky string
+                if isinstance(gendaylit_output, bytes):
+                    gendaylit_sky = gendaylit_output.decode('latin1')
+                else:
+                    gendaylit_sky = gendaylit_output
+                
+                skyStr = ("# start of sky definition for daylighting studies\n" + \
+                    "# Manual inputs of DNI, DHI, SunAlt and SunAZ - Sky generated with PyRadiance gendaylit\n" + \
+                    gendaylit_sky + "\n" + \
+                    self.ground._makeGroundString(index=groundindex, cumulativesky=False))
+                    
+            except Exception as e:
+                print(f"PyRadiance gendaylit failed: {e}. Falling back to RADIANCE command string.")
+                # Fall back to original RADIANCE command string
+                skyStr = ("# start of sky definition for daylighting studies\n" + \
+                    "# Manual inputs of DNI, DHI, SunAlt and SunAZ into Gendaylit used \n" + \
+                    "!gendaylit -ang %s %s" %(sunalt, sunaz)) + \
+                    " -W %s %s -g %s -O 1 \n" %(dni, dhi, self.ground.ReflAvg[groundindex]) + \
+                    "skyfunc glow sky_mat\n0\n0\n4 1 1 1 0\n" + \
+                    "\nsky_mat source sky\n0\n0\n4 0 0 1 180\n" + \
+                    self.ground._makeGroundString(index=groundindex, cumulativesky=False)
+        else:
+            # Use traditional RADIANCE command string
+            skyStr = ("# start of sky definition for daylighting studies\n" + \
+                "# Manual inputs of DNI, DHI, SunAlt and SunAZ into Gendaylit used \n" + \
+                "!gendaylit -ang %s %s" %(sunalt, sunaz)) + \
+                " -W %s %s -g %s -O 1 \n" %(dni, dhi, self.ground.ReflAvg[groundindex]) + \
+                "skyfunc glow sky_mat\n0\n0\n4 1 1 1 0\n" + \
+                "\nsky_mat source sky\n0\n0\n4 0 0 1 180\n" + \
+                self.ground._makeGroundString(index=groundindex, cumulativesky=False)
 
         skyname = os.path.join(sky_path, "sky2_%s.rad" %(self.name))
 
@@ -1892,6 +1983,8 @@ class RadianceObj(SuperClass):
                                                   enddt.month, enddt.day,
                                                   gencumsky_metfile)
         '''
+        # TODO: gencumulativesky is a custom RADIANCE command not available in pyradiance
+        # Eventually replace with gendaymtx
         cmd = (f"gencumulativesky +s1 -h 0 -a {lat} -o {lon} -m "
                f"{float(timeZone)*15} -G {gencumsky_metfile}" )
                
@@ -2202,16 +2295,27 @@ class RadianceObj(SuperClass):
             self.octfile = None
             return None
 
-        #cmd = 'oconv ' + ' '.join(filelist)
-        filelist.insert(0,'oconv')
-        with open('%s.oct' % (octname), "w") as f:
-            _,err = _popen(filelist, None, f)
-            #TODO:  exception handling for no sun up
-            if err is not None:
-                if err[0:5] == 'error':
-                    raise Exception(err[7:])
-                if err[0:7] == 'message':
-                    warnings.warn(err[9:], Warning)
+        # Use pyradiance.oconv if available, otherwise fall back to subprocess
+        if PYRADIANCE_AVAILABLE:
+            try:
+                octree_data = pyradiance.oconv(*filelist)
+                with open('%s.oct' % (octname), "wb") as f:
+                    f.write(octree_data)
+                err = None
+            except Exception as e:
+                err = f"error: {str(e)}"
+        else:
+            #cmd = 'oconv ' + ' '.join(filelist)
+            filelist.insert(0,'oconv')
+            with open('%s.oct' % (octname), "w") as f:
+                _,err = _popen(filelist, None, f)
+        
+        #TODO:  exception handling for no sun up
+        if err is not None:
+            if err[0:5] == 'error':
+                raise Exception(err[7:])
+            if err[0:7] == 'message':
+                warnings.warn(err[9:], Warning)
                     
 
         #use rvu to see if everything looks good. 
@@ -3722,6 +3826,8 @@ class SceneObj(SuperClass):
         Method to call objview on the scene included in self
             
         """
+        # TODO: objview is an interactive viewer not available in pyradiance
+        # Keep using subprocess for now
         cmd = 'objview %s %s' % (os.path.join('materials', 'ground.rad'),
                                          self.radfiles)
         print('Rendering scene. This may take a moment...')
@@ -3776,6 +3882,8 @@ class SceneObj(SuperClass):
                         f"{self.radfiles} {ltfile}\n".replace("\\",'/') +\
                     f"EXPOSURE= .5\nUP= Z\nview= {view.replace('.vp','')} -vf views/{view}\n" +\
                     f"oconv= -f\nPICT= images/{filename}")
+        # TODO: 'rad' is a high-level script not directly available in pyradiance
+        # Keep using subprocess for now
         _,err = _popen(["rad",'-s',riffile], None)
         if err:
             print(err)
@@ -4491,31 +4599,69 @@ class AnalysisObj(SuperClass):
 
         print('Generating scene in WM-2. This may take some time.')
         #TODO: update and test this for cross-platform compatibility using os.path.join
-        cmd = "rpict -i -dp 256 -ar 48 -ms 1 -ds .2 -dj .9 -dt .1 "+\
-              "-dc .5 -dr 1 -ss 1 -st .1 -ab 3  -aa .1 -ad 1536 -as 392 " +\
-              "-av 25 25 25 -lr 8 -lw 1e-4 -vf views/"+viewfile + " " + octfile
+        # Use pyradiance.rpict if available, otherwise fall back to subprocess
+        if PYRADIANCE_AVAILABLE:
+            try:
+                # Parse view file to get view parameters
+                view_params = []
+                with open(f"views/{viewfile}", 'r') as vf:
+                    view_content = vf.read().strip()
+                    view_params = view_content.split()
+                
+                # Set ray parameters for high quality rendering
+                ray_params = ['-i', '-dp', '256', '-ar', '48', '-ms', '1', '-ds', '.2', 
+                             '-dj', '.9', '-dt', '.1', '-dc', '.5', '-dr', '1', '-ss', '1', 
+                             '-st', '.1', '-ab', '3', '-aa', '.1', '-ad', '1536', '-as', '392',
+                             '-av', '25', '25', '25', '-lr', '8', '-lw', '1e-4']
+                
+                WM2_out = pyradiance.rpict(view_params, octfile, params=ray_params)
+                err = None
+            except Exception as e:
+                err = f"Error: {str(e)}"
+                WM2_out = None
+        else:
+            cmd = "rpict -i -dp 256 -ar 48 -ms 1 -ds .2 -dj .9 -dt .1 "+\
+                  "-dc .5 -dr 1 -ss 1 -st .1 -ab 3  -aa .1 -ad 1536 -as 392 " +\
+                  "-av 25 25 25 -lr 8 -lw 1e-4 -vf views/"+viewfile + " " + octfile
 
-        WM2_out,err = _popen(cmd,None)
+            WM2_out,err = _popen(cmd,None)
+        
         if err is not None:
             print('Error: {}'.format(err))
             return
 
-        # determine the extreme maximum value to help with falsecolor autoscale
-        extrm_out,err = _popen("pextrem",WM2_out.encode('latin1'))
+        # TODO: pextrem is not available in pyradiance, keep using subprocess
+        extrm_out,err = _popen("pextrem",WM2_out.encode('latin1') if isinstance(WM2_out, str) else WM2_out)
         # cast the pextrem string as a float and find the max value
         WM2max = max(map(float,extrm_out.split()))
         print('Saving scene in false color')
-        #auto scale false color map
-        if WM2max < 1100:
-            cmd = "falsecolor -l W/m2 -m 1 -s 1100 -n 11"
+        # Use pyradiance.falsecolor if available, otherwise fall back to subprocess
+        if PYRADIANCE_AVAILABLE:
+            try:
+                #auto scale false color map
+                if WM2max < 1100:
+                    false_color_data = pyradiance.falsecolor(WM2_out, label="W/m2", multiplier=1, scale="1100", ndivs=11)
+                else:
+                    false_color_data = pyradiance.falsecolor(WM2_out, label="W/m2", multiplier=1, scale=str(WM2max))
+                
+                with open(os.path.join("images","%s%s_FC.hdr"%(name,viewfile[:-3]) ),"wb") as f:
+                    f.write(false_color_data)
+                err = None
+            except Exception as e:
+                err = f"Error: {str(e)}"
         else:
-            cmd = "falsecolor -l W/m2 -m 1 -s %s"%(WM2max,)
-        with open(os.path.join("images","%s%s_FC.hdr"%(name,viewfile[:-3]) ),"w") as f:
-            data,err = _popen(cmd,WM2_out.encode('latin1'),f)
-            if err is not None:
-                print(err)
-                print('possible solution: install radwinexe binary package from '
-                      'http://www.jaloxa.eu/resources/radiance/radwinexe.shtml')
+            #auto scale false color map
+            if WM2max < 1100:
+                cmd = "falsecolor -l W/m2 -m 1 -s 1100 -n 11"
+            else:
+                cmd = "falsecolor -l W/m2 -m 1 -s %s"%(WM2max,)
+            with open(os.path.join("images","%s%s_FC.hdr"%(name,viewfile[:-3]) ),"w") as f:
+                data,err = _popen(cmd,WM2_out.encode('latin1'),f)
+        
+        if err is not None:
+            print(err)
+            print('possible solution: install radwinexe binary package from '
+                  'http://www.jaloxa.eu/resources/radiance/radwinexe.shtml')
 
     def _linePtsArray(self, linePtsDict):
         """
@@ -4643,19 +4789,39 @@ class AnalysisObj(SuperClass):
         #rtrace ambient values set for 'very accurate':
         #cmd = "rtrace -i -ab 5 -aa .08 -ar 512 -ad 2048 -as 512 -h -oovs "+ octfile
 
-        if accuracy == 'low':
-            #rtrace optimized for faster scans: (ab2, others 96 is too coarse)
-            cmd = "rtrace -i -ab 2 -aa .1 -ar 256 -ad 2048 -as 256 -h -oovs "+ octfile
-        elif accuracy == 'high':
-            #rtrace ambient values set for 'very accurate':
-            cmd = "rtrace -i -ab 5 -aa .08 -ar 512 -ad 2048 -as 512 -h -oovs "+ octfile
+        # Use pyradiance.rtrace if available, otherwise fall back to subprocess
+        if PYRADIANCE_AVAILABLE:
+            try:
+                if accuracy == 'low':
+                    #rtrace optimized for faster scans: (ab2, others 96 is too coarse)
+                    params = ['-i', '-ab', '2', '-aa', '.1', '-ar', '256', '-ad', '2048', '-as', '256', '-h', '-oovs']
+                elif accuracy == 'high':
+                    #rtrace ambient values set for 'very accurate':
+                    params = ['-i', '-ab', '5', '-aa', '.08', '-ar', '512', '-ad', '2048', '-as', '512', '-h', '-oovs']
+                else:
+                    print('_irrPlot accuracy options: "low" or "high"')
+                    return({})
+                
+                temp_out = pyradiance.rtrace(linepts.encode(), octfile, params=params)
+                # Convert bytes to string if needed
+                if isinstance(temp_out, bytes):
+                    temp_out = temp_out.decode('latin1')
+                err = None
+            except Exception as e:
+                err = f"Error: {str(e)}"
+                temp_out = None
         else:
-            print('_irrPlot accuracy options: "low" or "high"')
-            return({})
+            if accuracy == 'low':
+                #rtrace optimized for faster scans: (ab2, others 96 is too coarse)
+                cmd = "rtrace -i -ab 2 -aa .1 -ar 256 -ad 2048 -as 256 -h -oovs "+ octfile
+            elif accuracy == 'high':
+                #rtrace ambient values set for 'very accurate':
+                cmd = "rtrace -i -ab 5 -aa .08 -ar 512 -ad 2048 -as 512 -h -oovs "+ octfile
+            else:
+                print('_irrPlot accuracy options: "low" or "high"')
+                return({})
 
-
-
-        temp_out,err = _popen(cmd,linepts.encode())
+            temp_out,err = _popen(cmd,linepts.encode())
         if err is not None:
             if err[0:5] == 'error':
                 raise Exception(err[7:])

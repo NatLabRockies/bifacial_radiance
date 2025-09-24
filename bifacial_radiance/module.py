@@ -11,6 +11,15 @@ import pvlib
 import pandas as pd
 
 from bifacial_radiance.main import _missingKeyWarning, _popen, DATA_PATH
+
+# Import pyradiance availability from main module
+# TODO: remove this if/else and just have the import
+try:
+    from bifacial_radiance.main import PYRADIANCE_AVAILABLE
+    if PYRADIANCE_AVAILABLE:
+        import pyradiance
+except ImportError:
+    PYRADIANCE_AVAILABLE = False
  
 class SuperClass:
     def __repr__(self):
@@ -360,6 +369,8 @@ class ModuleObj(SuperClass):
 
         """
        
+        # TODO: objview is an interactive viewer not available in pyradiance
+        # Keep using subprocess for now
         cmd = 'objview %s %s' % (os.path.join('materials', 'ground.rad'),
                                          self.modulefile)
         _,err = _popen(cmd,None)
@@ -402,6 +413,8 @@ class ModuleObj(SuperClass):
                     "EXPOSURE= .5\nUP= Z\nview= XYZ\n" +\
                     #f"OCTREE= ov{pid}.oct\n"+\
                     f"oconv= -f\nPICT= images/{filename}")
+        # TODO: 'rad' is a high-level script not directly available in pyradiance
+        # Keep using subprocess for now
         _,err = _popen(["rad",'-s',riffile], None)
         if err:
             print(err)
