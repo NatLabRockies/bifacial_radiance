@@ -5309,10 +5309,8 @@ class AnalysisObj(SuperClass):
 
         if rowWanted == None:
             rowWanted = round(scene.sceneDict['nRows']/ 1.99)
-            
         if name is None:
                 name = 'RowAnalysis_'+str(rowWanted)
-
         df_dict_row = {}
         row_keys = ['x','y','z','rearZ','mattype','rearMat','Wm2Front','Wm2Back','ModNumber']
         dict_row = df_dict_row.fromkeys(row_keys)
