@@ -36,7 +36,8 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
     To import the variables from a .ini file, use::
         
         (simulationParamsDict, sceneParamsDict, timeControlParamsDict, moduleParamsDict, 
-         trackingParamsDict,torquetubeParamsDict,analysisParamsDict,cellModuleDict) = 
+         trackingParamsDict,torquetubeParamsDict,analysisParamsDict,cellModuleDict,
+         CECModParamsDict, frameParamsDict, omegaParamsDict, pilesParamsDict) = \
         bifacial_radiance.load.readconfigurationinputfile(inifile)
     
     """
