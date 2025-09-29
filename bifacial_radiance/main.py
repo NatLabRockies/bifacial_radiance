@@ -4573,8 +4573,8 @@ class AnalysisObj(SuperClass):
         for iz in range(0,Nz):
             for ix in range(0,Nx):
                 for iy in range(0,Ny):
-                    xpos = xstart+iy*xinc+ix*sx_xinc
                     ypos = ystart+iy*yinc+ix*sx_yinc
+                    xpos = xstart+iy*xinc+ix*sx_xinc
                     zpos = zstart+iy*zinc+ix*sx_zinc
                     linepts = linepts + str(xpos) + ' ' + str(ypos) + \
                           ' '+str(zpos) + ' ' + orient + " \r"
@@ -5262,12 +5262,23 @@ class AnalysisObj(SuperClass):
         xinc = groundsensorspacing * np.sin((azimuth)*dtor)
         yinc = groundsensorspacing * np.cos((azimuth)*dtor)
         zinc = 0
-        
+
+        if sensorsgroundx > 1.0:
+            sx_xinc_ground = -(scenex/(sensorsgroundx*1.0+1)) * np.cos((azimuth)*dtor)
+            sx_yinc_ground = (scenex/(sensorsgroundx*1.0+1)) * np.sin((azimuth)*dtor)
+            # Not needed unless axis_tilt != 0, which is not a current option
+            sx_zinc_ground = 0.0 #       
+              
+        else:
+            sx_xinc_ground = 0.0
+            sx_yinc_ground = 0.0
+            sx_zinc_ground = 0.0
+
         groundscan = {'xstart': np.float16(xstart), 'ystart': np.float16(ystart),
                      'zstart': np.float16(zstart),
                      'xinc':np.float16(xinc), 'yinc': np.float16(yinc), 'zinc':np.float16(zinc),
-                     'sx_xinc':0, 'sx_yinc':0,
-                     'sx_zinc':0,
+                     'sx_xinc':sx_xinc_ground, 'sx_yinc':sx_yinc_ground,
+                     'sx_zinc':sx_zinc_ground,
                      'Nx': sensorsgroundx, 'Ny':sensorsground, 'Nz':1,
                      'orient':ground_orient }
 
