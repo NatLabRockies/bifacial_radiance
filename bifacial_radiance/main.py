@@ -2539,14 +2539,14 @@ class RadianceObj(SuperClass):
         warnings.warn('RadObj.appendtoScene is deprecated.  Use the equivalent'
               ' functionality in SceneObj.appendtoScene.', DeprecationWarning)
         # py2 and 3 compatible: binary write, encode text first
-        text2 = '\n!xform -rx 0 ' + text + ' ' + customObject
-        
-        debug = False
-        if debug:
-            print (text2)
-
-        with open(radfile, 'a+') as f:
-            f.write(text2)
+        try:
+            scene = self.scenes[-1]
+            print('Warning: RadObj.appendtoScene is deprecated. Appending to '
+                  'default scene %s' % (scene.name))
+            scene.appendtoScene(radfile=radfile, customObject=customObject, text=text)
+        except Exception as e:
+            print('Error when running RadianceObj.appendtoScene: {}'.format(e))
+            
 
 
     
@@ -3672,7 +3672,7 @@ class SceneObj(SuperClass):
 #        self.hub_height = hubheight
         return radfile
     
-    def appendtoScene(self, radfile=None, customObject=None,  text=''):
+    def appendtoScene(self, customObject=None, radfile=None, text=''):
         """
         Appends to the `Scene radfile` in folder `\objects` the text command in Radiance
         lingo created by the user.
