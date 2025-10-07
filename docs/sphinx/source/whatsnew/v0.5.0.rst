@@ -33,7 +33,7 @@ Enhancements
 * multiple sceneObjects are tracked by the RadianceObj now.  New function :py:class:`~bifacial_radiance.RadianceObj.sceneNames` will return the list of scenes being tracked. (:pull:`487`)
 * New function AnalysisObj. :py:class:`~bifacial_radiance.AnalysisObj.calculatePerformance` and ModuleObj. :py:class:`~bifacial_radiance.ModuleObj.calculatePerformance` to call CEC performance calculation from within the AnalysisObj
 * New function :py:class:`~bifacial_radiance.RadianceObj.calculatePerformance1axis` to call CEC performance calculation for every entry of a trackerdict
-* AnalysisObj has new attribute :py:class:`~bifacial_radiance.AnalysisObj.power_data` to store CEC performance data
+* :py:class:`~bifacial_radiance.AnalysisObj` has new attribute `power_data` to store CEC performance data
 * AnalysisObj has new property :py:class:`~bifacial_radiance.AnalysisObj.results` to bundle and return irradiance scan results in dataframe form. 
 * AnalysisObj has new function :py:class:`~bifacial_radiance.AnalysisObj.groundAnalysis` to run a ground scan under the row-row pitch of the scene to support AgriPV applications. (:pull:`499`)
 * RadianceObj has new function :py:class:`~bifacial_radiance.RadianceObj.analysis1axisground` to run a ground scan under the row-row pitch of the scene for 1-axis tracked scenes. (:pull:`499`)
