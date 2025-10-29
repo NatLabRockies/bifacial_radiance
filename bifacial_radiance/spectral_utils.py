@@ -306,7 +306,7 @@ def generate_spectra(metdata, simulation_path, ground_material='Gravel', spectra
         lat = metdata.latitude
 
         # create file names
-        suffix = f'_{str(dt.year)[-2:]}_{dt.month:02}_{dt.day:02}_{dt.hour:02}.txt'
+        suffix = f'_{str(dt.year)[-2:]}_{dt.month:02}_{dt.day:02}_{dt.hour:02}_{dt.minute:02}.txt'
         dni_file = os.path.join(simulation_path, spectra_folder, "dni"+suffix)
         dhi_file = os.path.join(simulation_path, spectra_folder, "dhi"+suffix)
         ghi_file = os.path.join(simulation_path, spectra_folder, "ghi"+suffix)
@@ -445,7 +445,7 @@ def generate_spectral_tmys(wavelengths, spectra_folder, metdata, location_name, 
         take = file[4:-4]
         if take not in dates:
             dates.append(take)
-    dates = pd.to_datetime(dates,format='%y_%m_%d_%H').tz_localize(dtindex.tz)
+    dates = pd.to_datetime(dates,format='%y_%m_%d_%H_%M').tz_localize(dtindex.tz)
 
     # -- create a multi-index of columns [timeindex:alb,dni,dhi,ghi]
     iterables = [dates,['ALB','DHI','DNI','GHI']]
@@ -456,7 +456,7 @@ def generate_spectral_tmys(wavelengths, spectra_folder, metdata, location_name, 
 
     # -- fill with irradiance data
     for file in spectra_files:
-        a = pd.to_datetime(file[4:-4],format='%y_%m_%d_%H').tz_localize(dtindex.tz)
+        a = pd.to_datetime(file[4:-4],format='%y_%m_%d_%H_%M').tz_localize(dtindex.tz)
         b = file[:3].upper()
         spectra_df[a,b] = pd.read_csv(os.path.join(spectra_folder,file),header=1, index_col=0)
 
@@ -539,7 +539,7 @@ def integrated_spectrum(spectra_folder, metdata ):
         take = file[4:-4]
         if take not in dates:
             dates.append(take)
-    dates = pd.to_datetime(dates,format='%y_%m_%d_%H').tz_localize(dtindex.tz)
+    dates = pd.to_datetime(dates,format='%y_%m_%d_%H_%M').tz_localize(dtindex.tz)
 
     # -- create a multi-index of columns [timeindex:alb,dni,dhi,ghi]
     iterables = [dates,['ALB','DHI','DNI','GHI']]
@@ -549,7 +549,7 @@ def integrated_spectrum(spectra_folder, metdata ):
     spectra_df = pd.DataFrame(index=temp.index,columns=multi_index)
      # -- fill with irradiance data
     for file in spectra_files:
-        a = pd.to_datetime(file[4:-4],format='%y_%m_%d_%H').tz_localize(dtindex.tz)
+        a = pd.to_datetime(file[4:-4],format='%y_%m_%d_%H_%M').tz_localize(dtindex.tz)
         b = file[:3].upper()
         spectra_df[a,b] = pd.read_csv(os.path.join(spectra_folder,file),header=1, index_col=0)
     integrated_sums = pd.DataFrame(index=dates, columns=['Sum_DNI', 'Sum_DHI', 'Sum_DNI_ALB', 'Sum_DHI_ALB'])
