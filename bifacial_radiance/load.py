@@ -419,7 +419,7 @@ def _exportTrackerDict(trackerdict, savefile, cumulativesky=False, reindex=False
                             # So we get average hourly irradiance as well as Wh on 
                             # results of power.
                             D2b = D2.copy()
-                            D2b = D2b.groupby(pd.PeriodIndex(D2b.index, freq="H")).mean(numeric_only=True).reset_index()
+                            D2b = D2b.groupby(pd.PeriodIndex(D2b.index, freq="h")).mean(numeric_only=True).reset_index()
                             D2b['BGG'] = D2b['Grear_mean']*100/D2b['Gfront_mean']
                             D2b['BGE'] = (D2b['Pout']-D2b['Pout_Gfront'])*100/D2b['Pout']
                             D2b['Mismatch'] = (D2b['Pout_raw']-D2b['Pout'])*100/D2b['Pout_raw']

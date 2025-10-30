@@ -123,6 +123,8 @@ Methods for irradiance calculations
 
    AnalysisObj.moduleAnalysis
    AnalysisObj.analysis
+   AnalysisObj.analyzeRow
+   AnalysisObj.results
    RadianceObj.analysis1axis
    RadianceObj.results
 
@@ -135,7 +137,9 @@ Power and Mismatch
    
    RadianceObj.calculatePerformance1axis
    AnalysisObj.calculatePerformance
+   ModuleObj.calculatePerformance
    ModuleObj.addCEC
+   AnalysisObj.power_data
    mismatch.mismatch_fit2
    mismatch.mad_fn
 
@@ -194,6 +198,7 @@ Others
    RadianceObj.getfilelist
    RadianceObj.getSingleTimestampTrackerAngle
    RadianceObj.returnOctFiles
+   RadianceObj.sceneNames
 
 ModelChain
 ----------
