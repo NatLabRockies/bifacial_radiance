@@ -1,7 +1,7 @@
 docutils<0.20
 coverage==7.6.1
 cycler==0.12.1
-idna==3.10
+idna==3.11
 importlib-metadata==8.5.0
 ipython==8.13.0
 kiwisolver==1.4.7
@@ -16,15 +16,15 @@ pvmismatch==4.1
 py==1.11.0
 pyparsing==3.1.4
 pysmarts==0.0.1
-pytest==8.3.3
+pytest==8.3.5
 pytest-cov==5.0.0
 python-dateutil==2.9.0.post0
-pytz==2024.2
-six==1.16.0
+pytz==2025.2
+six==1.17.0
 sphinx == 7.1.2
 pydata-sphinx-theme == 0.14.4
-sphinx-autoapi==3.3.2
-sphinx-rtd-theme==3.0.1
+sphinx-autoapi==3.5.0
+sphinx-rtd-theme==3.0.2
 requests
 tqdm
 future 
