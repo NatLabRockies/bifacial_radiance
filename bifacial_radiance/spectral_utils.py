@@ -5,7 +5,7 @@ import os
 from scipy import integrate
 from tqdm import tqdm
 from pvlib import iotools
-from bifacial_radiance import main as main
+from bifacial_radiance import RadianceObj
 
 
 class spectral_property(object):
@@ -417,7 +417,7 @@ def generate_spectral_tmys(wavelengths, spectra_folder, metdata, location_name, 
     spectra_files.sort()
 
     # -- read in the weather file and format
-    #(tmydata, metdata) = main.RadianceObj.readWeatherFile(weatherFile=weather_file, coerce_year=2021)
+    #(tmydata, metdata) = RadianceObj.readWeatherFile(weatherFile=weather_file, coerce_year=2021)
     #(tmydata, metdata) = iotools.read_tmy3(weather_file, coerce_year=2021)
     tmydata = metdata.tmydata.copy()
     #tmydata.index = tmydata.index+pd.Timedelta(hours=1)
@@ -511,7 +511,7 @@ def integrated_spectrum(spectra_folder, metdata ):
     spectra_files.sort()
 
     # -- read in the weather file and format
-    #(tmydata, metdata) = main.RadianceObj.readWeatherFile(weatherFile=weather_file, coerce_year=2021)
+    #(tmydata, metdata) = RadianceObj.readWeatherFile(weatherFile=weather_file, coerce_year=2021)
     #(tmydata, metdata) = iotools.read_tmy3(weather_file, coerce_year=2021)
     tmydata = metdata.tmydata.copy()
     #tmydata.index = tmydata.index+pd.Timedelta(hours=1)
