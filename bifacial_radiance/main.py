@@ -4506,11 +4506,14 @@ class AnalysisObj(SuperClass):
                 print('possible solution: install radwinexe binary package from '
                       'http://www.jaloxa.eu/resources/radiance/radwinexe.shtml')
 
+    
+    @deprecated(reason='analysis._linePtsArray has been abandoned'+\
+                    '  use :py:class:`bifacial_radiance.AnalysisObj._linePtsMakeDict` instead. ',
+                version='0.5.0' )
     def _linePtsArray(self, linePtsDict):
         """
         Helper function to just print the x y and z values in an array format,
         just like they will show in the .csv result files.
-        
         """
         xstart = linePtsDict['xstart']
         ystart = linePtsDict['ystart']
@@ -4537,8 +4540,21 @@ class AnalysisObj(SuperClass):
                     z . append(zstart+iy*zinc+ix*sx_zinc)
 
         return x, y, z
-        
+       
     def _linePtsMakeDict(self, linePtsDict):
+        """
+        Create a 1D linescan along the Y-chord of amodule or 2D linescan
+        along the Y- and X-chord of a module.
+        Parameters
+        ------------
+        linePtsDict : dictionary
+            Dictionary with the following keys:
+                xstart, ystart, zstart : starting coordinates of the linepts
+                xinc, yinc, zinc : increments along each axis for each Ny step. Set = 0 for no iteration.
+                sx_xinc, sx_yinc, sx_zinc : increments along each axis for each Nx step
+                Nx, Ny, Nz : number of points along each axis. Set = 1 for no iteration.
+                orient : orientation label for each point (e.g. 'front' or 'back')
+        """
         a = linePtsDict
         linepts = self._linePtsMake3D(a['xstart'],a['ystart'],a['zstart'],
                             a['xinc'], a['yinc'], a['zinc'],

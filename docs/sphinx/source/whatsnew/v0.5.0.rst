@@ -11,7 +11,7 @@ Deprecations
 * :py:class:`~bifacial_radiance.RadianceObj.makeScene`.`appendtoScene` is deprecated in favor of :py:class:`~bifacial_radiance.RadianceObj.makeScene`.`customtext` 
 * :py:class:`~bifacial_radiance.RadianceObj.makeScene1axis`.`appendtoScene` is deprecated in favor of :py:class:`~bifacial_radiance.RadianceObj.makeScene1axis`.`customtext` 
 * `Wm2Front` and `Wm2Back` are no longer attributes of  :py:class:`~bifacial_radiance.RadianceObj` object. Results are now tracked in AnalysisObj. :py:class:`~bifacial_radiance.AnalysisObj.results` and RadianceObj. :py:class:`~bifacial_radiance.RadianceObj.results` for trackerDict simulations.
-
+* :py:class:`~bifacial_radiance.AnalysisObj._linePtsArray` is deprecated in favor of  `~bifacial_radiance.AnalysisObj._linePtsMakeDict`
 
 API Changes
 ~~~~~~~~~~~~
