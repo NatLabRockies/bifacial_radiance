@@ -2942,7 +2942,7 @@ class RadianceObj(SuperClass):
         sensorsground : int (default None)
             Number of scan points along the scene pitch.  Default every 20cm
         sensorsgroundx : int (default 1)
-            Number of scans in the x dimension
+            Number of scans in the second (X) dimension
         sceneNum : int
             Index of the scene number in the list of scenes per trackerdict. default 0
         append : Bool (default True)

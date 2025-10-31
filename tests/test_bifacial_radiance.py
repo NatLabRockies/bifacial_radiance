@@ -484,7 +484,14 @@ def test_analyzeRow():
                                   rowWanted=1, sensorsy=None, sensorsx=None)
     assert analysis.x == pytest.approx([0])
     assert analysis.rearX == pytest.approx([0])
-    
+
+    # test part 2: run a 2D groundAnalysis for the scene
+    groundscan = analysis.groundAnalysis(scene=scene, modWanted=1, rowWanted=1, 
+                       sensorsground=None, sensorsgroundx=9)
+    assert groundscan['xinc'] == pytest.approx(0.20, abs=0.01)
+    assert groundscan['yinc'] == 0
+    assert groundscan['sx_yinc'] == pytest.approx(0.2, abs=0.01)
+
 def test_addMaterialGroundRad():  
     # test addMaterialGroundRad.  requires metdata for boulder. 
     name = "_test_addMaterial"
