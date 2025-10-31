@@ -978,7 +978,7 @@ class RadianceObj(SuperClass):
                             coerce_year=coerce_year, label=label,
                             tz_convert_val=tz_convert_val)
         
-        return self.metdata, metadata
+        return self.metdata
         
 
     def readWeatherData(self, metadata, metdata, starttime=None, 
