@@ -2,7 +2,7 @@
     "PVmod": {
         "bifi": 1,
         "glass": false,
-        "modulefile": "objects/PVmod.rad",
+        "modulefile": null,
         "modulematerial": "black",
         "numpanels": 1,
         "offsetfromaxis": 0,
@@ -65,7 +65,8 @@
     "test": {
         "bifi": 1,
         "glass": false,
-        "modulefile": "objects\\test.rad",
+        "glassEdge": 0.01,
+        "modulefile": null,
         "modulematerial": "black",
         "numpanels": 1,
         "offsetfromaxis": 0,
@@ -83,6 +84,7 @@
     "test-module": {
         "bifi": 1,
         "glass": false,
+        "glassEdge": 0.01,
         "modulefile": null,
         "modulematerial": "black",
         "numpanels": 1,
