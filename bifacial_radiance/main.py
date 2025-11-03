@@ -4506,14 +4506,11 @@ class AnalysisObj(SuperClass):
                 print('possible solution: install radwinexe binary package from '
                       'http://www.jaloxa.eu/resources/radiance/radwinexe.shtml')
 
-    
-    @deprecated(reason='analysis._linePtsArray has been abandoned'+\
-                    '  use :py:class:`bifacial_radiance.AnalysisObj._linePtsMakeDict` instead. ',
-                version='0.5.0' )
     def _linePtsArray(self, linePtsDict):
         """
         Helper function to just print the x y and z values in an array format,
-        just like they will show in the .csv result files.
+        just like they will show in the .csv result files.  Useful for debugging scans.
+        
         """
         xstart = linePtsDict['xstart']
         ystart = linePtsDict['ystart']
@@ -4578,8 +4575,8 @@ class AnalysisObj(SuperClass):
         for iz in range(0,Nz):
             for ix in range(0,Nx):
                 for iy in range(0,Ny):
-                    ypos = ystart+iy*yinc+ix*sx_yinc
                     xpos = xstart+iy*xinc+ix*sx_xinc
+                    ypos = ystart+iy*yinc+ix*sx_yinc
                     zpos = zstart+iy*zinc+ix*sx_zinc
                     linepts = linepts + str(xpos) + ' ' + str(ypos) + \
                           ' '+str(zpos) + ' ' + orient + " \r"
@@ -4618,7 +4615,6 @@ class AnalysisObj(SuperClass):
         """
         
         if mytitle is None:
-            #mytitle = octfile[:-4]
             mytitle = f'{octfile[:-4]}_{self.name}_Row{self.rowWanted}_Module{self.modWanted}'
 
         if plotflag is None:
