@@ -21,7 +21,8 @@ jobs:
         include:
           - python-version: "3.13"
             env: '--upgrade --upgrade-strategy=eager .[all]'
-
+          - python-version: "3.14"
+            env: '--upgrade --upgrade-strategy=eager .[all]'
 
     steps:
     - uses: actions/checkout@v4

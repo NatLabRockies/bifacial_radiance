@@ -39,7 +39,7 @@ setup(
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
     #version='0.4.4',
-    use_scm_version={"fallback_version":"0.4.4"},
+    use_scm_version={"fallback_version":"0.5.0"},
     description='Tools to interface with Radiance for the PV researcher',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -76,6 +76,7 @@ setup(
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
             ],
 
     # What does your project relate to?
