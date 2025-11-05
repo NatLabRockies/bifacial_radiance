@@ -3756,7 +3756,7 @@ class SceneObj(SuperClass):
             
         """
         cmd = 'objview %s %s' % (os.path.join('materials', 'ground.rad'),
-                                         self.radfiles)
+                                         self.radfiles[0])
         print('Rendering scene. This may take a moment...')
         _,err = _popen(cmd,None)
         if err is not None:
