@@ -13,7 +13,7 @@ Pre-requisites:
     *RADIANCE software should be installed from https://github.com/NREL/Radiance/releases
 
     *If you want to use gencumulativesky, move 'gencumulativesky.exe' from
-    'bifacial_radiance\data' into your RADIANCE source directory.
+    'bifacial_radiance/data' into your RADIANCE source directory.
 
     *If using a Windows machine you should download the Jaloxa executables at
     http://www.jaloxa.eu/resources/radiance/radwinexe.shtml#Download
@@ -28,7 +28,7 @@ Overview:
     different PV system orientations for rear bifacial irradiance.
     Note that this is simply an optical model - identifying available rear irradiance under different conditions.
 
-    For a detailed demonstration example, look at the .ipnyb notebook in \docs\
+    For a detailed demonstration example, look at the .ipnyb notebook in /docs/
 
     There are two solar resource modes in bifacial_radiance: `gendaylit` uses hour-by-hour solar
     resource descriptions using the Perez diffuse tilted plane model.
@@ -578,7 +578,7 @@ class RadianceObj(SuperClass):
         Returns
         -------
         None. Just adds the material to the material_file specified or the 
-        default in ``materials\ground.rad``.
+        default in ``materials/ground.rad``.
 
         References:
             See examples of documentation for more materialtype details.
@@ -787,7 +787,7 @@ class RadianceObj(SuperClass):
     def getEPW(self, lat=None, lon=None, GetAll=False):
         """
         Subroutine to download nearest epw files to latitude and longitude provided,
-        into the directory \EPWs\
+        into the directory /EPWs/
         based on github/aahoo.
         
         .. warning::
@@ -1837,7 +1837,7 @@ class RadianceObj(SuperClass):
             gencumulativesky.exe is required to be installed,
             which is not a standard radiance distribution.
             You can find the program in the bifacial_radiance distribution directory
-            in \Lib\site-packages\bifacial_radiance\data
+            in /Lib/site-packages/bifacial_radiance/data
             
  
         Use :func:`readWeatherFile(filename, starttime='YYYY-mm-dd_HHMM', endtime='YYYY-mm-dd_HHMM')` 
@@ -2278,7 +2278,7 @@ class RadianceObj(SuperClass):
         from bifacial_radiance import ModuleObj
 
         if name is None:
-            print("usage:  makeModule(name,x,y,z, modulefile = '\objects\*.rad', "+
+            print("usage:  makeModule(name,x,y,z, modulefile = '/objects/*.rad', "+
                   " zgap = 0.1 (module offset)"+
                   "numpanels = 1 (# of panels in portrait), ygap = 0.05 "+
                   "(slope distance between panels when arrayed), "+
@@ -2514,7 +2514,7 @@ class RadianceObj(SuperClass):
 
     def appendtoScene(self, radfile=None, customObject=None, text=''):
         """
-        Appends to the `Scene radfile` in folder `\objects` the text command in Radiance
+        Appends to the `Scene radfile` in folder `/objects` the text command in Radiance
         lingo created by the user.
         Useful when using addCustomObject to the scene.
         
@@ -3706,7 +3706,7 @@ class SceneObj(SuperClass):
     
     def appendtoScene(self, customObject=None, radfile=None, text=''):
         """
-        Appends to the `Scene radfile` in folder `\objects` the text command in Radiance
+        Appends to the `Scene radfile` in folder `/objects` the text command in Radiance
         lingo created by the user.
         Useful when using addCustomObject to the scene.
 
