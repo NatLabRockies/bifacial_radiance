@@ -220,3 +220,5 @@ Spectral Analysis
 
    spectral_utils
    spectral_utils.generate_spectra
+   spectral_utils.generate_spectral_tmys
+   spectral_utils.integrated_spectrum
