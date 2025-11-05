@@ -15,13 +15,13 @@ jobs:
         # 2) 'pip install --upgrade --upgrade-strategy=eager .' to install upgraded
         #    dependencies from PyPi using version ranges defined within setup.py
         env: [
-          '-r requirements.txt .[all]',
-          '--upgrade --upgrade-strategy=eager .[all]'
+          '-r requirements.txt .[all]'
         ]
         include:
-          - python-version: "3.12"
+          - python-version: "3.13"
             env: '--upgrade --upgrade-strategy=eager .[all]'
-
+          - python-version: "3.14"
+            env: '--upgrade --upgrade-strategy=eager .[all]'
 
     steps:
     - uses: actions/checkout@v4
@@ -68,7 +68,8 @@ jobs:
       uses: coactions/setup-xvfb@6b00cf1889f4e1d5a48635647013c0508128ee1a  # GUI testing requires xvfb
       with:
         run: |
-          pytest --cov=bifacial_radiance
+          coverage run -m pytest
+          coverage report
       env:  # environment variables available to this step
         RAYPATH: .:/home/runner/work/bifacial_radiance/bifacial_radiance/radiance-5.3.012cb17835-Linux/usr/local/radiance/lib
         SMARTSPATH: /home/runner/work/bifacial_radiance/bifacial_radiance/SMARTS_295_Linux

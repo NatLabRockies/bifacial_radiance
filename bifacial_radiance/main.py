@@ -13,7 +13,7 @@ Pre-requisites:
     *RADIANCE software should be installed from https://github.com/NREL/Radiance/releases
 
     *If you want to use gencumulativesky, move 'gencumulativesky.exe' from
-    'bifacial_radiance\data' into your RADIANCE source directory.
+    'bifacial_radiance/data' into your RADIANCE source directory.
 
     *If using a Windows machine you should download the Jaloxa executables at
     http://www.jaloxa.eu/resources/radiance/radwinexe.shtml#Download
@@ -28,7 +28,7 @@ Overview:
     different PV system orientations for rear bifacial irradiance.
     Note that this is simply an optical model - identifying available rear irradiance under different conditions.
 
-    For a detailed demonstration example, look at the .ipnyb notebook in \docs\
+    For a detailed demonstration example, look at the .ipnyb notebook in /docs/
 
     There are two solar resource modes in bifacial_radiance: `gendaylit` uses hour-by-hour solar
     resource descriptions using the Perez diffuse tilted plane model.
@@ -578,7 +578,7 @@ class RadianceObj(SuperClass):
         Returns
         -------
         None. Just adds the material to the material_file specified or the 
-        default in ``materials\ground.rad``.
+        default in ``materials/ground.rad``.
 
         References:
             See examples of documentation for more materialtype details.
@@ -787,7 +787,7 @@ class RadianceObj(SuperClass):
     def getEPW(self, lat=None, lon=None, GetAll=False):
         """
         Subroutine to download nearest epw files to latitude and longitude provided,
-        into the directory \EPWs\
+        into the directory /EPWs/
         based on github/aahoo.
         
         .. warning::
@@ -1837,7 +1837,7 @@ class RadianceObj(SuperClass):
             gencumulativesky.exe is required to be installed,
             which is not a standard radiance distribution.
             You can find the program in the bifacial_radiance distribution directory
-            in \Lib\site-packages\bifacial_radiance\data
+            in /Lib/site-packages/bifacial_radiance/data
             
  
         Use :func:`readWeatherFile(filename, starttime='YYYY-mm-dd_HHMM', endtime='YYYY-mm-dd_HHMM')` 
@@ -2278,7 +2278,7 @@ class RadianceObj(SuperClass):
         from bifacial_radiance import ModuleObj
 
         if name is None:
-            print("usage:  makeModule(name,x,y,z, modulefile = '\objects\*.rad', "+
+            print("usage:  makeModule(name,x,y,z, modulefile = '/objects/*.rad', "+
                   " zgap = 0.1 (module offset)"+
                   "numpanels = 1 (# of panels in portrait), ygap = 0.05 "+
                   "(slope distance between panels when arrayed), "+
@@ -2514,7 +2514,7 @@ class RadianceObj(SuperClass):
 
     def appendtoScene(self, radfile=None, customObject=None, text=''):
         """
-        Appends to the `Scene radfile` in folder `\objects` the text command in Radiance
+        Appends to the `Scene radfile` in folder `/objects` the text command in Radiance
         lingo created by the user.
         Useful when using addCustomObject to the scene.
         
@@ -2822,17 +2822,20 @@ class RadianceObj(SuperClass):
 
         Returns
         -------
-        trackerdict is returned with :py:class:`bifacial_radiance.AnalysisObj`  
-            for each timestamp:
-    
-        trackerdict.key.'AnalysisObj'  : analysis object for this tracker theta
-            to get a dictionary of results, run :py:class:`bifacial_radiance.AnalysisObj`.results
-        :py:class:`bifacial_radiance.AnalysisObj`.results returns the following df:
-            'name', 'modNum', 'rowNum', 'sceneNum', 'x','y','z', 'mattype', 'rearMat', 
-            'Wm2Front'     : np.array of front Wm-2 irradiances, len=sensorsy_back
-            'Wm2Back'      : np.array of rear Wm-2 irradiances, len=sensorsy_back
-            'backRatio'    : np.array of rear irradiance ratios, len=sensorsy_back
-
+        trackerdict : dict
+            trackerdict.key. :py:class:`bifacial_radiance.AnalysisObj`  
+            for each timestamp or tracker theta.  
+        
+        Note
+        ----
+        :py:class:`bifacial_radiance.AnalysisObj`.results returns a DataFrame with 
+        the following columns:
+        
+        * 'name', 'modNum', 'rowNum', 'sceneNum', 'x','y','z', 'mattype', 'rearMat' 
+        * 'Wm2Front' : np.array of front Wm-2 irradiances, len=sensorsy_back
+        * 'Wm2Back' : np.array of rear Wm-2 irradiances, len=sensorsy_back  
+        * 'backRatio' : np.array of rear irradiance ratios, len=sensorsy_back
+            
         """
         
         import warnings, itertools
@@ -2952,13 +2955,11 @@ class RadianceObj(SuperClass):
         Returns
         -------
         trackerdict is returned with :py:class:`bifacial_radiance.AnalysisObj`  
-            for each timestamp:
+            for each timestamp.
     
-        trackerdict.key.'AnalysisObj'  : analysis object for this tracker theta
-            to get a dictionary of results, run :py:class:`bifacial_radiance.AnalysisObj`.results
-        :py:class:`bifacial_radiance.AnalysisObj`.results returns the following keys:
-            'Wm2Ground'     : np.array of Wm-2 irradiances along the ground, len=sensorsground
-            'sensorsground'      : int of number of ground scan points
+            * :py:class:`bifacial_radiance.AnalysisObj`.results returns the following keys:
+                * 'Wm2Ground'     : np.array of Wm-2 irradiances along the ground, len=sensorsground
+                * 'sensorsground'      : int of number of ground scan points
 
         """
         
@@ -3034,31 +3035,29 @@ class RadianceObj(SuperClass):
         considering electrical mismatch, using
         PVLib. Cell temperature is calculated 
 
-
         Parameters
         ----------
         module: ModuleObj from scene.module
             It's best to set this in advance in the ModuleObj. 
             If passed in here, it overrides the value that may be set in the
             trackerdict already.
-        CECMod2 : Dict
+        CECMod2 : dict, optional
             Dictionary with CEC Module Parameters for a Monofacial module. If None,
             same module as CECMod is used for the BGE calculations, but just 
             using the front irradiance (Gfront). 
             
         Returns
         -------
-        trackerdict 
+        trackerdict : dict
             Trackerdict with new entries for each key of irradiance and Power 
-            Output for the module.
-            POA_eff: mean of [(mean of clean Gfront) + clean Grear * bifaciality factor]
-            Gfront_mean: mean of clean Gfront
-            Grear_mean: mean of clean Grear
-            Mismatch: mismatch calculated from the MAD distribution of 
-                        POA_total
-            Pout_raw: power output calculated from POA_total, considers 
-                    wind speed and temp_amb if in trackerdict.
-            Pout: power output considering electrical mismatch
+            Output for the module. Each entry contains the keys:
+
+            * 'POA_eff': mean of [(mean of clean Gfront) + clean Grear * bifaciality factor]
+            * 'Gfront_mean': mean of clean Gfront
+            * 'Grear_mean': mean of clean Grear
+            * 'Mismatch': mismatch calculated from the MAD distribution of POA_total
+            * 'Pout_raw': power output calculated from POA_total, considers wind speed and temp_amb if in trackerdict.
+            * 'Pout': power output considering electrical mismatch losses.
 
         """
 
@@ -3707,7 +3706,7 @@ class SceneObj(SuperClass):
     
     def appendtoScene(self, customObject=None, radfile=None, text=''):
         """
-        Appends to the `Scene radfile` in folder `\objects` the text command in Radiance
+        Appends to the `Scene radfile` in folder `/objects` the text command in Radiance
         lingo created by the user.
         Useful when using addCustomObject to the scene.
 
@@ -5552,12 +5551,13 @@ class AnalysisObj(SuperClass):
         -------
         performance : dictionary with performance results for that simulation.
             Keys:
-            'POA_eff': mean of [(mean of clean Gfront) + clean Grear * bifaciality factor]
-            'Gfront_mean': mean of clean Gfront
-            'Grear_mean': mean of clean Grear
-            'Mismatch': mismatch calculated from the MAD distribution of POA_total
-            'Pout_raw': power output calculated from POA_total, considers wind speed and temp_amb if in trackerdict.
-            'Pout': power output considering electrical mismatch
+
+            * 'POA_eff': mean of [(mean of clean Gfront) + clean Grear * bifaciality factor]
+            * 'Gfront_mean': mean of clean Gfront
+            * 'Grear_mean': mean of clean Grear
+            * 'Mismatch': mismatch calculated from the MAD distribution of POA_total
+            * 'Pout_raw': power output calculated from POA_total, considers wind speed and temp_amb if in trackerdict.
+            * 'Pout': power output considering electrical mismatch
 
         """  
 

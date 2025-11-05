@@ -1,6 +1,6 @@
 .. _whatsnew_050:
 
-v0.5.0 (XX / XX / 2025)
+v0.5.0 (November 6, 2025)
 ------------------------
 Major release with new functionality. Specifically multiple SceneObjs can be defined using makeScene(append=True).
 Also, results are stored in a DataFrame as RadianceObj.results and AnalysisObj.results

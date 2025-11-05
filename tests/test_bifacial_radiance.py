@@ -162,7 +162,7 @@ def test_Radiance_1axis_gendaylit_modelchains():
     with pytest.warns(DeprecationWarning):
         assert demo2.trackerdict['2001-01-01_1100']['scene'][0].text.__len__() == 134
     assert demo2.trackerdict['2001-01-01_1100']['scenes'][0].text[23:28] == " 2.0 "
-    demo2.exportTrackerDict(savefile = 'results\exportedTrackerDict.csv', reindex=True)
+    demo2.exportTrackerDict(savefile = 'results/exportedTrackerDict.csv', reindex=True)
     # Run groundscan
     tracker_ground = demo2.analysis1axisground()
     results_ground = tracker_ground['2001-01-01_1100']['AnalysisObj'][2]
@@ -205,10 +205,10 @@ def test_RadianceObj_1axis_gendaylit_end_to_end():
     assert(demo.compiledResults.Grear_mean[0] == pytest.approx(43.0, 0.1) )
     assert demo.trackerdict['2001-01-01_1100']['scene'].text.__len__() == 132
     assert demo.trackerdict['2001-01-01_1100']['scene'].text[23:28] == " 2.0 "
-    demo.exportTrackerDict(savefile = 'results\exportedTrackerDict.csv', reindex=True)
+    demo.exportTrackerDict(savefile = 'results/exportedTrackerDict.csv', reindex=True)
     assert demo.trackerdict['2001-01-01_1100']['scene'].text.__len__() == 132
     assert demo.trackerdict['2001-01-01_1100']['scene'].text[23:28] == " 2.0 "
-    demo.exportTrackerDict(savefile = 'results\exportedTrackerDict.csv', reindex=True)
+    demo.exportTrackerDict(savefile = 'results/exportedTrackerDict.csv', reindex=True)
 """
 
 def test_1axis_gencumSky():
@@ -261,7 +261,7 @@ def test_1axis_gencumSky():
     assert trackerdict[-5.0]['scenes'][3].radfiles[0:7] == 'objects'
     assert trackerdict[-5.0]['scenes'][3].sceneDict['tilt'] == 5
     assert trackerdict[-5]['scenes'][3].sceneDict['originy'] == 1
-    #assert trackerdict[-5.0]['radfile'] == 'objects\\1axis-5.0_1.825_11.42_5.0_10x3_origin0,0.rad'
+    #assert trackerdict[-5.0]['radfile'] == 'objects/1axis-5.0_1.825_11.42_5.0_10x3_origin0,0.rad'
     minitrackerdict = {}
     minitrackerdict[list(trackerdict)[0]] = trackerdict[list(trackerdict.keys())[0]]
     minitrackerdict[list(trackerdict)[0]]['scenes'] = [trackerdict[list(trackerdict)[0]]['scenes'][3]]
@@ -275,7 +275,7 @@ def test_1axis_gencumSky():
     assert trackerdict[-5.0]['AnalysisObj'][1].x[0] == -5
     trackerdict = demo.analysis1axisground(sensorsground=10,modWanted=1, rowWanted=1)
     
-    demo.exportTrackerDict(trackerdict, savefile = 'results\exportedTrackerDict2.csv')
+    demo.exportTrackerDict(trackerdict, savefile = 'results/exportedTrackerDict2.csv')
     
     CECMod = pd.read_csv(os.path.join(TESTDIR, 'Canadian_Solar_Inc__CS5P_220M.csv'),
                          index_col=0).iloc[:,0]
@@ -716,11 +716,11 @@ def test_customObj():
     with open(trackerdict['2001-01-01_0800']['scenes'][0].radfiles, 'r') as f:
         f.readline()
         line = f.readline()  #Linux uses backslash, windows forward slash...
-        assert(line  == '!xform -rx 0  -t 1 1 0 objects/Marker.rad') or (line  == '!xform -rx 0  -t 1 1 0 objects\Marker.rad')
+        assert(line  == '!xform -rx 0  -t 1 1 0 objects/Marker.rad') or (line  == r'!xform -rx 0  -t 1 1 0 objects\Marker.rad')
     with open(trackerdict['2001-01-01_0900']['scenes'][1].radfiles, 'r') as f:
         f.readline()
         line = f.readline()
-        assert(line == '!xform -rx 0  -t 2 1 0 objects/Marker.rad') or (line == '!xform -rx 0  -t 2 1 0 objects\Marker.rad')
+        assert(line == '!xform -rx 0  -t 2 1 0 objects/Marker.rad') or (line == r'!xform -rx 0  -t 2 1 0 objects\Marker.rad')
         
     
 def test_raypath():
