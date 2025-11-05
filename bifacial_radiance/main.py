@@ -2822,17 +2822,20 @@ class RadianceObj(SuperClass):
 
         Returns
         -------
-        trackerdict is returned with :py:class:`bifacial_radiance.AnalysisObj`  
-            for each timestamp:
-    
-        trackerdict.key.'AnalysisObj'  : analysis object for this tracker theta
-            to get a dictionary of results, run :py:class:`bifacial_radiance.AnalysisObj`.results
-        :py:class:`bifacial_radiance.AnalysisObj`.results returns the following df:
-            'name', 'modNum', 'rowNum', 'sceneNum', 'x','y','z', 'mattype', 'rearMat', 
-            'Wm2Front'     : np.array of front Wm-2 irradiances, len=sensorsy_back
-            'Wm2Back'      : np.array of rear Wm-2 irradiances, len=sensorsy_back
-            'backRatio'    : np.array of rear irradiance ratios, len=sensorsy_back
-
+        trackerdict : dict
+            trackerdict.key. :py:class:`bifacial_radiance.AnalysisObj`  
+            for each timestamp or tracker theta.  
+        
+        Note
+        ----
+        :py:class:`bifacial_radiance.AnalysisObj`.results returns a DataFrame with 
+        the following columns:
+        
+        * 'name', 'modNum', 'rowNum', 'sceneNum', 'x','y','z', 'mattype', 'rearMat' 
+        * 'Wm2Front' : np.array of front Wm-2 irradiances, len=sensorsy_back
+        * 'Wm2Back' : np.array of rear Wm-2 irradiances, len=sensorsy_back  
+        * 'backRatio' : np.array of rear irradiance ratios, len=sensorsy_back
+            
         """
         
         import warnings, itertools
@@ -2952,13 +2955,11 @@ class RadianceObj(SuperClass):
         Returns
         -------
         trackerdict is returned with :py:class:`bifacial_radiance.AnalysisObj`  
-            for each timestamp:
+            for each timestamp.
     
-        trackerdict.key.'AnalysisObj'  : analysis object for this tracker theta
-            to get a dictionary of results, run :py:class:`bifacial_radiance.AnalysisObj`.results
-        :py:class:`bifacial_radiance.AnalysisObj`.results returns the following keys:
-            'Wm2Ground'     : np.array of Wm-2 irradiances along the ground, len=sensorsground
-            'sensorsground'      : int of number of ground scan points
+            * :py:class:`bifacial_radiance.AnalysisObj`.results returns the following keys:
+                * 'Wm2Ground'     : np.array of Wm-2 irradiances along the ground, len=sensorsground
+                * 'sensorsground'      : int of number of ground scan points
 
         """
         
@@ -3034,31 +3035,29 @@ class RadianceObj(SuperClass):
         considering electrical mismatch, using
         PVLib. Cell temperature is calculated 
 
-
         Parameters
         ----------
         module: ModuleObj from scene.module
             It's best to set this in advance in the ModuleObj. 
             If passed in here, it overrides the value that may be set in the
             trackerdict already.
-        CECMod2 : Dict
+        CECMod2 : dict, optional
             Dictionary with CEC Module Parameters for a Monofacial module. If None,
             same module as CECMod is used for the BGE calculations, but just 
             using the front irradiance (Gfront). 
             
         Returns
         -------
-        trackerdict 
+        trackerdict : dict
             Trackerdict with new entries for each key of irradiance and Power 
-            Output for the module.
-            POA_eff: mean of [(mean of clean Gfront) + clean Grear * bifaciality factor]
-            Gfront_mean: mean of clean Gfront
-            Grear_mean: mean of clean Grear
-            Mismatch: mismatch calculated from the MAD distribution of 
-                        POA_total
-            Pout_raw: power output calculated from POA_total, considers 
-                    wind speed and temp_amb if in trackerdict.
-            Pout: power output considering electrical mismatch
+            Output for the module. Each entry contains the keys:
+
+            * 'POA_eff': mean of [(mean of clean Gfront) + clean Grear * bifaciality factor]
+            * 'Gfront_mean': mean of clean Gfront
+            * 'Grear_mean': mean of clean Grear
+            * 'Mismatch': mismatch calculated from the MAD distribution of POA_total
+            * 'Pout_raw': power output calculated from POA_total, considers wind speed and temp_amb if in trackerdict.
+            * 'Pout': power output considering electrical mismatch losses.
 
         """
 
@@ -5552,12 +5551,13 @@ class AnalysisObj(SuperClass):
         -------
         performance : dictionary with performance results for that simulation.
             Keys:
-            'POA_eff': mean of [(mean of clean Gfront) + clean Grear * bifaciality factor]
-            'Gfront_mean': mean of clean Gfront
-            'Grear_mean': mean of clean Grear
-            'Mismatch': mismatch calculated from the MAD distribution of POA_total
-            'Pout_raw': power output calculated from POA_total, considers wind speed and temp_amb if in trackerdict.
-            'Pout': power output considering electrical mismatch
+
+            * 'POA_eff': mean of [(mean of clean Gfront) + clean Grear * bifaciality factor]
+            * 'Gfront_mean': mean of clean Gfront
+            * 'Grear_mean': mean of clean Grear
+            * 'Mismatch': mismatch calculated from the MAD distribution of POA_total
+            * 'Pout_raw': power output calculated from POA_total, considers wind speed and temp_amb if in trackerdict.
+            * 'Pout': power output considering electrical mismatch
 
         """  
 

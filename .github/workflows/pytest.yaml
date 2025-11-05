@@ -19,7 +19,7 @@ jobs:
           '--upgrade --upgrade-strategy=eager .[all]'
         ]
         include:
-          - python-version: "3.12"
+          - python-version: "3.13"
             env: '--upgrade --upgrade-strategy=eager .[all]'
 
 

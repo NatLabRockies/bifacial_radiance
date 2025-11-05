@@ -495,7 +495,7 @@ def integrated_spectrum(spectra_folder, metdata ):
         
 
     Returns:
-    -------
+    --------
     integrated_sums: (list)
         list of integrated sums for DNI, DHI, DNI*ALB, DHI*ALB
     """
