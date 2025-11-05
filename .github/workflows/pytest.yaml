@@ -15,8 +15,7 @@ jobs:
         # 2) 'pip install --upgrade --upgrade-strategy=eager .' to install upgraded
         #    dependencies from PyPi using version ranges defined within setup.py
         env: [
-          '-r requirements.txt .[all]',
-          '--upgrade --upgrade-strategy=eager .[all]'
+          '-r requirements.txt .[all]'
         ]
         include:
           - python-version: "3.13"
