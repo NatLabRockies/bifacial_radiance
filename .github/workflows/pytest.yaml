@@ -69,7 +69,6 @@ jobs:
       uses: coactions/setup-xvfb@6b00cf1889f4e1d5a48635647013c0508128ee1a  # GUI testing requires xvfb
       with:
         run: |
-          #pytest --cov=bifacial_radiance
           coverage run -m pytest
           coverage report
       env:  # environment variables available to this step
