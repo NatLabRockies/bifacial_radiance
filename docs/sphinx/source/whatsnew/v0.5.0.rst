@@ -25,6 +25,7 @@ API Changes
 * trackerdict stores list of :py:class:`~bifacial_radiance.AnalysisObj` objects in trackerdict['key']['AnalysisObj']. (:pull:`487`)
 * :py:func:`~bifacial_radiance.modelchain.runModelChain` returns only `RadianceObj` value, not `AnalysisObj` as well. (:pull:`487`)
 * :py:class:`~bifacial_radiance.AnalysisObj.moduleAnalysis` has new input parameters `frontsurfaceoffset` and `backsurfaceoffset`, to adjust the scan distance from the module surface front or rear. default 0.005 (:pull:`567`)
+* Added :py:class:`~bifacial_radiance.spectral_utils.integrated_spectrum` to generate integrated sums across the full spectra. (:pull:`576`)
 
 Enhancements
 ~~~~~~~~~~~~
