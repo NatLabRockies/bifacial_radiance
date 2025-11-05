@@ -1,7 +1,7 @@
 # Welcome to the interactive bifacial_radiance Training
 
 Here is a collection of Jupyter Notebooks ready to run in your browser 
-through Google Collab and expore the capabilities of bifacial_radiance.
+through Google Collab and explore the capabilities of bifacial_radiance.
 
 Clicking on the rocket-icon on the top allows you to launch the notebooks on 
 [Google Colaboratory](https://colab.research.google.com/) for interactive mode.
