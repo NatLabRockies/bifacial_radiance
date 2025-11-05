@@ -1,11 +1,11 @@
 # Welcome to the interactive bifacial_radiance Training
 
-Here is a collection of Jupyter Journals ready to run in your browser 
+Here is a collection of Jupyter Notebooks ready to run in your browser 
 through Google Collab and expore the capabilities of bifacial_radiance.
 
-Clicking on the rocket-icon on the top allows you to launch the journals on 
+Clicking on the rocket-icon on the top allows you to launch the notebooks on 
 [Google Colaboratory](https://colab.research.google.com/) for interactive mode.
-As per the instructions on each journal, you should uncomment the first line 
+As per the instructions on each notebook, you should uncomment the first line 
 that reads `pip install ...`  to install the environment if you follow this mode.
 
 You can also clone the repository and run them locally, following the 
