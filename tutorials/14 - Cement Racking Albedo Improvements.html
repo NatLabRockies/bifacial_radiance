@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>14 - Cement Racking Albedo Improvements &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>14 - Cement Racking Albedo Improvements &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,34 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -50,6 +54,7 @@
     <link rel="prev" title="11 - AgriPV Systems" href="11%20-%20AgriPV%20Systems.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -65,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -85,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,8 +120,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -188,29 +181,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -259,15 +244,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -286,7 +267,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -347,15 +329,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,7 +399,7 @@ document.write(`
 </ul>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="6%20-%20Exploring%20Trackerdict%20Structure.html">6 - Exploring Trackerdict Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="9%20-%20Torquetube%20Shading.html">9 - Torquetube Shading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11%20-%20AgriPV%20Systems.html">11 - AgriPV Systems</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">14 - Cement Racking Albedo Improvements</a></li>
@@ -452,9 +430,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -472,8 +455,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -485,7 +466,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">14 - Cement...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">14 - Cement Racking Albedo Improvements</span></li>
   </ul>
 </nav>
 </div>
@@ -502,262 +483,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
-<div class="nbinput nblast docutils container">
+  <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span> <span class="k">as</span> <span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">br</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -766,7 +499,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <section id="14---Cement-Racking-Albedo-Improvements">
-<h1>14 - Cement Racking Albedo Improvements<a class="headerlink" href="#14---Cement-Racking-Albedo-Improvements" title="Permalink to this heading">#</a></h1>
+<h1>14 - Cement Racking Albedo Improvements<a class="headerlink" href="#14---Cement-Racking-Albedo-Improvements" title="Link to this heading">#</a></h1>
 <p>This journal creates a paver underneath the single-axis trackers, and evaluates the improvement for one day – June 17th with and without the pavers for a location in Davis, CA.</p>
 <img alt="Paver" src="../_images/Pavers.PNG" />
 <p>Measurements: <img alt="Paver" src="../_images/Pavers_Geometry.PNG" /></p>
@@ -774,9 +507,9 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">testfolder</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;bifacial_radiance&#39;</span> <span class="o">/</span> <span class="s1">&#39;TEMP&#39;</span> <span class="o">/</span> <span class="s1">&#39;Tutorial_14&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">testfolder</span><span class="p">):</span>
@@ -798,8 +531,8 @@ Your simulation will be stored in C:\Users\mprillim\sam_dev\bifacial_radiance\bi
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bifacial_radiance</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </pre></div>
 </div>
 </div>
@@ -904,13 +637,11 @@ Pre-existing .rad file objects\test-module.rad will be overwritten
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Material exists, overwriting...
-
 Added material sw_chantillywhite to file ground.rad
 </pre></div></div>
 </div>
 <section id="Simulation-without-Pavers">
-<h2>Simulation without Pavers<a class="headerlink" href="#Simulation-without-Pavers" title="Permalink to this heading">#</a></h2>
+<h2>Simulation without Pavers<a class="headerlink" href="#Simulation-without-Pavers" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -918,7 +649,7 @@ Added material sw_chantillywhite to file ground.rad
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">timeindex</span> <span class="o">=</span> <span class="n">metdata</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;2021-06-17 12:0:0 -8&#39;</span><span class="p">))</span>  <span class="c1"># Davis, CA is TZ -8</span>
 <span class="n">demo</span><span class="o">.</span><span class="n">gendaylit</span><span class="p">(</span><span class="n">timeindex</span><span class="p">)</span>
 
-<span class="n">tilt</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getSingleTimestampTrackerAngle</span><span class="p">(</span><span class="n">metdata</span><span class="p">,</span> <span class="n">timeindex</span><span class="o">=</span><span class="n">timeindex</span><span class="p">,</span> <span class="n">gcr</span><span class="o">=</span><span class="n">gcr</span><span class="p">,</span>
+<span class="n">tilt</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getSingleTimestampTrackerAngle</span><span class="p">(</span><span class="n">timeindex</span><span class="o">=</span><span class="n">timeindex</span><span class="p">,</span> <span class="n">gcr</span><span class="o">=</span><span class="n">gcr</span><span class="p">,</span>
                                    <span class="n">azimuth</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">axis_tilt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                                    <span class="n">limit_angle</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">backtrack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1"># create a scene with all the variables</span>
@@ -952,17 +683,17 @@ Created tutorial_14.oct
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Linescan in process: tutorial_14_noPavers_Front
-Linescan in process: tutorial_14_noPavers_Back
-Saved: results\irr_tutorial_14_noPavers.csv
+Linescan in process: tutorial_14_noPavers_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_Row2_Module10.csv
 Simulation without Pavers Finished
 </pre></div></div>
 </div>
 </section>
 <section id="Looping-on-the-day">
-<h2>Looping on the day<a class="headerlink" href="#Looping-on-the-day" title="Permalink to this heading">#</a></h2>
+<h2>Looping on the day<a class="headerlink" href="#Looping-on-the-day" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">j</span><span class="o">=</span><span class="mi">0</span>
@@ -971,12 +702,12 @@ Simulation without Pavers Finished
 <span class="k">for</span> <span class="n">timess</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">starttimeindex</span><span class="p">,</span> <span class="n">endtimeindex</span><span class="p">):</span>
     <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
     <span class="n">demo</span><span class="o">.</span><span class="n">gendaylit</span><span class="p">(</span><span class="n">timess</span><span class="p">)</span>
-    <span class="n">tilt</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getSingleTimestampTrackerAngle</span><span class="p">(</span><span class="n">metdata</span><span class="p">,</span> <span class="n">timeindex</span><span class="o">=</span><span class="n">timess</span><span class="p">,</span> <span class="n">gcr</span><span class="o">=</span><span class="n">gcr</span><span class="p">,</span>
+    <span class="n">tilt</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getSingleTimestampTrackerAngle</span><span class="p">(</span><span class="n">metdata</span><span class="o">=</span><span class="n">metdata</span><span class="p">,</span> <span class="n">timeindex</span><span class="o">=</span><span class="n">timess</span><span class="p">,</span> <span class="n">gcr</span><span class="o">=</span><span class="n">gcr</span><span class="p">,</span>
                                        <span class="n">azimuth</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">axis_tilt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                                        <span class="n">limit_angle</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">backtrack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># create a scene with all the variables</span>
     <span class="n">sceneDict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tilt&#39;</span><span class="p">:</span><span class="n">tilt</span><span class="p">,</span><span class="s1">&#39;gcr&#39;</span><span class="p">:</span> <span class="n">gcr</span><span class="p">,</span><span class="s1">&#39;hub_height&#39;</span><span class="p">:</span><span class="n">hub_height</span><span class="p">,</span><span class="s1">&#39;azimuth&#39;</span><span class="p">:</span><span class="n">azimuth_ang</span><span class="p">,</span> <span class="s1">&#39;module_type&#39;</span><span class="p">:</span><span class="n">moduletype</span><span class="p">,</span> <span class="s1">&#39;nMods&#39;</span><span class="p">:</span> <span class="n">nMods</span><span class="p">,</span> <span class="s1">&#39;nRows&#39;</span><span class="p">:</span> <span class="n">nRows</span><span class="p">}</span>
-    <span class="n">scene</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeScene</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="n">mymodule</span><span class="p">,</span> <span class="n">sceneDict</span><span class="o">=</span><span class="n">sceneDict</span><span class="p">)</span> <span class="c1">#makeScene creates a .rad file with 20 modules per row, 7 rows.</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeScene</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="n">mymodule</span><span class="p">,</span> <span class="n">sceneDict</span><span class="o">=</span><span class="n">sceneDict</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1">#makeScene creates a .rad file with 20 modules per row, 7 rows.</span>
     <span class="n">octfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">getfilelist</span><span class="p">())</span>  <span class="c1"># makeOct combines all of the ground, sky and object fil|es into a .oct file</span>
     <span class="n">frontscan</span><span class="p">,</span> <span class="n">backscan</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">moduleAnalysis</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">sensorsy</span><span class="o">=</span><span class="n">sensorsy</span><span class="p">)</span>
     <span class="n">analysis</span><span class="o">.</span><span class="n">analysis</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">simulationname</span><span class="o">+</span><span class="s2">&quot;_noPavers_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="n">frontscan</span><span class="p">,</span> <span class="n">backscan</span><span class="p">)</span>  <span class="c1"># compare the back vs front irradiance</span>
@@ -988,65 +719,77 @@ Simulation without Pavers Finished
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_1_Front
-Linescan in process: tutorial_14_noPavers_1_Back
-Saved: results\irr_tutorial_14_noPavers_1.csv
+Linescan in process: tutorial_14_noPavers_1_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_1_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_1_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_2_Front
-Linescan in process: tutorial_14_noPavers_2_Back
-Saved: results\irr_tutorial_14_noPavers_2.csv
+Linescan in process: tutorial_14_noPavers_2_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_2_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_2_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_3_Front
-Linescan in process: tutorial_14_noPavers_3_Back
-Saved: results\irr_tutorial_14_noPavers_3.csv
+Linescan in process: tutorial_14_noPavers_3_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_3_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_3_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_4_Front
-Linescan in process: tutorial_14_noPavers_4_Back
-Saved: results\irr_tutorial_14_noPavers_4.csv
+Linescan in process: tutorial_14_noPavers_4_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_4_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_4_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_5_Front
-Linescan in process: tutorial_14_noPavers_5_Back
-Saved: results\irr_tutorial_14_noPavers_5.csv
+Linescan in process: tutorial_14_noPavers_5_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_5_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_5_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_6_Front
-Linescan in process: tutorial_14_noPavers_6_Back
-Saved: results\irr_tutorial_14_noPavers_6.csv
+Linescan in process: tutorial_14_noPavers_6_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_6_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_6_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_7_Front
-Linescan in process: tutorial_14_noPavers_7_Back
-Saved: results\irr_tutorial_14_noPavers_7.csv
+Linescan in process: tutorial_14_noPavers_7_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_7_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_7_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_8_Front
-Linescan in process: tutorial_14_noPavers_8_Back
-Saved: results\irr_tutorial_14_noPavers_8.csv
+Linescan in process: tutorial_14_noPavers_8_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_8_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_8_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_9_Front
-Linescan in process: tutorial_14_noPavers_9_Back
-Saved: results\irr_tutorial_14_noPavers_9.csv
+Linescan in process: tutorial_14_noPavers_9_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_9_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_9_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_10_Front
-Linescan in process: tutorial_14_noPavers_10_Back
-Saved: results\irr_tutorial_14_noPavers_10.csv
+Linescan in process: tutorial_14_noPavers_10_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_10_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_10_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_11_Front
-Linescan in process: tutorial_14_noPavers_11_Back
-Saved: results\irr_tutorial_14_noPavers_11.csv
+Linescan in process: tutorial_14_noPavers_11_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_11_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_11_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_noPavers_12_Front
-Linescan in process: tutorial_14_noPavers_12_Back
-Saved: results\irr_tutorial_14_noPavers_12.csv
+Linescan in process: tutorial_14_noPavers_12_Row2_Module10_Front
+Linescan in process: tutorial_14_noPavers_12_Row2_Module10_Back
+Saved: results\irr_tutorial_14_noPavers_12_Row2_Module10.csv
 </pre></div></div>
 </div>
 </section>
 <section id="Simulation-With-Pavers">
-<h2>Simulation With Pavers<a class="headerlink" href="#Simulation-With-Pavers" title="Permalink to this heading">#</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<h2>Simulation With Pavers<a class="headerlink" href="#Simulation-With-Pavers" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">gendaylit</span><span class="p">(</span><span class="n">timeindex</span><span class="p">)</span>
-<span class="n">tilt</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getSingleTimestampTrackerAngle</span><span class="p">(</span><span class="n">metdata</span><span class="p">,</span> <span class="n">timeindex</span><span class="o">=</span><span class="n">timeindex</span><span class="p">,</span> <span class="n">gcr</span><span class="o">=</span><span class="n">gcr</span><span class="p">,</span>
+<span class="n">tilt</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getSingleTimestampTrackerAngle</span><span class="p">(</span><span class="n">metdata</span><span class="o">=</span><span class="n">metdata</span><span class="p">,</span> <span class="n">timeindex</span><span class="o">=</span><span class="n">timeindex</span><span class="p">,</span> <span class="n">gcr</span><span class="o">=</span><span class="n">gcr</span><span class="p">,</span>
                                    <span class="n">azimuth</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">axis_tilt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                                    <span class="n">limit_angle</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">backtrack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1"># create a scene with all the variables</span>
@@ -1055,8 +798,16 @@ Saved: results\irr_tutorial_14_noPavers_12.csv
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Append=False in makeScene. Existing scenes being over-written.
+</pre></div></div>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">torquetubelength</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">scenex</span><span class="o">*</span><span class="p">(</span><span class="n">nMods</span><span class="p">)</span>
@@ -1087,7 +838,7 @@ Saved: results\irr_tutorial_14_noPavers_12.csv
 
     <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
     <span class="n">customObjects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">customObject</span><span class="p">)</span>
-    <span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">radfile</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;!xform -rz 0&quot;</span><span class="p">)</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1105,7 +856,7 @@ Custom Object Name objects\PAVER2.rad
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">makeOct</span><span class="p">()</span>
@@ -1121,7 +872,7 @@ Created tutorial_14.oct
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1132,7 +883,7 @@ Created tutorial_14.oct
 <p>You can view the geometry generated in the terminal with:</p>
 <p><strong>rvu -vf views:nbsphinx-math:`front`.vp -e .01 -pe 0.01 -vp -5 -14 1 -vd 0 0.9946 -0.1040 tutorial_14.oct</strong></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1">## Comment the ! line below to run rvu from the Jupyter notebook instead of your terminal.</span>
@@ -1143,7 +894,7 @@ Created tutorial_14.oct
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span> <span class="o">=</span> <span class="n">AnalysisObj</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">demo</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># return an analysis object including the scan dimensions for back irradiance</span>
@@ -1158,33 +909,33 @@ Created tutorial_14.oct
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Linescan in process: tutorial_14_WITHPavers_Front
-Linescan in process: tutorial_14_WITHPavers_Back
-Saved: results\irr_tutorial_14_WITHPavers.csv
+Linescan in process: tutorial_14_WITHPavers_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_Row2_Module10.csv
 Simulation WITH Pavers Finished
 </pre></div></div>
 </div>
 </section>
 <section id="LOOP-WITH-PAVERS">
-<h2>LOOP WITH PAVERS<a class="headerlink" href="#LOOP-WITH-PAVERS" title="Permalink to this heading">#</a></h2>
+<h2>LOOP WITH PAVERS<a class="headerlink" href="#LOOP-WITH-PAVERS" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">j</span><span class="o">=</span><span class="mi">0</span>
 <span class="k">for</span> <span class="n">timess</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">starttimeindex</span><span class="p">,</span> <span class="n">endtimeindex</span><span class="p">):</span>
     <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
     <span class="n">demo</span><span class="o">.</span><span class="n">gendaylit</span><span class="p">(</span><span class="n">timess</span><span class="p">)</span>
-    <span class="n">tilt</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getSingleTimestampTrackerAngle</span><span class="p">(</span><span class="n">metdata</span><span class="p">,</span> <span class="n">timeindex</span><span class="o">=</span><span class="n">timess</span><span class="p">,</span> <span class="n">gcr</span><span class="o">=</span><span class="n">gcr</span><span class="p">,</span>
+    <span class="n">tilt</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getSingleTimestampTrackerAngle</span><span class="p">(</span><span class="n">metdata</span><span class="o">=</span><span class="n">metdata</span><span class="p">,</span> <span class="n">timeindex</span><span class="o">=</span><span class="n">timess</span><span class="p">,</span> <span class="n">gcr</span><span class="o">=</span><span class="n">gcr</span><span class="p">,</span>
                                        <span class="n">azimuth</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">axis_tilt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                                        <span class="n">limit_angle</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">backtrack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># create a scene with all the variables</span>
     <span class="n">sceneDict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tilt&#39;</span><span class="p">:</span><span class="n">tilt</span><span class="p">,</span><span class="s1">&#39;gcr&#39;</span><span class="p">:</span> <span class="n">gcr</span><span class="p">,</span><span class="s1">&#39;hub_height&#39;</span><span class="p">:</span><span class="n">hub_height</span><span class="p">,</span><span class="s1">&#39;azimuth&#39;</span><span class="p">:</span><span class="n">azimuth_ang</span><span class="p">,</span> <span class="s1">&#39;module_type&#39;</span><span class="p">:</span><span class="n">moduletype</span><span class="p">,</span> <span class="s1">&#39;nMods&#39;</span><span class="p">:</span> <span class="n">nMods</span><span class="p">,</span> <span class="s1">&#39;nRows&#39;</span><span class="p">:</span> <span class="n">nRows</span><span class="p">}</span>
     <span class="n">scene</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeScene</span><span class="p">(</span><span class="n">mymodule</span><span class="p">,</span> <span class="n">sceneDict</span><span class="o">=</span><span class="n">sceneDict</span><span class="p">)</span> <span class="c1">#makeScene creates a .rad file with 20 modules per row, 7 rows.</span>
     <span class="c1"># Appending Pavers here</span>
-    <span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">radfile</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="o">=</span><span class="n">customObjects</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;!xform -rz 0&quot;</span><span class="p">)</span>
-    <span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">radfile</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="o">=</span><span class="n">customObjects</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;!xform -rz 0&quot;</span><span class="p">)</span>
-    <span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">radfile</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="o">=</span><span class="n">customObjects</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;!xform -rz 0&quot;</span><span class="p">)</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObjects</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObjects</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObjects</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
     <span class="n">octfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">getfilelist</span><span class="p">())</span>  <span class="c1"># makeOct combines all of the ground, sky and object fil|es into a .oct file</span>
     <span class="n">frontscan</span><span class="p">,</span> <span class="n">backscan</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">moduleAnalysis</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">sensorsy</span><span class="o">=</span><span class="n">sensorsy</span><span class="p">)</span>
     <span class="n">analysis</span><span class="o">.</span><span class="n">analysis</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">simulationname</span><span class="o">+</span><span class="s2">&quot;_WITHPavers_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="n">frontscan</span><span class="p">,</span> <span class="n">backscan</span><span class="p">)</span>  <span class="c1"># compare the back vs front irradiance</span>
@@ -1196,71 +947,83 @@ Simulation WITH Pavers Finished
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_1_Front
-Linescan in process: tutorial_14_WITHPavers_1_Back
-Saved: results\irr_tutorial_14_WITHPavers_1.csv
+Linescan in process: tutorial_14_WITHPavers_1_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_1_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_1_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_2_Front
-Linescan in process: tutorial_14_WITHPavers_2_Back
-Saved: results\irr_tutorial_14_WITHPavers_2.csv
+Linescan in process: tutorial_14_WITHPavers_2_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_2_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_2_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_3_Front
-Linescan in process: tutorial_14_WITHPavers_3_Back
-Saved: results\irr_tutorial_14_WITHPavers_3.csv
+Linescan in process: tutorial_14_WITHPavers_3_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_3_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_3_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_4_Front
-Linescan in process: tutorial_14_WITHPavers_4_Back
-Saved: results\irr_tutorial_14_WITHPavers_4.csv
+Linescan in process: tutorial_14_WITHPavers_4_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_4_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_4_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_5_Front
-Linescan in process: tutorial_14_WITHPavers_5_Back
-Saved: results\irr_tutorial_14_WITHPavers_5.csv
+Linescan in process: tutorial_14_WITHPavers_5_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_5_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_5_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_6_Front
-Linescan in process: tutorial_14_WITHPavers_6_Back
-Saved: results\irr_tutorial_14_WITHPavers_6.csv
+Linescan in process: tutorial_14_WITHPavers_6_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_6_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_6_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_7_Front
-Linescan in process: tutorial_14_WITHPavers_7_Back
-Saved: results\irr_tutorial_14_WITHPavers_7.csv
+Linescan in process: tutorial_14_WITHPavers_7_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_7_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_7_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_8_Front
-Linescan in process: tutorial_14_WITHPavers_8_Back
-Saved: results\irr_tutorial_14_WITHPavers_8.csv
+Linescan in process: tutorial_14_WITHPavers_8_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_8_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_8_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_9_Front
-Linescan in process: tutorial_14_WITHPavers_9_Back
-Saved: results\irr_tutorial_14_WITHPavers_9.csv
+Linescan in process: tutorial_14_WITHPavers_9_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_9_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_9_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_10_Front
-Linescan in process: tutorial_14_WITHPavers_10_Back
-Saved: results\irr_tutorial_14_WITHPavers_10.csv
+Linescan in process: tutorial_14_WITHPavers_10_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_10_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_10_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_11_Front
-Linescan in process: tutorial_14_WITHPavers_11_Back
-Saved: results\irr_tutorial_14_WITHPavers_11.csv
+Linescan in process: tutorial_14_WITHPavers_11_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_11_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_11_Row2_Module10.csv
+Append=False in makeScene. Existing scenes being over-written.
 Created tutorial_14.oct
-Linescan in process: tutorial_14_WITHPavers_12_Front
-Linescan in process: tutorial_14_WITHPavers_12_Back
-Saved: results\irr_tutorial_14_WITHPavers_12.csv
+Linescan in process: tutorial_14_WITHPavers_12_Row2_Module10_Front
+Linescan in process: tutorial_14_WITHPavers_12_Row2_Module10_Back
+Saved: results\irr_tutorial_14_WITHPavers_12_Row2_Module10.csv
 </pre></div></div>
 </div>
 </section>
 </section>
 <section id="RESULTS-ANALYSIS-NOON">
-<h1>RESULTS ANALYSIS NOON<a class="headerlink" href="#RESULTS-ANALYSIS-NOON" title="Permalink to this heading">#</a></h1>
+<h1>RESULTS ANALYSIS NOON<a class="headerlink" href="#RESULTS-ANALYSIS-NOON" title="Link to this heading">#</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_0</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_noPavers.csv&#39;</span><span class="p">))</span>
-<span class="n">df_w</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_WITHPavers.csv&#39;</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_0</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_noPavers_Row2_Module10.csv&#39;</span><span class="p">))</span>
+<span class="n">df_w</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_WITHPavers_Row2_Module10.csv&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_0</span>
@@ -1268,7 +1031,7 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1299,135 +1062,157 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
       <th>Wm2Front</th>
       <th>Wm2Back</th>
       <th>Back/FrontRatio</th>
+      <th>rearX</th>
+      <th>rearY</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.772445</td>
-      <td>4.729862e-17</td>
-      <td>1.137844</td>
-      <td>1.116107</td>
+      <td>0.773</td>
+      <td>0.0</td>
+      <td>1.142</td>
+      <td>1.112</td>
       <td>a9.1.a2.0.0.cellPVmodule.6457</td>
       <td>a9.1.a2.0.0.cellPVmodule.2310</td>
-      <td>946.8981</td>
-      <td>117.24230</td>
-      <td>0.123817</td>
+      <td>945.273</td>
+      <td>116.710</td>
+      <td>0.123</td>
+      <td>0.769</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.601509</td>
-      <td>3.683183e-17</td>
-      <td>1.164490</td>
-      <td>1.142752</td>
+      <td>0.602</td>
+      <td>0.0</td>
+      <td>1.168</td>
+      <td>1.139</td>
       <td>a9.1.a2.1.0.cellPVmodule.6457</td>
       <td>a9.1.a2.1.0.cellPVmodule.2310</td>
-      <td>946.8854</td>
-      <td>109.52570</td>
-      <td>0.115669</td>
+      <td>945.272</td>
+      <td>109.025</td>
+      <td>0.115</td>
+      <td>0.598</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.430574</td>
-      <td>2.636503e-17</td>
-      <td>1.191136</td>
-      <td>1.169398</td>
+      <td>0.431</td>
+      <td>0.0</td>
+      <td>1.195</td>
+      <td>1.166</td>
       <td>a9.1.a2.2.0.cellPVmodule.6457</td>
       <td>a9.1.a2.2.0.cellPVmodule.2310</td>
-      <td>946.8724</td>
-      <td>103.41390</td>
-      <td>0.109216</td>
+      <td>945.271</td>
+      <td>102.838</td>
+      <td>0.109</td>
+      <td>0.427</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.259638</td>
-      <td>1.589824e-17</td>
-      <td>1.217781</td>
-      <td>1.196044</td>
+      <td>0.260</td>
+      <td>0.0</td>
+      <td>1.222</td>
+      <td>1.192</td>
       <td>a9.1.a2.3.0.cellPVmodule.6457</td>
       <td>a9.1.a2.3.0.cellPVmodule.2310</td>
-      <td>946.8594</td>
-      <td>96.69959</td>
-      <td>0.102127</td>
+      <td>945.270</td>
+      <td>99.071</td>
+      <td>0.105</td>
+      <td>0.256</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.088702</td>
-      <td>5.431448e-18</td>
-      <td>1.244427</td>
-      <td>1.222689</td>
+      <td>0.089</td>
+      <td>0.0</td>
+      <td>1.248</td>
+      <td>1.219</td>
       <td>a9.1.a2.4.0.cellPVmodule.6457</td>
       <td>a9.1.a2.4.0.cellPVmodule.2310</td>
-      <td>946.8464</td>
-      <td>95.68785</td>
-      <td>0.101059</td>
+      <td>945.270</td>
+      <td>97.204</td>
+      <td>0.103</td>
+      <td>0.085</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>-0.082233</td>
-      <td>-5.035345e-18</td>
-      <td>1.271072</td>
-      <td>1.249335</td>
+      <td>-0.082</td>
+      <td>0.0</td>
+      <td>1.274</td>
+      <td>1.245</td>
       <td>a9.1.a2.5.0.cellPVmodule.6457</td>
       <td>a9.1.a2.5.0.cellPVmodule.2310</td>
-      <td>946.8334</td>
-      <td>95.34497</td>
-      <td>0.100699</td>
+      <td>945.269</td>
+      <td>95.482</td>
+      <td>0.101</td>
+      <td>-0.086</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>-0.253169</td>
-      <td>-1.550214e-17</td>
-      <td>1.297718</td>
-      <td>1.275980</td>
+      <td>-0.252</td>
+      <td>0.0</td>
+      <td>1.302</td>
+      <td>1.272</td>
       <td>a9.1.a2.6.0.cellPVmodule.6457</td>
       <td>a9.1.a2.6.0.cellPVmodule.2310</td>
-      <td>947.6977</td>
-      <td>97.69968</td>
-      <td>0.103091</td>
+      <td>945.268</td>
+      <td>97.006</td>
+      <td>0.103</td>
+      <td>-0.257</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>-0.424105</td>
-      <td>-2.596893e-17</td>
-      <td>1.324363</td>
-      <td>1.302626</td>
+      <td>-0.423</td>
+      <td>0.0</td>
+      <td>1.328</td>
+      <td>1.299</td>
       <td>a9.1.a2.7.0.cellPVmodule.6457</td>
       <td>a9.1.a2.7.0.cellPVmodule.2310</td>
-      <td>947.7081</td>
-      <td>99.91356</td>
-      <td>0.105426</td>
+      <td>945.268</td>
+      <td>102.909</td>
+      <td>0.109</td>
+      <td>-0.428</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>-0.595040</td>
-      <td>-3.643572e-17</td>
-      <td>1.351009</td>
-      <td>1.329271</td>
+      <td>-0.594</td>
+      <td>0.0</td>
+      <td>1.355</td>
+      <td>1.325</td>
       <td>a9.1.a2.8.0.cellPVmodule.6457</td>
       <td>a9.1.a2.8.0.cellPVmodule.2310</td>
-      <td>947.7183</td>
-      <td>105.03310</td>
-      <td>0.110827</td>
+      <td>945.568</td>
+      <td>106.900</td>
+      <td>0.113</td>
+      <td>-0.599</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>-0.765976</td>
-      <td>-4.690252e-17</td>
-      <td>1.377654</td>
-      <td>1.355917</td>
+      <td>-0.765</td>
+      <td>0.0</td>
+      <td>1.381</td>
+      <td>1.352</td>
       <td>a9.1.a2.9.0.cellPVmodule.6457</td>
       <td>a9.1.a2.9.0.cellPVmodule.2310</td>
-      <td>947.7285</td>
-      <td>110.56770</td>
-      <td>0.116666</td>
+      <td>945.571</td>
+      <td>112.271</td>
+      <td>0.119</td>
+      <td>-0.769</td>
+      <td>0.0</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_w</span>
@@ -1435,7 +1220,7 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1466,137 +1251,159 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
       <th>Wm2Front</th>
       <th>Wm2Back</th>
       <th>Back/FrontRatio</th>
+      <th>rearX</th>
+      <th>rearY</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.772445</td>
-      <td>4.729862e-17</td>
-      <td>1.137844</td>
-      <td>1.116107</td>
+      <td>0.773</td>
+      <td>0.0</td>
+      <td>1.142</td>
+      <td>1.112</td>
       <td>a9.1.a2.0.0.cellPVmodule.6457</td>
       <td>a9.1.a2.0.0.cellPVmodule.2310</td>
-      <td>947.1658</td>
-      <td>125.5783</td>
-      <td>0.132583</td>
+      <td>944.889</td>
+      <td>125.396</td>
+      <td>0.133</td>
+      <td>0.769</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.601509</td>
-      <td>3.683183e-17</td>
-      <td>1.164490</td>
-      <td>1.142752</td>
+      <td>0.602</td>
+      <td>0.0</td>
+      <td>1.168</td>
+      <td>1.139</td>
       <td>a9.1.a2.1.0.cellPVmodule.6457</td>
       <td>a9.1.a2.1.0.cellPVmodule.2310</td>
-      <td>947.2082</td>
-      <td>119.3176</td>
-      <td>0.125968</td>
+      <td>944.934</td>
+      <td>119.225</td>
+      <td>0.126</td>
+      <td>0.598</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.430574</td>
-      <td>2.636503e-17</td>
-      <td>1.191136</td>
-      <td>1.169398</td>
+      <td>0.431</td>
+      <td>0.0</td>
+      <td>1.195</td>
+      <td>1.166</td>
       <td>a9.1.a2.2.0.cellPVmodule.6457</td>
       <td>a9.1.a2.2.0.cellPVmodule.2310</td>
-      <td>947.2504</td>
-      <td>114.9427</td>
-      <td>0.121343</td>
+      <td>944.980</td>
+      <td>114.055</td>
+      <td>0.121</td>
+      <td>0.427</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.259638</td>
-      <td>1.589824e-17</td>
-      <td>1.217781</td>
-      <td>1.196044</td>
+      <td>0.260</td>
+      <td>0.0</td>
+      <td>1.222</td>
+      <td>1.192</td>
       <td>a9.1.a2.3.0.cellPVmodule.6457</td>
       <td>a9.1.a2.3.0.cellPVmodule.2310</td>
-      <td>947.2926</td>
-      <td>110.5928</td>
-      <td>0.116746</td>
+      <td>945.024</td>
+      <td>109.955</td>
+      <td>0.116</td>
+      <td>0.256</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.088702</td>
-      <td>5.431448e-18</td>
-      <td>1.244427</td>
-      <td>1.222689</td>
+      <td>0.089</td>
+      <td>0.0</td>
+      <td>1.248</td>
+      <td>1.219</td>
       <td>a9.1.a2.4.0.cellPVmodule.6457</td>
       <td>a9.1.a2.4.0.cellPVmodule.2310</td>
-      <td>947.3348</td>
-      <td>112.6003</td>
-      <td>0.118860</td>
+      <td>945.070</td>
+      <td>108.491</td>
+      <td>0.115</td>
+      <td>0.085</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>-0.082233</td>
-      <td>-5.035345e-18</td>
-      <td>1.271072</td>
-      <td>1.249335</td>
+      <td>-0.082</td>
+      <td>0.0</td>
+      <td>1.274</td>
+      <td>1.245</td>
       <td>a9.1.a2.5.0.cellPVmodule.6457</td>
       <td>a9.1.a2.5.0.cellPVmodule.2310</td>
-      <td>947.3168</td>
-      <td>111.2375</td>
-      <td>0.117424</td>
+      <td>945.510</td>
+      <td>107.211</td>
+      <td>0.113</td>
+      <td>-0.086</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>-0.253169</td>
-      <td>-1.550214e-17</td>
-      <td>1.297718</td>
-      <td>1.275980</td>
+      <td>-0.252</td>
+      <td>0.0</td>
+      <td>1.302</td>
+      <td>1.272</td>
       <td>a9.1.a2.6.0.cellPVmodule.6457</td>
       <td>a9.1.a2.6.0.cellPVmodule.2310</td>
-      <td>947.3401</td>
-      <td>108.4745</td>
-      <td>0.114504</td>
+      <td>945.526</td>
+      <td>110.106</td>
+      <td>0.116</td>
+      <td>-0.257</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>-0.424105</td>
-      <td>-2.596893e-17</td>
-      <td>1.324363</td>
-      <td>1.302626</td>
+      <td>-0.423</td>
+      <td>0.0</td>
+      <td>1.328</td>
+      <td>1.299</td>
       <td>a9.1.a2.7.0.cellPVmodule.6457</td>
       <td>a9.1.a2.7.0.cellPVmodule.2310</td>
-      <td>947.3632</td>
-      <td>109.8079</td>
-      <td>0.115909</td>
+      <td>945.542</td>
+      <td>110.943</td>
+      <td>0.117</td>
+      <td>-0.428</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>-0.595040</td>
-      <td>-3.643572e-17</td>
-      <td>1.351009</td>
-      <td>1.329271</td>
+      <td>-0.594</td>
+      <td>0.0</td>
+      <td>1.355</td>
+      <td>1.325</td>
       <td>a9.1.a2.8.0.cellPVmodule.6457</td>
       <td>a9.1.a2.8.0.cellPVmodule.2310</td>
-      <td>947.3864</td>
-      <td>110.1948</td>
-      <td>0.116314</td>
+      <td>945.557</td>
+      <td>113.852</td>
+      <td>0.120</td>
+      <td>-0.599</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>-0.765976</td>
-      <td>-4.690252e-17</td>
-      <td>1.377654</td>
-      <td>1.355917</td>
+      <td>-0.765</td>
+      <td>0.0</td>
+      <td>1.381</td>
+      <td>1.352</td>
       <td>a9.1.a2.9.0.cellPVmodule.6457</td>
       <td>a9.1.a2.9.0.cellPVmodule.2310</td>
-      <td>947.4094</td>
-      <td>114.2160</td>
-      <td>0.120556</td>
+      <td>945.573</td>
+      <td>119.270</td>
+      <td>0.126</td>
+      <td>-0.769</td>
+      <td>0.0</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <section id="Improvement-in-Rear-Irradiance">
-<h2>Improvement in Rear Irradiance<a class="headerlink" href="#Improvement-in-Rear-Irradiance" title="Permalink to this heading">#</a></h2>
+<h2>Improvement in Rear Irradiance<a class="headerlink" href="#Improvement-in-Rear-Irradiance" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">((</span><span class="n">df_w</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">-</span><span class="n">df_0</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">df_0</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span><span class="mi">1</span><span class="p">)</span>
@@ -1604,29 +1411,29 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-10.3
+np.float64(9.5)
 </pre></div></div>
 </div>
 </section>
 </section>
 <section id="RESULT-ANALYSIS-DAY">
-<h1>RESULT ANALYSIS DAY<a class="headerlink" href="#RESULT-ANALYSIS-DAY" title="Permalink to this heading">#</a></h1>
+<h1>RESULT ANALYSIS DAY<a class="headerlink" href="#RESULT-ANALYSIS-DAY" title="Link to this heading">#</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_0</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_noPavers_1.csv&#39;</span><span class="p">))</span>
-<span class="n">df_w</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_WITHPavers_1.csv&#39;</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_0</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_noPavers_1_Row2_Module10.csv&#39;</span><span class="p">))</span>
+<span class="n">df_w</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_WITHPavers_1_Row2_Module10.csv&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_w</span>
@@ -1634,7 +1441,7 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1665,135 +1472,157 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
       <th>Wm2Front</th>
       <th>Wm2Back</th>
       <th>Back/FrontRatio</th>
+      <th>rearX</th>
+      <th>rearY</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.407436</td>
-      <td>2.494829e-17</td>
-      <td>0.573299</td>
-      <td>0.562299</td>
+      <td>0.411</td>
+      <td>0.0</td>
+      <td>0.575</td>
+      <td>0.560</td>
       <td>a9.1.a2.0.0.cellPVmodule.6457</td>
       <td>a9.1.a2.0.0.cellPVmodule.2310</td>
-      <td>579.8174</td>
-      <td>27.50550</td>
-      <td>0.047438</td>
+      <td>579.375</td>
+      <td>27.061</td>
+      <td>0.047</td>
+      <td>0.385</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.320937</td>
-      <td>1.965169e-17</td>
-      <td>0.723122</td>
-      <td>0.712122</td>
+      <td>0.325</td>
+      <td>0.0</td>
+      <td>0.725</td>
+      <td>0.710</td>
       <td>a9.1.a2.1.0.cellPVmodule.6457</td>
       <td>a9.1.a2.1.0.cellPVmodule.2310</td>
-      <td>584.6388</td>
-      <td>27.33312</td>
-      <td>0.046752</td>
+      <td>583.680</td>
+      <td>27.821</td>
+      <td>0.048</td>
+      <td>0.299</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.234436</td>
-      <td>1.435510e-17</td>
-      <td>0.872944</td>
-      <td>0.861944</td>
+      <td>0.238</td>
+      <td>0.0</td>
+      <td>0.875</td>
+      <td>0.859</td>
       <td>a9.1.a2.2.0.cellPVmodule.6457</td>
       <td>a9.1.a2.2.0.cellPVmodule.2310</td>
-      <td>590.6924</td>
-      <td>27.54174</td>
-      <td>0.046626</td>
+      <td>590.756</td>
+      <td>26.454</td>
+      <td>0.045</td>
+      <td>0.212</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.147936</td>
-      <td>9.058500e-18</td>
-      <td>1.022766</td>
-      <td>1.011766</td>
+      <td>0.151</td>
+      <td>0.0</td>
+      <td>1.024</td>
+      <td>1.010</td>
       <td>a9.1.a2.3.0.cellPVmodule.6457</td>
       <td>a9.1.a2.3.0.cellPVmodule.2310</td>
-      <td>595.0419</td>
-      <td>26.06395</td>
-      <td>0.043802</td>
+      <td>595.177</td>
+      <td>26.714</td>
+      <td>0.045</td>
+      <td>0.126</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.061437</td>
-      <td>3.761903e-18</td>
-      <td>1.172589</td>
-      <td>1.161589</td>
+      <td>0.065</td>
+      <td>0.0</td>
+      <td>1.174</td>
+      <td>1.159</td>
       <td>a9.1.a2.4.0.cellPVmodule.6457</td>
       <td>a9.1.a2.4.0.cellPVmodule.2310</td>
-      <td>602.6788</td>
-      <td>26.42415</td>
-      <td>0.043844</td>
+      <td>601.549</td>
+      <td>26.534</td>
+      <td>0.044</td>
+      <td>0.039</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>-0.025063</td>
-      <td>-1.534695e-18</td>
-      <td>1.322411</td>
-      <td>1.311411</td>
+      <td>-0.021</td>
+      <td>0.0</td>
+      <td>1.324</td>
+      <td>1.309</td>
       <td>a9.1.a2.5.0.cellPVmodule.6457</td>
       <td>a9.1.a2.5.0.cellPVmodule.2310</td>
-      <td>606.5762</td>
-      <td>26.13547</td>
-      <td>0.043087</td>
+      <td>605.290</td>
+      <td>26.858</td>
+      <td>0.044</td>
+      <td>-0.047</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>-0.111563</td>
-      <td>-6.831292e-18</td>
-      <td>1.472234</td>
-      <td>1.461234</td>
+      <td>-0.108</td>
+      <td>0.0</td>
+      <td>1.474</td>
+      <td>1.459</td>
       <td>a9.1.a2.6.0.cellPVmodule.6457</td>
       <td>a9.1.a2.6.0.cellPVmodule.2310</td>
-      <td>611.8985</td>
-      <td>26.60694</td>
-      <td>0.043483</td>
+      <td>611.543</td>
+      <td>26.762</td>
+      <td>0.044</td>
+      <td>-0.134</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>-0.198064</td>
-      <td>-1.212789e-17</td>
-      <td>1.622056</td>
-      <td>1.611056</td>
+      <td>-0.195</td>
+      <td>0.0</td>
+      <td>1.624</td>
+      <td>1.609</td>
       <td>a9.1.a2.7.0.cellPVmodule.6457</td>
       <td>a9.1.a2.7.0.cellPVmodule.2310</td>
-      <td>614.5859</td>
-      <td>26.76097</td>
-      <td>0.043543</td>
+      <td>614.750</td>
+      <td>27.401</td>
+      <td>0.045</td>
+      <td>-0.221</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>-0.284564</td>
-      <td>-1.742449e-17</td>
-      <td>1.771878</td>
-      <td>1.760878</td>
+      <td>-0.281</td>
+      <td>0.0</td>
+      <td>1.773</td>
+      <td>1.758</td>
       <td>a9.1.a2.8.0.cellPVmodule.6457</td>
       <td>a9.1.a2.8.0.cellPVmodule.2310</td>
-      <td>620.1961</td>
-      <td>27.76613</td>
-      <td>0.044770</td>
+      <td>619.741</td>
+      <td>28.306</td>
+      <td>0.046</td>
+      <td>-0.307</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>-0.371063</td>
-      <td>-2.272108e-17</td>
-      <td>1.921701</td>
-      <td>1.910701</td>
+      <td>-0.367</td>
+      <td>0.0</td>
+      <td>1.923</td>
+      <td>1.908</td>
       <td>a9.1.a2.9.0.cellPVmodule.6457</td>
       <td>a9.1.a2.9.0.cellPVmodule.2310</td>
-      <td>623.0681</td>
-      <td>27.96354</td>
-      <td>0.044880</td>
+      <td>622.469</td>
+      <td>29.369</td>
+      <td>0.047</td>
+      <td>-0.393</td>
+      <td>0.0</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_0</span>
@@ -1801,7 +1630,7 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1832,132 +1661,171 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
       <th>Wm2Front</th>
       <th>Wm2Back</th>
       <th>Back/FrontRatio</th>
+      <th>rearX</th>
+      <th>rearY</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.407436</td>
-      <td>2.494829e-17</td>
-      <td>0.573299</td>
-      <td>0.562299</td>
+      <td>0.411</td>
+      <td>0.0</td>
+      <td>0.575</td>
+      <td>0.560</td>
       <td>a9.1.a2.0.0.cellPVmodule.6457</td>
       <td>a9.1.a2.0.0.cellPVmodule.2310</td>
-      <td>581.4525</td>
-      <td>20.58496</td>
-      <td>0.035403</td>
+      <td>581.281</td>
+      <td>20.666</td>
+      <td>0.036</td>
+      <td>0.385</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.320937</td>
-      <td>1.965169e-17</td>
-      <td>0.723122</td>
-      <td>0.712122</td>
+      <td>0.325</td>
+      <td>0.0</td>
+      <td>0.725</td>
+      <td>0.710</td>
       <td>a9.1.a2.1.0.cellPVmodule.6457</td>
       <td>a9.1.a2.1.0.cellPVmodule.2310</td>
-      <td>584.9100</td>
-      <td>21.15021</td>
-      <td>0.036160</td>
+      <td>585.068</td>
+      <td>21.210</td>
+      <td>0.036</td>
+      <td>0.299</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.234436</td>
-      <td>1.435510e-17</td>
-      <td>0.872944</td>
-      <td>0.861944</td>
+      <td>0.238</td>
+      <td>0.0</td>
+      <td>0.875</td>
+      <td>0.859</td>
       <td>a9.1.a2.2.0.cellPVmodule.6457</td>
       <td>a9.1.a2.2.0.cellPVmodule.2310</td>
-      <td>592.2502</td>
-      <td>20.92997</td>
-      <td>0.035340</td>
+      <td>591.558</td>
+      <td>21.006</td>
+      <td>0.036</td>
+      <td>0.212</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.147936</td>
-      <td>9.058500e-18</td>
-      <td>1.022766</td>
-      <td>1.011766</td>
+      <td>0.151</td>
+      <td>0.0</td>
+      <td>1.024</td>
+      <td>1.010</td>
       <td>a9.1.a2.3.0.cellPVmodule.6457</td>
       <td>a9.1.a2.3.0.cellPVmodule.2310</td>
-      <td>596.4415</td>
-      <td>21.53978</td>
-      <td>0.036114</td>
+      <td>594.920</td>
+      <td>21.761</td>
+      <td>0.037</td>
+      <td>0.126</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.061437</td>
-      <td>3.761903e-18</td>
-      <td>1.172589</td>
-      <td>1.161589</td>
+      <td>0.065</td>
+      <td>0.0</td>
+      <td>1.174</td>
+      <td>1.159</td>
       <td>a9.1.a2.4.0.cellPVmodule.6457</td>
       <td>a9.1.a2.4.0.cellPVmodule.2310</td>
-      <td>603.3365</td>
-      <td>22.16977</td>
-      <td>0.036745</td>
+      <td>602.971</td>
+      <td>22.816</td>
+      <td>0.038</td>
+      <td>0.039</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>-0.025063</td>
-      <td>-1.534695e-18</td>
-      <td>1.322411</td>
-      <td>1.311411</td>
+      <td>-0.021</td>
+      <td>0.0</td>
+      <td>1.324</td>
+      <td>1.309</td>
       <td>a9.1.a2.5.0.cellPVmodule.6457</td>
       <td>a9.1.a2.5.0.cellPVmodule.2310</td>
-      <td>606.5955</td>
-      <td>23.02444</td>
-      <td>0.037957</td>
+      <td>607.095</td>
+      <td>23.659</td>
+      <td>0.039</td>
+      <td>-0.047</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>-0.111563</td>
-      <td>-6.831292e-18</td>
-      <td>1.472234</td>
-      <td>1.461234</td>
+      <td>-0.108</td>
+      <td>0.0</td>
+      <td>1.474</td>
+      <td>1.459</td>
       <td>a9.1.a2.6.0.cellPVmodule.6457</td>
       <td>a9.1.a2.6.0.cellPVmodule.2310</td>
-      <td>613.5248</td>
-      <td>23.97887</td>
-      <td>0.039084</td>
+      <td>612.259</td>
+      <td>24.504</td>
+      <td>0.040</td>
+      <td>-0.134</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>-0.198064</td>
-      <td>-1.212789e-17</td>
-      <td>1.622056</td>
-      <td>1.611056</td>
+      <td>-0.195</td>
+      <td>0.0</td>
+      <td>1.624</td>
+      <td>1.609</td>
       <td>a9.1.a2.7.0.cellPVmodule.6457</td>
       <td>a9.1.a2.7.0.cellPVmodule.2310</td>
-      <td>617.3268</td>
-      <td>25.00761</td>
-      <td>0.040509</td>
+      <td>615.350</td>
+      <td>25.132</td>
+      <td>0.041</td>
+      <td>-0.221</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>-0.284564</td>
-      <td>-1.742449e-17</td>
-      <td>1.771878</td>
-      <td>1.760878</td>
+      <td>-0.281</td>
+      <td>0.0</td>
+      <td>1.773</td>
+      <td>1.758</td>
       <td>a9.1.a2.8.0.cellPVmodule.6457</td>
       <td>a9.1.a2.8.0.cellPVmodule.2310</td>
-      <td>621.6809</td>
-      <td>25.92181</td>
-      <td>0.041696</td>
+      <td>620.853</td>
+      <td>26.077</td>
+      <td>0.042</td>
+      <td>-0.307</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>-0.371063</td>
-      <td>-2.272108e-17</td>
-      <td>1.921701</td>
-      <td>1.910701</td>
+      <td>-0.367</td>
+      <td>0.0</td>
+      <td>1.923</td>
+      <td>1.908</td>
       <td>a9.1.a2.9.0.cellPVmodule.6457</td>
       <td>a9.1.a2.9.0.cellPVmodule.2310</td>
-      <td>624.8511</td>
-      <td>26.90095</td>
-      <td>0.043052</td>
+      <td>623.744</td>
+      <td>26.856</td>
+      <td>0.043</td>
+      <td>-0.393</td>
+      <td>0.0</td>
     </tr>
   </tbody>
 </table>
 </div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">((</span><span class="n">df_w</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">-</span><span class="n">df_0</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">df_0</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(16.9)
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
@@ -1977,7 +1845,7 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">average_back_d0</span><span class="o">=</span><span class="p">[]</span>
@@ -1988,8 +1856,8 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
 <span class="n">timessimulated</span> <span class="o">=</span> <span class="n">endtimeindex</span><span class="o">-</span><span class="n">starttimeindex</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">timessimulated</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">df_0</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_noPavers_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span><span class="p">))</span>
-    <span class="n">df_w</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_WITHPavers_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span><span class="p">))</span>
+    <span class="n">df_0</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_noPavers_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_Row2_Module10.csv&#39;</span><span class="p">))</span>
+    <span class="n">df_w</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;irr_tutorial_14_WITHPavers_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_Row2_Module10.csv&#39;</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">df_w</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">-</span><span class="n">df_0</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">df_0</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span><span class="mi">1</span><span class="p">))</span>
     <span class="n">hourly_rearirradiance_comparison</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">df_w</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">-</span><span class="n">df_0</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">df_0</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span><span class="mi">1</span><span class="p">))</span>
     <span class="n">average_back_d0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_0</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
@@ -2003,22 +1871,22 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-16.8
-40.7
-34.7
-23.3
-9.3
+16.9
+38.4
+36.4
+24.2
+9.8
 10.6
-10.3
-9.7
-18.4
-32.3
-36.5
-40.4
+9.3
+9.4
+18.5
+32.4
+36.8
+40.5
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Increase in rear irradiance: &quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="nb">sum</span><span class="p">(</span><span class="n">average_back_dw</span><span class="p">)</span><span class="o">-</span><span class="nb">sum</span><span class="p">(</span><span class="n">average_back_d0</span><span class="p">))</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">average_back_d0</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
@@ -2030,11 +1898,11 @@ Saved: results\irr_tutorial_14_WITHPavers_12.csv
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Increase in rear irradiance:  20.5
+Increase in rear irradiance:  20.6
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BG no Pavers: &quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">average_back_d0</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">average_front</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
@@ -2052,10 +1920,10 @@ BG with Pavers:  10.0
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1">#metdata.datetime[starttime].hour # 7</span>
 <span class="c1">#metdata.datetime[endtimeindex].hour # 17</span>
@@ -2064,7 +1932,7 @@ BG with Pavers:  10.0
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xax</span><span class="p">,</span><span class="n">hourly_rearirradiance_comparison</span><span class="p">)</span>
@@ -2074,7 +1942,7 @@ BG with Pavers:  10.0
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2086,7 +1954,15 @@ Text(0.5, 0, &#39;Hour&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_14_-_Cement_Racking_Albedo_Improvements_36_1.png" src="../_images/tutorials_14_-_Cement_Racking_Albedo_Improvements_36_1.png" />
+<img alt="../_images/tutorials_14_-_Cement_Racking_Albedo_Improvements_37_1.png" src="../_images/tutorials_14_-_Cement_Racking_Albedo_Improvements_37_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 </section>
@@ -2126,7 +2002,8 @@ Text(0.5, 0, &#39;Hour&#39;)
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2154,13 +2031,13 @@ Text(0.5, 0, &#39;Hour&#39;)
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/14 - Cement Racking Albedo Improvements.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/14 - Cement Racking Albedo Improvements.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -2175,8 +2052,8 @@ Text(0.5, 0, &#39;Hour&#39;)
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -2196,7 +2073,7 @@ Text(0.5, 0, &#39;Hour&#39;)
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -2209,7 +2086,8 @@ Text(0.5, 0, &#39;Hour&#39;)
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

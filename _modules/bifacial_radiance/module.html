@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bifacial_radiance.module &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>bifacial_radiance.module &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -15,36 +15,40 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/bifacial_radiance/module';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -60,19 +64,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -80,7 +73,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -88,8 +80,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -122,8 +114,8 @@
       
     
     
-    <img src="../../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -183,29 +175,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -254,15 +238,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -279,7 +259,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -340,15 +321,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -396,9 +373,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -416,8 +398,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -429,7 +409,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">bifacial_rad...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">bifacial_radiance.module</span></li>
   </ul>
 </nav>
 </div>
@@ -454,44 +434,50 @@ document.write(`
 <span class="sd">ModuleObj class for defining module geometry</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pvlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">bifacial_radiance.main</span> <span class="kn">import</span> <span class="n">_missingKeyWarning</span><span class="p">,</span> <span class="n">_popen</span><span class="p">,</span> <span class="n">DATA_PATH</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bifacial_radiance.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">_missingKeyWarning</span><span class="p">,</span> <span class="n">_popen</span><span class="p">,</span> <span class="n">DATA_PATH</span>
  
-<span class="k">class</span> <span class="nc">SuperClass</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SuperClass</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getDataDict</span><span class="p">())</span>
-    <span class="k">def</span> <span class="nf">getDataDict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getDataDict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        return dictionary values from self.  Originally stored as self.data</span>
+<span class="sd">    </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,[</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">]))</span>   
 
-<div class="viewcode-block" id="ModuleObj"><a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.html#bifacial_radiance.ModuleObj">[docs]</a><span class="k">class</span> <span class="nc">ModuleObj</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleObj">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.html#bifacial_radiance.ModuleObj">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModuleObj</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Module object to store module &amp; torque tube details.  </span>
 <span class="sd">    Does the heavy lifting of demo.makeModule()</span>
 <span class="sd">    Module details are passed in and stored in module.json.</span>
 <span class="sd">    Pass this object into makeScene or makeScene1axis.</span>
+<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; : &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getDataDict</span><span class="p">())</span>
-<div class="viewcode-block" id="ModuleObj.__init__"><a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.html#bifacial_radiance.ModuleObj.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bifi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                 <span class="n">modulefile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">customtext</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xgap</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
-                 <span class="n">ygap</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">zgap</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">numpanels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rewriteModulefile</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-                 <span class="n">cellModule</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">glass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">glassEdge</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> 
-                 <span class="n">modulematerial</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">tubeParams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">frameParams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">omegaParams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hpc</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleObj.__init__">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.__init__.html#bifacial_radiance.ModuleObj.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bifi</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">modulefile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">customtext</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">customObject</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xgap</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">ygap</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">zgap</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                 <span class="n">numpanels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rewriteModulefile</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cellModule</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">glass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">glassEdge</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">modulematerial</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">tubeParams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">frameParams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">omegaParams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">CECMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hpc</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span> 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add module details to the .JSON module config file module.json</span>
-
+<span class="sd">        Add module details to the .JSON module config file module.json.</span>
 <span class="sd">        Module definitions assume that the module .rad file is defined</span>
 <span class="sd">        with zero tilt, centered along the x-axis and y-axis for the center</span>
 <span class="sd">        of rotation of the module (+X/2, -X/2, +Y/2, -Y/2 on each side).</span>
 <span class="sd">        Tip: to define a module that is in &#39;portrait&#39; mode, y &gt; x.</span>
-
+<span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ------------</span>
 <span class="sd">        name : str</span>
@@ -505,8 +491,8 @@ document.write(`
 <span class="sd">            in which case absorber thickness will be 0.001 and glass whatever</span>
 <span class="sd">            thickness is given, with absorber in the middle of the glass.</span>
 <span class="sd">        bifi : numeric</span>
-<span class="sd">            Bifaciality of the panel (not currently used). Between 0</span>
-<span class="sd">            (monofacial) and 1, default 1.</span>
+<span class="sd">            Bifaciality of the panel (used for calculatePerformance). Between 0 (monofacial)</span>
+<span class="sd">            and 1, default 1.</span>
 <span class="sd">        modulefile : str</span>
 <span class="sd">            Existing radfile location in \\objects.  Otherwise a default value</span>
 <span class="sd">            is used</span>
@@ -517,6 +503,12 @@ document.write(`
 <span class="sd">            Added-text used in the radfile to generate any</span>
 <span class="sd">            extra details in the racking/module. Does not overwrite</span>
 <span class="sd">            generated module (unlike &quot;text&quot;), but adds to it at the end.</span>
+<span class="sd">        customObject : str</span>
+<span class="sd">            Append to the module object file a pre-genereated radfile. This </span>
+<span class="sd">            must start with the file path name. Does not overwrite</span>
+<span class="sd">            generated module (unlike &quot;text&quot;), but adds to it at the end.</span>
+<span class="sd">            It automatically inserts radiance&#39;s text before the object name so</span>
+<span class="sd">            its inserted into scene properly (&#39;!xform -rz 0&#39;)</span>
 <span class="sd">        rewriteModulefile : bool</span>
 <span class="sd">            Default True. Will rewrite module file each time makeModule is run.</span>
 <span class="sd">        numpanels : int</span>
@@ -532,8 +524,8 @@ document.write(`
 <span class="sd">            torquetube (m)</span>
 <span class="sd">        glass : bool</span>
 <span class="sd">            Add 5mm front and back glass to the module (glass/glass). Warning:</span>
-<span class="sd">                glass increases the analysis variability.  Recommend setting</span>
-<span class="sd">                accuracy=&#39;high&#39; in AnalysisObj.analysis()</span>
+<span class="sd">            glass increases the analysis variability.  Recommend setting</span>
+<span class="sd">            accuracy=&#39;high&#39; in AnalysisObj.analysis()</span>
 <span class="sd">        glassEdge: float</span>
 <span class="sd">            Difference in space between module size and absorber part of the</span>
 <span class="sd">            module (or if cell-level module, full cell-level module size;</span>
@@ -550,15 +542,17 @@ document.write(`
 <span class="sd">        omegaParams : dict</span>
 <span class="sd">            Dictionary with input parameters for creating a omega or module</span>
 <span class="sd">            support structure. Shortcut for ModuleObj.addOmega()</span>
+<span class="sd">        CECMod : Dictionary with performance parameters needed for self.calculatePerformance()</span>
+<span class="sd">            lpha_sc, a_ref, I_L_ref, I_o_ref,  R_sh_ref, R_s, Adjust</span>
 <span class="sd">        hpc : bool (default False)</span>
-<span class="sd">            Set up module in HPC mode.  Namely turn off read/write to</span>
-<span class="sd">            module.json and just pass along the details in the module object.</span>
-<span class="sd">            Note that calling e.g. addTorquetube() after this will tend to</span>
-<span class="sd">            write to the module.json so pass all geometry parameters at once</span>
-<span class="sd">            in to makeModule for best response.</span>
-
-
-<span class="sd">        &#39;&quot;&quot;&quot;</span>
+<span class="sd">            Set up module in HPC mode.  Namely turn off read/write to module.json</span>
+<span class="sd">            and just pass along the details in the module object. Note that </span>
+<span class="sd">            calling e.g. addTorquetube() after this will tend to write to the</span>
+<span class="sd">            module.json so pass all geometry parameters at once in to makeModule</span>
+<span class="sd">            for best response.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;modulematerial&#39;</span><span class="p">,</span> <span class="s1">&#39;scenex&#39;</span><span class="p">,</span> <span class="s1">&#39;sceney&#39;</span><span class="p">,</span>
             <span class="s1">&#39;scenez&#39;</span><span class="p">,</span> <span class="s1">&#39;numpanels&#39;</span><span class="p">,</span> <span class="s1">&#39;bifi&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;modulefile&#39;</span><span class="p">,</span> <span class="s1">&#39;glass&#39;</span><span class="p">,</span>
             <span class="s1">&#39;glassEdge&#39;</span><span class="p">,</span> <span class="s1">&#39;offsetfromaxis&#39;</span><span class="p">,</span> <span class="s1">&#39;xgap&#39;</span><span class="p">,</span> <span class="s1">&#39;ygap&#39;</span><span class="p">,</span> <span class="s1">&#39;zgap&#39;</span> <span class="p">]</span> 
@@ -567,7 +561,19 @@ document.write(`
         <span class="c1"># TODO: Address above comment?        </span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span> 
         <span class="bp">self</span><span class="o">.</span><span class="n">customtext</span> <span class="o">=</span> <span class="n">customtext</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">customObject</span> <span class="o">=</span> <span class="n">customObject</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manual_text</span> <span class="o">=</span> <span class="n">text</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        if Efficiency is not None:</span>
+<span class="sd">            self.Efficiency = Efficiency</span>
+<span class="sd">        if Temp_coeff is not None:</span>
+<span class="sd">            self.Temp_coeff = Temp_coeff</span>
+<span class="sd">        if Peak_Power is not None:</span>
+<span class="sd">            self.Peak_Power = Peak_Power</span>
+<span class="sd">        if Module_name is not None:</span>
+<span class="sd">            self.Module_name = Module_name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="c1"># are we writing to JSON with passed data or just reading existing?</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cellModule</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
@@ -614,6 +620,8 @@ document.write(`
             <span class="k">if</span> <span class="n">cellModule</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">addCellModule</span><span class="p">(</span><span class="o">**</span><span class="n">cellModule</span><span class="p">,</span> <span class="n">recompile</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             
+            <span class="bp">self</span><span class="o">.</span><span class="n">addCEC</span><span class="p">(</span><span class="n">CECMod</span><span class="p">,</span> <span class="n">glass</span><span class="p">,</span> <span class="n">bifi</span><span class="o">=</span><span class="n">bifi</span><span class="p">)</span>
+            
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manual_text</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: Module text manually passed and not &#39;</span>
                       <span class="sa">f</span><span class="s1">&#39;generated: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_manual_text</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -630,8 +638,11 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">compileText</span><span class="p">(</span><span class="n">rewriteModulefile</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">compileText</span><span class="p">(</span><span class="n">rewriteModulefile</span><span class="p">)</span></div>
+
             
-<div class="viewcode-block" id="ModuleObj.compileText"><a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.compileText.html#bifacial_radiance.ModuleObj.compileText">[docs]</a>    <span class="k">def</span> <span class="nf">compileText</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rewriteModulefile</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleObj.compileText">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.compileText.html#bifacial_radiance.ModuleObj.compileText">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compileText</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rewriteModulefile</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the text for the module .rad file based on ModuleObj attributes.</span>
 <span class="sd">        Optionally save details to the module.json and module.rad files.</span>
@@ -642,6 +653,7 @@ document.write(`
 <span class="sd">            Overwrite the .rad file for the module</span>
 <span class="sd">        json : bool  (default True)</span>
 <span class="sd">            Update the module.json file with ModuleObj attributes</span>
+<span class="sd">            </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">saveDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getDataDict</span><span class="p">()</span>
 
@@ -652,15 +664,21 @@ document.write(`
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s1">&#39;omega&#39;</span><span class="p">):</span>
             <span class="n">saveDict</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">saveDict</span><span class="p">,</span> <span class="s1">&#39;omegaParams&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">omega</span><span class="o">.</span><span class="n">getDataDict</span><span class="p">()}</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s1">&#39;frame&#39;</span><span class="p">):</span>
-            <span class="n">saveDict</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">saveDict</span><span class="p">,</span> <span class="s1">&#39;frameParams&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">getDataDict</span><span class="p">()}</span>            
+            <span class="n">saveDict</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">saveDict</span><span class="p">,</span> <span class="s1">&#39;frameParams&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">getDataDict</span><span class="p">()}</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;CECMod&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">saveDict</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">saveDict</span><span class="p">,</span> <span class="s1">&#39;CECMod&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">CECMod</span><span class="o">.</span><span class="n">getDataDict</span><span class="p">()}</span>
+            
         <span class="bp">self</span><span class="o">.</span><span class="n">_makeModuleFromDict</span><span class="p">(</span><span class="o">**</span><span class="n">saveDict</span><span class="p">)</span>  
 
         <span class="c1">#write JSON data out and write radfile if it doesn&#39;t exist</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_saveModule</span><span class="p">({</span><span class="o">**</span><span class="n">saveDict</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">getDataDict</span><span class="p">()},</span> <span class="n">json</span><span class="o">=</span><span class="n">json</span><span class="p">,</span> 
                          <span class="n">rewriteModulefile</span><span class="o">=</span><span class="n">rewriteModulefile</span><span class="p">)</span></div>
 
+
             
-<div class="viewcode-block" id="ModuleObj.readModule"><a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.readModule.html#bifacial_radiance.ModuleObj.readModule">[docs]</a>    <span class="k">def</span> <span class="nf">readModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleObj.readModule">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.readModule.html#bifacial_radiance.ModuleObj.readModule">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">readModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read in available modules in module.json.  If a specific module name is</span>
 <span class="sd">        passed, return those details into the SceneObj. Otherwise </span>
@@ -671,7 +689,7 @@ document.write(`
 <span class="sd">        Returns:  moduleDict dictionary or list of modulenames if name is not passed in.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">json</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
         <span class="n">filedir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">,</span><span class="s1">&#39;module.json&#39;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span> <span class="n">filedir</span> <span class="p">)</span> <span class="k">as</span> <span class="n">configfile</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">configfile</span><span class="p">)</span>
@@ -716,7 +734,9 @@ document.write(`
             <span class="k">if</span> <span class="n">moduleDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;omegaParams&#39;</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">addOmega</span><span class="p">(</span><span class="o">**</span><span class="n">moduleDict</span><span class="p">[</span><span class="s1">&#39;omegaParams&#39;</span><span class="p">],</span> <span class="n">recompile</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
             <span class="k">if</span> <span class="n">moduleDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;frameParams&#39;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="o">**</span><span class="n">moduleDict</span><span class="p">[</span><span class="s1">&#39;frameParams&#39;</span><span class="p">],</span> <span class="n">recompile</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">addFrame</span><span class="p">(</span><span class="o">**</span><span class="n">moduleDict</span><span class="p">[</span><span class="s1">&#39;frameParams&#39;</span><span class="p">],</span> <span class="n">recompile</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">moduleDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CECMod&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addCEC</span><span class="p">(</span><span class="n">moduleDict</span><span class="p">[</span><span class="s1">&#39;CECMod&#39;</span><span class="p">],</span> <span class="n">moduleDict</span><span class="p">[</span><span class="s1">&#39;glass&#39;</span><span class="p">])</span>
             
             
             <span class="k">return</span> <span class="n">moduleDict</span>
@@ -725,7 +745,8 @@ document.write(`
             <span class="k">return</span> <span class="p">{}</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_saveModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">savedata</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rewriteModulefile</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_saveModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">savedata</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rewriteModulefile</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        write out changes to module.json and make radfile if it doesn&#39;t</span>
 <span class="sd">        exist.  if rewriteModulefile is true, always overwrite Radfile.</span>
@@ -736,7 +757,7 @@ document.write(`
 <span class="sd">        rewriteModulefile : bool, default is True.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">json</span> <span class="k">as</span> <span class="nn">jsonmodule</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jsonmodule</span>
         
         <span class="k">if</span> <span class="n">json</span><span class="p">:</span>
             <span class="n">filedir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">,</span> <span class="s1">&#39;module.json&#39;</span><span class="p">)</span> 
@@ -761,10 +782,18 @@ document.write(`
             
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modulefile</span><span class="p">):</span>
             <span class="c1"># py2 and 3 compatible: binary write, encode text first</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modulefile</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modulefile</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ModuleObj Error: directory &quot;/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modulefile</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot; not found &#39;</span>\
+                                <span class="sa">f</span><span class="s1">&#39; in current path which is </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span><span class="si">}</span><span class="s1">. Cannot create &#39;</span>\
+                                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modulefile</span><span class="p">)</span><span class="si">}</span><span class="s1">. &#39;</span>\
+                                <span class="s1">&#39;Are you in a valid bifacial_radiance directory?&#39;</span><span class="p">)</span>
             
-<div class="viewcode-block" id="ModuleObj.showModule"><a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.showModule.html#bifacial_radiance.ModuleObj.showModule">[docs]</a>    <span class="k">def</span> <span class="nf">showModule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ModuleObj.showModule">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.showModule.html#bifacial_radiance.ModuleObj.showModule">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">showModule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Method to call objview and render the module object </span>
 <span class="sd">        (visualize it).</span>
@@ -783,7 +812,10 @@ document.write(`
                   <span class="s1">&#39; into your RADIANCE binaries path&#39;</span><span class="p">)</span>
             <span class="k">return</span> </div>
 
-<div class="viewcode-block" id="ModuleObj.saveImage"><a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.saveImage.html#bifacial_radiance.ModuleObj.saveImage">[docs]</a>    <span class="k">def</span> <span class="nf">saveImage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ModuleObj.saveImage">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.saveImage.html#bifacial_radiance.ModuleObj.saveImage">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">saveImage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Duplicate objview process to save an image of the module in /images/</span>
 
@@ -791,7 +823,7 @@ document.write(`
 <span class="sd">            filename : string, optional. name for image file, defaults to module name               </span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">tempfile</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
         
         <span class="n">temp_dir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span>
         <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
@@ -822,10 +854,13 @@ document.write(`
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Module image saved: images/</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">_XYZ.hdr&#39;</span><span class="p">)</span>
         
         <span class="n">temp_dir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span></div>
+
         
     
     
-<div class="viewcode-block" id="ModuleObj.addTorquetube"><a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.addTorquetube.html#bifacial_radiance.ModuleObj.addTorquetube">[docs]</a>    <span class="k">def</span> <span class="nf">addTorquetube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diameter</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">tubetype</span><span class="o">=</span><span class="s1">&#39;Round&#39;</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> 
+<div class="viewcode-block" id="ModuleObj.addTorquetube">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.addTorquetube.html#bifacial_radiance.ModuleObj.addTorquetube">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">addTorquetube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diameter</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">tubetype</span><span class="o">=</span><span class="s1">&#39;Round&#39;</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> 
                       <span class="n">axisofrotation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="n">recompile</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For adding torque tubes to the module simulation. </span>
@@ -859,7 +894,10 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">compileText</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="ModuleObj.addOmega"><a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.addOmega.html#bifacial_radiance.ModuleObj.addOmega">[docs]</a>    <span class="k">def</span> <span class="nf">addOmega</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omega_material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> <span class="n">omega_thickness</span><span class="o">=</span><span class="mf">0.004</span><span class="p">,</span>
+
+<div class="viewcode-block" id="ModuleObj.addOmega">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.addOmega.html#bifacial_radiance.ModuleObj.addOmega">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">addOmega</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omega_material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> <span class="n">omega_thickness</span><span class="o">=</span><span class="mf">0.004</span><span class="p">,</span>
                  <span class="n">inverted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">x_omega1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x_omega3</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_omega</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">mod_overlap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">recompile</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -898,7 +936,10 @@ document.write(`
         <span class="k">if</span> <span class="n">recompile</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compileText</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ModuleObj.addFrame"><a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.addFrame.html#bifacial_radiance.ModuleObj.addFrame">[docs]</a>    <span class="k">def</span> <span class="nf">addFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> <span class="n">frame_thickness</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> 
+
+<div class="viewcode-block" id="ModuleObj.addFrame">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.addFrame.html#bifacial_radiance.ModuleObj.addFrame">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">addFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> <span class="n">frame_thickness</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> 
                  <span class="n">frame_z</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">nSides_frame</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">frame_width</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">recompile</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a metal frame geometry around the module.</span>
@@ -923,8 +964,11 @@ document.write(`
                    <span class="n">frame_width</span><span class="o">=</span><span class="n">frame_width</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">recompile</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compileText</span><span class="p">()</span></div>
+
             
-<div class="viewcode-block" id="ModuleObj.addCellModule"><a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.addCellModule.html#bifacial_radiance.ModuleObj.addCellModule">[docs]</a>    <span class="k">def</span> <span class="nf">addCellModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numcellsx</span><span class="p">,</span> <span class="n">numcellsy</span> <span class="p">,</span><span class="n">xcell</span><span class="p">,</span> <span class="n">ycell</span><span class="p">,</span>
+<div class="viewcode-block" id="ModuleObj.addCellModule">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.addCellModule.html#bifacial_radiance.ModuleObj.addCellModule">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">addCellModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numcellsx</span><span class="p">,</span> <span class="n">numcellsy</span> <span class="p">,</span><span class="n">xcell</span><span class="p">,</span> <span class="n">ycell</span><span class="p">,</span>
                       <span class="n">xcellgap</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">ycellgap</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">centerJB</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">recompile</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a cell-level module, with individually defined cells and gaps</span>
@@ -945,7 +989,7 @@ document.write(`
 <span class="sd">        </span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">warnings</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
         <span class="k">if</span> <span class="n">centerJB</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                 <span class="s1">&#39;centerJB functionality is currently experimental and subject &#39;</span>
@@ -958,17 +1002,18 @@ document.write(`
                                      
         <span class="k">if</span> <span class="n">recompile</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compileText</span><span class="p">()</span></div>
+
     
 
     
-    <span class="k">def</span> <span class="nf">_makeModuleFromDict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xgap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ygap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_makeModuleFromDict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xgap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ygap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
                     <span class="n">zgap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">numpanels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">modulefile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">modulematerial</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        go through and generate the text required to make a module</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">warnings</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
         <span class="c1">#aliases for equations below</span>
         <span class="n">Ny</span> <span class="o">=</span> <span class="n">numpanels</span>
         <span class="n">_cc</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># cc is an offset given to the module when cells are used</span>
@@ -1010,7 +1055,6 @@ document.write(`
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manual_text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manual_text</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_manual_text</span> <span class="o">=</span> <span class="kc">None</span>
-
         <span class="k">else</span><span class="p">:</span>
             
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;cellModule&#39;</span><span class="p">):</span>
@@ -1020,8 +1064,8 @@ document.write(`
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;! genbox </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">modulematerial</span><span class="p">,</span> 
                                                               <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-                    <span class="n">text</span> <span class="o">+=</span><span class="s1">&#39;| xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span>
-                                            <span class="p">(</span><span class="o">-</span><span class="n">y</span><span class="o">*</span><span class="n">Ny</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">ygap</span><span class="o">*</span><span class="p">(</span><span class="n">Ny</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">),</span>
+                    <span class="n">text</span> <span class="o">+=</span><span class="s1">&#39;| xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span>
+                                            <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="o">-</span><span class="n">y</span><span class="o">*</span><span class="n">Ny</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">ygap</span><span class="o">*</span><span class="p">(</span><span class="n">Ny</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">),</span><span class="mi">6</span><span class="p">),</span>
                                             <span class="bp">self</span><span class="o">.</span><span class="n">offsetfromaxis</span><span class="p">)</span>
                     <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;-a </span><span class="si">{}</span><span class="s1"> -t 0 </span><span class="si">{}</span><span class="s1"> 0&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Ny</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">ygap</span><span class="p">)</span>
                     <span class="n">packagingfactor</span> <span class="o">=</span> <span class="mf">100.0</span>
@@ -1032,9 +1076,9 @@ document.write(`
                                     <span class="s1">&#39;One or the other must be specified.&#39;</span><span class="p">)</span>
  
             
-        <span class="bp">self</span><span class="o">.</span><span class="n">scenex</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">xgap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scenex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">xgap</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sceney</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">y</span><span class="o">*</span><span class="n">numpanels</span> <span class="o">+</span> <span class="n">ygap</span><span class="o">*</span><span class="p">(</span><span class="n">numpanels</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">8</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scenez</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">zgap</span> <span class="o">+</span> <span class="n">diam</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scenez</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">zgap</span> <span class="o">+</span> <span class="n">diam</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
         
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;frame&#39;</span><span class="p">):</span>
@@ -1071,28 +1115,192 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">glassEdge</span> <span class="o">=</span> <span class="n">glassEdge</span>
             
             <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox stock_glass </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;_Glass&#39;</span><span class="p">,</span><span class="n">x</span><span class="o">+</span><span class="n">glassEdge</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">glassEdge</span><span class="p">,</span> <span class="n">zglass</span><span class="p">)</span>
-            <span class="n">text</span> <span class="o">+=</span><span class="s1">&#39;| xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mf">2.0</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">glassEdge</span> <span class="o">+</span> <span class="n">_cc</span><span class="p">,</span>
-                                    <span class="p">(</span><span class="o">-</span><span class="n">y</span><span class="o">*</span><span class="n">Ny</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">ygap</span><span class="o">*</span><span class="p">(</span><span class="n">Ny</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">glassEdge</span><span class="p">,</span>
-                                    <span class="bp">self</span><span class="o">.</span><span class="n">offsetfromaxis</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">zglass</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">+=</span><span class="s1">&#39;| xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mf">2.0</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">glassEdge</span> <span class="o">+</span> <span class="n">_cc</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+                                    <span class="nb">round</span><span class="p">((</span><span class="o">-</span><span class="n">y</span><span class="o">*</span><span class="n">Ny</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">ygap</span><span class="o">*</span><span class="p">(</span><span class="n">Ny</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">glassEdge</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+                                    <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offsetfromaxis</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">zglass</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="p">)</span>
             <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;-a </span><span class="si">{}</span><span class="s1"> -t 0 </span><span class="si">{}</span><span class="s1"> 0&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Ny</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">ygap</span><span class="p">)</span>
             
 
         <span class="n">text</span> <span class="o">+=</span> <span class="n">frametext</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;omega&#39;</span><span class="p">):</span>
             <span class="n">text</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span><span class="o">.</span><span class="n">text</span>    
-        <span class="n">text</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">customtext</span>  <span class="c1"># For adding any other racking details at the module level that the user might want.</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">customtext</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">customtext</span>  <span class="c1"># For adding any other racking details at the module level that the user might want.</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">customObject</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">!xform -rz 0 &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">customObject</span>  <span class="c1"># For adding a specific .rad file</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
-        <span class="k">return</span> <span class="n">text</span></div>
+        <span class="k">return</span> <span class="n">text</span>
     <span class="c1">#End of makeModuleFromDict()</span>
-  
+
+<div class="viewcode-block" id="ModuleObj.addCEC">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.addCEC.html#bifacial_radiance.ModuleObj.addCEC">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">addCEC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CECMod</span><span class="p">,</span> <span class="n">glassglass</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bifi</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        </span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        CECMod : Dictionary or pandas.DataFrame including:</span>
+<span class="sd">            alpha_sc, a_ref, I_L_ref, I_o_ref,  R_sh_ref, R_s, Adjust</span>
+<span class="sd">        glassglass : Bool, optional. Create a glass-glass module w 5mm glass on each side</span>
+<span class="sd">        bifi  :  Float, bifaciality coefficient &lt; 1</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;alpha_sc&#39;</span><span class="p">,</span> <span class="s1">&#39;a_ref&#39;</span><span class="p">,</span> <span class="s1">&#39;I_L_ref&#39;</span><span class="p">,</span> <span class="s1">&#39;I_o_ref&#39;</span><span class="p">,</span>  <span class="s1">&#39;R_sh_ref&#39;</span><span class="p">,</span> <span class="s1">&#39;R_s&#39;</span><span class="p">,</span> <span class="s1">&#39;Adjust&#39;</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">glassglass</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">glassglass</span> <span class="o">=</span> <span class="n">glassglass</span>
+        <span class="k">if</span> <span class="n">bifi</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bifi</span> <span class="o">=</span> <span class="n">bifi</span>
+        
+            
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">CECMod</span><span class="p">)</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+            <span class="c1"># Check for attributes along the index and transpose</span>
+            <span class="k">if</span> <span class="s1">&#39;alpha_sc&#39;</span> <span class="ow">in</span> <span class="n">CECMod</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                <span class="n">CECMod</span> <span class="o">=</span> <span class="n">CECMod</span><span class="o">.</span><span class="n">T</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">CECMod</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: DataFrame with multiple rows passed to module.addCEC. &#39;</span>\
+                      <span class="s1">&#39;Taking the first entry&#39;</span><span class="p">)</span>
+            <span class="n">CECModDict</span> <span class="o">=</span> <span class="n">CECMod</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">CECModDict</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CECMod</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="n">CECModDict</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">CECMod</span><span class="p">)</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+            <span class="n">CECModDict</span> <span class="o">=</span> <span class="n">CECMod</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">CECMod</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="n">CECModDict</span> <span class="o">=</span> <span class="n">CECMod</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">CECMod</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Error: string-based module selection is not yet enabled. &#39;</span>\
+                  <span class="s1">&#39;Try back later!&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="n">CECMod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">CECMod</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized type &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">CECMod</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39; passed into addCEC &quot;</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">CECModDict</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: required key &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; not passed into module.addCEC&quot;</span><span class="p">)</span>
+                
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">CECMod</span> <span class="o">=</span> <span class="n">CECModule</span><span class="p">(</span><span class="o">**</span><span class="n">CECModDict</span><span class="p">)</span></div>
+
+        
+
+
+<div class="viewcode-block" id="ModuleObj.calculatePerformance">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.ModuleObj.calculatePerformance.html#bifacial_radiance.ModuleObj.calculatePerformance">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculatePerformance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">effective_irradiance</span><span class="p">,</span> <span class="n">CECMod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                             <span class="n">temp_air</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wind_speed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">temp_cell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="n">glassglass</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        The module parameters are given at the reference condition.</span>
+<span class="sd">        Use pvlib.pvsystem.calcparams_cec() to generate the five SDM</span>
+<span class="sd">        parameters at your desired irradiance and temperature to use</span>
+<span class="sd">        with pvlib.pvsystem.singlediode() to calculate the IV curve information.:</span>
+
+<span class="sd">        Inputs</span>
+<span class="sd">        ------</span>
+<span class="sd">        effective_irradiance : numeric</span>
+<span class="sd">            Dataframe or single value. Must be same length as temp_cell</span>
+<span class="sd">        CECMod : Dict</span>
+<span class="sd">            Dictionary with CEC Module PArameters for the module selected. Must</span>
+<span class="sd">            contain at minimum  alpha_sc, a_ref, I_L_ref, I_o_ref, R_sh_ref,</span>
+<span class="sd">            R_s, Adjust</span>
+<span class="sd">        temp_air : numeric</span>
+<span class="sd">            Ambient temperature in Celsius. Dataframe or single value to calculate.</span>
+<span class="sd">            Must be same length as effective_irradiance.  Default = 20C</span>
+<span class="sd">        wind_speed : numeric</span>
+<span class="sd">            Wind speed at a height of 10 meters [m/s].  Default = 1 m/s</span>
+<span class="sd">        temp_cell : numeric</span>
+<span class="sd">            Back of module temperature.  If provided, overrides temp_air and</span>
+<span class="sd">            wind_speed calculation.  Default = None</span>
+<span class="sd">        glassglass : boolean</span>
+<span class="sd">            If module is glass-glass package (vs glass-polymer) to select correct</span>
+<span class="sd">            thermal coefficients for module temperature calculation</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">CECMod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;CECMod&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">CECMod</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CECMod</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No CECModule data passed; using default for Prism Solar BHC72-400&quot;</span><span class="p">)</span>
+                <span class="c1">#url = &#39;https://raw.githubusercontent.com/NREL/SAM/patch/deploy/libraries/CEC%20Modules.csv&#39;</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">,</span><span class="s1">&#39;CEC Modules.csv&#39;</span><span class="p">)</span>
+                <span class="n">db</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Reading this might take 1 min or so, the database is big.</span>
+                <span class="n">modfilter2</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Pr&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">db</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;BHC72-400&#39;</span><span class="p">)</span>
+                <span class="n">CECMod</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="n">modfilter2</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addCEC</span><span class="p">(</span><span class="n">CECMod</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;glassglass&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">glassglass</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">glassglass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">glassglass</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pvlib.temperature</span><span class="w"> </span><span class="kn">import</span> <span class="n">TEMPERATURE_MODEL_PARAMETERS</span>
+
+        <span class="c1"># Setting temperature_model_parameters</span>
+        <span class="k">if</span> <span class="n">glassglass</span><span class="p">:</span>
+            <span class="n">temp_model_params</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">TEMPERATURE_MODEL_PARAMETERS</span><span class="p">[</span><span class="s1">&#39;sapm&#39;</span><span class="p">][</span><span class="s1">&#39;open_rack_glass_glass&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">temp_model_params</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">TEMPERATURE_MODEL_PARAMETERS</span><span class="p">[</span><span class="s1">&#39;sapm&#39;</span><span class="p">][</span><span class="s1">&#39;open_rack_glass_polymer&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">temp_cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">temp_air</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">temp_air</span> <span class="o">=</span> <span class="mi">25</span>  <span class="c1"># STC</span>
+
+            <span class="n">temp_cell</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">temperature</span><span class="o">.</span><span class="n">sapm_cell</span><span class="p">(</span><span class="n">effective_irradiance</span><span class="p">,</span> <span class="n">temp_air</span><span class="p">,</span>
+                                                    <span class="n">wind_speed</span><span class="p">,</span>
+                                                    <span class="n">temp_model_params</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span>
+                                                    <span class="n">temp_model_params</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span>
+                                                    <span class="n">temp_model_params</span><span class="p">[</span><span class="s1">&#39;deltaT&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">CECMod</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="c1">#CECMod.to_pickle(&quot;CECMod.pkl&quot;)  </span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">CECMod</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">CECMod</span> <span class="o">=</span> <span class="n">CECMod</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;More than one Module passed. Error, using 1st one&quot;</span><span class="p">)</span>
+                <span class="n">CECMod</span> <span class="o">=</span> <span class="n">CECMod</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+
+
+        <span class="n">IL</span><span class="p">,</span> <span class="n">I0</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">Rsh</span><span class="p">,</span> <span class="n">nNsVth</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">pvsystem</span><span class="o">.</span><span class="n">calcparams_cec</span><span class="p">(</span>
+            <span class="n">effective_irradiance</span><span class="o">=</span><span class="n">effective_irradiance</span><span class="p">,</span>
+            <span class="n">temp_cell</span><span class="o">=</span><span class="n">temp_cell</span><span class="p">,</span>
+            <span class="n">alpha_sc</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECMod</span><span class="o">.</span><span class="n">alpha_sc</span><span class="p">),</span>
+            <span class="n">a_ref</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECMod</span><span class="o">.</span><span class="n">a_ref</span><span class="p">),</span>
+            <span class="n">I_L_ref</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECMod</span><span class="o">.</span><span class="n">I_L_ref</span><span class="p">),</span>
+            <span class="n">I_o_ref</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECMod</span><span class="o">.</span><span class="n">I_o_ref</span><span class="p">),</span>
+            <span class="n">R_sh_ref</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECMod</span><span class="o">.</span><span class="n">R_sh_ref</span><span class="p">),</span>
+            <span class="n">R_s</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECMod</span><span class="o">.</span><span class="n">R_s</span><span class="p">),</span>
+            <span class="n">Adjust</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECMod</span><span class="o">.</span><span class="n">Adjust</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">IVcurve_info</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">pvsystem</span><span class="o">.</span><span class="n">singlediode</span><span class="p">(</span>
+            <span class="n">photocurrent</span><span class="o">=</span><span class="n">IL</span><span class="p">,</span>
+            <span class="n">saturation_current</span><span class="o">=</span><span class="n">I0</span><span class="p">,</span>
+            <span class="n">resistance_series</span><span class="o">=</span><span class="n">Rs</span><span class="p">,</span>
+            <span class="n">resistance_shunt</span><span class="o">=</span><span class="n">Rsh</span><span class="p">,</span>
+            <span class="n">nNsVth</span><span class="o">=</span><span class="n">nNsVth</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">IVcurve_info</span><span class="p">[</span><span class="s1">&#39;p_mp&#39;</span><span class="p">]</span></div>
+</div>
+
+
+
 <span class="c1"># end of ModuleObj</span>
 
 
 
-<span class="k">class</span> <span class="nc">Omega</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Omega</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">omega_material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> <span class="n">omega_thickness</span><span class="o">=</span><span class="mf">0.004</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">omega_material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> <span class="n">omega_thickness</span><span class="o">=</span><span class="mf">0.004</span><span class="p">,</span>
                  <span class="n">inverted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">x_omega1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x_omega3</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_omega</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">mod_overlap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1146,7 +1354,7 @@ document.write(`
 
         
         
-    <span class="k">def</span> <span class="nf">_makeOmega</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xgap</span><span class="p">,</span> <span class="n">zgap</span><span class="p">,</span> <span class="n">offsetfromaxis</span><span class="p">,</span> <span class="n">z_inc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_makeOmega</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xgap</span><span class="p">,</span> <span class="n">zgap</span><span class="p">,</span> <span class="n">offsetfromaxis</span><span class="p">,</span> <span class="n">z_inc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper function for creating a module that includes the racking </span>
 <span class="sd">        structure element `omega`.  </span>
@@ -1172,7 +1380,7 @@ document.write(`
 <span class="sd">            the module is offseted by the Frame.</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
+
         <span class="c1"># set local variables</span>
         <span class="n">omega_material</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega_material</span>
         <span class="n">x_omega1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_omega1</span>
@@ -1196,20 +1404,20 @@ document.write(`
         <span class="c1"># defining the module adjacent member of omega</span>
         <span class="n">x_translate1</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x_omega1</span> <span class="o">+</span> <span class="n">mod_overlap</span>
         <span class="n">y_translate</span> <span class="o">=</span> <span class="o">-</span><span class="n">y_omega</span><span class="o">/</span><span class="mi">2</span> <span class="c1">#common for all the pieces</span>
-        <span class="n">z_translate1</span> <span class="o">=</span> <span class="n">offsetfromaxis</span><span class="o">-</span><span class="n">z_omega1</span>
+        <span class="n">z_translate1</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">offsetfromaxis</span><span class="o">-</span><span class="n">z_omega1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
         
         <span class="c1">#defining the vertical (zgap) member of the omega</span>
         <span class="n">x_translate2</span> <span class="o">=</span> <span class="n">x_translate1</span>
-        <span class="n">z_translate2</span> <span class="o">=</span> <span class="n">offsetfromaxis</span><span class="o">-</span><span class="n">z_omega2</span>
+        <span class="n">z_translate2</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">offsetfromaxis</span><span class="o">-</span><span class="n">z_omega2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
             
         <span class="c1">#defining the torquetube adjacent member of omega</span>
-        <span class="n">x_translate3</span> <span class="o">=</span> <span class="n">x_translate1</span><span class="o">-</span><span class="n">x_omega3</span>
+        <span class="n">x_translate3</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">x_translate1</span><span class="o">-</span><span class="n">x_omega3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
         <span class="n">z_translate3</span> <span class="o">=</span> <span class="n">z_translate2</span>
         
         <span class="k">if</span> <span class="n">z_inc</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> 
-            <span class="n">z_translate1</span> <span class="o">+=</span> <span class="o">-</span><span class="n">z_inc</span>
-            <span class="n">z_translate2</span> <span class="o">+=</span> <span class="o">-</span><span class="n">z_inc</span>
-            <span class="n">z_translate3</span> <span class="o">+=</span> <span class="o">-</span><span class="n">z_inc</span>
+            <span class="n">z_translate1</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">z_translate1</span> <span class="o">-</span> <span class="n">z_inc</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+            <span class="n">z_translate2</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">z_translate2</span> <span class="o">-</span> <span class="n">z_inc</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+            <span class="n">z_translate3</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">z_translate3</span> <span class="o">-</span> <span class="n">z_inc</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
         
         <span class="c1"># for this code, only the translations need to be shifted for the inverted omega</span>
         
@@ -1234,7 +1442,7 @@ document.write(`
             <span class="n">omegatext</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omega_material</span><span class="p">,</span> <span class="n">name2</span><span class="p">,</span> <span class="n">x_omega2</span><span class="p">,</span> <span class="n">y_omega</span><span class="p">,</span> <span class="n">z_omega2</span><span class="p">,</span> <span class="o">-</span><span class="n">x_translate2</span><span class="o">-</span><span class="n">x_omega2</span> <span class="o">-</span><span class="n">x_shift_west</span><span class="p">,</span> <span class="n">y_translate</span><span class="p">,</span> <span class="n">z_translate2</span><span class="p">)</span>
             <span class="n">omegatext</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omega_material</span><span class="p">,</span> <span class="n">name3</span><span class="p">,</span> <span class="n">x_omega3</span><span class="p">,</span> <span class="n">y_omega</span><span class="p">,</span> <span class="n">z_omega3</span><span class="p">,</span> <span class="o">-</span><span class="n">x_translate3</span><span class="o">-</span><span class="n">x_omega3</span> <span class="o">-</span> <span class="n">x_shift_west</span><span class="p">,</span> <span class="n">y_translate</span><span class="p">,</span> <span class="n">z_translate3</span><span class="p">)</span>
             
-            <span class="n">omega2omega_x</span> <span class="o">=</span> <span class="o">-</span><span class="n">x_translate1_inv_east</span><span class="o">*</span><span class="mi">2</span>
+            <span class="n">omega2omega_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">x_translate1_inv_east</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
         
         <span class="k">else</span><span class="p">:</span>
             
@@ -1248,16 +1456,16 @@ document.write(`
                 
             <span class="n">omegatext</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omega_material</span><span class="p">,</span> <span class="n">name1</span><span class="p">,</span> <span class="n">x_omega1</span><span class="p">,</span> <span class="n">y_omega</span><span class="p">,</span> <span class="n">z_omega1</span><span class="p">,</span> <span class="o">-</span><span class="n">x_translate1</span><span class="o">-</span><span class="n">x_omega1</span><span class="p">,</span> <span class="n">y_translate</span><span class="p">,</span> <span class="n">z_translate1</span><span class="p">)</span> 
             <span class="n">omegatext</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omega_material</span><span class="p">,</span> <span class="n">name2</span><span class="p">,</span> <span class="n">x_omega2</span><span class="p">,</span> <span class="n">y_omega</span><span class="p">,</span> <span class="n">z_omega2</span><span class="p">,</span> <span class="o">-</span><span class="n">x_translate2</span><span class="o">-</span><span class="n">x_omega2</span><span class="p">,</span> <span class="n">y_translate</span><span class="p">,</span> <span class="n">z_translate2</span><span class="p">)</span>
-            <span class="n">omegatext</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omega_material</span><span class="p">,</span> <span class="n">name3</span><span class="p">,</span> <span class="n">x_omega3</span><span class="p">,</span> <span class="n">y_omega</span><span class="p">,</span> <span class="n">z_omega3</span><span class="p">,</span> <span class="o">-</span><span class="n">x_translate3</span><span class="o">-</span><span class="n">x_omega3</span><span class="p">,</span> <span class="n">y_translate</span><span class="p">,</span> <span class="n">z_translate3</span><span class="p">)</span>
+            <span class="n">omegatext</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omega_material</span><span class="p">,</span> <span class="n">name3</span><span class="p">,</span> <span class="n">x_omega3</span><span class="p">,</span> <span class="n">y_omega</span><span class="p">,</span> <span class="n">z_omega3</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">x_translate3</span><span class="o">-</span><span class="n">x_omega3</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">y_translate</span><span class="p">,</span> <span class="n">z_translate3</span><span class="p">)</span>
         
-            <span class="n">omega2omega_x</span> <span class="o">=</span> <span class="o">-</span><span class="n">x_translate3</span><span class="o">*</span><span class="mi">2</span>
+            <span class="n">omega2omega_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">x_translate3</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">omegatext</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">omega2omega_x</span> <span class="o">=</span> <span class="n">omega2omega_x</span>
         <span class="k">return</span> <span class="n">omega2omega_x</span><span class="p">,</span><span class="n">omegatext</span>
     
-<span class="k">class</span> <span class="nc">Frame</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Frame</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> <span class="n">frame_thickness</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> 
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> <span class="n">frame_thickness</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> 
                  <span class="n">frame_z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nSides_frame</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">frame_width</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
@@ -1285,7 +1493,7 @@ document.write(`
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">:</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="nb">eval</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>  
         
-    <span class="k">def</span> <span class="nf">_makeFrames</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ygap</span><span class="p">,</span> <span class="n">numpanels</span><span class="p">,</span> <span class="n">offsetfromaxis</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_makeFrames</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ygap</span><span class="p">,</span> <span class="n">numpanels</span><span class="p">,</span> <span class="n">offsetfromaxis</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper function for creating a module that includes the frames attached to the module, </span>
 
@@ -1368,7 +1576,7 @@ document.write(`
         <span class="c1">#frame legs for east-west </span>
     
         <span class="n">flw_xt</span> <span class="o">=</span> <span class="o">-</span><span class="n">x_temp</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">f_thickness</span>
-        <span class="n">fle_xt</span> <span class="o">=</span> <span class="n">x_temp</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">f_thickness</span><span class="o">-</span><span class="n">fl_x</span>
+        <span class="n">fle_xt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">x_temp</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">f_thickness</span><span class="o">-</span><span class="n">fl_x</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
         <span class="n">flew_yt</span> <span class="o">=</span> <span class="o">-</span><span class="n">y_half</span><span class="o">-</span><span class="n">y_trans_shift</span>
         <span class="n">flew_zt</span> <span class="o">=</span> <span class="n">offsetfromaxis</span><span class="o">-</span><span class="n">f_height</span>
     
@@ -1382,18 +1590,18 @@ document.write(`
         <span class="n">fns_z</span> <span class="o">=</span> <span class="n">f_height</span><span class="o">-</span><span class="n">f_thickness</span>
     
         <span class="n">fns_xt</span> <span class="o">=</span> <span class="o">-</span><span class="n">x_temp</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">f_thickness</span>
-        <span class="n">fn_yt</span> <span class="o">=</span> <span class="o">-</span><span class="n">y_half</span><span class="o">+</span><span class="n">y</span><span class="o">-</span><span class="n">f_thickness</span>
+        <span class="n">fn_yt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">y_half</span><span class="o">+</span><span class="n">y</span><span class="o">-</span><span class="n">f_thickness</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
         <span class="n">fs_yt</span> <span class="o">=</span> <span class="o">-</span><span class="n">y_half</span>
         <span class="n">fns_zt</span> <span class="o">=</span> <span class="n">offsetfromaxis</span><span class="o">-</span><span class="n">f_height</span><span class="o">+</span><span class="n">f_thickness</span>
     
         <span class="c1"># the filler legs</span>
     
-        <span class="n">filleg_x</span> <span class="o">=</span> <span class="n">x_temp</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f_thickness</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">fl_x</span>
+        <span class="n">filleg_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">x_temp</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f_thickness</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">fl_x</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
         <span class="n">filleg_y</span> <span class="o">=</span> <span class="n">f_thickness</span> <span class="o">+</span> <span class="n">fl_x</span>
         <span class="n">filleg_z</span> <span class="o">=</span> <span class="n">f_thickness</span>
     
-        <span class="n">filleg_xt</span> <span class="o">=</span> <span class="o">-</span><span class="n">x_temp</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">f_thickness</span><span class="o">+</span><span class="n">fl_x</span>
-        <span class="n">fillegn_yt</span> <span class="o">=</span> <span class="o">-</span><span class="n">y_half</span><span class="o">+</span><span class="n">y</span><span class="o">-</span><span class="n">f_thickness</span><span class="o">-</span><span class="n">fl_x</span>
+        <span class="n">filleg_xt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">x_temp</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">f_thickness</span><span class="o">+</span><span class="n">fl_x</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="n">fillegn_yt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">y_half</span><span class="o">+</span><span class="n">y</span><span class="o">-</span><span class="n">f_thickness</span><span class="o">-</span><span class="n">fl_x</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
         <span class="n">fillegs_yt</span> <span class="o">=</span> <span class="o">-</span><span class="n">y_half</span>
         <span class="n">filleg_zt</span> <span class="o">=</span> <span class="n">offsetfromaxis</span><span class="o">-</span><span class="n">f_height</span>
     
@@ -1438,9 +1646,9 @@ document.write(`
 
         <span class="k">return</span> <span class="n">z_inc</span><span class="p">,</span> <span class="n">frame_text</span>
 
-<span class="k">class</span> <span class="nc">Tube</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Tube</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diameter</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">tubetype</span><span class="o">=</span><span class="s1">&#39;Round&#39;</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> 
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diameter</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">tubetype</span><span class="o">=</span><span class="s1">&#39;Round&#39;</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="s1">&#39;Metal_Grey&#39;</span><span class="p">,</span> 
                       <span class="n">axisofrotation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ================   ====================================================</span>
@@ -1473,7 +1681,7 @@ document.write(`
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">:</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="nb">eval</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>    
             
-    <span class="k">def</span> <span class="nf">_makeTorqueTube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span>  <span class="n">z_inc</span><span class="p">,</span> <span class="n">zgap</span><span class="p">,</span> <span class="n">scenex</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_makeTorqueTube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span>  <span class="n">z_inc</span><span class="p">,</span> <span class="n">zgap</span><span class="p">,</span> <span class="n">scenex</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;  </span>
 <span class="sd">        Return text string for generating the torque tube geometry</span>
 <span class="sd">        </span>
@@ -1481,7 +1689,7 @@ document.write(`
 <span class="sd">        </span>
 <span class="sd">        cc = module._cc #horizontal offset to center of a cell</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">math</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
         
         
         <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -1494,14 +1702,14 @@ document.write(`
                 <span class="n">tto</span> <span class="o">=</span> <span class="o">-</span><span class="n">z_inc</span><span class="o">-</span><span class="n">zgap</span><span class="o">-</span><span class="n">diam</span><span class="o">/</span><span class="mf">2.0</span>
             <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> tube1 </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">material</span><span class="p">,</span>
                                   <span class="n">scenex</span><span class="p">,</span> <span class="n">diam</span><span class="p">,</span> <span class="n">diam</span><span class="p">)</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;| xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span>
-                                <span class="o">-</span><span class="n">diam</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">diam</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">tto</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;| xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+                                <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">diam</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span> <span class="o">-</span><span class="n">diam</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">tto</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">tubetype</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;round&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axisofrotation</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
                 <span class="n">tto</span> <span class="o">=</span> <span class="o">-</span><span class="n">z_inc</span><span class="o">-</span><span class="n">zgap</span><span class="o">-</span><span class="n">diam</span><span class="o">/</span><span class="mf">2.0</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genrev </span><span class="si">{}</span><span class="s1"> tube1 t*</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">diam</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;32 | xform -ry 90 -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tto</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genrev </span><span class="si">{}</span><span class="s1"> tube1 t*</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">diam</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;32 | xform -ry 90 -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tto</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">tubetype</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;hex&#39;</span><span class="p">:</span>
             <span class="n">radius</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">diam</span>
@@ -1510,16 +1718,18 @@ document.write(`
                 <span class="n">tto</span> <span class="o">=</span> <span class="o">-</span><span class="n">z_inc</span><span class="o">-</span><span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">-</span><span class="n">zgap</span>
 
             <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> hextube1a </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
-                    <span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">tto</span><span class="p">)</span> <span class="c1">#ztran -radius*math.sqrt(3.0)-tto</span>
+                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mi">6</span><span class="p">),</span>
+                    <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">radius</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">tto</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> <span class="c1">#ztran -radius*math.sqrt(3.0)-tto</span>
 
 
             <span class="c1"># Create, translate to center, rotate, translate back to prev. position and translate to overal module position.</span>
             <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> hextube1b </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> -rx 60 -t 0 0 </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">tto</span><span class="p">)</span> <span class="c1">#ztran (radius*math.sqrt(3.0)/2.0)-radius*math.sqrt(3.0)-tto)</span>
+                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mi">6</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> 
+                    <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">radius</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">tto</span><span class="p">)</span> <span class="c1">#ztran (radius*math.sqrt(3.0)/2.0)-radius*math.sqrt(3.0)-tto)</span>
             
             <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> hextube1c </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> -rx -60 -t 0 0 </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">tto</span><span class="p">)</span> <span class="c1">#ztran (radius*math.sqrt(3.0)/2.0)-radius*math.sqrt(3.0)-tto)</span>
+                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mi">6</span><span class="p">),</span> 
+                    <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span> <span class="o">-</span><span class="n">radius</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">radius</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">tto</span><span class="p">)</span> <span class="c1">#ztran (radius*math.sqrt(3.0)/2.0)-radius*math.sqrt(3.0)-tto)</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">tubetype</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;oct&#39;</span><span class="p">:</span>
             <span class="n">radius</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">diam</span>
@@ -1529,14 +1739,14 @@ document.write(`
                 <span class="n">tto</span> <span class="o">=</span> <span class="o">-</span><span class="n">z_inc</span><span class="o">-</span><span class="n">radius</span><span class="o">-</span><span class="n">zgap</span>
 
             <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> octtube1a </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">diam</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="o">+</span><span class="n">tto</span><span class="p">)</span>
+                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">diam</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="o">-</span><span class="n">radius</span><span class="o">+</span><span class="n">tto</span><span class="p">)</span>
 
             <span class="c1"># Create, translate to center, rotate, translate back to prev. position and translate to overal module position.</span>
             <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> octtube1b </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> -rx 45 -t 0 0 </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">diam</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="p">,</span> <span class="n">tto</span><span class="p">)</span>
+                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">diam</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="o">-</span><span class="n">radius</span><span class="p">,</span> <span class="n">tto</span><span class="p">)</span>
 
             <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> octtube1c </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> -rx 90 -t 0 0 </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">diam</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="p">,</span> <span class="n">tto</span><span class="p">)</span>
+                    <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">diam</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="o">-</span><span class="n">s</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="p">,</span> <span class="n">tto</span><span class="p">)</span>
 
             <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genbox </span><span class="si">{}</span><span class="s1"> octtube1d </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> -rx 135 -t 0 0 </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">material</span><span class="p">,</span> <span class="n">scenex</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">diam</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">scenex</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="o">+</span><span class="n">cc</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">radius</span><span class="p">,</span> <span class="n">tto</span><span class="p">)</span>
@@ -1549,9 +1759,9 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
         <span class="k">return</span> <span class="n">text</span>
     
-<span class="k">class</span> <span class="nc">CellModule</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CellModule</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numcellsx</span><span class="p">,</span> <span class="n">numcellsy</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numcellsx</span><span class="p">,</span> <span class="n">numcellsy</span><span class="p">,</span>
                  <span class="n">xcell</span><span class="p">,</span> <span class="n">ycell</span><span class="p">,</span> <span class="n">xcellgap</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">ycellgap</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">centerJB</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For creating a cell-level module, the following input parameters should </span>
@@ -1584,7 +1794,7 @@ document.write(`
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="nb">eval</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>    
         
     
-    <span class="k">def</span> <span class="nf">_makeCellLevelModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">ygap</span><span class="p">,</span> 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_makeCellLevelModule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">ygap</span><span class="p">,</span> 
                          <span class="n">modulematerial</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;  Calculate the .radfile generation text for a cell-level module.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1594,39 +1804,39 @@ document.write(`
         <span class="c1"># For half cell modules with the JB on the center:</span>
         <span class="k">if</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;centerJB&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">centerJB</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;centerJB&#39;</span><span class="p">]</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycell&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycellgap&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">centerJB</span>            
+            <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycell&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycellgap&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">centerJB</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>            
         <span class="k">else</span><span class="p">:</span>
             <span class="n">centerJB</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycell&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycellgap&#39;</span><span class="p">]</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycell&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycellgap&#39;</span><span class="p">],</span> <span class="mi">6</span><span class="p">)</span>
 
-        <span class="n">x</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsx&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;xcell&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsx&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;xcellgap&#39;</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsx&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;xcell&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsx&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;xcellgap&#39;</span><span class="p">],</span> <span class="mi">6</span><span class="p">)</span>
 
         <span class="c1">#center cell -</span>
         <span class="k">if</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsx&#39;</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">_cc</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;xcell&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span>
+            <span class="n">_cc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;xcell&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Module was shifted by </span><span class="si">{}</span><span class="s2"> in X to avoid sensors on air&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_cc</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_cc</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;! genbox </span><span class="si">{}</span><span class="s1"> cellPVmodule </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> | &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">modulematerial</span><span class="p">,</span>
                                                <span class="n">c</span><span class="p">[</span><span class="s1">&#39;xcell&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycell&#39;</span><span class="p">],</span> <span class="n">z</span><span class="p">)</span>
-        <span class="n">text</span> <span class="o">+=</span><span class="s1">&#39;xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">_cc</span><span class="p">,</span>
-                         <span class="p">(</span><span class="o">-</span><span class="n">y</span><span class="o">*</span><span class="n">Ny</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">ygap</span><span class="o">*</span><span class="p">(</span><span class="n">Ny</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">-</span><span class="n">centerJB</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span>
-                         <span class="n">offsetfromaxis</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">+=</span><span class="s1">&#39;xform -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">_cc</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+                         <span class="nb">round</span><span class="p">((</span><span class="o">-</span><span class="n">y</span><span class="o">*</span><span class="n">Ny</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">ygap</span><span class="o">*</span><span class="p">(</span><span class="n">Ny</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">-</span><span class="n">centerJB</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+                         <span class="nb">round</span><span class="p">(</span><span class="n">offsetfromaxis</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
         
         <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;-a </span><span class="si">{}</span><span class="s1"> -t </span><span class="si">{}</span><span class="s1"> 0 0 &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsx&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;xcell&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;xcellgap&#39;</span><span class="p">])</span>
         
         <span class="k">if</span> <span class="n">centerJB</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">trans0</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycell&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycellgap&#39;</span><span class="p">]</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;-a </span><span class="si">{}</span><span class="s1"> -t 0 </span><span class="si">{}</span><span class="s1"> 0 &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">trans0</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;-a </span><span class="si">{}</span><span class="s1"> -t 0 </span><span class="si">{}</span><span class="s1"> 0 &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">trans0</span><span class="p">)</span>
             <span class="c1">#TODO: Continue playing with the y translation of the array in the next two lines</span>
                  <span class="c1"># Until it matches. Close but not there.</span>
             <span class="c1"># This is 0 spacing</span>
             <span class="c1">#ytrans1 = y/2.0-c[&#39;ycell&#39;]/2.0-c[&#39;ycellgap&#39;]+centerJB/2.0   # Creating the 2nd array with the right Jbox distance</span>
             <span class="n">ytrans1</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="mf">2.0</span><span class="o">-</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycell&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span><span class="o">-</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycellgap&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">centerJB</span><span class="o">/</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">centerJB</span>
             <span class="n">ytrans2</span><span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycell&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">centerJB</span><span class="o">/</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycellgap&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;-a </span><span class="si">{}</span><span class="s1"> -t 0 </span><span class="si">{}</span><span class="s1"> 0 &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ytrans1</span><span class="p">)</span>  
-            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;| xform -t 0 </span><span class="si">{}</span><span class="s1"> 0 &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ytrans2</span><span class="p">)</span>   
+            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;-a </span><span class="si">{}</span><span class="s1"> -t 0 </span><span class="si">{}</span><span class="s1"> 0 &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">ytrans1</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>  
+            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;| xform -t 0 </span><span class="si">{}</span><span class="s1"> 0 &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">ytrans2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>   
 
         <span class="k">else</span><span class="p">:</span>
             <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;-a </span><span class="si">{}</span><span class="s1"> -t 0 </span><span class="si">{}</span><span class="s1"> 0 &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycell&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycellgap&#39;</span><span class="p">])</span>
@@ -1636,7 +1846,7 @@ document.write(`
         <span class="c1"># OPACITY CALCULATION</span>
         <span class="n">packagingfactor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;xcell&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ycell&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsx&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;numcellsy&#39;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is a Cell-Level detailed module with Packaging &quot;</span><span class="o">+</span>
-              <span class="s2">&quot;Factor of </span><span class="si">{}</span><span class="s2"> %&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">packagingfactor</span><span class="p">))</span> 
+              <span class="s2">&quot;Factor of </span><span class="si">{}</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">packagingfactor</span><span class="p">))</span> 
         
         <span class="n">module</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
         <span class="n">module</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
@@ -1644,11 +1854,34 @@ document.write(`
         
         <span class="k">return</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_cc</span><span class="p">)</span>    
 
+<span class="k">class</span><span class="w"> </span><span class="nc">CECModule</span><span class="p">(</span><span class="n">SuperClass</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha_sc</span><span class="p">,</span> <span class="n">a_ref</span><span class="p">,</span> <span class="n">I_L_ref</span><span class="p">,</span> <span class="n">I_o_ref</span><span class="p">,</span>  <span class="n">R_sh_ref</span><span class="p">,</span> <span class="n">R_s</span><span class="p">,</span> <span class="n">Adjust</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For storing module performance parameters to be fed into pvlib.pvsystem.singlediode()</span>
+<span class="sd">        Required passed parameters: alpha_sc, a_ref, I_L_ref, I_o_ref,  R_sh_ref, R_s, Adjust</span>
+<span class="sd">        Usage: pass in **dictionary with at minimum these keys: &#39;alpha_sc&#39;, &#39;a_ref&#39;, &#39;I_L_ref&#39;, </span>
+<span class="sd">        &#39;I_o_ref&#39;,  &#39;R_sh_ref&#39;, &#39;R_s&#39;, &#39;Adjust&#39;, &#39;name&#39; (opt)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;alpha_sc&#39;</span><span class="p">,</span> <span class="s1">&#39;a_ref&#39;</span><span class="p">,</span> <span class="s1">&#39;I_L_ref&#39;</span><span class="p">,</span> <span class="s1">&#39;I_o_ref&#39;</span><span class="p">,</span>  <span class="s1">&#39;R_sh_ref&#39;</span><span class="p">,</span> <span class="s1">&#39;R_s&#39;</span><span class="p">,</span> 
+                     <span class="s1">&#39;Adjust&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">]</span> 
+        <span class="n">name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+
+        
+        <span class="c1"># set data object attributes from datakey list. </span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="nb">eval</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>    
+        
+
+
 <span class="c1"># deal with Int32 JSON incompatibility</span>
 <span class="c1"># https://www.programmerall.com/article/57461489186/</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="k">class</span> <span class="nc">MyEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
@@ -1686,8 +1919,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1707,7 +1940,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1720,7 +1953,8 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

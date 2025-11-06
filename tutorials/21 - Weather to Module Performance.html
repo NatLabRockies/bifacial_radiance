@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>21 - Weather to Module Performance &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>21 - Weather to Module Performance &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,34 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -50,6 +54,7 @@
     <link rel="prev" title="2 - Single Axis Tracking Yearly Simulation" href="2%20-%20Single%20Axis%20Tracking%20Yearly%20Simulation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -65,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -85,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,8 +120,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -188,29 +181,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -259,15 +244,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -286,7 +267,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -347,15 +329,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,7 +399,7 @@ document.write(`
 </ul>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="6%20-%20Exploring%20Trackerdict%20Structure.html">6 - Exploring Trackerdict Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="9%20-%20Torquetube%20Shading.html">9 - Torquetube Shading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11%20-%20AgriPV%20Systems.html">11 - AgriPV Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14%20-%20Cement%20Racking%20Albedo%20Improvements.html">14 - Cement Racking Albedo Improvements</a></li>
@@ -452,9 +430,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -472,8 +455,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -485,7 +466,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">21 -...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">21 - Weather to Module Performance</span></li>
   </ul>
 </nav>
 </div>
@@ -502,262 +483,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
-<div class="nbinput docutils container">
+  <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span> <span class="k">as</span> <span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">br</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -773,20 +506,20 @@ div.rendered_html tbody tr:hover {
 Working on a  Windows 10
 Python version  3.9.13 (main, Aug 25 2022, 23:51:50) [MSC v.1916 64 bit (AMD64)]
 Pandas version  1.5.3
-bifacial_radiance version  0.4.4.dev
+bifacial_radiance version  0.4.4.dev25+g9486645.d20240925
 </pre></div></div>
 </div>
 <section id="21---Weather-to-Module-Performance">
-<h1>21 - Weather to Module Performance<a class="headerlink" href="#21---Weather-to-Module-Performance" title="Permalink to this heading">#</a></h1>
+<h1>21 - Weather to Module Performance<a class="headerlink" href="#21---Weather-to-Module-Performance" title="Link to this heading">#</a></h1>
 <section id="Modeling-Performance,-an-End-to-End-Simulation">
-<h2>Modeling Performance, an End to End Simulation<a class="headerlink" href="#Modeling-Performance,-an-End-to-End-Simulation" title="Permalink to this heading">#</a></h2>
+<h2>Modeling Performance, an End to End Simulation<a class="headerlink" href="#Modeling-Performance,-an-End-to-End-Simulation" title="Link to this heading">#</a></h2>
 <p>This tutorial shows how to use the new function on bifacial_radiance calculatePerformanceModule performance, as well as how to find CEC Module parameters.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="n">testfolder</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;bifacial_radiance&#39;</span> <span class="o">/</span> <span class="s1">&#39;TEMP&#39;</span> <span class="o">/</span> <span class="s1">&#39;Tutorial_21&#39;</span><span class="p">)</span>
 
@@ -811,10 +544,10 @@ Your simulation will be stored in C:\Users\cdeline\Documents\Python Scripts\Bifa
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bifacial_radiance</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">pvlib</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pvlib</span>
 
 <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">__version__</span>
 </pre></div>
@@ -826,90 +559,25 @@ Your simulation will be stored in C:\Users\cdeline\Documents\Python Scripts\Bifa
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;0.4.4.dev&#39;
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Selecting only two times as examples</span>
-<span class="n">starttime</span> <span class="o">=</span> <span class="s1">&#39;01_13_11&#39;</span><span class="p">;</span>  <span class="n">endtime</span> <span class="o">=</span> <span class="s1">&#39;01_13_12&#39;</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">RadianceObj</span><span class="p">(</span><span class="s1">&#39;tutorial_21&#39;</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">testfolder</span><span class="p">)</span> <span class="c1"># Create a RadianceObj &#39;object&#39;</span>
-<span class="n">weatherfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getEPW</span><span class="p">(</span><span class="n">lat</span> <span class="o">=</span> <span class="mf">37.5</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">77.6</span><span class="p">)</span>  <span class="c1"># This location corresponds to Richmond, VA.</span>
-<span class="n">metdata</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">readWeatherFile</span><span class="p">(</span><span class="n">weatherFile</span><span class="o">=</span><span class="n">weatherfile</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">endtime</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">setGround</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
-<span class="n">mymodule</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeModule</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test-module&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bifi</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="n">sceneDict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tilt&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;azimuth&#39;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span> <span class="s1">&#39;pitch&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span><span class="s1">&#39;hub_height&#39;</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;nMods&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;nRows&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">set1axis</span><span class="p">(</span><span class="n">metdata</span> <span class="o">=</span> <span class="n">metdata</span><span class="p">,</span> <span class="n">cumulativesky</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">gendaylit1axis</span><span class="p">()</span>
-<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeScene1axis</span><span class="p">(</span><span class="n">moduletype</span> <span class="o">=</span> <span class="n">mymodule</span><span class="p">,</span> <span class="n">sceneDict</span> <span class="o">=</span> <span class="n">sceneDict</span><span class="p">)</span>
-<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct1axis</span><span class="p">()</span>
-<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">analysis1axis</span><span class="p">(</span><span class="n">sensorsy</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<br/></pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-path = C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_21
-Getting weather file: USA_VA_Richmond.724010_TMY2.epw
- ... OK!
-8760 line in WeatherFile. Assuming this is a standard hourly WeatherFile for the year for purposes of saving Gencumulativesky temporary weather files in EPW folder.
-Coercing year to 2021
-Filtering dates
-Saving file EPWs\metdata_temp.csv, # points: 8760
-Calculating Sun position for Metdata that is right-labeled  with a delta of -30 mins. i.e. 12 is 11:30 sunpos
-Loading albedo, 1 value(s), 0.200 avg
-1 nonzero albedo values.
-
-Module Name: test-module
-Module test-module updated in module.json
-Pre-existing .rad file objects\test-module.rad will be overwritten
-
-Creating ~2 skyfiles.
-Created 2 skyfiles in /skies/
-Warning:  input `moduletype` is deprecated. Use kwarg `module` instead
-
-Making ~2 .rad files for gendaylit 1-axis workflow (this takes a minute..)
-2 Radfiles created in /objects/
-
-Making 2 octfiles in root directory.
-Created 1axis_2021-01-13_1100.oct
-Created 1axis_2021-01-13_1200.oct
-Linescan in process: 1axis_2021-01-13_1100_Front
-Linescan in process: 1axis_2021-01-13_1100_Back
-Saved: results\irr_1axis_2021-01-13_1100.csv
-Index: 2021-01-13_1100. Wm2Front: 254.41273333333334. Wm2Back: 45.27032666666667
-Linescan in process: 1axis_2021-01-13_1200_Front
-Linescan in process: 1axis_2021-01-13_1200_Back
-Saved: results\irr_1axis_2021-01-13_1200.csv
-Index: 2021-01-13_1200. Wm2Front: 252.79103333333333. Wm2Back: 43.35205333333334
-Saving a cumulative-results file in the main simulation folder.This adds up by sensor location the irradiance over all hours or configurations considered.
-Warning: This file saving routine does not clean results, so if your setup has ygaps, or 2+modules or torque tubes, doing a deeper cleaning and working with the individual results files in the results folder is highly suggested.
-
-Saving Cumulative results
-Saved: cumulative_results_.csv
+&#39;0.4.4.dev25+g9486645.d20240925&#39;
 </pre></div></div>
 </div>
 </section>
-<section id="Geting-a-CEC-Module">
-<h2>Geting a CEC Module<a class="headerlink" href="#Geting-a-CEC-Module" title="Permalink to this heading">#</a></h2>
+<section id="Geting-a-CEC-Module-to-pass-into-demo.makeModule">
+<h2>Geting a CEC Module to pass into demo.makeModule<a class="headerlink" href="#Geting-a-CEC-Module-to-pass-into-demo.makeModule" title="Link to this heading">#</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/NREL/SAM/patch/deploy/libraries/CEC%20Modules.csv&#39;</span>
 <span class="n">db</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Reading this might take 1 min or so, the database is big.</span>
-<br/></pre></div>
+</pre></div>
 </div>
 </div>
 <p>Find the module that you want. In this case we know it’s a SunPower of model SPR-E19-310-COM.</p>
 <p>Make sure you select only 1 module from the database – sometimes there are similar names.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modfilter2</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;SunPower&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">db</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;SPR-E19-310-COM&#39;</span><span class="p">)</span>
@@ -928,19 +596,409 @@ Saved: cumulative_results_.csv
 1  modules selected. Name of 1st entry:  SunPower SPR-E19-310-COM
 </pre></div></div>
 </div>
-</section>
-<section id="Calculating-the-Performance-and-Exporting-the-Results-to-a-CSV">
-<h2>Calculating the Performance and Exporting the Results to a CSV<a class="headerlink" href="#Calculating-the-Performance-and-Exporting-the-Results-to-a-CSV" title="Permalink to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Selecting only two times as examples</span>
+<span class="n">starttime</span> <span class="o">=</span> <span class="s1">&#39;01_13_11&#39;</span><span class="p">;</span>  <span class="n">endtime</span> <span class="o">=</span> <span class="s1">&#39;01_13_12&#39;</span>
+<span class="n">demo</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">RadianceObj</span><span class="p">(</span><span class="s1">&#39;tutorial_21&#39;</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">testfolder</span><span class="p">)</span> <span class="c1"># Create a RadianceObj &#39;object&#39;</span>
+<span class="n">weatherfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getEPW</span><span class="p">(</span><span class="n">lat</span> <span class="o">=</span> <span class="mf">37.5</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">77.6</span><span class="p">)</span>  <span class="c1"># This location corresponds to Richmond, VA.</span>
+<span class="n">metdata</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">readWeatherFile</span><span class="p">(</span><span class="n">weatherFile</span><span class="o">=</span><span class="n">weatherfile</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">endtime</span><span class="p">)</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">setGround</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+path = C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_21
+Getting weather file: USA_VA_Richmond.724010_TMY2.epw
+ ... OK!
+8760 line in WeatherFile. Assuming this is a standard hourly WeatherFile for the year for purposes of saving Gencumulativesky temporary weather files in EPW folder.
+Coercing year to 2021
+Filtering dates
+Saving file EPWs\metdata_temp.csv, # points: 8760
+Calculating Sun position for Metdata that is right-labeled  with a delta of -30 mins. i.e. 12 is 11:30 sunpos
+Loading albedo, 1 value(s), 0.200 avg
+1 nonzero albedo values.
+</pre></div></div>
+</div>
+<p>The CEC data should be passed into the ModuleObj, either at time of creation, or sometime before it is passed into makeScene.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">)</span>
-<span class="n">tracker_dict_sample</span> <span class="o">=</span> <span class="n">trackerdict</span><span class="p">[</span><span class="s1">&#39;2021-01-13_1100&#39;</span><span class="p">]</span>
-<span class="n">eff_irr</span> <span class="o">=</span> <span class="n">tracker_dict_sample</span><span class="p">[</span><span class="s1">&#39;Wm2Front&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">tracker_dict_sample</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span>
-<span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">performance</span><span class="o">.</span><span class="n">calculatePerformance</span><span class="p">(</span><span class="n">eff_irr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">CECMod</span><span class="o">=</span><span class="n">CECMod</span><span class="p">)</span>
-<span class="c1">#calculatePerformanceModule -&gt; calculcateResults()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mymodule</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeModule</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test-module&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bifi</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">CECMod</span><span class="o">=</span><span class="n">CECMod</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Module Name: test-module
+Module test-module updated in module.json
+Pre-existing .rad file objects\test-module.rad will be overwritten
+
+</pre></div></div>
+</div>
+<p>The same data could instead be passed after the ModuleObj’s definition, or at time of performance analysis:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mymodule</span><span class="o">.</span><span class="n">addCEC</span><span class="p">(</span><span class="n">CECMod</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s make a second module, and set it to the default Prism Solar module type</span>
+<span class="n">mymodule2</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeModule</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bifi</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">CECMod</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Module Name: test
+Module test updated in module.json
+Pre-existing .rad file objects\test.rad will be overwritten
+
+</pre></div></div>
+</div>
+<p>We’re going to set up two scenes, each with a different module type!</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sceneDict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tilt&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;azimuth&#39;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span> <span class="s1">&#39;pitch&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span><span class="s1">&#39;hub_height&#39;</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;nMods&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;nRows&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">set1axis</span><span class="p">(</span><span class="n">metdata</span> <span class="o">=</span> <span class="n">metdata</span><span class="p">,</span> <span class="n">cumulativesky</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">gendaylit1axis</span><span class="p">()</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeScene1axis</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">module</span> <span class="o">=</span> <span class="n">mymodule</span><span class="p">,</span> <span class="n">sceneDict</span> <span class="o">=</span> <span class="n">sceneDict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Creating ~2 skyfiles.
+Created 2 skyfiles in /skies/
+
+Making ~2 .rad files for gendaylit 1-axis workflow (this takes a minute..)
+2 Radfiles created in /objects/
+</pre></div></div>
+</div>
+<p>Make a second scene with the other module type</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sceneDict2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tilt&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;azimuth&#39;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span> <span class="s1">&#39;pitch&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span><span class="s1">&#39;hub_height&#39;</span><span class="p">:</span><span class="mf">2.5</span><span class="p">,</span> <span class="s1">&#39;nMods&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;nRows&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;originx&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">15</span><span class="p">}</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeScene1axis</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">module</span> <span class="o">=</span> <span class="n">mymodule2</span><span class="p">,</span> <span class="n">sceneDict</span><span class="o">=</span><span class="n">sceneDict2</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Making ~2 .rad files for gendaylit 1-axis workflow (this takes a minute..)
+2 Radfiles created in /objects/
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compile both scenes into one octfile.  Run 2 different analyses, one on each scene with different front and rear y scan</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct1axis</span><span class="p">()</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">analysis1axis</span><span class="p">(</span><span class="n">sensorsy</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">analysis1axis</span><span class="p">(</span><span class="n">sensorsy</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">sceneNum</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Making 2 octfiles in root directory.
+Created 1axis_2021-01-13_1100.oct
+Created 1axis_2021-01-13_1200.oct
+
+Analysis1axis: append=False. Over-writing any existing `AnalysisObj` in trackerdict.
+
+Linescan in process: 1axis_2021-01-13_1100_Scene0_Row1_Module3_Front
+Linescan in process: 1axis_2021-01-13_1100_Scene0_Row1_Module3_Back
+Saved: results\irr_1axis_2021-01-13_1100_Scene0_Row1_Module3_Front.csv
+Saved: results\irr_1axis_2021-01-13_1100_Scene0_Row1_Module3_Back.csv
+Index: 2021-01-13_1100. Wm2Front: 254.26609999999997. Wm2Back: 39.97652333333334
+Linescan in process: 1axis_2021-01-13_1200_Scene0_Row1_Module3_Front
+Linescan in process: 1axis_2021-01-13_1200_Scene0_Row1_Module3_Back
+Saved: results\irr_1axis_2021-01-13_1200_Scene0_Row1_Module3_Front.csv
+Saved: results\irr_1axis_2021-01-13_1200_Scene0_Row1_Module3_Back.csv
+Index: 2021-01-13_1200. Wm2Front: 253.4217. Wm2Back: 38.20968333333333
+Linescan in process: 1axis_2021-01-13_1100_Scene1_Row1_Module1_Front
+Linescan in process: 1axis_2021-01-13_1100_Scene1_Row1_Module1_Back
+Saved: results\irr_1axis_2021-01-13_1100_Scene1_Row1_Module1_Front.csv
+Saved: results\irr_1axis_2021-01-13_1100_Scene1_Row1_Module1_Back.csv
+Index: 2021-01-13_1100. Wm2Front: 253.54973333333336. Wm2Back: 0.0
+Linescan in process: 1axis_2021-01-13_1200_Scene1_Row1_Module1_Front
+Linescan in process: 1axis_2021-01-13_1200_Scene1_Row1_Module1_Back
+Saved: results\irr_1axis_2021-01-13_1200_Scene1_Row1_Module1_Front.csv
+Saved: results\irr_1axis_2021-01-13_1200_Scene1_Row1_Module1_Back.csv
+Index: 2021-01-13_1200. Wm2Front: 252.57203333333334. Wm2Back: 0.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Include an AgriPV groundscan too</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">analysis1axisground</span><span class="p">(</span><span class="n">sceneNum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sensorsground</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">customname</span><span class="o">=</span><span class="s1">&#39;Silvanas_&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Linescan in process: 1axis_groundscan_2021-01-13_1100Silvanas__Row1_Module1_Front
+Saved: results\irr_1axis_groundscan_2021-01-13_1100Silvanas__Row1_Module1.csv
+Index: 2021-01-13_1100. Wm2Ground: 204.79288999999997. sensorsground: 10
+Linescan in process: 1axis_groundscan_2021-01-13_1200Silvanas__Row1_Module1_Front
+Saved: results\irr_1axis_groundscan_2021-01-13_1200Silvanas__Row1_Module1.csv
+Index: 2021-01-13_1200. Wm2Ground: 237.48879000000002. sensorsground: 10
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show the initial irradiance results before continuing:</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">results</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>name</th>
+      <th>modNum</th>
+      <th>rowNum</th>
+      <th>sceneNum</th>
+      <th>Wm2Front</th>
+      <th>Wm2Back</th>
+      <th>backRatio</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>mattype</th>
+      <th>rearX</th>
+      <th>rearY</th>
+      <th>rearZ</th>
+      <th>rearMat</th>
+      <th>surf_azm</th>
+      <th>surf_tilt</th>
+      <th>theta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2021-01-13_1100</td>
+      <td>1axis_2021-01-13_1100_Scene0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>[254.26609999999997]</td>
+      <td>[39.59574, 39.60611, 40.72772]</td>
+      <td>0.157223</td>
+      <td>[0.01462555]</td>
+      <td>[0.0]</td>
+      <td>[1.514648]</td>
+      <td>[a2.0.a0.test-module.6457]</td>
+      <td>[0.3581543, -0.0007324219, -0.3596191]</td>
+      <td>[0.0, 0.0, 0.0]</td>
+      <td>[1.151367, 1.499512, 1.847656]</td>
+      <td>[a2.0.a0.test-module.2310, a2.0.a0.test-module...</td>
+      <td>90.0</td>
+      <td>44.14</td>
+      <td>-44.14</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2021-01-13_1100</td>
+      <td>1axis_2021-01-13_1100_Scene1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>[253.0651, 253.8192, 253.7649]</td>
+      <td>[0.0, 0.0]</td>
+      <td>0.0</td>
+      <td>[-14.625, -14.98389, -15.34277]</td>
+      <td>[0.0, 0.0, 0.0]</td>
+      <td>[2.166016, 2.51416, 2.862305]</td>
+      <td>[a0.0.a0.test.6457, a0.0.a0.test.6457, a0.0.a0...</td>
+      <td>[-14.75781, -15.23633]</td>
+      <td>[0.0, 0.0]</td>
+      <td>[2.267578, 2.731934]</td>
+      <td>[a0.0.a0.test.6457, a0.0.a0.test.6457]</td>
+      <td>90.0</td>
+      <td>44.14</td>
+      <td>-44.14</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2021-01-13_1100</td>
+      <td>1axis_groundscan_2021-01-13_1100Silvanas_</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>[199.1224, 201.452, 204.5499, 206.0879, 207.14...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[-15.0, -14.44434, -13.88867, -13.33301, -12.7...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>[0.04998779, 0.04998779, 0.04998779, 0.0499877...</td>
+      <td>[groundplane, groundplane, groundplane, ground...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>90.0</td>
+      <td>44.14</td>
+      <td>-44.14</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2021-01-13_1200</td>
+      <td>1axis_2021-01-13_1200_Scene0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>[253.4217]</td>
+      <td>[37.89736, 37.81097, 38.92072]</td>
+      <td>0.150775</td>
+      <td>[0.007595062]</td>
+      <td>[0.0]</td>
+      <td>[1.519531]</td>
+      <td>[a2.0.a0.test-module.6457]</td>
+      <td>[0.4658203, -0.0002441406, -0.4663086]</td>
+      <td>[0.0, 0.0, 0.0]</td>
+      <td>[1.318359, 1.499146, 1.679932]</td>
+      <td>[a2.0.a0.test-module.2310, a2.0.a0.test-module...</td>
+      <td>90.0</td>
+      <td>21.20</td>
+      <td>-21.20</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2021-01-13_1200</td>
+      <td>1axis_2021-01-13_1200_Scene1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>[252.4514, 252.5719, 252.6928]</td>
+      <td>[0.0, 0.0]</td>
+      <td>0.0</td>
+      <td>[-14.52344, -14.9895, -15.45557]</td>
+      <td>[0.0, 0.0, 0.0]</td>
+      <td>[2.337891, 2.518677, 2.699463]</td>
+      <td>[a0.0.a0.test.6457, a0.0.a0.test.6457, a0.0.a0...</td>
+      <td>[-14.6875, -15.30908]</td>
+      <td>[0.0, 0.0]</td>
+      <td>[2.378906, 2.619995]</td>
+      <td>[a0.0.a0.test.6457, a0.0.a0.test.6457]</td>
+      <td>90.0</td>
+      <td>21.20</td>
+      <td>-21.20</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2021-01-13_1200</td>
+      <td>1axis_groundscan_2021-01-13_1200Silvanas_</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>[227.9177, 230.1437, 233.8727, 236.2223, 238.9...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[-15.0, -14.44434, -13.88867, -13.33301, -12.7...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>[0.04998779, 0.04998779, 0.04998779, 0.0499877...</td>
+      <td>[groundplane, groundplane, groundplane, ground...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>90.0</td>
+      <td>21.20</td>
+      <td>-21.20</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Calculating-the-Performance-and-Exporting-the-Results-to-a-CSV">
+<h2>Calculating the Performance and Exporting the Results to a CSV<a class="headerlink" href="#Calculating-the-Performance-and-Exporting-the-Results-to-a-CSV" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate performance.</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="n">compiledResults</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">calculatePerformance1axis</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Compiled results:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">compiledResults</span><span class="p">)</span>
+<br/></pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -948,20 +1006,271 @@ Saved: cumulative_results_.csv
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;2021-01-13_1100&#39;: {&#39;surf_azm&#39;: 90.0, &#39;surf_tilt&#39;: 44.14, &#39;theta&#39;: -44.14, &#39;dni&#39;: 144, &#39;ghi&#39;: 211, &#39;dhi&#39;: 149, &#39;temp_air&#39;: 4.6, &#39;wind_speed&#39;: 3.8, &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-01-13_1100.rad&#39;, &#39;radfile&#39;: &#39;objects\\1axis2021-01-13_1100__C_0.80_rtr_5.00_tilt_44_3modsx2rows_origin0,0.rad&#39;, &#39;scene&#39;: &lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: 0.4, &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: 1, &#39;y&#39;: 2, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.01, &#39;sceney&#39;: 2.0, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 1, &#39;bifi&#39;: 0.9, &#39;text&#39;: &#39;! genbox black test-module 1 2 0.02 | xform -t -0.5 -1.0 0 -a 1 -t 0 2.0 0&#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.0, &#39;zgap&#39;: 0.1}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-01-13_1100__C_0.80_rtr_5.00_tilt_44_3modsx2rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;tilt&#39;: 0, &#39;azimuth&#39;: 90.0, &#39;pitch&#39;: 5, &#39;nMods&#39;: 3, &#39;nRows&#39;: 2, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: 1.5}, &#39;text&#39;: &#39;!xform -rx 44.14 -t 0 0 1.5 -a 3 -t 1.01 0 0 -a 2 -t 0 5 0 -i 1 -t -1.01 -0.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}, &#39;octfile&#39;: &#39;1axis_2021-01-13_1100.oct&#39;, &#39;AnalysisObj&#39;: &lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.176, 0.177, 0.181], &#39;Wm2Back&#39;: [44.704, 45.111, 45.996], &#39;Wm2Front&#39;: [254.061, 254.997, 254.18], &#39;backRatio&#39;: [0.176, 0.177, 0.181], &#39;hpc&#39;: False, &#39;mattype&#39;: [&#39;a1.0.a0.test-module.6457&#39;, &#39;a1.0.a0.test-module.6457&#39;, &#39;a1.0.a0.test-module.6457&#39;], &#39;name&#39;: &#39;1axis_2021-01-13_1100&#39;, &#39;octfile&#39;: &#39;1axis_2021-01-13_1100.oct&#39;, &#39;rearMat&#39;: [&#39;a1.0.a0.test-module.2310&#39;, &#39;a1.0.a0.test-module.2310&#39;, &#39;a1.0.a0.test-module.2310&#39;], &#39;rearX&#39;: [0.358, -0.001, -0.36], &#39;rearY&#39;: [0.0, -0.0, -0.0], &#39;rearZ&#39;: [1.151, 1.499, 1.847], &#39;x&#39;: [0.373, 0.015, -0.344], &#39;y&#39;: [0.0, 0.0, -0.0], &#39;z&#39;: [1.167, 1.515, 1.863]}, &#39;Wm2Front&#39;: [254.0611, 254.9967, 254.1804], &#39;Wm2Back&#39;: [44.704460000000005, 45.11092, 45.9956], &#39;backRatio&#39;: [0.1759587911774326, 0.17690716426069725, 0.1809558055782209]}, &#39;2021-01-13_1200&#39;: {&#39;surf_azm&#39;: 90.0, &#39;surf_tilt&#39;: 21.2, &#39;theta&#39;: -21.2, &#39;dni&#39;: 97, &#39;ghi&#39;: 249, &#39;dhi&#39;: 200, &#39;temp_air&#39;: 6.5, &#39;wind_speed&#39;: 3.9, &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-01-13_1200.rad&#39;, &#39;radfile&#39;: &#39;objects\\1axis2021-01-13_1200__C_1.14_rtr_5.00_tilt_21_3modsx2rows_origin0,0.rad&#39;, &#39;scene&#39;: &lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: 0.4, &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: 1, &#39;y&#39;: 2, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.01, &#39;sceney&#39;: 2.0, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 1, &#39;bifi&#39;: 0.9, &#39;text&#39;: &#39;! genbox black test-module 1 2 0.02 | xform -t -0.5 -1.0 0 -a 1 -t 0 2.0 0&#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.0, &#39;zgap&#39;: 0.1}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-01-13_1200__C_1.14_rtr_5.00_tilt_21_3modsx2rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;tilt&#39;: 21.2, &#39;azimuth&#39;: 90.0, &#39;pitch&#39;: 5, &#39;nMods&#39;: 3, &#39;nRows&#39;: 2, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: 1.5}, &#39;text&#39;: &#39;!xform -rx 21.2 -t 0 0 1.5 -a 3 -t 1.01 0 0 -a 2 -t 0 5 0 -i 1 -t -1.01 -0.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}, &#39;octfile&#39;: &#39;1axis_2021-01-13_1200.oct&#39;, &#39;AnalysisObj&#39;: &lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.171, 0.171, 0.173], &#39;Wm2Back&#39;: [43.126, 43.227, 43.703], &#39;Wm2Front&#39;: [252.608, 252.791, 252.974], &#39;backRatio&#39;: [0.171, 0.171, 0.173], &#39;hpc&#39;: False, &#39;mattype&#39;: [&#39;a1.0.a0.test-module.6457&#39;, &#39;a1.0.a0.test-module.6457&#39;, &#39;a1.0.a0.test-module.6457&#39;], &#39;name&#39;: &#39;1axis_2021-01-13_1200&#39;, &#39;octfile&#39;: &#39;1axis_2021-01-13_1200.oct&#39;, &#39;rearMat&#39;: [&#39;a1.0.a0.test-module.2310&#39;, &#39;a1.0.a0.test-module.2310&#39;, &#39;a1.0.a0.test-module.2310&#39;], &#39;rearX&#39;: [0.466, -0.0, -0.467], &#39;rearY&#39;: [0.0, -0.0, -0.0], &#39;rearZ&#39;: [1.318, 1.499, 1.68], &#39;x&#39;: [0.474, 0.008, -0.459], &#39;y&#39;: [0.0, 0.0, -0.0], &#39;z&#39;: [1.339, 1.52, 1.7]}, &#39;Wm2Front&#39;: [252.60800000000003, 252.7909, 252.9742], &#39;Wm2Back&#39;: [43.126380000000005, 43.22666, 43.70311999999999], &#39;backRatio&#39;: [0.17072384594373122, 0.17099701374925386, 0.17275653898089613]}}
+No CECModule data passed; using default for Prism Solar BHC72-400
+
+Compiled results:
+
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-73.25703819145978
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>name</th>
+      <th>modNum</th>
+      <th>rowNum</th>
+      <th>sceneNum</th>
+      <th>Wm2Front</th>
+      <th>Wm2Back</th>
+      <th>backRatio</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>mattype</th>
+      <th>rearX</th>
+      <th>rearY</th>
+      <th>rearZ</th>
+      <th>rearMat</th>
+      <th>POA_eff</th>
+      <th>Gfront_mean</th>
+      <th>Grear_mean</th>
+      <th>Pout_raw</th>
+      <th>Pout_Gfront</th>
+      <th>BGG</th>
+      <th>BGE</th>
+      <th>Mismatch</th>
+      <th>Pout</th>
+      <th>Wind Speed</th>
+      <th>DNI</th>
+      <th>DHI</th>
+      <th>GHI</th>
+      <th>module_CEC_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2021-01-13_1100</td>
+      <td>1axis_2021-01-13_1100_Scene0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>[254.26609999999997]</td>
+      <td>[39.59574, 39.60611, 40.72772]</td>
+      <td>0.157223</td>
+      <td>[0.01462555]</td>
+      <td>[0.0]</td>
+      <td>[1.514648]</td>
+      <td>[a2.0.a0.test-module.6457]</td>
+      <td>[0.3581543, -0.0007324219, -0.3596191]</td>
+      <td>[0.0, 0.0, 0.0]</td>
+      <td>[1.151367, 1.499512, 1.847656]</td>
+      <td>[a2.0.a0.test-module.2310, a2.0.a0.test-module...</td>
+      <td>290.244971</td>
+      <td>254.266100</td>
+      <td>39.976523</td>
+      <td>91.775968</td>
+      <td>80.310389</td>
+      <td>14.150086</td>
+      <td>14.276583</td>
+      <td>0.022931</td>
+      <td>91.754923</td>
+      <td>3.8</td>
+      <td>144</td>
+      <td>149</td>
+      <td>211</td>
+      <td>SunPower SPR-E19-310-COM</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2021-01-13_1100</td>
+      <td>1axis_2021-01-13_1100_Scene1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>[253.0651, 253.8192, 253.7649]</td>
+      <td>[0.0, 0.0]</td>
+      <td>0.0</td>
+      <td>[-14.625, -14.98389, -15.34277]</td>
+      <td>[0.0, 0.0, 0.0]</td>
+      <td>[2.166016, 2.51416, 2.862305]</td>
+      <td>[a0.0.a0.test.6457, a0.0.a0.test.6457, a0.0.a0...</td>
+      <td>[-14.75781, -15.23633]</td>
+      <td>[0.0, 0.0]</td>
+      <td>[2.267578, 2.731934]</td>
+      <td>[a0.0.a0.test.6457, a0.0.a0.test.6457]</td>
+      <td>253.549733</td>
+      <td>253.549733</td>
+      <td>0.000000</td>
+      <td>106.072139</td>
+      <td>106.072139</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>106.072139</td>
+      <td>3.8</td>
+      <td>144</td>
+      <td>149</td>
+      <td>211</td>
+      <td>Prism Solar Technologies Inc. BHC72-400</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2021-01-13_1100</td>
+      <td>1axis_groundscan_2021-01-13_1100Silvanas_</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>[199.1224, 201.452, 204.5499, 206.0879, 207.14...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[-15.0, -14.44434, -13.88867, -13.33301, -12.7...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>[0.04998779, 0.04998779, 0.04998779, 0.0499877...</td>
+      <td>[groundplane, groundplane, groundplane, ground...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>204.792890</td>
+      <td>204.792890</td>
+      <td>0.000000</td>
+      <td>85.584512</td>
+      <td>85.584512</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>85.584512</td>
+      <td>3.8</td>
+      <td>144</td>
+      <td>149</td>
+      <td>211</td>
+      <td>Prism Solar Technologies Inc. BHC72-400</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2021-01-13_1200</td>
+      <td>1axis_2021-01-13_1200_Scene0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>[253.4217]</td>
+      <td>[37.89736, 37.81097, 38.92072]</td>
+      <td>0.150775</td>
+      <td>[0.007595062]</td>
+      <td>[0.0]</td>
+      <td>[1.519531]</td>
+      <td>[a2.0.a0.test-module.6457]</td>
+      <td>[0.4658203, -0.0002441406, -0.4663086]</td>
+      <td>[0.0, 0.0, 0.0]</td>
+      <td>[1.318359, 1.499146, 1.679932]</td>
+      <td>[a2.0.a0.test-module.2310, a2.0.a0.test-module...</td>
+      <td>287.810415</td>
+      <td>253.421700</td>
+      <td>38.209683</td>
+      <td>90.333308</td>
+      <td>79.448352</td>
+      <td>13.569759</td>
+      <td>13.700669</td>
+      <td>0.022662</td>
+      <td>90.312836</td>
+      <td>3.9</td>
+      <td>97</td>
+      <td>200</td>
+      <td>249</td>
+      <td>SunPower SPR-E19-310-COM</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2021-01-13_1200</td>
+      <td>1axis_2021-01-13_1200_Scene1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>[252.4514, 252.5719, 252.6928]</td>
+      <td>[0.0, 0.0]</td>
+      <td>0.0</td>
+      <td>[-14.52344, -14.9895, -15.45557]</td>
+      <td>[0.0, 0.0, 0.0]</td>
+      <td>[2.337891, 2.518677, 2.699463]</td>
+      <td>[a0.0.a0.test.6457, a0.0.a0.test.6457, a0.0.a0...</td>
+      <td>[-14.6875, -15.30908]</td>
+      <td>[0.0, 0.0]</td>
+      <td>[2.378906, 2.619995]</td>
+      <td>[a0.0.a0.test.6457, a0.0.a0.test.6457]</td>
+      <td>252.572033</td>
+      <td>252.572033</td>
+      <td>0.000000</td>
+      <td>104.950213</td>
+      <td>104.950213</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>104.950213</td>
+      <td>3.9</td>
+      <td>97</td>
+      <td>200</td>
+      <td>249</td>
+      <td>Prism Solar Technologies Inc. BHC72-400</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2021-01-13_1200</td>
+      <td>1axis_groundscan_2021-01-13_1200Silvanas_</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>[227.9177, 230.1437, 233.8727, 236.2223, 238.9...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>[-15.0, -14.44434, -13.88867, -13.33301, -12.7...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>[0.04998779, 0.04998779, 0.04998779, 0.0499877...</td>
+      <td>[groundplane, groundplane, groundplane, ground...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>237.488790</td>
+      <td>237.488790</td>
+      <td>0.000000</td>
+      <td>98.665486</td>
+      <td>98.665486</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>98.665486</td>
+      <td>3.9</td>
+      <td>97</td>
+      <td>200</td>
+      <td>249</td>
+      <td>Prism Solar Technologies Inc. BHC72-400</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">exportTrackerDict</span><span class="p">(</span><span class="n">savefile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">,</span><span class="s1">&#39;Final_Results.csv&#39;</span><span class="p">),</span><span class="n">reindex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -975,10 +1284,14 @@ Saved: cumulative_results_.csv
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Exporting TrackerDict
+3
+3
+1
+1
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1001,55 +1314,537 @@ Exporting TrackerDict
     <tr style="text-align: right;">
       <th></th>
       <th>Unnamed: 0</th>
-      <th>dhi</th>
-      <th>ghi</th>
-      <th>Wm2Back</th>
+      <th>timestamp</th>
+      <th>rowNum</th>
+      <th>modNum</th>
+      <th>sceneNum</th>
+      <th>name</th>
       <th>Wm2Front</th>
+      <th>Wm2Back</th>
+      <th>DNI</th>
+      <th>DHI</th>
+      <th>GHI</th>
+      <th>temp_air</th>
+      <th>wind_speed</th>
       <th>theta</th>
       <th>surf_tilt</th>
       <th>surf_azm</th>
-      <th>clearance_height</th>
-      <th>effective_irradiance</th>
-      <th>Pout_module</th>
-      <th>Wm2BackAvg</th>
-      <th>Wm2FrontAvg</th>
-      <th>BifiRatio</th>
+      <th>POA_eff</th>
+      <th>Gfront_mean</th>
+      <th>Grear_mean</th>
+      <th>Pout_raw</th>
+      <th>Mismatch</th>
+      <th>Pout</th>
+      <th>Pout_Gfront</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
+      <td>0</td>
       <td>2021-01-13_1100</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+      <td>1axis_2021-01-13_1100_Scene0</td>
+      <td>[254.2661]</td>
+      <td>[39.59574 39.60611 40.72772]</td>
+      <td>144</td>
       <td>149</td>
       <td>211</td>
-      <td>[44.704460000000005, 45.11092, 45.9956]</td>
-      <td>[254.0611, 254.9967, 254.1804]</td>
+      <td>NaN</td>
+      <td>3.8</td>
       <td>-44.14</td>
       <td>44.14</td>
       <td>90.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>45.270327</td>
-      <td>254.412733</td>
-      <td>0.160146</td>
+      <td>290.244971</td>
+      <td>254.266100</td>
+      <td>39.976523</td>
+      <td>91.775968</td>
+      <td>0.022931</td>
+      <td>91.754923</td>
+      <td>80.310389</td>
     </tr>
     <tr>
       <th>1</th>
+      <td>1</td>
+      <td>2021-01-13_1100</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1axis_2021-01-13_1100_Scene1</td>
+      <td>[253.0651 253.8192 253.7649]</td>
+      <td>[0. 0.]</td>
+      <td>144</td>
+      <td>149</td>
+      <td>211</td>
+      <td>NaN</td>
+      <td>3.8</td>
+      <td>-44.14</td>
+      <td>44.14</td>
+      <td>90.0</td>
+      <td>253.549733</td>
+      <td>253.549733</td>
+      <td>0.000000</td>
+      <td>106.072139</td>
+      <td>0.000000</td>
+      <td>106.072139</td>
+      <td>106.072139</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>2021-01-13_1100</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1axis_groundscan_2021-01-13_1100Silvanas_</td>
+      <td>[199.1224 201.452  204.5499 206.0879 207.1438 ...</td>
+      <td>NaN</td>
+      <td>144</td>
+      <td>149</td>
+      <td>211</td>
+      <td>NaN</td>
+      <td>3.8</td>
+      <td>-44.14</td>
+      <td>44.14</td>
+      <td>90.0</td>
+      <td>204.792890</td>
+      <td>204.792890</td>
+      <td>0.000000</td>
+      <td>85.584512</td>
+      <td>0.000000</td>
+      <td>85.584512</td>
+      <td>85.584512</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
       <td>2021-01-13_1200</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+      <td>1axis_2021-01-13_1200_Scene0</td>
+      <td>[253.4217]</td>
+      <td>[37.89736 37.81097 38.92072]</td>
+      <td>97</td>
       <td>200</td>
       <td>249</td>
-      <td>[43.126380000000005, 43.22666, 43.70311999999999]</td>
-      <td>[252.60800000000003, 252.7909, 252.9742]</td>
+      <td>NaN</td>
+      <td>3.9</td>
       <td>-21.20</td>
       <td>21.20</td>
       <td>90.0</td>
+      <td>287.810415</td>
+      <td>253.421700</td>
+      <td>38.209683</td>
+      <td>90.333308</td>
+      <td>0.022662</td>
+      <td>90.312836</td>
+      <td>79.448352</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2021-01-13_1200</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1axis_2021-01-13_1200_Scene1</td>
+      <td>[252.4514 252.5719 252.6928]</td>
+      <td>[0. 0.]</td>
+      <td>97</td>
+      <td>200</td>
+      <td>249</td>
       <td>NaN</td>
+      <td>3.9</td>
+      <td>-21.20</td>
+      <td>21.20</td>
+      <td>90.0</td>
+      <td>252.572033</td>
+      <td>252.572033</td>
+      <td>0.000000</td>
+      <td>104.950213</td>
+      <td>0.000000</td>
+      <td>104.950213</td>
+      <td>104.950213</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>2021-01-13_1200</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1axis_groundscan_2021-01-13_1200Silvanas_</td>
+      <td>[227.9177 230.1437 233.8727 236.2223 238.9651 ...</td>
       <td>NaN</td>
+      <td>97</td>
+      <td>200</td>
+      <td>249</td>
       <td>NaN</td>
-      <td>43.352053</td>
-      <td>252.791033</td>
-      <td>0.154344</td>
+      <td>3.9</td>
+      <td>-21.20</td>
+      <td>21.20</td>
+      <td>90.0</td>
+      <td>237.488790</td>
+      <td>237.488790</td>
+      <td>0.000000</td>
+      <td>98.665486</td>
+      <td>0.000000</td>
+      <td>98.665486</td>
+      <td>98.665486</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Now-look-at-gencumulativesky-tracking-workflow">
+<h2>Now look at gencumulativesky tracking workflow<a class="headerlink" href="#Now-look-at-gencumulativesky-tracking-workflow" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span> <span class="o">=</span> <span class="s1">&#39;01_13_11&#39;</span><span class="p">;</span>  <span class="n">endtime</span> <span class="o">=</span> <span class="s1">&#39;12_13_12&#39;</span>
+<span class="n">demo</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">RadianceObj</span><span class="p">(</span><span class="s1">&#39;tutorial_21&#39;</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">testfolder</span><span class="p">)</span> <span class="c1"># Create a RadianceObj &#39;object&#39;</span>
+<span class="n">weatherfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getEPW</span><span class="p">(</span><span class="n">lat</span> <span class="o">=</span> <span class="mf">37.5</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">77.6</span><span class="p">)</span>  <span class="c1"># This location corresponds to Richmond, VA.</span>
+<span class="n">metdata</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">readWeatherFile</span><span class="p">(</span><span class="n">weatherFile</span><span class="o">=</span><span class="n">weatherfile</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">endtime</span><span class="p">)</span>
+<span class="c1">#metdata = demo.readWeatherFile(weatherFile=weatherfile)</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">setGround</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">mymodule</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeModule</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test-module&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bifi</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">CECMod</span><span class="o">=</span><span class="n">CECMod</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+path = C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_21
+Getting weather file: USA_VA_Richmond.724010_TMY2.epw
+ ... OK!
+8760 line in WeatherFile. Assuming this is a standard hourly WeatherFile for the year for purposes of saving Gencumulativesky temporary weather files in EPW folder.
+Coercing year to 2021
+Filtering dates
+Saving file EPWs\metdata_temp.csv, # points: 8760
+Calculating Sun position for Metdata that is right-labeled  with a delta of -30 mins. i.e. 12 is 11:30 sunpos
+Loading albedo, 1 value(s), 0.200 avg
+1 nonzero albedo values.
+
+Module Name: test-module
+Module test-module updated in module.json
+Pre-existing .rad file objects\test-module.rad will be overwritten
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sceneDict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tilt&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;azimuth&#39;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span> <span class="s1">&#39;pitch&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span><span class="s1">&#39;hub_height&#39;</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;nMods&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;nRows&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">set1axis</span><span class="p">(</span><span class="n">metdata</span><span class="o">=</span><span class="n">metdata</span><span class="p">,</span> <span class="n">cumulativesky</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">limit_angle</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">backtrack</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">genCumSky1axis</span><span class="p">()</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeScene1axis</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">module</span> <span class="o">=</span> <span class="n">mymodule</span><span class="p">,</span> <span class="n">sceneDict</span> <span class="o">=</span> <span class="n">sceneDict</span><span class="p">)</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct1axis</span><span class="p">()</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">analysis1axis</span><span class="p">(</span><span class="n">modWanted</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">sensorsy</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">analysis1axisground</span><span class="p">(</span><span class="n">sensorsground</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Saving file EPWs\1axis_-15.0.csv, # points: 1875
+Saving file EPWs\1axis_-10.0.csv, # points: 241
+Saving file EPWs\1axis_0.0.csv, # points: 2
+Saving file EPWs\1axis_5.0.csv, # points: 242
+Saving file EPWs\1axis_10.0.csv, # points: 33
+Saving file EPWs\1axis_15.0.csv, # points: 1683
+message: There were 1833 sun up hours in this climate file
+Total Ibh/Lbh: 0.000000
+Created skyfile skies\1axis_-15.0.rad
+message: There were 238 sun up hours in this climate file
+Total Ibh/Lbh: 0.000000
+Created skyfile skies\1axis_-10.0.rad
+message: There were 2 sun up hours in this climate file
+Total Ibh/Lbh: 0.000000
+Created skyfile skies\1axis_0.0.rad
+message: There were 239 sun up hours in this climate file
+Total Ibh/Lbh: 0.000000
+Created skyfile skies\1axis_5.0.rad
+message: There were 33 sun up hours in this climate file
+Total Ibh/Lbh: 0.000000
+Created skyfile skies\1axis_10.0.rad
+message: There were 1661 sun up hours in this climate file
+Total Ibh/Lbh: 0.000000
+Created skyfile skies\1axis_15.0.rad
+
+Making .rad files for cumulativesky 1-axis workflow
+6 Radfiles created in /objects/
+
+Making 6 octfiles in root directory.
+Created 1axis_-15.0.oct
+Created 1axis_-10.0.oct
+Created 1axis_0.0.oct
+Created 1axis_5.0.oct
+Created 1axis_10.0.oct
+Created 1axis_15.0.oct
+Linescan in process: 1axis_-15.0_Scene0_Row1_Module2_Front
+Linescan in process: 1axis_-15.0_Scene0_Row1_Module2_Back
+Saved: results\irr_1axis_-15.0_Scene0_Row1_Module2_Front.csv
+Saved: results\irr_1axis_-15.0_Scene0_Row1_Module2_Back.csv
+Index: -15.0. Wm2Front: 627314.8999999999. Wm2Back: 80826.80666666666
+Linescan in process: 1axis_-15.0_Scene0_Row1_Module4_Front
+Linescan in process: 1axis_-15.0_Scene0_Row1_Module4_Back
+Saved: results\irr_1axis_-15.0_Scene0_Row1_Module4_Front.csv
+Saved: results\irr_1axis_-15.0_Scene0_Row1_Module4_Back.csv
+Index: -15.0. Wm2Front: 633150.2. Wm2Back: 74338.82666666668
+Linescan in process: 1axis_-10.0_Scene0_Row1_Module2_Front
+Linescan in process: 1axis_-10.0_Scene0_Row1_Module2_Back
+Saved: results\irr_1axis_-10.0_Scene0_Row1_Module2_Front.csv
+Saved: results\irr_1axis_-10.0_Scene0_Row1_Module2_Back.csv
+Index: -10.0. Wm2Front: 146242.85. Wm2Back: 19780.77666666667
+Linescan in process: 1axis_-10.0_Scene0_Row1_Module4_Front
+Linescan in process: 1axis_-10.0_Scene0_Row1_Module4_Back
+Saved: results\irr_1axis_-10.0_Scene0_Row1_Module4_Front.csv
+Saved: results\irr_1axis_-10.0_Scene0_Row1_Module4_Back.csv
+Index: -10.0. Wm2Front: 148151.5. Wm2Back: 17382.633333333335
+Linescan in process: 1axis_0.0_Scene0_Row1_Module2_Front
+Linescan in process: 1axis_0.0_Scene0_Row1_Module2_Back
+Saved: results\irr_1axis_0.0_Scene0_Row1_Module2_Front.csv
+Saved: results\irr_1axis_0.0_Scene0_Row1_Module2_Back.csv
+Index: 0.0. Wm2Front: 967.20935. Wm2Back: 151.3741
+Linescan in process: 1axis_0.0_Scene0_Row1_Module4_Front
+Linescan in process: 1axis_0.0_Scene0_Row1_Module4_Back
+Saved: results\irr_1axis_0.0_Scene0_Row1_Module4_Front.csv
+Saved: results\irr_1axis_0.0_Scene0_Row1_Module4_Back.csv
+Index: 0.0. Wm2Front: 1004.4355. Wm2Back: 118.55160000000001
+Linescan in process: 1axis_5.0_Scene0_Row1_Module2_Front
+Linescan in process: 1axis_5.0_Scene0_Row1_Module2_Back
+Saved: results\irr_1axis_5.0_Scene0_Row1_Module2_Front.csv
+Saved: results\irr_1axis_5.0_Scene0_Row1_Module2_Back.csv
+Index: 5.0. Wm2Front: 149129.2. Wm2Back: 19709.866666666665
+Linescan in process: 1axis_5.0_Scene0_Row1_Module4_Front
+Linescan in process: 1axis_5.0_Scene0_Row1_Module4_Back
+Saved: results\irr_1axis_5.0_Scene0_Row1_Module4_Front.csv
+Saved: results\irr_1axis_5.0_Scene0_Row1_Module4_Back.csv
+Index: 5.0. Wm2Front: 149867.15000000002. Wm2Back: 17504.570000000003
+Linescan in process: 1axis_10.0_Scene0_Row1_Module2_Front
+Linescan in process: 1axis_10.0_Scene0_Row1_Module2_Back
+Saved: results\irr_1axis_10.0_Scene0_Row1_Module2_Front.csv
+Saved: results\irr_1axis_10.0_Scene0_Row1_Module2_Back.csv
+Index: 10.0. Wm2Front: 17213.73. Wm2Back: 2419.6253333333334
+Linescan in process: 1axis_10.0_Scene0_Row1_Module4_Front
+Linescan in process: 1axis_10.0_Scene0_Row1_Module4_Back
+Saved: results\irr_1axis_10.0_Scene0_Row1_Module4_Front.csv
+Saved: results\irr_1axis_10.0_Scene0_Row1_Module4_Back.csv
+Index: 10.0. Wm2Front: 17476.864999999998. Wm2Back: 2028.0343333333333
+Linescan in process: 1axis_15.0_Scene0_Row1_Module2_Front
+Linescan in process: 1axis_15.0_Scene0_Row1_Module2_Back
+Saved: results\irr_1axis_15.0_Scene0_Row1_Module2_Front.csv
+Saved: results\irr_1axis_15.0_Scene0_Row1_Module2_Back.csv
+Index: 15.0. Wm2Front: 714340.8500000001. Wm2Back: 86047.87
+Linescan in process: 1axis_15.0_Scene0_Row1_Module4_Front
+Linescan in process: 1axis_15.0_Scene0_Row1_Module4_Back
+Saved: results\irr_1axis_15.0_Scene0_Row1_Module4_Front.csv
+Saved: results\irr_1axis_15.0_Scene0_Row1_Module4_Back.csv
+Index: 15.0. Wm2Front: 721632.25. Wm2Back: 79538.19666666667
+Linescan in process: 1axis_groundscan_-15.0_Row1_Module3_Front
+Saved: results\irr_1axis_groundscan_-15.0_Row1_Module3.csv
+Index: -15.0. Wm2Ground: 495183.01000000007. sensorsground: 10
+Linescan in process: 1axis_groundscan_-10.0_Row1_Module3_Front
+Saved: results\irr_1axis_groundscan_-10.0_Row1_Module3.csv
+Index: -10.0. Wm2Ground: 118693.192. sensorsground: 10
+Linescan in process: 1axis_groundscan_0.0_Row1_Module3_Front
+Saved: results\irr_1axis_groundscan_0.0_Row1_Module3.csv
+Index: 0.0. Wm2Ground: 722.9592299999999. sensorsground: 10
+Linescan in process: 1axis_groundscan_5.0_Row1_Module3_Front
+Saved: results\irr_1axis_groundscan_5.0_Row1_Module3.csv
+Index: 5.0. Wm2Ground: 110024.954. sensorsground: 10
+Linescan in process: 1axis_groundscan_10.0_Row1_Module3_Front
+Saved: results\irr_1axis_groundscan_10.0_Row1_Module3.csv
+Index: 10.0. Wm2Ground: 12419.3521. sensorsground: 10
+Linescan in process: 1axis_groundscan_15.0_Row1_Module3_Front
+Saved: results\irr_1axis_groundscan_15.0_Row1_Module3.csv
+Index: 15.0. Wm2Ground: 388078.31. sensorsground: 10
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">calculatePerformance1axis</span><span class="p">()</span> <span class="c1"># saves to demo.compiledResults and results/Cumulative_Results.csv</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Compiled results:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">compiledResults</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Compiled results:
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rowNum</th>
+      <th>modNum</th>
+      <th>sceneNum</th>
+      <th>BGG</th>
+      <th>Gfront_mean</th>
+      <th>Grear_mean</th>
+      <th>POA_eff</th>
+      <th>Wm2Front</th>
+      <th>Wm2Back</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>11.360663</td>
+      <td>1.655209e+06</td>
+      <td>208936.319433</td>
+      <td>[1845370.4100300001, 1840857.22746, 1843526.64...</td>
+      <td>[1658321.0965, 1652096.3821999999, nan, nan, n...</td>
+      <td>[211290.74520000003, 206276.09790000002, 20924...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>1.125122e+06</td>
+      <td>NaN</td>
+      <td>[0.0, 0.0, 0.0]</td>
+      <td>[632528.9293000001, 704530.8141, 871543.067099...</td>
+      <td>[nan, nan, nan]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>4</td>
+      <td>0</td>
+      <td>10.280712</td>
+      <td>1.671282e+06</td>
+      <td>190910.812600</td>
+      <td>[1845953.2714499997, 1839710.38887, 1843642.7352]</td>
+      <td>[1671845.97, 1670718.8309999998, nan, nan, nan...</td>
+      <td>[194078.7455, 187142.2093, 191511.48300000004]</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Results are also automatically saved in \results\Cumulative_Results.csv</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">,</span><span class="s1">&#39;Cumulative_Results.csv&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rowNum</th>
+      <th>modNum</th>
+      <th>sceneNum</th>
+      <th>BGG</th>
+      <th>Gfront_mean</th>
+      <th>Grear_mean</th>
+      <th>POA_eff</th>
+      <th>Wm2Front</th>
+      <th>Wm2Back</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>11.361</td>
+      <td>1655208.739</td>
+      <td>208936.319</td>
+      <td>[1845370.4100300001, 1840857.22746, 1843526.64...</td>
+      <td>[1658321.0965, 1652096.3821999999, nan, nan, n...</td>
+      <td>[211290.74520000003, 206276.09790000002, 20924...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>1125121.777</td>
+      <td>NaN</td>
+      <td>[0.0, 0.0, 0.0]</td>
+      <td>[632528.9293000001, 704530.8141, 871543.067099...</td>
+      <td>[nan, nan, nan]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>4</td>
+      <td>0</td>
+      <td>10.281</td>
+      <td>1671282.400</td>
+      <td>190910.813</td>
+      <td>[1845953.2714499997, 1839710.38887, 1843642.7352]</td>
+      <td>[1671845.97, 1670718.8309999998, nan, nan, nan...</td>
+      <td>[194078.7455, 187142.2093, 191511.48300000004]</td>
     </tr>
   </tbody>
 </table>
@@ -1101,7 +1896,8 @@ Exporting TrackerDict
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1113,19 +1909,20 @@ Exporting TrackerDict
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Modeling-Performance,-an-End-to-End-Simulation">Modeling Performance, an End to End Simulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Geting-a-CEC-Module">Geting a CEC Module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Geting-a-CEC-Module-to-pass-into-demo.makeModule">Geting a CEC Module to pass into demo.makeModule</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Calculating-the-Performance-and-Exporting-the-Results-to-a-CSV">Calculating the Performance and Exporting the Results to a CSV</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Now-look-at-gencumulativesky-tracking-workflow">Now look at gencumulativesky tracking workflow</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/21 - Weather to Module Performance.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/21 - Weather to Module Performance.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -1140,8 +1937,8 @@ Exporting TrackerDict
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1161,7 +1958,7 @@ Exporting TrackerDict
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1174,7 +1971,8 @@ Exporting TrackerDict
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

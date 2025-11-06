@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>bifacial_radiance.MetObj &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>bifacial_radiance.MetObj &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,33 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'generated/bifacial_radiance.MetObj';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -48,6 +51,7 @@
     <link rel="prev" title="bifacial_radiance.gui" href="bifacial_radiance.gui.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -63,19 +67,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -83,7 +76,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -91,8 +83,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -125,8 +117,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -186,29 +178,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -257,15 +241,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -284,7 +264,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -345,15 +326,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,6 +398,7 @@ document.write(`
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.getEPW.html">bifacial_radiance.RadianceObj.getEPW</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.readWeatherFile.html">bifacial_radiance.RadianceObj.readWeatherFile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.readWeatherData.html">bifacial_radiance.RadianceObj.readWeatherData</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Sky Dome</span></p>
 <ul class="nav bd-sidenav">
@@ -432,6 +410,7 @@ document.write(`
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modules</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.ModuleObj.__init__.html">bifacial_radiance.ModuleObj.__init__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.makeModule.html">bifacial_radiance.RadianceObj.makeModule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.ModuleObj.addTorquetube.html">bifacial_radiance.ModuleObj.addTorquetube</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.ModuleObj.addCellModule.html">bifacial_radiance.ModuleObj.addCellModule</a></li>
@@ -455,18 +434,30 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.SceneObj.showScene.html">bifacial_radiance.SceneObj.showScene</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.makeCustomObject.html">bifacial_radiance.RadianceObj.makeCustomObject</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.appendtoScene.html">bifacial_radiance.RadianceObj.appendtoScene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.SceneObj.appendtoScene.html">bifacial_radiance.SceneObj.appendtoScene</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Irradiance Analysis</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.moduleAnalysis.html">bifacial_radiance.AnalysisObj.moduleAnalysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.analysis.html">bifacial_radiance.AnalysisObj.analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.analyzeRow.html">bifacial_radiance.AnalysisObj.analyzeRow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.results.html">bifacial_radiance.AnalysisObj.results</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.analysis1axis.html">bifacial_radiance.RadianceObj.analysis1axis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.results.html">bifacial_radiance.RadianceObj.results</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Mismatch Analysis</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Power and Mismatch Analysis</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.mismatch.mad_fn.html">bifacial_radiance.mismatch.mad_fn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.calculatePerformance1axis.html">bifacial_radiance.RadianceObj.calculatePerformance1axis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.calculatePerformance.html">bifacial_radiance.AnalysisObj.calculatePerformance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.ModuleObj.calculatePerformance.html">bifacial_radiance.ModuleObj.calculatePerformance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.ModuleObj.addCEC.html">bifacial_radiance.ModuleObj.addCEC</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.mismatch.mismatch_fit2.html">bifacial_radiance.mismatch.mismatch_fit2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.mismatch.analysisIrradianceandPowerMismatch.html">bifacial_radiance.mismatch.analysisIrradianceandPowerMismatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.mismatch.mad_fn.html">bifacial_radiance.mismatch.mad_fn</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ground Scans</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.groundAnalysis.html">bifacial_radiance.AnalysisObj.groundAnalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.analysis1axisground.html">bifacial_radiance.RadianceObj.analysis1axisground</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Input / Output</span></p>
 <ul class="nav bd-sidenav">
@@ -493,6 +484,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.getfilelist.html">bifacial_radiance.RadianceObj.getfilelist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.getSingleTimestampTrackerAngle.html">bifacial_radiance.RadianceObj.getSingleTimestampTrackerAngle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.returnOctFiles.html">bifacial_radiance.RadianceObj.returnOctFiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.sceneNames.html">bifacial_radiance.RadianceObj.sceneNames</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">ModelChain</span></p>
 <ul class="nav bd-sidenav">
@@ -504,6 +496,8 @@ document.write(`
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.spectral_utils.html">bifacial_radiance.spectral_utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.spectral_utils.generate_spectra.html">bifacial_radiance.spectral_utils.generate_spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.spectral_utils.generate_spectral_tmys.html">bifacial_radiance.spectral_utils.generate_spectral_tmys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.spectral_utils.integrated_spectrum.html">bifacial_radiance.spectral_utils.integrated_spectrum</a></li>
 </ul>
 </div>
 </nav></div>
@@ -511,9 +505,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -531,8 +530,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -544,7 +541,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../manualapi.html" class="nav-link">API reference</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">bifacial_rad...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">bifacial_radiance.MetObj</span></li>
   </ul>
 </nav>
 </div>
@@ -562,10 +559,10 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="bifacial-radiance-metobj">
-<h1>bifacial_radiance.MetObj<a class="headerlink" href="#bifacial-radiance-metobj" title="Permalink to this heading">#</a></h1>
+<h1>bifacial_radiance.MetObj<a class="headerlink" href="#bifacial-radiance-metobj" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="bifacial_radiance.MetObj">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bifacial_radiance.</span></span><span class="sig-name descname"><span class="pre">MetObj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmydata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bifacial_radiance/main.html#MetObj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bifacial_radiance.MetObj" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bifacial_radiance.</span></span><span class="sig-name descname"><span class="pre">MetObj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmydata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bifacial_radiance/main.html#MetObj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bifacial_radiance.MetObj" title="Link to this definition">#</a></dt>
 <dd><p>Meteorological data from EPW file.</p>
 <p>Initialize the MetObj from tmy data already read in.</p>
 <dl class="field-list simple">
@@ -582,12 +579,22 @@ averaging interval, for purposes of calculating sunposition. For
 example, TMY3 data is right-labeled, so 11 AM data represents data from
 10 to 11, and sun position should be calculated at 10:30 AM.  Currently
 SAM and PVSyst use left-labeled interval data and NSRDB uses centered.</p></li>
+<li><p><strong>initialized</strong> (<em>Once</em>) – <p>-latitude, longitude, elevation, timezone, city [scalar values]</p>
+<p>-datetime, ghi, dhi, dni, albedo, dewpoint, pressure, temp_air,
+wind_speed, meastracker_angle [numpy.array]</p>
+<p>-solpos [pandas dataframe of solar position]</p>
+</p></li>
+<li><p><strong>MetObj</strong> (<em>the following parameters are available in the</em>) – <p>-latitude, longitude, elevation, timezone, city [scalar values]</p>
+<p>-datetime, ghi, dhi, dni, albedo, dewpoint, pressure, temp_air,
+wind_speed, meastracker_angle [numpy.array]</p>
+<p>-solpos [pandas dataframe of solar position]</p>
+</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="bifacial_radiance.MetObj.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmydata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bifacial_radiance/main.html#MetObj.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bifacial_radiance.MetObj.__init__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmydata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bifacial_radiance/main.html#MetObj.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bifacial_radiance.MetObj.__init__" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <p class="rubric">Methods</p>
@@ -656,7 +663,8 @@ SAM and PVSyst use left-labeled interval data and NSRDB uses centered.</p></li>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -675,13 +683,13 @@ SAM and PVSyst use left-labeled interval data and NSRDB uses centered.</p></li>
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/generated/bifacial_radiance.MetObj.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/generated/bifacial_radiance.MetObj.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -696,8 +704,8 @@ SAM and PVSyst use left-labeled interval data and NSRDB uses centered.</p></li>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -717,7 +725,7 @@ SAM and PVSyst use left-labeled interval data and NSRDB uses centered.</p></li>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -730,7 +738,8 @@ SAM and PVSyst use left-labeled interval data and NSRDB uses centered.</p></li>
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

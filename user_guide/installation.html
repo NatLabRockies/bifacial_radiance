@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Installation &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>Installation &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,33 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/installation';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -48,6 +51,7 @@
     <link rel="prev" title="Package Overview" href="package_overview.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -63,19 +67,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -83,7 +76,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -91,8 +83,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -125,8 +117,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -186,29 +178,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -257,15 +241,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -284,7 +264,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -345,15 +326,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -418,9 +395,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -438,8 +420,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -451,7 +431,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">User Guide</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Installation</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Installation</span></li>
   </ul>
 </nav>
 </div>
@@ -469,19 +449,19 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="installation">
-<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h1>
 <section id="compatibility">
-<h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this heading">#</a></h2>
-<p>bifacial_radiance is coded and tested in Windows, but can also work on Linux and Mac OSX, particularly after improvements in <a class="reference internal" href="../whatsnew.html#whatsnew-0302"><span class="std std-ref">v0.3.3 (10 / 14 / 2019)</span></a> which solved some of the binary issues for gencumsky. However, the functionalities in Linux are still being improved, for example the GUI requires special QT installation described in (<a class="reference external" href="https://github.com/NREL/bifacial_radiance/issues/130">GH 130</a>:).</p>
+<h2>Compatibility<a class="headerlink" href="#compatibility" title="Link to this heading">#</a></h2>
+<p>bifacial_radiance is coded and tested in Windows, but can also work on Linux and Mac OSX, particularly after improvements in <a class="reference internal" href="../whatsnew.html#whatsnew-0302"><span class="std std-ref">v0.3.3 (10 / 14 / 2019)</span></a> which solved some of the binary issues for gencumsky. However, the functionalities in Linux are still being improved, for example the GUI requires special QT installation described in (<a class="extlink-issue reference external" href="https://github.com/NREL/bifacial_radiance/issues/130">GH 130</a>:).</p>
 </section>
 <section id="video-instructions">
-<h2>Video Instructions<a class="headerlink" href="#video-instructions" title="Permalink to this heading">#</a></h2>
+<h2>Video Instructions<a class="headerlink" href="#video-instructions" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://youtu.be/4A9GocfHKyM">https://youtu.be/4A9GocfHKyM</a>  This video shows how to install the bifacial_radiance software and all associated softwares needed for Windows, but it may be slightly out of date. Instructions for Windows and Linux-based OS are shown below and are more current.</p>
 </section>
 <section id="step-0-prerequisites-step-0">
-<h2>STEP 0: PREREQUISITES (Step 0)<a class="headerlink" href="#step-0-prerequisites-step-0" title="Permalink to this heading">#</a></h2>
+<h2>STEP 0: PREREQUISITES (Step 0)<a class="headerlink" href="#step-0-prerequisites-step-0" title="Link to this heading">#</a></h2>
 <section id="radiance">
-<h3>RADIANCE<a class="headerlink" href="#radiance" title="Permalink to this heading">#</a></h3>
+<h3>RADIANCE<a class="headerlink" href="#radiance" title="Link to this heading">#</a></h3>
 <p>Windows:</p>
 <ul class="simple">
 <li><p>This software requires the previous installation of <code class="docutils literal notranslate"><span class="pre">RADIANCE</span></code> from <a class="github reference external" href="https://github.com/LBNL-ETA/Radiance/releases">LBNL-ETA/Radiance</a>.</p></li>
@@ -490,7 +470,7 @@ document.write(`
 </ul>
 <p>Linux/Mac OSX:</p>
 <ul class="simple">
-<li><p>For Linux/Mac OSX, you will need to install QT for the GUI to work properly. Installation and details described in (<a class="reference external" href="https://github.com/NREL/bifacial_radiance/issues/131">GH 131</a>:):</p></li>
+<li><p>For Linux/Mac OSX, you will need to install QT for the GUI to work properly. Installation and details described in (<a class="extlink-issue reference external" href="https://github.com/NREL/bifacial_radiance/issues/131">GH 131</a>:):</p></li>
 </ul>
 <ol class="arabic">
 <li><p>Install <code class="docutils literal notranslate"><span class="pre">qt5-default</span></code> from Ubuntu using <code class="docutils literal notranslate"><span class="pre">apt</span></code>.</p></li>
@@ -577,7 +557,7 @@ rvu -vu 0 1 0 -vp 50 60 40 -vd 0 -1 -1 -vh 20 -vv 20 -dp 128 -ar 19 -ds 0 -dt .2
 <p><strong>Note: bifacial_radiance is not endorsed by or officially connected with the Radiance software package or its development team.</strong></p>
 </section>
 <section id="python">
-<h3>PYTHON<a class="headerlink" href="#python" title="Permalink to this heading">#</a></h3>
+<h3>PYTHON<a class="headerlink" href="#python" title="Link to this heading">#</a></h3>
 <p>You will need python installed to run bifacial_radiance. We suggest using the latest release of <a class="reference external" href="https://www.anaconda.com/download/">Anaconda with Python 3.11</a> . Anaconda will install <code class="docutils literal notranslate"><span class="pre">Spyder</span></code> to work with the python scripts, and also it will install <code class="docutils literal notranslate"><span class="pre">Jupyter</span></code>, which is the tool we use for our <a class="reference external" href="https://github.com/NREL/bifacial_radiance/tree/master/docs/tutorials">tutorial trainings</a></p>
 <p>Alternative Installation: Windows Subsystem for Linux:</p>
 <ol class="arabic">
@@ -595,7 +575,7 @@ rvu -vu 0 1 0 -vp 50 60 40 -vd 0 -1 -1 -vh 20 -vv 20 -dp 128 -ar 19 -ds 0 -dt .2
 </section>
 </section>
 <section id="step-1">
-<h2>STEP 1<a class="headerlink" href="#step-1" title="Permalink to this heading">#</a></h2>
+<h2>STEP 1<a class="headerlink" href="#step-1" title="Link to this heading">#</a></h2>
 <p>The simplest option is to open a command prompt and run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">bifacial_radiance</span>
 </pre></div>
@@ -626,7 +606,7 @@ rvu -vu 0 1 0 -vp 50 60 40 -vd 0 -1 -1 -vh 20 -vv 20 -dp 128 -ar 19 -ds 0 -dt .2
 </ol>
 </section>
 <section id="step-2">
-<h2>STEP 2<a class="headerlink" href="#step-2" title="Permalink to this heading">#</a></h2>
+<h2>STEP 2<a class="headerlink" href="#step-2" title="Link to this heading">#</a></h2>
 <p>Windows:</p>
 <ul class="simple">
 <li><p>Copy gencumulativesky.exe from the repo’s <code class="docutils literal notranslate"><span class="pre">/bifacial_radiance/data/</span></code> directory and copy into your Radiance install directory.
@@ -640,21 +620,21 @@ This is typically found in <code class="docutils literal notranslate"><span clas
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>GenCumulativeSky is detailed in the publication “Robinson, D., Stone, A., Irradiation modeling made simple: the cumulative sky approach and its applications, Proc. PLEA 2004, Eindhoven 2004.”</p>
-<p>The gencumsky source is included in the repo’s <code class="docutils literal notranslate"><span class="pre">/bifacial_radiance/data/gencumsky</span></code> directory along with a make_gencumskyexe.py script which builds the multi-platform gencumulativesky executables. More details on the use of this script in readme.txt or on thread (<a class="reference external" href="https://github.com/NREL/bifacial_radiance/issues/182">GH 182</a>).</p>
+<p>The gencumsky source is included in the repo’s <code class="docutils literal notranslate"><span class="pre">/bifacial_radiance/data/gencumsky</span></code> directory along with a make_gencumskyexe.py script which builds the multi-platform gencumulativesky executables. More details on the use of this script in readme.txt or on thread (<a class="extlink-issue reference external" href="https://github.com/NREL/bifacial_radiance/issues/182">GH 182</a>).</p>
 </div>
-<p>We suggest you recompile the executable to make sure it works with your version of Linux, otherwise issues like (<a class="reference external" href="https://github.com/NREL/bifacial_radiance/issues/182">GH 182</a>) or (<a class="reference external" href="https://github.com/NREL/bifacial_radiance/issues/268">GH 268</a>) can happen. To recompile, navigate to bifacial_radiancedatagencumsky folder, and type</p>
+<p>We suggest you recompile the executable to make sure it works with your version of Linux, otherwise issues like (<a class="extlink-issue reference external" href="https://github.com/NREL/bifacial_radiance/issues/182">GH 182</a>) or (<a class="extlink-issue reference external" href="https://github.com/NREL/bifacial_radiance/issues/268">GH 268</a>) can happen. To recompile, navigate to bifacial_radiancedatagencumsky folder, and type</p>
 <blockquote>
 <div><p>python make_gencumuskyexe.py</p>
 </div></blockquote>
 <p>This will generate an updated gencumulativesky in this same folder. Place this executable on your Radiance/bin directory as instructed above.</p>
 </section>
 <section id="step-3">
-<h2>STEP 3<a class="headerlink" href="#step-3" title="Permalink to this heading">#</a></h2>
+<h2>STEP 3<a class="headerlink" href="#step-3" title="Link to this heading">#</a></h2>
 <p>Create a local directory for storing your simulations and runs results.
 If run in the default directory, simulation results will be saved in the TEMP folder, but will also be overwritten with every run. We recommend to keep the simulation files (scene geometry, skies, results, etc) separate from the bifacial_radiance directory by creating a local directory somewhere to be used for storing those files.</p>
 </section>
 <section id="step-4">
-<h2>STEP 4<a class="headerlink" href="#step-4" title="Permalink to this heading">#</a></h2>
+<h2>STEP 4<a class="headerlink" href="#step-4" title="Link to this heading">#</a></h2>
 <p>Reboot the computer
 This makes sure the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> is updated</p>
 </section>
@@ -695,7 +675,8 @@ This makes sure the <code class="docutils literal notranslate"><span class="pre"
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -721,13 +702,13 @@ This makes sure the <code class="docutils literal notranslate"><span class="pre"
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/user_guide/installation.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/user_guide/installation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -742,8 +723,8 @@ This makes sure the <code class="docutils literal notranslate"><span class="pre"
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -763,7 +744,7 @@ This makes sure the <code class="docutils literal notranslate"><span class="pre"
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -776,7 +757,8 @@ This makes sure the <code class="docutils literal notranslate"><span class="pre"
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

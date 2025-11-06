@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>bifacial_radiance.RadianceObj &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>bifacial_radiance.RadianceObj &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,33 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'generated/bifacial_radiance.RadianceObj';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -48,6 +51,7 @@
     <link rel="prev" title="bifacial_radiance.MetObj" href="bifacial_radiance.MetObj.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -63,19 +67,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -83,7 +76,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -91,8 +83,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -125,8 +117,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -186,29 +178,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -257,15 +241,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -284,7 +264,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -345,15 +326,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,6 +398,7 @@ document.write(`
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.getEPW.html">bifacial_radiance.RadianceObj.getEPW</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.readWeatherFile.html">bifacial_radiance.RadianceObj.readWeatherFile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.readWeatherData.html">bifacial_radiance.RadianceObj.readWeatherData</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Sky Dome</span></p>
 <ul class="nav bd-sidenav">
@@ -432,6 +410,7 @@ document.write(`
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modules</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.ModuleObj.__init__.html">bifacial_radiance.ModuleObj.__init__</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.makeModule.html">bifacial_radiance.RadianceObj.makeModule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.ModuleObj.addTorquetube.html">bifacial_radiance.ModuleObj.addTorquetube</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.ModuleObj.addCellModule.html">bifacial_radiance.ModuleObj.addCellModule</a></li>
@@ -455,18 +434,30 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.SceneObj.showScene.html">bifacial_radiance.SceneObj.showScene</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.makeCustomObject.html">bifacial_radiance.RadianceObj.makeCustomObject</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.appendtoScene.html">bifacial_radiance.RadianceObj.appendtoScene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.SceneObj.appendtoScene.html">bifacial_radiance.SceneObj.appendtoScene</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Irradiance Analysis</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.moduleAnalysis.html">bifacial_radiance.AnalysisObj.moduleAnalysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.analysis.html">bifacial_radiance.AnalysisObj.analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.analyzeRow.html">bifacial_radiance.AnalysisObj.analyzeRow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.results.html">bifacial_radiance.AnalysisObj.results</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.analysis1axis.html">bifacial_radiance.RadianceObj.analysis1axis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.results.html">bifacial_radiance.RadianceObj.results</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Mismatch Analysis</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Power and Mismatch Analysis</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.mismatch.mad_fn.html">bifacial_radiance.mismatch.mad_fn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.calculatePerformance1axis.html">bifacial_radiance.RadianceObj.calculatePerformance1axis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.calculatePerformance.html">bifacial_radiance.AnalysisObj.calculatePerformance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.ModuleObj.calculatePerformance.html">bifacial_radiance.ModuleObj.calculatePerformance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.ModuleObj.addCEC.html">bifacial_radiance.ModuleObj.addCEC</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.mismatch.mismatch_fit2.html">bifacial_radiance.mismatch.mismatch_fit2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.mismatch.analysisIrradianceandPowerMismatch.html">bifacial_radiance.mismatch.analysisIrradianceandPowerMismatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.mismatch.mad_fn.html">bifacial_radiance.mismatch.mad_fn</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ground Scans</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.AnalysisObj.groundAnalysis.html">bifacial_radiance.AnalysisObj.groundAnalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.analysis1axisground.html">bifacial_radiance.RadianceObj.analysis1axisground</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Input / Output</span></p>
 <ul class="nav bd-sidenav">
@@ -493,6 +484,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.getfilelist.html">bifacial_radiance.RadianceObj.getfilelist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.getSingleTimestampTrackerAngle.html">bifacial_radiance.RadianceObj.getSingleTimestampTrackerAngle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.returnOctFiles.html">bifacial_radiance.RadianceObj.returnOctFiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.RadianceObj.sceneNames.html">bifacial_radiance.RadianceObj.sceneNames</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">ModelChain</span></p>
 <ul class="nav bd-sidenav">
@@ -504,6 +496,8 @@ document.write(`
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.spectral_utils.html">bifacial_radiance.spectral_utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.spectral_utils.generate_spectra.html">bifacial_radiance.spectral_utils.generate_spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.spectral_utils.generate_spectral_tmys.html">bifacial_radiance.spectral_utils.generate_spectral_tmys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifacial_radiance.spectral_utils.integrated_spectrum.html">bifacial_radiance.spectral_utils.integrated_spectrum</a></li>
 </ul>
 </div>
 </nav></div>
@@ -511,9 +505,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -531,8 +530,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -544,7 +541,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../manualapi.html" class="nav-link">API reference</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">bifacial_rad...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">bifacial_radiance.RadianceObj</span></li>
   </ul>
 </nav>
 </div>
@@ -562,19 +559,19 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="bifacial-radiance-radianceobj">
-<h1>bifacial_radiance.RadianceObj<a class="headerlink" href="#bifacial-radiance-radianceobj" title="Permalink to this heading">#</a></h1>
+<h1>bifacial_radiance.RadianceObj<a class="headerlink" href="#bifacial-radiance-radianceobj" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="bifacial_radiance.RadianceObj">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bifacial_radiance.</span></span><span class="sig-name descname"><span class="pre">RadianceObj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bifacial_radiance/main.html#RadianceObj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bifacial_radiance.RadianceObj" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bifacial_radiance.</span></span><span class="sig-name descname"><span class="pre">RadianceObj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bifacial_radiance/main.html#RadianceObj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bifacial_radiance.RadianceObj" title="Link to this definition">#</a></dt>
 <dd><p>The RadianceObj top level class is used to work on radiance objects,
 keep track of filenames,  sky values, PV module configuration, etc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>text to append to output files</em>) – </p></li>
-<li><p><strong>filelist</strong> (<em>list</em><em> of </em><em>Radiance files to create oconv</em>) – </p></li>
-<li><p><strong>nowstr</strong> (<em>current date/time string</em>) – </p></li>
-<li><p><strong>path</strong> (<em>working directory with Radiance materials and objects</em>) – </p></li>
+<li><p><strong>name</strong> (<em>text to append to output files</em>)</p></li>
+<li><p><strong>filelist</strong> (<em>list</em><em> of </em><em>Radiance files to create oconv</em>)</p></li>
+<li><p><strong>nowstr</strong> (<em>current date/time string</em>)</p></li>
+<li><p><strong>path</strong> (<em>working directory with Radiance materials and objects</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -590,14 +587,14 @@ keep track of filenames,  sky values, PV module configuration, etc.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="bifacial_radiance.RadianceObj.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bifacial_radiance/main.html#RadianceObj.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bifacial_radiance.RadianceObj.__init__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bifacial_radiance/main.html#RadianceObj.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bifacial_radiance.RadianceObj.__init__" title="Link to this definition">#</a></dt>
 <dd><p>initialize RadianceObj with path of Radiance materials and objects,
 as well as a basename to append to</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>string</em><em>, </em><em>append temporary and output files with this value</em>) – </p></li>
-<li><p><strong>path</strong> (<em>location</em><em> of </em><em>Radiance materials and objects</em>) – </p></li>
+<li><p><strong>name</strong> (<em>string</em><em>, </em><em>append temporary and output files with this value</em>)</p></li>
+<li><p><strong>path</strong> (<em>location</em><em> of </em><em>Radiance materials and objects</em>)</p></li>
 <li><p><strong>hpc</strong> (<em>Keeps track if User is running simulation on HPC so some file</em>) – reading routines try reading a bit longer and some writing
 routines (makeModule) that overwrite themselves are inactivated.</p></li>
 </ul>
@@ -620,8 +617,14 @@ routines (makeModule) that overwrite themselves are inactivated.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.analysis1axis.html#bifacial_radiance.RadianceObj.analysis1axis" title="bifacial_radiance.RadianceObj.analysis1axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">analysis1axis</span></code></a>([trackerdict, singleindex, ...])</p></td>
 <td><p>Loop through trackerdict and runs linescans for each scene and scan in there.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.appendtoScene.html#bifacial_radiance.RadianceObj.appendtoScene" title="bifacial_radiance.RadianceObj.appendtoScene"><code class="xref py py-obj docutils literal notranslate"><span class="pre">appendtoScene</span></code></a>([radfile, customObject, text])</p></td>
-<td><p>Appends to the <cite>Scene radfile</cite> in folder <cite>objects</cite> the text command in Radiance lingo created by the user.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.analysis1axisground.html#bifacial_radiance.RadianceObj.analysis1axisground" title="bifacial_radiance.RadianceObj.analysis1axisground"><code class="xref py py-obj docutils literal notranslate"><span class="pre">analysis1axisground</span></code></a>([trackerdict, ...])</p></td>
+<td><p>uses <a class="reference internal" href="bifacial_radiance.AnalysisObj.html#bifacial_radiance.AnalysisObj" title="bifacial_radiance.AnalysisObj"><code class="xref py py-class docutils literal notranslate"><span class="pre">bifacial_radiance.AnalysisObj</span></code></a>.groundAnalysis to run a single ground scan along the entire row-row pitch.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.appendtoScene.html#bifacial_radiance.RadianceObj.appendtoScene" title="bifacial_radiance.RadianceObj.appendtoScene"><code class="xref py py-obj docutils literal notranslate"><span class="pre">appendtoScene</span></code></a>([radfile, customObject, text])</p></td>
+<td><p>Appends to the <cite>Scene radfile</cite> in folder <cite>/objects</cite> the text command in Radiance lingo created by the user.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.calculatePerformance1axis.html#bifacial_radiance.RadianceObj.calculatePerformance1axis" title="bifacial_radiance.RadianceObj.calculatePerformance1axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculatePerformance1axis</span></code></a>([trackerdict, ...])</p></td>
+<td><p>Loops through all results in trackerdict and calculates performance, considering electrical mismatch, using PVLib.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.exportTrackerDict.html#bifacial_radiance.RadianceObj.exportTrackerDict" title="bifacial_radiance.RadianceObj.exportTrackerDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exportTrackerDict</span></code></a>([trackerdict, savefile, ...])</p></td>
 <td><p>Use <code class="xref py py-func docutils literal notranslate"><span class="pre">_exportTrackerDict()</span></code> to save a TrackerDict output as a csv file.</p></td>
@@ -641,41 +644,53 @@ routines (makeModule) that overwrite themselves are inactivated.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.gendaylit2manual.html#bifacial_radiance.RadianceObj.gendaylit2manual" title="bifacial_radiance.RadianceObj.gendaylit2manual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gendaylit2manual</span></code></a>(dni, dhi, sunalt, sunaz)</p></td>
 <td><p>Sets and returns sky information using gendaylit.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.getEPW.html#bifacial_radiance.RadianceObj.getEPW" title="bifacial_radiance.RadianceObj.getEPW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEPW</span></code></a>([lat, lon, GetAll])</p></td>
-<td><p>Subroutine to download nearest epw files to latitude and longitude provided, into the directory EPWs        based on github/aahoo.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_spectra</span></code>([metdata, simulation_path, ...])</p></td>
+<td><p>Generate spectral irradiance files for spectral simulations using pySMARTS Or Generate an hourly albedo weighted by pySMARTS spectral irradiances # :param metdata: DESC :type metdata: radianceObject.metdata, optional :param simulation_path: path of current simulation directory :type simulation_path: path object or string, optional :param ground_material: ground material string from pySMARTS glossary or compatible                         (R,G,B) tuple. :type ground_material: str or (R,G,B), optional :param scale_spectra: Apply a simple scaling to the generated spectra. Scales by                       integrated irradiance below specified upper wavelength bound :type scale_spectra: boolean, default=False :param scale_albedo: Apply a scaling factor to generated spectral albedo. Scales by mean value below specified upper wavelength bound :type scale_albedo: boolean, default=False :param scale_albedo_nonspectral_sim: You intend to run a non-spectral simulation. This will scale                                      the albedo read from the weather file by a calculation                                      on measured and generated spectra and the spectral responsivity                                      of device (spectral responsivity currently not implemented) :type scale_albedo_nonspectral_sim: boolean, default=False :param scale_upper_bound: Sets an upper bound for the wavelength in all scaling                           calculations. Limits the bounds of integration for spectral DNI,                           DHI, and GHI. Limits the domain over which spectral albedo                           is averaged. :type scale_upper_bound: integer, optional.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.getSingleTimestampTrackerAngle.html#bifacial_radiance.RadianceObj.getSingleTimestampTrackerAngle" title="bifacial_radiance.RadianceObj.getSingleTimestampTrackerAngle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getSingleTimestampTrackerAngle</span></code></a>(metdata, ...)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_spectral_tmys</span></code>(wavelengths, ...[, ...])</p></td>
+<td><p>Generate a series of TMY-like files with per-wavelength irradiance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.getEPW.html#bifacial_radiance.RadianceObj.getEPW" title="bifacial_radiance.RadianceObj.getEPW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getEPW</span></code></a>([lat, lon, GetAll])</p></td>
+<td><p>Subroutine to download nearest epw files to latitude and longitude provided, into the directory /EPWs/ based on github/aahoo.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.getSingleTimestampTrackerAngle.html#bifacial_radiance.RadianceObj.getSingleTimestampTrackerAngle" title="bifacial_radiance.RadianceObj.getSingleTimestampTrackerAngle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getSingleTimestampTrackerAngle</span></code></a>(timeindex[, ...])</p></td>
 <td><p>Helper function to calculate a tracker's angle for use with the fixed tilt routines of bifacial_radiance.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.getfilelist.html#bifacial_radiance.RadianceObj.getfilelist" title="bifacial_radiance.RadianceObj.getfilelist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getfilelist</span></code></a>()</p></td>
 <td><p>Return concat of matfiles, radfiles and skyfiles</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.loadtrackerdict.html#bifacial_radiance.RadianceObj.loadtrackerdict" title="bifacial_radiance.RadianceObj.loadtrackerdict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loadtrackerdict</span></code></a>([trackerdict, fileprefix])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">integrated_spectrum</span></code>(spectra_folder)</p></td>
+<td><p>Generate integrated sum of spectrum from SMARTS generated spectra for use in normalization equations</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.loadtrackerdict.html#bifacial_radiance.RadianceObj.loadtrackerdict" title="bifacial_radiance.RadianceObj.loadtrackerdict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loadtrackerdict</span></code></a>([trackerdict, fileprefix])</p></td>
 <td><p>Use <code class="xref py py-class docutils literal notranslate"><span class="pre">bifacial_radiance.load._loadtrackerdict</span></code> to browse the results directory and load back any results saved in there.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeCustomObject.html#bifacial_radiance.RadianceObj.makeCustomObject" title="bifacial_radiance.RadianceObj.makeCustomObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeCustomObject</span></code></a>([name, text])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeCustomObject.html#bifacial_radiance.RadianceObj.makeCustomObject" title="bifacial_radiance.RadianceObj.makeCustomObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeCustomObject</span></code></a>([name, text])</p></td>
 <td><p>Function for development and experimenting with extraneous objects in the scene.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeModule.html#bifacial_radiance.RadianceObj.makeModule" title="bifacial_radiance.RadianceObj.makeModule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeModule</span></code></a>([name, x, y, z, modulefile, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeModule.html#bifacial_radiance.RadianceObj.makeModule" title="bifacial_radiance.RadianceObj.makeModule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeModule</span></code></a>([name, x, y, z, modulefile, ...])</p></td>
 <td><p>pass module generation details into ModuleObj().</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeOct.html#bifacial_radiance.RadianceObj.makeOct" title="bifacial_radiance.RadianceObj.makeOct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeOct</span></code></a>([filelist, octname])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeOct.html#bifacial_radiance.RadianceObj.makeOct" title="bifacial_radiance.RadianceObj.makeOct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeOct</span></code></a>([filelist, octname])</p></td>
 <td><p>Combine everything together into a .oct file</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeOct1axis.html#bifacial_radiance.RadianceObj.makeOct1axis" title="bifacial_radiance.RadianceObj.makeOct1axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeOct1axis</span></code></a>([trackerdict, singleindex, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeOct1axis.html#bifacial_radiance.RadianceObj.makeOct1axis" title="bifacial_radiance.RadianceObj.makeOct1axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeOct1axis</span></code></a>([trackerdict, singleindex, ...])</p></td>
 <td><p>Combine files listed in trackerdict into multiple .oct files</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeScene.html#bifacial_radiance.RadianceObj.makeScene" title="bifacial_radiance.RadianceObj.makeScene"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeScene</span></code></a>([module, sceneDict, radname, ...])</p></td>
-<td><p>Create a SceneObj which contains details of the PV system configuration including tilt, row pitch, height, nMods per row, nRows in the system...</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeScene.html#bifacial_radiance.RadianceObj.makeScene" title="bifacial_radiance.RadianceObj.makeScene"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeScene</span></code></a>([module, sceneDict, radname, ...])</p></td>
+<td><p>Create a SceneObj which contains details of the PV system configuration including tilt, row pitch, height, nMods per row, nRows in the system.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeScene1axis.html#bifacial_radiance.RadianceObj.makeScene1axis" title="bifacial_radiance.RadianceObj.makeScene1axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeScene1axis</span></code></a>([trackerdict, module, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.makeScene1axis.html#bifacial_radiance.RadianceObj.makeScene1axis" title="bifacial_radiance.RadianceObj.makeScene1axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">makeScene1axis</span></code></a>([trackerdict, module, ...])</p></td>
 <td><p>Creates a SceneObj for each tracking angle which contains details of the PV system configuration including row pitch, hub_height, nMods per row, nRows in the system...</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">printModules</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">printModules</span></code>()</p></td>
 <td><p></p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.readWeatherData.html#bifacial_radiance.RadianceObj.readWeatherData" title="bifacial_radiance.RadianceObj.readWeatherData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readWeatherData</span></code></a>(metadata, metdata[, ...])</p></td>
+<td><p>Intermediate function to read in metadata and metdata objects from <code class="xref py py-class docutils literal notranslate"><span class="pre">readWeatherFile</span></code> and export a <a class="reference internal" href="bifacial_radiance.MetObj.html#bifacial_radiance.MetObj" title="bifacial_radiance.MetObj"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetObj</span></code></a></p></td>
+</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.readWeatherFile.html#bifacial_radiance.RadianceObj.readWeatherFile" title="bifacial_radiance.RadianceObj.readWeatherFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readWeatherFile</span></code></a>([weatherFile, starttime, ...])</p></td>
-<td><p>Read either a EPW or a TMY file, calls the functions <code class="xref py py-class docutils literal notranslate"><span class="pre">readTMY</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">readEPW</span></code> according to the weatherfile extention.</p></td>
+<td><p>Read either a EPW or a TMY file, calls the functions <code class="xref py py-class docutils literal notranslate"><span class="pre">readTMY</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">readEPW</span></code> according to the weatherfile extention and returns a <a class="reference internal" href="bifacial_radiance.MetObj.html#bifacial_radiance.MetObj" title="bifacial_radiance.MetObj"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetObj</span></code></a> .</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.returnMaterialFiles.html#bifacial_radiance.RadianceObj.returnMaterialFiles" title="bifacial_radiance.RadianceObj.returnMaterialFiles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">returnMaterialFiles</span></code></a>([material_path])</p></td>
 <td><p>Return files in the Materials directory with .rad extension appends materials files to the oconv file list</p></td>
@@ -686,10 +701,13 @@ routines (makeModule) that overwrite themselves are inactivated.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.save.html#bifacial_radiance.RadianceObj.save" title="bifacial_radiance.RadianceObj.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>([savefile])</p></td>
 <td><p>Pickle the radiance object for further use.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.set1axis.html#bifacial_radiance.RadianceObj.set1axis" title="bifacial_radiance.RadianceObj.set1axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set1axis</span></code></a>([metdata, azimuth, limit_angle, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.sceneNames.html#bifacial_radiance.RadianceObj.sceneNames" title="bifacial_radiance.RadianceObj.sceneNames"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sceneNames</span></code></a>([scenes])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.set1axis.html#bifacial_radiance.RadianceObj.set1axis" title="bifacial_radiance.RadianceObj.set1axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set1axis</span></code></a>([metdata, azimuth, limit_angle, ...])</p></td>
 <td><p>Set up geometry for 1-axis tracking.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.setGround.html#bifacial_radiance.RadianceObj.setGround" title="bifacial_radiance.RadianceObj.setGround"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setGround</span></code></a>([material, material_file])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.setGround.html#bifacial_radiance.RadianceObj.setGround" title="bifacial_radiance.RadianceObj.setGround"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setGround</span></code></a>([material, material_file])</p></td>
 <td><p>Use GroundObj constructor class and return a ground object</p></td>
 </tr>
 </tbody>
@@ -698,11 +716,20 @@ routines (makeModule) that overwrite themselves are inactivated.</p></li>
 <p class="rubric">Attributes</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Wm2Back</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Wm2Front</span></code></p></td>
+<td><p></p></td>
+</tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">columns</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">methods</span></code></p></td>
 <td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="bifacial_radiance.RadianceObj.results.html#bifacial_radiance.RadianceObj.results" title="bifacial_radiance.RadianceObj.results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">results</span></code></a></p></td>
+<td><p>Iterate over trackerdict and return irradiance results following analysis1axis runs</p></td>
 </tr>
 </tbody>
 </table>
@@ -746,7 +773,8 @@ routines (makeModule) that overwrite themselves are inactivated.</p></li>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -765,13 +793,13 @@ routines (makeModule) that overwrite themselves are inactivated.</p></li>
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/generated/bifacial_radiance.RadianceObj.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/generated/bifacial_radiance.RadianceObj.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -786,8 +814,8 @@ routines (makeModule) that overwrite themselves are inactivated.</p></li>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -807,7 +835,7 @@ routines (makeModule) that overwrite themselves are inactivated.</p></li>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -820,7 +848,8 @@ routines (makeModule) that overwrite themselves are inactivated.</p></li>
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

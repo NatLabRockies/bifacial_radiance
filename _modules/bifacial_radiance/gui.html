@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bifacial_radiance.gui &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>bifacial_radiance.gui &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -15,36 +15,40 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/bifacial_radiance/gui';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -60,19 +64,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -80,7 +73,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -88,8 +80,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -122,8 +114,8 @@
       
     
     
-    <img src="../../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -183,29 +175,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -254,15 +238,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -279,7 +259,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -340,15 +321,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -396,9 +373,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -416,8 +398,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -429,7 +409,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">bifacial_rad...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">bifacial_radiance.gui</span></li>
   </ul>
 </nav>
 </div>
@@ -450,16 +430,16 @@ document.write(`
 <span></span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">Saving and reading data from a config.ini file.</span>
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
-    <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">ttk</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">ttk</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">Tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
-    <span class="kn">import</span> <span class="nn">ttk</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">Tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">ttk</span>
 
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
 <span class="c1"># aliases for Tkinter functions</span>
 <span class="n">END</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">END</span>
@@ -475,8 +455,8 @@ document.write(`
 <span class="n">IMAGE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;images&#39;</span><span class="p">))</span>
 <span class="n">TEMP_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;TEMP&#39;</span><span class="p">))</span>
 
-<span class="k">class</span> <span class="nc">Window</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Window</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;950x800&quot;</span><span class="p">)</span>
         
@@ -496,7 +476,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">create_window</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;nw&#39;</span><span class="p">)</span> <span class="c1"># Canvas equivalent of pack()</span>
         <span class="n">frame</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Configure&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_frame_configure</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">select_testfolder</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">select_testfolder</span><span class="p">():</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot; select folder to save Radiance structure to</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Select Folder for BifacialRadiance project&#39;</span>
@@ -504,7 +484,7 @@ document.write(`
             <span class="n">entry_testfolder</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
             <span class="n">entry_testfolder</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dirname</span><span class="p">)</span>
             
-        <span class="k">def</span> <span class="nf">select_local_weatherfile</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">select_local_weatherfile</span><span class="p">():</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot; select local weatherfile</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Select EPW or TMY .csv file&#39;</span>
@@ -512,7 +492,7 @@ document.write(`
             <span class="n">entry_epwfile</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">END</span><span class="p">)</span>
             <span class="n">entry_epwfile</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>            
         
-        <span class="k">def</span> <span class="nf">select_inputvariablefile</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">select_inputvariablefile</span><span class="p">():</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot; select input parameter .ini file</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Select simulation .ini file to save or load&#39;</span>
@@ -531,7 +511,7 @@ document.write(`
             <span class="n">entry_inputvariablefile</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">variablefile</span><span class="p">)</span> 
             <span class="k">pass</span>
     
-        <span class="k">def</span> <span class="nf">read_valuesfromGUI</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">read_valuesfromGUI</span><span class="p">():</span>
 <span class="w">            </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            List of all the variables read:</span>
 <span class="sd">                </span>
@@ -809,9 +789,9 @@ document.write(`
                 <span class="n">moduleParamsDict</span><span class="p">,</span> <span class="n">trackingParamsDict</span><span class="p">,</span> <span class="n">torquetubeParamsDict</span><span class="p">,</span> \
                 <span class="n">analysisParamsDict</span><span class="p">,</span> <span class="n">cellModuleDict</span><span class="p">,</span> <span class="n">inputvariablefile</span><span class="p">;</span>
         
-        <span class="k">def</span> <span class="nf">save_inputfile</span><span class="p">(</span><span class="n">savetitle</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">save_inputfile</span><span class="p">(</span><span class="n">savetitle</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     
-            <span class="kn">import</span> <span class="nn">bifacial_radiance.load</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance.load</span>
             
             <span class="n">simulationParamsDict</span><span class="p">,</span> <span class="n">sceneParamsDict</span><span class="p">,</span> <span class="n">timeControlParamsDict</span><span class="p">,</span> \
             <span class="n">moduleParamsDict</span><span class="p">,</span> <span class="n">trackingParamsDict</span><span class="p">,</span> <span class="n">torquetubeParamsDict</span><span class="p">,</span> \
@@ -828,7 +808,7 @@ document.write(`
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saved all Values to </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="n">savetitle</span><span class="p">)</span>
             
             
-        <span class="k">def</span> <span class="nf">runBifacialRadiance</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">runBifacialRadiance</span><span class="p">():</span>
             <span class="c1">#TODO:</span>
             <span class="c1"># Check if logic is correct. ModelChain itself saves the input values</span>
             <span class="c1"># into a .ini file in the correct folder.</span>
@@ -842,7 +822,7 @@ document.write(`
             <span class="n">analysisParamsDict</span><span class="p">,</span> <span class="n">cellModuleDict</span><span class="p">,</span> <span class="n">inputvariablefile</span> <span class="o">=</span> <span class="n">read_valuesfromGUI</span><span class="p">()</span>
             
             <span class="c1">#get a return out of runModelChain and pass it back out of the GUI.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">modelchain</span><span class="o">.</span><span class="n">runModelChain</span><span class="p">(</span><span class="n">simulationParamsDict</span><span class="o">=</span><span class="n">simulationParamsDict</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">analysis</span>  <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">modelchain</span><span class="o">.</span><span class="n">runModelChain</span><span class="p">(</span><span class="n">simulationParamsDict</span><span class="o">=</span><span class="n">simulationParamsDict</span><span class="p">,</span> 
                                                        <span class="n">sceneParamsDict</span><span class="o">=</span><span class="n">sceneParamsDict</span><span class="p">,</span> 
                                                        <span class="n">timeControlParamsDict</span><span class="o">=</span><span class="n">timeControlParamsDict</span><span class="p">,</span>
                                                        <span class="n">moduleParamsDict</span><span class="o">=</span><span class="n">moduleParamsDict</span><span class="p">,</span> 
@@ -852,7 +832,7 @@ document.write(`
                                                        <span class="n">cellModuleDict</span><span class="o">=</span><span class="n">cellModuleDict</span>
                     <span class="p">)</span>            
         
-        <span class="k">def</span> <span class="nf">setDefaultValues</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">setDefaultValues</span><span class="p">():</span>
             <span class="c1">#TODO: read default.ini from data folder and set this automatically.</span>
             <span class="n">entry_albedo</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;0.62&quot;</span><span class="p">)</span>
             <span class="n">entry_angledelta</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;5&quot;</span><span class="p">)</span>
@@ -898,7 +878,7 @@ document.write(`
 
 
             
-        <span class="k">def</span> <span class="nf">activateAllEntries</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">activateAllEntries</span><span class="p">():</span>
             <span class="n">entry_albedo</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_angledelta</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_axis_azimuth</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
@@ -938,13 +918,13 @@ document.write(`
             <span class="n">entry_ygap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_zgap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">read_inputfile</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">read_inputfile</span><span class="p">():</span>
 <span class="w">            </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39; First it activates all entries, cleares all values, </span>
 <span class="sd">            assigns read values, and then pushes the right radio buttons in the</span>
 <span class="sd">            proper order so cells are activatd or not</span>
 <span class="sd">            &#39;&#39;&#39;</span>
 
-            <span class="kn">import</span> <span class="nn">bifacial_radiance.load</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance.load</span>
             
             <span class="k">try</span><span class="p">:</span> <span class="n">inputvariablefile</span> <span class="o">=</span> <span class="n">entry_inputvariablefile</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="k">except</span><span class="p">:</span> <span class="n">inputvariablefile</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\sayala\Documents\GitHub\bifacial_radiance\bifacial_radiance\data\default.ini&#39;</span>
@@ -952,9 +932,12 @@ document.write(`
             <span class="c1">#TODO: remove this file below used for developemnt</span>
             <span class="c1">#inputvariablefile = r&#39;C:\Users\sayala\Documents\GitHub\bifacial_radiance\bifacial_radiance\data\default.ini&#39;</span>
 
-            <span class="n">simulationParamsDict</span><span class="p">,</span> <span class="n">sceneParamsDict</span><span class="p">,</span> <span class="n">timeControlParamsDict</span><span class="p">,</span>\
+            <span class="n">simulationParamsDict</span><span class="p">,</span> <span class="n">sceneParamsDict</span><span class="p">,</span> <span class="n">timeControlParamsDict</span><span class="p">,</span> \
             <span class="n">moduleParamsDict</span><span class="p">,</span> <span class="n">trackingParamsDict</span><span class="p">,</span> <span class="n">torquetubeParamsDict</span><span class="p">,</span> \
-            <span class="n">analysisParamsDict</span><span class="p">,</span> <span class="n">cellModuleDict</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">load</span><span class="o">.</span><span class="n">readconfigurationinputfile</span><span class="p">(</span><span class="n">inputvariablefile</span><span class="p">)</span>
+           <span class="n">analysisParamsDict</span><span class="p">,</span> <span class="n">cellModuleDict</span><span class="p">,</span> <span class="n">CECModParamsDict</span><span class="p">,</span> \
+           <span class="n">frameParamsDict</span><span class="p">,</span> <span class="n">omegaParamsDict</span><span class="p">,</span> <span class="n">pilesParamsDict</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">load</span><span class="o">.</span><span class="n">readconfigurationinputfile</span><span class="p">(</span><span class="n">inputvariablefile</span><span class="p">)</span>
+            
+            <span class="c1"># TODO: above input params are unused: CECModParamsDict, frameParamsDict, omegaParamsDict, pilesParamsDict</span>
             
             <span class="c1"># TODO: Think if this procedure is correct.</span>
             <span class="c1"># readconfigurationfile already validates inputs in the configuration file.</span>
@@ -1156,7 +1139,7 @@ document.write(`
 
             <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Finish reading file </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="n">inputvariablefile</span><span class="p">)</span>
                         
-        <span class="k">def</span> <span class="nf">setdefaultGray</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">setdefaultGray</span><span class="p">():</span>
             <span class="c1">#Labels that should be inactive</span>
             <span class="n">epwfile_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">startdate_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
@@ -1199,7 +1182,7 @@ document.write(`
             <span class="n">rad2_backtrack</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
           
 
-        <span class="k">def</span> <span class="nf">setdefaultActive</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">setdefaultActive</span><span class="p">():</span>
             <span class="c1">#Labels that should be active</span>
             <span class="n">getepwfile_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">azimuth_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
@@ -1219,7 +1202,7 @@ document.write(`
             <span class="n">rad2_torqueTubeMaterial</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">rad3_torqueTubeMaterial</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             
-        <span class="k">def</span> <span class="nf">clearAllValues</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">clearAllValues</span><span class="p">():</span>
 
             <span class="n">entry_albedo</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">END</span><span class="p">)</span>
             <span class="n">entry_angledelta</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">END</span><span class="p">)</span>
@@ -1260,7 +1243,7 @@ document.write(`
             <span class="n">entry_ygap</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">END</span><span class="p">)</span>
             <span class="n">entry_zgap</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">END</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">setDefaults</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">setDefaults</span><span class="p">():</span>
             <span class="n">activateAllEntries</span><span class="p">()</span>
             <span class="n">clearAllValues</span><span class="p">()</span> <span class="c1"># enables all entries</span>
             <span class="n">setDefaultValues</span><span class="p">()</span> <span class="c1"># writes defaults to all Entries</span>
@@ -1368,14 +1351,14 @@ document.write(`
         <span class="c1"># MAIN CONTROL</span>
         <span class="c1">###################</span>
         <span class="c1"># Create the widgets for the maincontrol_frame</span>
-        <span class="k">def</span> <span class="nf">selGetEPW</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">selGetEPW</span><span class="p">():</span>
             <span class="n">getepwfile_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_getepwfileLat</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_getepwfileLong</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">epwfile_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">entry_epwfile</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">epwfile_button</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">selReadEPW</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">selReadEPW</span><span class="p">():</span>
             <span class="n">getepwfile_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">entry_getepwfileLat</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">entry_getepwfileLong</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
@@ -1441,7 +1424,7 @@ document.write(`
         <span class="c1"># Simulation CONTROL</span>
         <span class="c1">###################</span>
     
-        <span class="k">def</span> <span class="nf">selfixed</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">selfixed</span><span class="p">():</span>
             <span class="k">global</span> <span class="n">fixedortracking</span>
             <span class="n">fixedortracking</span><span class="o">=</span><span class="s1">&#39;fixed&#39;</span>
             
@@ -1472,7 +1455,7 @@ document.write(`
             <span class="n">rad2_axisofrotation</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
     
     
-        <span class="k">def</span> <span class="nf">selHSAT</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">selHSAT</span><span class="p">():</span>
             <span class="k">global</span> <span class="n">fixedortracking</span>
             <span class="n">fixedortracking</span><span class="o">=</span><span class="s1">&#39;tracking&#39;</span>       
             <span class="n">buttonImage</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">image_tracked</span><span class="p">)</span>       
@@ -1501,53 +1484,53 @@ document.write(`
             <span class="n">rad1_axisofrotation</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">rad2_axisofrotation</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">tcAll</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">tcAll</span><span class="p">():</span>
             <span class="n">startdate_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">enddate_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">entry_starttime</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">entry_endtime</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
     
-        <span class="k">def</span> <span class="nf">tcStartEndDate</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">tcStartEndDate</span><span class="p">():</span>
             <span class="n">startdate_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">enddate_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_starttime</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_endtime</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
                 
         <span class="c1"># Fixed, Cumulative Sky Yearly</span>
-        <span class="k">def</span> <span class="nf">tcOne</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">tcOne</span><span class="p">():</span>
             <span class="n">selfixed</span><span class="p">()</span>
             <span class="n">tcAll</span><span class="p">()</span>
             
         <span class="c1"># Fixed, cUmulative Sky with STart/End times</span>
-        <span class="k">def</span> <span class="nf">tcTwo</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">tcTwo</span><span class="p">():</span>
             <span class="n">selfixed</span><span class="p">()</span>
             <span class="n">tcStartEndDate</span><span class="p">()</span>
         
         <span class="c1"># Fixed, Hourly by Tiestamps:</span>
-        <span class="k">def</span> <span class="nf">tcThree</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">tcThree</span><span class="p">():</span>
             <span class="n">selfixed</span><span class="p">()</span>
             <span class="n">tcStartEndDate</span><span class="p">()</span>
         
         <span class="c1"># Fixed, Hourly for the whole Year:</span>
-        <span class="k">def</span> <span class="nf">tcFour</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">tcFour</span><span class="p">():</span>
             <span class="n">selfixed</span><span class="p">()</span>
             <span class="n">tcAll</span><span class="p">()</span>
             
         <span class="c1"># Tracking, Cumulative sky Yearly</span>
-        <span class="k">def</span> <span class="nf">tcFive</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">tcFive</span><span class="p">():</span>
             <span class="n">selHSAT</span><span class="p">()</span>
             <span class="n">tcAll</span><span class="p">()</span>
             
         <span class="c1"># Tracking, Hourly for a Day</span>
-        <span class="k">def</span> <span class="nf">tcSix</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">tcSix</span><span class="p">():</span>
             <span class="n">selHSAT</span><span class="p">()</span>
             
         <span class="c1"># Tracking, Hourly with STart/End Times</span>
-        <span class="k">def</span> <span class="nf">tcSeven</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">tcSeven</span><span class="p">():</span>
             <span class="n">selHSAT</span><span class="p">()</span>
             <span class="n">tcStartEndDate</span><span class="p">()</span>
             
-        <span class="k">def</span> <span class="nf">tcEight</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">tcEight</span><span class="p">():</span>
             <span class="n">selHSAT</span><span class="p">()</span>
             <span class="n">tcAll</span><span class="p">()</span>
         
@@ -1585,10 +1568,10 @@ document.write(`
         <span class="c1"># Tracking Parameters</span>
         <span class="c1">###################</span>
         
-        <span class="k">def</span> <span class="nf">backtrackOn</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">backtrackOn</span><span class="p">():</span>
             <span class="n">rb_backtrack</span><span class="o">=</span><span class="mi">0</span>
             
-        <span class="k">def</span> <span class="nf">backtrackOff</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">backtrackOff</span><span class="p">():</span>
             <span class="n">rb_backtrack</span><span class="o">=</span><span class="mi">1</span>
             
         <span class="n">trackingcontrol_label</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">trackingparams_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Tracking Parameters&#39;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Arial Bold&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
@@ -1621,7 +1604,7 @@ document.write(`
         <span class="c1"># TorqueTube Parameters</span>
         <span class="c1">###################</span>
         
-        <span class="k">def</span> <span class="nf">torquetubeTrue</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">torquetubeTrue</span><span class="p">():</span>
             <span class="n">tubeType_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">rad1_tubeType</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">rad2_tubeType</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
@@ -1634,7 +1617,7 @@ document.write(`
             <span class="n">entry_diameter</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
     
         
-        <span class="k">def</span> <span class="nf">torquetubeFalse</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">torquetubeFalse</span><span class="p">():</span>
             <span class="n">tubeType_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">rad1_tubeType</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">rad2_tubeType</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
@@ -1685,7 +1668,7 @@ document.write(`
         <span class="c1"># MODULE PARAMETERS Parameters</span>
         <span class="c1">###################</span>
         
-        <span class="k">def</span> <span class="nf">cellLevelModuleOn</span><span class="p">():</span>        
+        <span class="k">def</span><span class="w"> </span><span class="nf">cellLevelModuleOn</span><span class="p">():</span>        
             <span class="n">numcellsx_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_numcellsx</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">numcellsy_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
@@ -1703,7 +1686,7 @@ document.write(`
             <span class="n">entry_x</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">entry_y</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             
-        <span class="k">def</span> <span class="nf">cellLevelModuleOff</span><span class="p">():</span>    
+        <span class="k">def</span><span class="w"> </span><span class="nf">cellLevelModuleOff</span><span class="p">():</span>    
             <span class="n">numcellsx_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">entry_numcellsx</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span> 
             <span class="n">numcellsy_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span> 
@@ -1721,10 +1704,10 @@ document.write(`
             <span class="n">entry_x</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_y</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             
-        <span class="k">def</span> <span class="nf">getModuleJSONlist</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">getModuleJSONlist</span><span class="p">():</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot; populate entry_modulename with module names from module.json</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="kn">import</span> <span class="nn">json</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
             <span class="n">jsonfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">,</span><span class="s1">&#39;module.json&#39;</span><span class="p">)</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">jsonfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">configfile</span><span class="p">:</span>
                 <span class="n">jsondata</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">configfile</span><span class="p">)</span>
@@ -1736,7 +1719,7 @@ document.write(`
             <span class="n">entry_modulename</span><span class="o">.</span><span class="n">current</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">jsondata</span> <span class="o">=</span> <span class="n">jsondata</span>
             
-        <span class="k">def</span> <span class="nf">showModule</span><span class="p">(</span><span class="n">noprint</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">showModule</span><span class="p">(</span><span class="n">noprint</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot; run objview to show view of a module</span>
 <span class="sd">                create a temp module based on GUI parameters</span>
 <span class="sd">                input: noprint (boolean) suppress module printing</span>
@@ -1777,7 +1760,7 @@ document.write(`
             <span class="k">return</span> <span class="n">demo</span>
 
            
-        <span class="k">def</span> <span class="nf">showScene</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">showScene</span><span class="p">():</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot; run objview to show view of a scene</span>
 <span class="sd">                create a temp scene based on GUI parameters</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -1810,11 +1793,11 @@ document.write(`
             
             <span class="n">scene</span><span class="o">.</span><span class="n">showScene</span><span class="p">()</span>
         
-        <span class="k">def</span> <span class="nf">modulenamecallbackFunc</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">modulenamecallbackFunc</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot; load specific module data from module.json after new module selected</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             
-            <span class="k">def</span> <span class="nf">enable_torquetube</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">enable_torquetube</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot; torque tube details are enabled</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="n">rad1_torqueTube</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span> <span class="c1"># torquetube True button</span>
@@ -1835,7 +1818,7 @@ document.write(`
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">rad1_torqueTubeMaterial</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span>
                              
-            <span class="k">def</span> <span class="nf">disable_torquetube</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">disable_torquetube</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot; torque tube details are disabled</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="n">rad2_torqueTube</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span> <span class="c1"># torquetube False button</span>
@@ -1843,7 +1826,7 @@ document.write(`
                 <span class="c1">#if &#39;torquetube&#39; in d:</span>
                     <span class="c1">#entry_diameter.insert(0,str(d[&#39;torquetube&#39;][&#39;diameter&#39;]))</span>
 
-            <span class="k">def</span> <span class="nf">enable_cellModule</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">enable_cellModule</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;cellModule parameters passed</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="n">rad2_cellLevelModule</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span>
@@ -1995,19 +1978,19 @@ document.write(`
     
         <span class="c1"># SCENE PARAMETERS </span>
         <span class="c1">###################</span>
-        <span class="k">def</span> <span class="nf">definebyGCR</span><span class="p">():</span>        
+        <span class="k">def</span><span class="w"> </span><span class="nf">definebyGCR</span><span class="p">():</span>        
             <span class="n">gcr_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_gcr</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">pitch_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">entry_pitch</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
         
-        <span class="k">def</span> <span class="nf">definebyPitch</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">definebyPitch</span><span class="p">():</span>
             <span class="n">gcr_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">entry_gcr</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="p">)</span>
             <span class="n">pitch_label</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             <span class="n">entry_pitch</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
             
-        <span class="k">def</span> <span class="nf">clearAllValuesButton</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">clearAllValuesButton</span><span class="p">():</span>
             <span class="n">activateAllEntries</span><span class="p">()</span>
             <span class="n">clearAllValues</span><span class="p">()</span>
             <span class="n">setdefaultActive</span><span class="p">()</span>
@@ -2112,10 +2095,12 @@ document.write(`
 
     <span class="c1">#    root.title(&quot;Bifacial_Radiance | v. 0_2_5&quot;)</span>
 
-    <span class="k">def</span> <span class="nf">_on_frame_configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_frame_configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">scrollregion</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">bbox</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">))</span>
 
-<div class="viewcode-block" id="gui"><a class="viewcode-back" href="../../generated/bifacial_radiance.gui.html#bifacial_radiance.gui">[docs]</a><span class="k">def</span> <span class="nf">gui</span><span class="p">():</span>
+<div class="viewcode-block" id="gui">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.gui.html#bifacial_radiance.gui">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">gui</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Graphical user interface- just type bifacial_radiance.gui() to get started! </span>
 
@@ -2132,6 +2117,7 @@ document.write(`
     <span class="c1"># run mainloop</span>
     <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Now leaving GUI&quot;</span><span class="p">)</span></div>
+
     <span class="c1"># Hold off on returning values for now until we can clean them first</span>
     <span class="c1">#print(&#39;Annual bifacial ratio average:  %0.3f&#39; %(</span>
     <span class="c1">#    sum(root.data.Wm2Back) / sum(root.data.Wm2Front) ) )  </span>
@@ -2169,8 +2155,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -2190,7 +2176,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -2203,7 +2189,8 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

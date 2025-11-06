@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3 - Single Axis Tracking Hourly &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>3 - Single Axis Tracking Hourly &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,34 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -50,6 +54,7 @@
     <link rel="prev" title="21 - Weather to Module Performance" href="21%20-%20Weather%20to%20Module%20Performance.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -65,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -85,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,8 +120,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -188,29 +181,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -259,15 +244,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -286,7 +267,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -347,15 +329,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,7 +399,7 @@ document.write(`
 </ul>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="6%20-%20Exploring%20Trackerdict%20Structure.html">6 - Exploring Trackerdict Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="9%20-%20Torquetube%20Shading.html">9 - Torquetube Shading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11%20-%20AgriPV%20Systems.html">11 - AgriPV Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14%20-%20Cement%20Racking%20Albedo%20Improvements.html">14 - Cement Racking Albedo Improvements</a></li>
@@ -452,9 +430,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -472,8 +455,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -485,7 +466,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">3 - Single...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">3 - Single Axis Tracking Hourly</span></li>
   </ul>
 </nav>
 </div>
@@ -502,262 +483,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
-<div class="nbinput docutils container">
+  <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span> <span class="k">as</span> <span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">br</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -777,32 +510,51 @@ bifacial_radiance version  0.4.4.dev26+ge667a7c
 </pre></div></div>
 </div>
 <section id="3---Single-Axis-Tracking-Hourly">
-<h1>3 - Single Axis Tracking Hourly<a class="headerlink" href="#3---Single-Axis-Tracking-Hourly" title="Permalink to this heading">#</a></h1>
+<h1>3 - Single Axis Tracking Hourly<a class="headerlink" href="#3---Single-Axis-Tracking-Hourly" title="Link to this heading">#</a></h1>
 <p>Example demonstrating the use of doing hourly smiulations with Radiance gendaylit for 1-axis tracking. This is a medium level example because it also explores a couple subtopics:</p>
-<p><strong>Subtopics:</strong> * The structure of the tracker dictionary “trackerDict”. * How to calculate GCR * How to make a cell-level module * Various methods to use the trackerdictionary for analysis.</p>
+<p><strong>Subtopics:</strong></p>
+<ul class="simple">
+<li><p>The structure of the tracker dictionary “trackerDict”.</p></li>
+<li><p>How to calculate GCR</p></li>
+<li><p>How to make a cell-level module</p></li>
+<li><p>Various methods to use the trackerdictionary for analysis.</p></li>
+</ul>
 <p><strong>Doing full year simulations with gendaylit:</strong></p>
 <p>Performing the simulation hour by hour requires either a good computer or some patience, since there are ~4000 daylight-hours in the year. With a 32GB RAM, Windows 10 i7-8700 CPU &#64; 3.2GHz with 6 cores this takes 1 day. The code also allows for multiple cores or HPC use – there is documentation/examples inside the software at the moment, but that is an advanced topic. The procedure can be broken into shorter steps for one day or a single timestamp simulation which is exemplified below.</p>
-<p><strong>Steps:</strong> 1. Load bifacial_radiance 2. Define all your system variables 3. Create Radiance Object, Set Albedo and Weather 4. Make Module: Cell Level Module Example 5. Calculate GCR 6. Set Tracking Angles 7. Generate the Sky 8. Make Scene 1axis 9. Make Oct and AnalyzE 1 HOUR 10. Make Oct and Analye Range of Hours 11. Make Oct and Analyze All Tracking Dictionary</p>
+<p><strong>Steps:</strong></p>
+<ol class="arabic simple">
+<li><p>Load bifacial_radiance</p></li>
+<li><p>Define all your system variables</p></li>
+<li><p>Create Radiance Object, Set Albedo and Weather</p></li>
+<li><p>Make Module: Cell Level Module Example</p></li>
+<li><p>Calculate GCR</p></li>
+<li><p>Set Tracking Angles</p></li>
+<li><p>Generate the Sky</p></li>
+<li><p>Make Scene 1axis</p></li>
+<li><p>Make Oct and AnalyzE 1 HOUR</p></li>
+<li><p>Make Oct and Analye Range of Hours</p></li>
+<li><p>Make Oct and Analyze All Tracking Dictionary</p></li>
+</ol>
 <p>And finally: Condensed Version: All Tracking Dictionary</p>
 <section id="1.-Load-bifacial_radiance">
-<h2>1. Load bifacial_radiance<a class="headerlink" href="#1.-Load-bifacial_radiance" title="Permalink to this heading">#</a></h2>
+<h2>1. Load bifacial_radiance<a class="headerlink" href="#1.-Load-bifacial_radiance" title="Link to this heading">#</a></h2>
 <p>Pay attention: different importing method:</p>
 <p>So far we’ve used “from bifacial_radiance import *” to import all the bifacial_radiance files into our working space in jupyter. For this journal we will do a “import bifacial_radiance” . This method of importing requires a different call for some functions as you’ll see below. For example, instead of calling demo = RadianceObj(path = testfolder) as on Tutorial 2, in this case we will neeed to do demo = bifacial_radiance.RadianceObj(path = testfolder).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bifacial_radiance</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">os</span> <span class="c1"># this operative system to do teh relative-path testfolder for this example.</span>
-<span class="kn">import</span> <span class="nn">pprint</span>    <span class="c1"># We will be pretty-printing the trackerdictionary throughout to show its structure.</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span> <span class="c1"># this operative system to do teh relative-path testfolder for this example.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pprint</span>    <span class="c1"># We will be pretty-printing the trackerdictionary throughout to show its structure.</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="2.-Define-all-your-system-variables">
-<h2>2. Define all your system variables<a class="headerlink" href="#2.-Define-all-your-system-variables" title="Permalink to this heading">#</a></h2>
+<h2>2. Define all your system variables<a class="headerlink" href="#2.-Define-all-your-system-variables" title="Link to this heading">#</a></h2>
 <p>Just like in the condensed version show at the end of Tutorial 2, for this tutorial we will be starting all of our system variables from the beginning of the jupyter journal, instead than throughout the different cells (for the most part)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -846,7 +598,7 @@ bifacial_radiance version  0.4.4.dev26+ge667a7c
 </div>
 </section>
 <section id="3.-Create-Radiance-Object,-Set-Albedo-and-Weather">
-<h2>3. Create Radiance Object, Set Albedo and Weather<a class="headerlink" href="#3.-Create-Radiance-Object,-Set-Albedo-and-Weather" title="Permalink to this heading">#</a></h2>
+<h2>3. Create Radiance Object, Set Albedo and Weather<a class="headerlink" href="#3.-Create-Radiance-Object,-Set-Albedo-and-Weather" title="Link to this heading">#</a></h2>
 <p>Same steps as previous two tutorials, so condensing it into one step. You hopefully have this down by now! :)</p>
 <div class="admonition warning">
 <p>Notice that we are doing bifacial_radiance.RadianceObj because we change the import method for this example!</p>
@@ -870,7 +622,7 @@ bifacial_radiance version  0.4.4.dev26+ge667a7c
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-path = F:\Documents\Python Scripts\bifacial_radiance\bifacial_radiance\TEMP\Tutorial_03
+path = C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_03
 Loading albedo, 1 value(s), 0.213 avg
 1 nonzero albedo values.
 Getting weather file: USA_VA_Richmond.724010_TMY2.epw
@@ -884,7 +636,7 @@ Calculating Sun position for Metdata that is right-labeled  with a delta of -30 
 </div>
 </section>
 <section id="4.-Make-Module:-Cell-Level-Module-Example">
-<h2>4. Make Module: Cell Level Module Example<a class="headerlink" href="#4.-Make-Module:-Cell-Level-Module-Example" title="Permalink to this heading">#</a></h2>
+<h2>4. Make Module: Cell Level Module Example<a class="headerlink" href="#4.-Make-Module:-Cell-Level-Module-Example" title="Link to this heading">#</a></h2>
 <p>Instead of doing a opaque, flat single-surface module, in this tutorial we will create a module made up by cells. We can define variuos parameters to make a cell-level module, such as cell size and spacing between cells. To do this, we will pass a dicitonary with the needed parameters to makeModule, as shown below.</p>
 <p>NOTE: in v0.4.0 some keywords and methods for doing a CellModule and Torquetube simulation were changed.</p>
 <div class="admonition warning">
@@ -928,7 +680,7 @@ Module test-module updated in module.json
 Pre-existing .rad file objects\test-module.rad will be overwritten
 
 Module was shifted by 0.078 in X to avoid sensors on air
-This is a Cell-Level detailed module with Packaging Factor of 0.81 %
+This is a Cell-Level detailed module with Packaging Factor of 0.81
 Module test-module updated in module.json
 Pre-existing .rad file objects\test-module.rad will be overwritten
 
@@ -938,7 +690,7 @@ Cell-module parameters: {&#39;numcellsx&#39;: 6, &#39;numcellsy&#39;: 12, &#39;x
 </div>
 </section>
 <section id="5.-Calculate-GCR">
-<h2>5. Calculate GCR<a class="headerlink" href="#5.-Calculate-GCR" title="Permalink to this heading">#</a></h2>
+<h2>5. Calculate GCR<a class="headerlink" href="#5.-Calculate-GCR" title="Link to this heading">#</a></h2>
 <p>In this example we passed the parameter “pitch”. Pitch is the spacing between rows (for example, between hub-posts) in a field. To calculate Ground Coverage Ratio (GCR), we must relate the pitch to the collector-width by:</p>
 <img alt="GCR = CW / pitch" src="../_images/Equation_GCR.PNG" />
 <p>The collector width for our system must consider the number of panels and the y-gap:</p>
@@ -969,7 +721,7 @@ ModuleObj data keys: [&#39;x&#39;, &#39;y&#39;, &#39;z&#39;, &#39;modulematerial
 </div>
 </section>
 <section id="6.-Set-Tracking-Angles">
-<h2>6. Set Tracking Angles<a class="headerlink" href="#6.-Set-Tracking-Angles" title="Permalink to this heading">#</a></h2>
+<h2>6. Set Tracking Angles<a class="headerlink" href="#6.-Set-Tracking-Angles" title="Link to this heading">#</a></h2>
 <p>This function will read the weather file, and based on the sun position it will calculate the angle the tracker should be at for each hour. It will create metdata files for each of the tracker angles considered.</p>
 <p>For doing hourly simulations, remember to set <strong>cumulativesky = False</strong> here!</p>
 <div class="nbinput nblast docutils container">
@@ -997,7 +749,7 @@ ModuleObj data keys: [&#39;x&#39;, &#39;y&#39;, &#39;z&#39;, &#39;modulematerial
 Trackerdict created by set1axis: 20
 </pre></div></div>
 </div>
-<p>set1axis initializes the trackerdictionary Trackerdict. Trackerdict contains all hours selected from the weatherfile as keys. For example: trackerdict[‘2021-01-13_1200’]. It is a return variable on many of the 1axis functions, but it is also stored inside of your Radiance Obj (i.e. demo.trackerdict). In this journal we are storing it as a variable to mute the option (otherwise it prints the returned trackerdict contents every time)</p>
+<p>set1axis initializes the trackerdictionary Trackerdict. Trackerdict contains all hours selected from the weatherfile as keys. For example: trackerdict[‘2021-01-13_1200’]. It is a return variable on many of the 1axis functions, but it is also stored inside of your Radiance Obj (i.e. demo.trackerdict). In this journal we are storing it as a variable to mute the option (otherwise it prints the returned trackerdict contents every time)</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -1011,20 +763,20 @@ Trackerdict created by set1axis: 20
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;dhi&#39;: 200,
- &#39;dni&#39;: 97,
- &#39;ghi&#39;: 249,
+{&#39;dhi&#39;: np.int64(200),
+ &#39;dni&#39;: np.int64(97),
+ &#39;ghi&#39;: np.int64(249),
  &#39;surf_azm&#39;: 90.0,
  &#39;surf_tilt&#39;: 21.2,
- &#39;temp_air&#39;: 6.5,
+ &#39;temp_air&#39;: np.float64(6.5),
  &#39;theta&#39;: -21.2,
- &#39;wind_speed&#39;: 3.9}
+ &#39;wind_speed&#39;: np.float64(3.9)}
 </pre></div></div>
 </div>
 <p>All of the following functions add up elements to trackerdictionary to keep track (ba-dum tupzz) of the Scene and simulation parameters. In advanced journals we will explore the inner structure of trackerdict. For now, just now it exists :)</p>
 </section>
 <section id="7.-Generate-the-Sky">
-<h2>7. Generate the Sky<a class="headerlink" href="#7.-Generate-the-Sky" title="Permalink to this heading">#</a></h2>
+<h2>7. Generate the Sky<a class="headerlink" href="#7.-Generate-the-Sky" title="Link to this heading">#</a></h2>
 <p>We will create skies for each hour we want to model with the function gendaylit1axis.</p>
 <p>For this example we are doing just two days in January. The ability to limit the time using gendaylit1axis is deprecated. Use readWeatherFile instead.</p>
 <div class="nbinput docutils container">
@@ -1065,20 +817,20 @@ Created 20 skyfiles in /skies/
 Trackerdict option of hours are:  [&#39;2021-01-13_0800&#39;, &#39;2021-01-13_0900&#39;, &#39;2021-01-13_1000&#39;, &#39;2021-01-13_1100&#39;, &#39;2021-01-13_1200&#39;, &#39;2021-01-13_1300&#39;, &#39;2021-01-13_1400&#39;, &#39;2021-01-13_1500&#39;, &#39;2021-01-13_1600&#39;, &#39;2021-01-13_1700&#39;, &#39;2021-01-14_0800&#39;, &#39;2021-01-14_0900&#39;, &#39;2021-01-14_1000&#39;, &#39;2021-01-14_1100&#39;, &#39;2021-01-14_1200&#39;, &#39;2021-01-14_1300&#39;, &#39;2021-01-14_1400&#39;, &#39;2021-01-14_1500&#39;, &#39;2021-01-14_1600&#39;, &#39;2021-01-14_1700&#39;]
 
 Contents of trackerdict for sample hour:
-{&#39;dhi&#39;: 22,
- &#39;dni&#39;: 13,
- &#39;ghi&#39;: 23,
+{&#39;dhi&#39;: np.int64(22),
+ &#39;dni&#39;: np.int64(13),
+ &#39;ghi&#39;: np.int64(23),
  &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-01-13_0800.rad&#39;,
  &#39;surf_azm&#39;: 90.0,
  &#39;surf_tilt&#39;: 3.74,
- &#39;temp_air&#39;: 0.2,
+ &#39;temp_air&#39;: np.float64(0.2),
  &#39;theta&#39;: -3.74,
- &#39;wind_speed&#39;: 2.6}
+ &#39;wind_speed&#39;: np.float64(2.6)}
 </pre></div></div>
 </div>
 </section>
 <section id="8.-Make-Scene-1axis">
-<h2>8. Make Scene 1axis<a class="headerlink" href="#8.-Make-Scene-1axis" title="Permalink to this heading">#</a></h2>
+<h2>8. Make Scene 1axis<a class="headerlink" href="#8.-Make-Scene-1axis" title="Link to this heading">#</a></h2>
 <p>We can use gcr or pitch fo our scene dictionary.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
@@ -1115,24 +867,23 @@ Making ~20 .rad files for gendaylit 1-axis workflow (this takes a minute..)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;dhi&#39;: 22,
- &#39;dni&#39;: 13,
- &#39;ghi&#39;: 23,
- &#39;radfile&#39;: &#39;objects\\1axis2021-01-13_0800__C_2.17_rtr_10.00_tilt_4_20modsx7rows_origin0,0.rad&#39;,
- &#39;scene&#39;: &lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: 0.4284, &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0.1 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.05\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 0\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 0\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 0 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0.1, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-01-13_0800__C_2.17_rtr_10.00_tilt_4_20modsx7rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 20, &#39;nRows&#39;: 7, &#39;tilt&#39;: 3.74, &#39;clearance_height&#39;: 2.166802445305938, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: 2.3}, &#39;text&#39;: &#39;!xform -rx 3.74 -t 0 0 2.3 -a 20 -t 1.046 0 0 -a 7 -t 0 10 0 -i 1 -t -9.414 -30.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;},
+{&#39;dhi&#39;: np.int64(22),
+ &#39;dni&#39;: np.int64(13),
+ &#39;ghi&#39;: np.int64(23),
+ &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.4284), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: np.float64(1.036), &#39;y&#39;: np.float64(2.092), &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.046), &#39;sceney&#39;: np.float64(4.284), &#39;scenez&#39;: np.float64(0.1), &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0.1 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020711 -0.05\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020711 -0.05 -rx 45 -t 0 0 0\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 0\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 0 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: np.float64(0.1), &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-01-13_0800__C_2.17_rtr_10.00_tilt_4_20modsx7rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 20, &#39;nRows&#39;: 7, &#39;tilt&#39;: 3.74, &#39;clearance_height&#39;: np.float64(2.166802445305938), &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(2.3)}, &#39;text&#39;: &#39;!xform -rx 3.74 -t 0 0 2.3 -a 20 -t 1.046 0 0 -a 7 -t 0 10 0 -i 1 -t -9.414 -30.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}],
  &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-01-13_0800.rad&#39;,
  &#39;surf_azm&#39;: 90.0,
  &#39;surf_tilt&#39;: 3.74,
- &#39;temp_air&#39;: 0.2,
+ &#39;temp_air&#39;: np.float64(0.2),
  &#39;theta&#39;: -3.74,
- &#39;wind_speed&#39;: 2.6}
+ &#39;wind_speed&#39;: np.float64(2.6)}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">5</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">5</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1141,16 +892,16 @@ Making ~20 .rad files for gendaylit 1-axis workflow (this takes a minute..)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;gcr&#39;: 0.4284,
+{&#39;gcr&#39;: np.float64(0.4284),
  &#39;hpc&#39;: False,
- &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0.1 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.05\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 0\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 0\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 0 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0.1, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05},
+ &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: np.float64(1.036), &#39;y&#39;: np.float64(2.092), &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.046), &#39;sceney&#39;: np.float64(4.284), &#39;scenez&#39;: np.float64(0.1), &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0.1 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020711 -0.05\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020711 -0.05 -rx 45 -t 0 0 0\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 0\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 0 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: np.float64(0.1), &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05},
  &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;,
  &#39;name&#39;: &#39;Scene0&#39;,
  &#39;radfiles&#39;: &#39;objects\\1axis2021-01-13_1300__C_2.11_rtr_10.00_tilt_-5_20modsx7rows_origin0,0.rad&#39;,
  &#39;sceneDict&#39;: {&#39;axis_tilt&#39;: 0,
                &#39;azimuth&#39;: 90.0,
-               &#39;clearance_height&#39;: 2.111024390776987,
-               &#39;hub_height&#39;: 2.3,
+               &#39;clearance_height&#39;: np.float64(2.111024390776987),
+               &#39;hub_height&#39;: np.float64(2.3),
                &#39;modulez&#39;: 0.02,
                &#39;nMods&#39;: 20,
                &#39;nRows&#39;: 7,
@@ -1164,13 +915,13 @@ Making ~20 .rad files for gendaylit 1-axis workflow (this takes a minute..)
 </div>
 </section>
 <section id="9.-Make-Oct-and-Analyze">
-<h2>9. Make Oct and Analyze<a class="headerlink" href="#9.-Make-Oct-and-Analyze" title="Permalink to this heading">#</a></h2>
+<h2>9. Make Oct and Analyze<a class="headerlink" href="#9.-Make-Oct-and-Analyze" title="Link to this heading">#</a></h2>
 <section id="A.-Make-Oct-and-Analyze-1Hour">
-<h3>A. Make Oct and Analyze 1Hour<a class="headerlink" href="#A.-Make-Oct-and-Analyze-1Hour" title="Permalink to this heading">#</a></h3>
+<h3>A. Make Oct and Analyze 1Hour<a class="headerlink" href="#A.-Make-Oct-and-Analyze-1Hour" title="Link to this heading">#</a></h3>
 <p>There are various options now to analyze the trackerdict hours we have defined. We will start by doing just one hour, because it’s the fastest. Make sure to select an hour that exists in your trackerdict!</p>
 <p>Options of hours:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trackerkeys</span><span class="p">)</span>
@@ -1210,7 +961,7 @@ Making ~20 .rad files for gendaylit 1-axis workflow (this takes a minute..)
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">makeOct1axis</span><span class="p">(</span><span class="n">singleindex</span><span class="o">=</span><span class="s1">&#39;2021-01-13_0800&#39;</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">analysis1axis</span><span class="p">(</span><span class="n">singleindex</span><span class="o">=</span><span class="s1">&#39;2021-01-13_0800&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">Hourly bifi gain: </span><span class="si">{:0.3}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">Hourly bifi gain: </span><span class="si">{:0.3}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">))</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">))))</span>
 </pre></div>
 </div>
 </div>
@@ -1222,13 +973,13 @@ Making ~20 .rad files for gendaylit 1-axis workflow (this takes a minute..)
 
 Making 1 octfiles in root directory.
 Created 1axis_2021-01-13_0800.oct
-Linescan in process: 1axis_2021-01-13_0800_Front
-Linescan in process: 1axis_2021-01-13_0800_Back
-Saved: results\irr_1axis_2021-01-13_0800.csv
-Index: 2021-01-13_0800. Wm2Front: 22.031865555555555. Wm2Back: 2.8434410000000003
+Linescan in process: 1axis_2021-01-13_0800_Scene0_Row4_Module10_Front
+Linescan in process: 1axis_2021-01-13_0800_Scene0_Row4_Module10_Back
+Saved: results\irr_1axis_2021-01-13_0800_Scene0_Row4_Module10.csv
+Index: 2021-01-13_0800. Wm2Front: 23.62973037037037. Wm2Back: 2.8466184074074072
 
 
-Hourly bifi gain: 0.129
+Hourly bifi gain: 0.125
 </pre></div></div>
 </div>
 <p>The trackerdict now contains information about the octfile, as well as the Analysis Object results</p>
@@ -1248,53 +999,42 @@ Hourly bifi gain: 0.129
 <div class="highlight"><pre>
 
  Contents of trackerdict for sample hour after analysis1axis:
-{&#39;AnalysisObj&#39;: &lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.125, 0.123, 0.121, 0.116, 0.342, 0.114, 0.118, 0.119, 0.119], &#39;Wm2Back&#39;: [2.952, 2.905, 2.858, 2.747, 2.991, 2.713, 2.783, 2.806, 2.835], &#39;Wm2Front&#39;: [23.698, 23.701, 23.704, 23.707, 8.734, 23.691, 23.671, 23.65, 23.73], &#39;backRatio&#39;: [0.125, 0.123, 0.121, 0.116, 0.342, 0.114, 0.118, 0.119, 0.119], &#39;hpc&#39;: False, &#39;mattype&#39;: [&#39;a9.3.a2.2.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.4.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.7.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.9.0.cellPVmodule.6457&#39;, &#39;a9.3.octtube1a.6457&#39;, &#39;a9.3.a2.2.1.cellPVmodule.6457&#39;, &#39;a9.3.a2.4.1.cellPVmodule.6457&#39;, &#39;a9.3.a2.7.1.cellPVmodule.6457&#39;, &#39;a9.3.a2.9.1.cellPVmodule.6457&#39;], &#39;name&#39;: &#39;1axis_2021-01-13_0800&#39;, &#39;octfile&#39;: &#39;1axis_2021-01-13_0800.oct&#39;, &#39;rearMat&#39;: [&#39;a9.3.a2.2.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.4.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.7.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.9.0.cellPVmodule.2310&#39;, &#39;sky&#39;, &#39;a9.3.a2.2.1.cellPVmodule.2310&#39;, &#39;a9.3.a2.4.1.cellPVmodule.2310&#39;, &#39;a9.3.a2.7.1.cellPVmodule.2310&#39;, &#39;a9.3.a2.9.1.cellPVmodule.2310&#39;], &#39;rearX&#39;: [1.716, 1.289, 0.861, 0.434, 0.006, -0.421, -0.849, -1.276, -1.703], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0], &#39;rearZ&#39;: [2.287, 2.315, 2.343, 2.371, 2.399, 2.427, 2.455, 2.483, 2.511], &#39;x&#39;: [1.718, 1.29, 0.863, 0.435, 0.008, -0.42, -0.847, -1.275, -1.702], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0], &#39;z&#39;: [2.309, 2.337, 2.365, 2.393, 2.421, 2.449, 2.477, 2.505, 2.533]},
- &#39;Wm2Back&#39;: [2.9521646666666665,
-             2.9053166666666663,
-             2.8584650000000003,
-             2.7471523333333336,
-             2.990579,
-             2.712588,
-             2.7828603333333333,
-             2.806359666666667,
-             2.835483333333334],
- &#39;Wm2Front&#39;: [23.697916666666668,
-              23.701359999999998,
-              23.704256666666666,
-              23.707153333333334,
-              8.73384,
-              23.691203333333334,
-              23.670986666666664,
-              23.650043333333333,
-              23.73003],
- &#39;backRatio&#39;: [0.12456960409582715,
-               0.12257499534504862,
-               0.12058359207810027,
-               0.11587373738935944,
-               0.3423736439362369,
-               0.11449285496311656,
-               0.11755922189885204,
-               0.11865690773613512,
-               0.11948420836909876],
- &#39;dhi&#39;: 22,
- &#39;dni&#39;: 13,
- &#39;ghi&#39;: 23,
+{&#39;AnalysisObj&#39;: [&lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.125, 0.123, 0.12, 0.118, 0.342, 0.114, 0.117, 0.118, 0.119], &#39;Wm2Back&#39;: [2.944, 2.899, 2.833, 2.786, 2.991, 2.694, 2.765, 2.804, 2.831], &#39;Wm2Front&#39;: [23.6, 23.602, 23.604, 23.605, 8.742, 23.691, 23.696, 23.702, 23.74], &#39;backRatio&#39;: [0.125, 0.123, 0.12, 0.118, 0.342, 0.114, 0.117, 0.118, 0.119], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a9.3.a2.2.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.4.0.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.7.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.9.0.cellPVmodule.6457&#39;,
+       &#39;a9.3.octtube1a.6457&#39;, &#39;a9.3.a2.2.1.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.4.1.cellPVmodule.6457&#39;, &#39;a9.3.a2.7.1.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.9.1.cellPVmodule.6457&#39;], dtype=object), &#39;modWanted&#39;: 10, &#39;name&#39;: &#39;1axis_2021-01-13_0800_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-01-13_0800.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a9.3.a2.2.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.4.0.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.7.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.9.0.cellPVmodule.2310&#39;,
+       &#39;sky&#39;, &#39;a9.3.a2.2.1.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.4.1.cellPVmodule.2310&#39;, &#39;a9.3.a2.7.1.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.9.1.cellPVmodule.2310&#39;], dtype=object), &#39;rearX&#39;: [1.716, 1.288, 0.861, 0.434, 0.006, -0.421, -0.849, -1.276, -1.704], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [2.283, 2.31, 2.34, 2.367, 2.395, 2.422, 2.451, 2.479, 2.506], &#39;rowWanted&#39;: 4, &#39;sceneNum&#39;: 0, &#39;x&#39;: [1.718, 1.29, 0.863, 0.436, 0.008, -0.419, -0.847, -1.274, -1.702], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [2.312, 2.34, 2.37, 2.396, 2.424, 2.453, 2.48, 2.508, 2.535]},
+                 &lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.124, 0.122, 0.12, 0.118, 0.133, 0.114, 0.117, 0.118, 0.119], &#39;Wm2Back&#39;: [2.946, 2.896, 2.844, 2.803, 2.991, 2.716, 2.791, 2.803, 2.829], &#39;Wm2Front&#39;: [23.785, 23.781, 23.777, 23.77, 22.482, 23.769, 23.769, 23.768, 23.768], &#39;backRatio&#39;: [0.124, 0.122, 0.12, 0.118, 0.133, 0.114, 0.117, 0.118, 0.119], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a9.3.a2.2.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.4.0.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.7.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.9.0.cellPVmodule.6457&#39;,
+       &#39;a9.3.octtube1a.6457&#39;, &#39;a9.3.a2.2.1.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.4.1.cellPVmodule.6457&#39;, &#39;a9.3.a2.7.1.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.9.1.cellPVmodule.6457&#39;], dtype=object), &#39;modWanted&#39;: 10, &#39;name&#39;: &#39;1axis_2021-01-13_0800_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-01-13_0800.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a9.3.a2.2.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.4.0.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.7.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.9.0.cellPVmodule.2310&#39;,
+       &#39;sky&#39;, &#39;a9.3.a2.2.1.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.4.1.cellPVmodule.2310&#39;, &#39;a9.3.a2.7.1.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.9.1.cellPVmodule.2310&#39;], dtype=object), &#39;rearX&#39;: [1.716, 1.288, 0.861, 0.434, 0.006, -0.421, -0.849, -1.276, -1.704], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [2.283, 2.31, 2.34, 2.367, 2.395, 2.422, 2.451, 2.479, 2.506], &#39;rowWanted&#39;: 4, &#39;sceneNum&#39;: 0, &#39;x&#39;: [1.718, 1.29, 0.863, 0.436, 0.008, -0.419, -0.847, -1.274, -1.702], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [2.312, 2.34, 2.37, 2.396, 2.424, 2.453, 2.48, 2.508, 2.535]}],
+ &#39;dhi&#39;: np.int64(22),
+ &#39;dni&#39;: np.int64(13),
+ &#39;ghi&#39;: np.int64(23),
  &#39;octfile&#39;: &#39;1axis_2021-01-13_0800.oct&#39;,
- &#39;radfile&#39;: &#39;objects\\1axis2021-01-13_0800__C_2.17_rtr_10.00_tilt_4_20modsx7rows_origin0,0.rad&#39;,
- &#39;scene&#39;: &lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: 0.4284, &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0.1 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.05\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 0\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 0\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 0 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0.1, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-01-13_0800__C_2.17_rtr_10.00_tilt_4_20modsx7rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 20, &#39;nRows&#39;: 7, &#39;tilt&#39;: 3.74, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: 2.3}, &#39;text&#39;: &#39;!xform -rx 3.74 -t 0 0 2.3 -a 20 -t 1.046 0 0 -a 7 -t 0 10 0 -i 1 -t -9.414 -30.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;},
+ &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.4284), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: np.float64(1.036), &#39;y&#39;: np.float64(2.092), &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.046), &#39;sceney&#39;: np.float64(4.284), &#39;scenez&#39;: np.float64(0.1), &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0.1 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020711 -0.05\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020711 -0.05 -rx 45 -t 0 0 0\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 0\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 0 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: np.float64(0.1), &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-01-13_0800__C_2.17_rtr_10.00_tilt_4_20modsx7rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 20, &#39;nRows&#39;: 7, &#39;tilt&#39;: 3.74, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(2.3)}, &#39;text&#39;: &#39;!xform -rx 3.74 -t 0 0 2.3 -a 20 -t 1.046 0 0 -a 7 -t 0 10 0 -i 1 -t -9.414 -30.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}],
  &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-01-13_0800.rad&#39;,
  &#39;surf_azm&#39;: 90.0,
  &#39;surf_tilt&#39;: 3.74,
- &#39;temp_air&#39;: 0.2,
+ &#39;temp_air&#39;: np.float64(0.2),
  &#39;theta&#39;: -3.74,
- &#39;wind_speed&#39;: 2.6}
+ &#39;wind_speed&#39;: np.float64(2.6)}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1303,122 +1043,29 @@ Hourly bifi gain: 0.129
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;Back/FrontRatio&#39;: [0.12456960409582715,
-                     0.12257499534504862,
-                     0.12058359207810027,
-                     0.11587373738935944,
-                     0.3423736439362369,
-                     0.11449285496311656,
-                     0.11755922189885204,
-                     0.11865690773613512,
-                     0.11948420836909876],
- &#39;Wm2Back&#39;: [2.9521646666666665,
-             2.9053166666666663,
-             2.8584650000000003,
-             2.7471523333333336,
-             2.990579,
-             2.712588,
-             2.7828603333333333,
-             2.806359666666667,
-             2.835483333333334],
- &#39;Wm2Front&#39;: [23.697916666666668,
-              23.701359999999998,
-              23.704256666666666,
-              23.707153333333334,
-              8.73384,
-              23.691203333333334,
-              23.670986666666664,
-              23.650043333333333,
-              23.73003],
- &#39;backRatio&#39;: [0.12456960409582715,
-               0.12257499534504862,
-               0.12058359207810027,
-               0.11587373738935944,
-               0.3423736439362369,
-               0.11449285496311656,
-               0.11755922189885204,
-               0.11865690773613512,
-               0.11948420836909876],
- &#39;hpc&#39;: False,
- &#39;mattype&#39;: [&#39;a9.3.a2.2.0.cellPVmodule.6457&#39;,
-             &#39;a9.3.a2.4.0.cellPVmodule.6457&#39;,
-             &#39;a9.3.a2.7.0.cellPVmodule.6457&#39;,
-             &#39;a9.3.a2.9.0.cellPVmodule.6457&#39;,
-             &#39;a9.3.octtube1a.6457&#39;,
-             &#39;a9.3.a2.2.1.cellPVmodule.6457&#39;,
-             &#39;a9.3.a2.4.1.cellPVmodule.6457&#39;,
-             &#39;a9.3.a2.7.1.cellPVmodule.6457&#39;,
-             &#39;a9.3.a2.9.1.cellPVmodule.6457&#39;],
- &#39;name&#39;: &#39;1axis_2021-01-13_0800&#39;,
- &#39;octfile&#39;: &#39;1axis_2021-01-13_0800.oct&#39;,
- &#39;rearMat&#39;: [&#39;a9.3.a2.2.0.cellPVmodule.2310&#39;,
-             &#39;a9.3.a2.4.0.cellPVmodule.2310&#39;,
-             &#39;a9.3.a2.7.0.cellPVmodule.2310&#39;,
-             &#39;a9.3.a2.9.0.cellPVmodule.2310&#39;,
-             &#39;sky&#39;,
-             &#39;a9.3.a2.2.1.cellPVmodule.2310&#39;,
-             &#39;a9.3.a2.4.1.cellPVmodule.2310&#39;,
-             &#39;a9.3.a2.7.1.cellPVmodule.2310&#39;,
-             &#39;a9.3.a2.9.1.cellPVmodule.2310&#39;],
- &#39;rearX&#39;: [1.716408,
-           1.288921,
-           0.861433,
-           0.4339453,
-           0.006457668,
-           -0.42103,
-           -0.8485176,
-           -1.276005,
-           -1.703493],
- &#39;rearY&#39;: [1.050997e-16,
-           7.892362e-17,
-           5.274756e-17,
-           2.657149e-17,
-           3.954181e-19,
-           -2.578065e-17,
-           -5.195672e-17,
-           -7.813279e-17,
-           -1.043089e-16],
- &#39;rearZ&#39;: [2.287013,
-           2.314957,
-           2.342901,
-           2.370845,
-           2.398789,
-           2.426733,
-           2.454677,
-           2.482621,
-           2.510566],
- &#39;x&#39;: [1.717843,
-       1.290356,
-       0.862868,
-       0.4353804,
-       0.007892705,
-       -0.4195949,
-       -0.8470826,
-       -1.27457,
-       -1.702058],
- &#39;y&#39;: [1.051876e-16,
-       7.90115e-17,
-       5.283543e-17,
-       2.665936e-17,
-       4.832888e-19,
-       -2.569278e-17,
-       -5.186885e-17,
-       -7.804492e-17,
-       -1.04221e-16],
- &#39;z&#39;: [2.308966,
-       2.33691,
-       2.364854,
-       2.392798,
-       2.420742,
-       2.448686,
-       2.47663,
-       2.504575,
-       2.532519]}
+[&lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.125, 0.123, 0.12, 0.118, 0.342, 0.114, 0.117, 0.118, 0.119], &#39;Wm2Back&#39;: [2.944, 2.899, 2.833, 2.786, 2.991, 2.694, 2.765, 2.804, 2.831], &#39;Wm2Front&#39;: [23.6, 23.602, 23.604, 23.605, 8.742, 23.691, 23.696, 23.702, 23.74], &#39;backRatio&#39;: [0.125, 0.123, 0.12, 0.118, 0.342, 0.114, 0.117, 0.118, 0.119], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a9.3.a2.2.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.4.0.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.7.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.9.0.cellPVmodule.6457&#39;,
+       &#39;a9.3.octtube1a.6457&#39;, &#39;a9.3.a2.2.1.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.4.1.cellPVmodule.6457&#39;, &#39;a9.3.a2.7.1.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.9.1.cellPVmodule.6457&#39;], dtype=object), &#39;modWanted&#39;: 10, &#39;name&#39;: &#39;1axis_2021-01-13_0800_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-01-13_0800.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a9.3.a2.2.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.4.0.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.7.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.9.0.cellPVmodule.2310&#39;,
+       &#39;sky&#39;, &#39;a9.3.a2.2.1.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.4.1.cellPVmodule.2310&#39;, &#39;a9.3.a2.7.1.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.9.1.cellPVmodule.2310&#39;], dtype=object), &#39;rearX&#39;: [1.716, 1.288, 0.861, 0.434, 0.006, -0.421, -0.849, -1.276, -1.704], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [2.283, 2.31, 2.34, 2.367, 2.395, 2.422, 2.451, 2.479, 2.506], &#39;rowWanted&#39;: 4, &#39;sceneNum&#39;: 0, &#39;x&#39;: [1.718, 1.29, 0.863, 0.436, 0.008, -0.419, -0.847, -1.274, -1.702], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [2.312, 2.34, 2.37, 2.396, 2.424, 2.453, 2.48, 2.508, 2.535]},
+ &lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.124, 0.122, 0.12, 0.118, 0.133, 0.114, 0.117, 0.118, 0.119], &#39;Wm2Back&#39;: [2.946, 2.896, 2.844, 2.803, 2.991, 2.716, 2.791, 2.803, 2.829], &#39;Wm2Front&#39;: [23.785, 23.781, 23.777, 23.77, 22.482, 23.769, 23.769, 23.768, 23.768], &#39;backRatio&#39;: [0.124, 0.122, 0.12, 0.118, 0.133, 0.114, 0.117, 0.118, 0.119], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a9.3.a2.2.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.4.0.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.7.0.cellPVmodule.6457&#39;, &#39;a9.3.a2.9.0.cellPVmodule.6457&#39;,
+       &#39;a9.3.octtube1a.6457&#39;, &#39;a9.3.a2.2.1.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.4.1.cellPVmodule.6457&#39;, &#39;a9.3.a2.7.1.cellPVmodule.6457&#39;,
+       &#39;a9.3.a2.9.1.cellPVmodule.6457&#39;], dtype=object), &#39;modWanted&#39;: 10, &#39;name&#39;: &#39;1axis_2021-01-13_0800_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-01-13_0800.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a9.3.a2.2.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.4.0.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.7.0.cellPVmodule.2310&#39;, &#39;a9.3.a2.9.0.cellPVmodule.2310&#39;,
+       &#39;sky&#39;, &#39;a9.3.a2.2.1.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.4.1.cellPVmodule.2310&#39;, &#39;a9.3.a2.7.1.cellPVmodule.2310&#39;,
+       &#39;a9.3.a2.9.1.cellPVmodule.2310&#39;], dtype=object), &#39;rearX&#39;: [1.716, 1.288, 0.861, 0.434, 0.006, -0.421, -0.849, -1.276, -1.704], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [2.283, 2.31, 2.34, 2.367, 2.395, 2.422, 2.451, 2.479, 2.506], &#39;rowWanted&#39;: 4, &#39;sceneNum&#39;: 0, &#39;x&#39;: [1.718, 1.29, 0.863, 0.436, 0.008, -0.419, -0.847, -1.274, -1.702], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [2.312, 2.34, 2.37, 2.396, 2.424, 2.453, 2.48, 2.508, 2.535]}]
 </pre></div></div>
 </div>
 </section>
 <section id="B.-Make-Oct-and-Analye-Range-of-Hours">
-<h3>B. Make Oct and Analye Range of Hours<a class="headerlink" href="#B.-Make-Oct-and-Analye-Range-of-Hours" title="Permalink to this heading">#</a></h3>
+<h3>B. Make Oct and Analye Range of Hours<a class="headerlink" href="#B.-Make-Oct-and-Analye-Range-of-Hours" title="Link to this heading">#</a></h3>
 <p>You could do a list of indices following a similar procedure:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
@@ -1427,8 +1074,7 @@ Hourly bifi gain: 0.129
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;2021-01-13_0900&#39;</span><span class="p">,</span><span class="s1">&#39;2021-01-13_1300&#39;</span><span class="p">]:</span>
     <span class="n">demo</span><span class="o">.</span><span class="n">makeOct1axis</span><span class="p">(</span><span class="n">singleindex</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
     <span class="n">results</span><span class="o">=</span><span class="n">demo</span><span class="o">.</span><span class="n">analysis1axis</span><span class="p">(</span><span class="n">singleindex</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accumulated hourly bifi gain: </span><span class="si">{:0.3}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accumulated hourly bifi gain: </span><span class="si">{:0.3}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">))</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">))))</span>
 </pre></div>
 </div>
 </div>
@@ -1440,26 +1086,26 @@ Hourly bifi gain: 0.129
 
 Making 1 octfiles in root directory.
 Created 1axis_2021-01-13_0900.oct
-Linescan in process: 1axis_2021-01-13_0900_Front
-Linescan in process: 1axis_2021-01-13_0900_Back
-Saved: results\irr_1axis_2021-01-13_0900.csv
-Index: 2021-01-13_0900. Wm2Front: 90.71207925925927. Wm2Back: 7.311606666666667
+Linescan in process: 1axis_2021-01-13_0900_Scene0_Row4_Module10_Front
+Linescan in process: 1axis_2021-01-13_0900_Scene0_Row4_Module10_Back
+Saved: results\irr_1axis_2021-01-13_0900_Scene0_Row4_Module10.csv
+Index: 2021-01-13_0900. Wm2Front: 90.91053000000001. Wm2Back: 7.274867259259259
 
 Making 1 octfiles in root directory.
 Created 1axis_2021-01-13_1300.oct
-Linescan in process: 1axis_2021-01-13_1300_Front
-Linescan in process: 1axis_2021-01-13_1300_Back
-Saved: results\irr_1axis_2021-01-13_1300.csv
-Index: 2021-01-13_1300. Wm2Front: 218.57952592592594. Wm2Back: 31.144505925925923
-Accumulated hourly bifi gain: 0.125
+Linescan in process: 1axis_2021-01-13_1300_Scene0_Row4_Module10_Front
+Linescan in process: 1axis_2021-01-13_1300_Scene0_Row4_Module10_Back
+Saved: results\irr_1axis_2021-01-13_1300_Scene0_Row4_Module10.csv
+Index: 2021-01-13_1300. Wm2Front: 218.4903. Wm2Back: 31.121771111111116
+Accumulated hourly bifi gain: 0.124
 </pre></div></div>
 </div>
-<p>Note that the bifacial gain printed above is for the accumulated irradiance between the hours modeled so far. That is, demo.Wm2Back and demo.Wm2Front are for January 13, 8AM, 9AM and 1 PM. Compare demo.Wm2back below with what we had before:</p>
+<p>Note that the bifacial gain printed above is for the accumulated irradiance between the hours modeled so far. Results are stored in demo.results for each module, row, scene and timestamp.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">Wm2Back</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">results</span>
 </pre></div>
 </div>
 </div>
@@ -1467,18 +1113,145 @@ Accumulated hourly bifi gain: 0.125
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-array([38.19587967, 36.623799  , 35.51701933, 33.34932667, 84.072514  ,
-       34.02056333, 35.52583833, 36.623684  , 37.767358  ])
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>name</th>
+      <th>modNum</th>
+      <th>rowNum</th>
+      <th>sceneNum</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>rearZ</th>
+      <th>mattype</th>
+      <th>rearMat</th>
+      <th>Wm2Front</th>
+      <th>Wm2Back</th>
+      <th>backRatio</th>
+      <th>rearX</th>
+      <th>rearY</th>
+      <th>surf_azm</th>
+      <th>surf_tilt</th>
+      <th>theta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2021-01-13_0800</td>
+      <td>1axis_2021-01-13_0800_Scene0</td>
+      <td>10</td>
+      <td>4</td>
+      <td>0</td>
+      <td>[1.718, 1.29, 0.863, 0.4355, 0.007812, -0.419,...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[2.312, 2.34, 2.37, 2.396, 2.424, 2.453, 2.48,...</td>
+      <td>[2.283, 2.31, 2.34, 2.367, 2.395, 2.422, 2.451...</td>
+      <td>[a9.3.a2.2.0.cellPVmodule.6457, a9.3.a2.4.0.ce...</td>
+      <td>[a9.3.a2.2.0.cellPVmodule.2310, a9.3.a2.4.0.ce...</td>
+      <td>[23.600226666666668, 23.60168, 23.60356, 23.60...</td>
+      <td>[2.944065666666667, 2.8991749999999996, 2.8331...</td>
+      <td>[0.1247420614295754, 0.12283244953539171, 0.12...</td>
+      <td>[1.716, 1.288, 0.861, 0.4336, 0.00586, -0.421,...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>90.0</td>
+      <td>3.74</td>
+      <td>-3.74</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2021-01-13_0800</td>
+      <td>1axis_2021-01-13_0800_Scene0</td>
+      <td>10</td>
+      <td>4</td>
+      <td>0</td>
+      <td>[1.718, 1.29, 0.863, 0.4355, 0.007812, -0.419,...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[2.312, 2.34, 2.37, 2.396, 2.424, 2.453, 2.48,...</td>
+      <td>[2.283, 2.31, 2.34, 2.367, 2.395, 2.422, 2.451...</td>
+      <td>[a9.3.a2.2.0.cellPVmodule.6457, a9.3.a2.4.0.ce...</td>
+      <td>[a9.3.a2.2.0.cellPVmodule.2310, a9.3.a2.4.0.ce...</td>
+      <td>[23.78451, 23.78058, 23.77708, 23.770213333333...</td>
+      <td>[2.9459510000000004, 2.895887333333333, 2.8438...</td>
+      <td>[0.12385485953422903, 0.12177018235682124, 0.1...</td>
+      <td>[1.716, 1.288, 0.861, 0.4336, 0.00586, -0.421,...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>90.0</td>
+      <td>3.74</td>
+      <td>-3.74</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2021-01-13_0900</td>
+      <td>1axis_2021-01-13_0900_Scene0</td>
+      <td>10</td>
+      <td>4</td>
+      <td>0</td>
+      <td>[1.664, 1.258, 0.852, 0.4463, 0.04004, -0.3652...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[1.871, 2.008, 2.145, 2.281, 2.418, 2.555, 2.6...</td>
+      <td>[1.843, 1.9795, 2.117, 2.254, 2.39, 2.527, 2.6...</td>
+      <td>[a9.3.a2.2.0.cellPVmodule.6457, a9.3.a2.4.0.ce...</td>
+      <td>[a9.3.a2.2.0.cellPVmodule.2310, a9.3.a2.4.0.ce...</td>
+      <td>[95.69555666666668, 96.40040333333333, 98.3446...</td>
+      <td>[7.239717333333334, 7.025711333333334, 6.65101...</td>
+      <td>[0.0756528509019499, 0.07287976202006188, 0.06...</td>
+      <td>[1.654, 1.248, 0.8423, 0.4365, 0.03027, -0.375...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>90.0</td>
+      <td>18.64</td>
+      <td>-18.64</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2021-01-13_1300</td>
+      <td>1axis_2021-01-13_1300_Scene0</td>
+      <td>10</td>
+      <td>4</td>
+      <td>0</td>
+      <td>[1.694, 1.268, 0.8413, 0.415, -0.01172, -0.438...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[2.584, 2.545, 2.504, 2.465, 2.426, 2.387, 2.3...</td>
+      <td>[2.553, 2.514, 2.473, 2.434, 2.395, 2.355, 2.3...</td>
+      <td>[a9.3.a2.2.0.cellPVmodule.6457, a9.3.a2.4.0.ce...</td>
+      <td>[a9.3.a2.2.0.cellPVmodule.2310, a9.3.a2.4.0.ce...</td>
+      <td>[218.81786666666667, 218.82646666666665, 218.8...</td>
+      <td>[27.896079999999998, 26.794673333333332, 25.55...</td>
+      <td>[0.12748480249874858, 0.12244657282510545, 0.1...</td>
+      <td>[1.697, 1.2705, 0.844, 0.418, -0.00879, -0.435...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>90.0</td>
+      <td>-5.31</td>
+      <td>5.31</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
 </div>
-<p>To print the specific bifacial gain for a specific hour, you can use the following:</p>
+<p>To print the specific bifacial gain for a specific hour, you can refer back to the trackerdict:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">[</span><span class="s1">&#39;2021-01-13_1300&#39;</span><span class="p">][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">[</span><span class="s1">&#39;2021-01-13_1300&#39;</span><span class="p">][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trackerdict</span><span class="p">[</span><span class="s1">&#39;2021-01-13_1300&#39;</span><span class="p">][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">results</span>
 </pre></div>
 </div>
 </div>
@@ -1486,48 +1259,95 @@ array([38.19587967, 36.623799  , 35.51701933, 33.34932667, 84.072514  ,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>modNum</th>
+      <th>rowNum</th>
+      <th>sceneNum</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>rearZ</th>
+      <th>mattype</th>
+      <th>rearMat</th>
+      <th>Wm2Front</th>
+      <th>Wm2Back</th>
+      <th>backRatio</th>
+      <th>rearX</th>
+      <th>rearY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1axis_2021-01-13_1300_Scene0</td>
+      <td>10</td>
+      <td>4</td>
+      <td>0</td>
+      <td>[1.694, 1.268, 0.8413, 0.415, -0.01172, -0.438...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[2.584, 2.545, 2.504, 2.465, 2.426, 2.387, 2.3...</td>
+      <td>[2.553, 2.514, 2.473, 2.434, 2.395, 2.355, 2.3...</td>
+      <td>[a9.3.a2.2.0.cellPVmodule.6457, a9.3.a2.4.0.ce...</td>
+      <td>[a9.3.a2.2.0.cellPVmodule.2310, a9.3.a2.4.0.ce...</td>
+      <td>[218.81786666666667, 218.82646666666665, 218.8...</td>
+      <td>[27.896079999999998, 26.794673333333332, 25.55...</td>
+      <td>[0.12748480249874858, 0.12244657282510545, 0.1...</td>
+      <td>[1.697, 1.2705, 0.844, 0.418, -0.00879, -0.435...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">[</span><span class="s1">&#39;2021-01-13_1300&#39;</span><span class="p">][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">))</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">[</span><span class="s1">&#39;2021-01-13_1300&#39;</span><span class="p">][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.14248592494651324
+np.float64(0.1422167846598289)
 </pre></div></div>
 </div>
 </section>
 <section id="C.-Make-Oct-and-Analyze-All-Tracking-Dictionary">
-<h3>C. Make Oct and Analyze All Tracking Dictionary<a class="headerlink" href="#C.-Make-Oct-and-Analyze-All-Tracking-Dictionary" title="Permalink to this heading">#</a></h3>
+<h3>C. Make Oct and Analyze All Tracking Dictionary<a class="headerlink" href="#C.-Make-Oct-and-Analyze-All-Tracking-Dictionary" title="Link to this heading">#</a></h3>
 <p>This takes considerably more time, depending on the number of entries on the trackerdictionary. If no <strong>starttime</strong> and <strong>endtime</strong> were specified on STEP <strong>readWeatherFile, this will run ALL of the hours in the year (~4000 hours).</strong></p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">makeOct1axis</span><span class="p">()</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">analysis1axis</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accumulated hourly bifi gain for all the trackerdict: </span><span class="si">{:0.3}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accumulated hourly bifi gain for all the trackerdict: </span><span class="si">{:0.3}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">))</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">))))</span>
 <br/></pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-
-Making 20 octfiles in root directory.
-Created 1axis_2021-01-13_0800.oct
-Created 1axis_2021-01-13_0900.oct
-Created 1axis_2021-01-13_1000.oct
-Created 1axis_2021-01-13_1100.oct
-Created 1axis_2021-01-13_1200.oct
-Created 1axis_2021-01-13_1300.oct
-Created 1axis_2021-01-13_1400.oct
-Created 1axis_2021-01-13_1500.oct
-Created 1axis_2021-01-13_1600.oct
-Created 1axis_2021-01-13_1700.oct
-Created 1axis_2021-01-14_0800.oct
-Created 1axis_2021-01-14_0900.oct
-Created 1axis_2021-01-14_1000.oct
-Created 1axis_2021-01-14_1100.oct
-Created 1axis_2021-01-14_1200.oct
-</pre></div></div>
 </div>
 <div class="admonition warning">
 <p>Remember you should clean your results first! This will have torquetube and sky results if performed this way so don’t trust this simplistic bifacial_gain examples.</p>
@@ -1535,14 +1355,14 @@ Created 1axis_2021-01-14_1200.oct
 </section>
 </section>
 <section id="Condensed-Version:-All-Tracking-Dictionary">
-<h2>Condensed Version: All Tracking Dictionary<a class="headerlink" href="#Condensed-Version:-All-Tracking-Dictionary" title="Permalink to this heading">#</a></h2>
+<h2>Condensed Version: All Tracking Dictionary<a class="headerlink" href="#Condensed-Version:-All-Tracking-Dictionary" title="Link to this heading">#</a></h2>
 <p>This is the summarized version to run gendaylit for each entry in the trackingdictionary.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bifacial_radiance</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 <span class="n">simulationName</span> <span class="o">=</span> <span class="s1">&#39;Tutorial 3&#39;</span>
 <span class="n">moduletype</span> <span class="o">=</span> <span class="s1">&#39;Custom Cell-Level Module&#39;</span>
@@ -1644,7 +1464,8 @@ Created 1axis_2021-01-14_1200.oct
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1674,13 +1495,13 @@ Created 1axis_2021-01-14_1200.oct
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/3 - Single Axis Tracking Hourly.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/3 - Single Axis Tracking Hourly.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -1695,8 +1516,8 @@ Created 1axis_2021-01-14_1200.oct
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1716,7 +1537,7 @@ Created 1axis_2021-01-14_1200.oct
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1729,7 +1550,8 @@ Created 1axis_2021-01-14_1200.oct
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

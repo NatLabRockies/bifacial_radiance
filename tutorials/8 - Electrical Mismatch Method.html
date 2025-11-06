@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>8 - Electrical Mismatch Method &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0) &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,34 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -50,6 +54,7 @@
     <link rel="prev" title="6 - Exploring Trackerdict Structure" href="6%20-%20Exploring%20Trackerdict%20Structure.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -65,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -85,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,8 +120,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -188,29 +181,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -259,15 +244,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -286,7 +267,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -347,15 +329,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,7 +399,7 @@ document.write(`
 </ul>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="6%20-%20Exploring%20Trackerdict%20Structure.html">6 - Exploring Trackerdict Structure</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">8 - Electrical Mismatch Method</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="9%20-%20Torquetube%20Shading.html">9 - Torquetube Shading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11%20-%20AgriPV%20Systems.html">11 - AgriPV Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14%20-%20Cement%20Racking%20Albedo%20Improvements.html">14 - Cement Racking Albedo Improvements</a></li>
@@ -452,9 +430,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -472,8 +455,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -485,7 +466,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">8 -...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</span></li>
   </ul>
 </nav>
 </div>
@@ -502,262 +483,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
-<div class="nbinput docutils container">
+  <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span> <span class="k">as</span> <span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">br</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -771,40 +504,40 @@ div.rendered_html tbody tr:hover {
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Working on a  Windows 10
-Python version  3.9.12 (main, Apr  4 2022, 05:22:27) [MSC v.1916 64 bit (AMD64)]
-Pandas version  1.4.2
-bifacial_radiance version  0.4.4.dev26+ge667a7c
+Python version  3.11.8 | packaged by conda-forge | (main, Feb 16 2024, 20:40:50) [MSC v.1937 64 bit (AMD64)]
+Pandas version  2.2.3
+bifacial_radiance version  0.5.0b2.dev4+gedb973d.d20250924
 </pre></div></div>
 </div>
-<section id="8---Electrical-Mismatch-Method">
-<h1>8 - Electrical Mismatch Method<a class="headerlink" href="#8---Electrical-Mismatch-Method" title="Permalink to this heading">#</a></h1>
+<section id="8---Electrical-Mismatch-Method-(sorry,-this-tutorial-is-deprecated-and-non-functional-as-of-v0.5.0)">
+<h1>8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)<a class="headerlink" href="#8---Electrical-Mismatch-Method-(sorry,-this-tutorial-is-deprecated-and-non-functional-as-of-v0.5.0)" title="Link to this heading">#</a></h1>
 <p>Nonuniform rear-irradiance on bifacial PV systems can cause additional mismatch loss, which may not be appropriately captured in PV energy production estimates and software.</p>
-<p><img alt="7efa2099f92446ea98b115b6ed5c9725" class="no-scaled-link" src="../_images/Mismatch_Definition_Example.PNG" style="width: 600px;" /></p>
+<p><img alt="5911476fc1974ba19cbedfcb4e94808b" class="no-scaled-link" src="../_images/Mismatch_Definition_Example.PNG" style="width: 600px;" /></p>
 <p>The <strong>analysis.py</strong> module in bifacial_radiance comes with functions to calculate power output, electrical mismatch, and some other irradiance calculations. This is the procedure used for this proceedings and submitted journals, which have much more detail on the procedure.</p>
 <ul class="simple">
 <li><p>Deline, C., Ayala Pelaez, S., MacAlpine, S., Olalla, C. Estimating and Parameterizing Mismatch Power Loss in Bifacial Photovoltaic Systems. Progress in PV 2020, <a class="reference external" href="https://doi.org/10.1002/pip.3259">https://doi.org/10.1002/pip.3259</a></p></li>
-<li><p>Deline C, Ayala Pelaez S, MacAlpine S, Olalla C. Bifacial PV System Mismatch Loss Estimation &amp; Parameterization. Presented in: 36th EU PVSEC, Marseille Fr. Slides: <a class="reference external" href="https://www.nrel.gov/docs/fy19osti/74885.pdf">https://www.nrel.gov/docs/fy19osti/74885.pdf</a>. Proceedings: <a class="reference external" href="https://www.nrel.gov/docs/fy20osti/73541.pdf">https://www.nrel.gov/docs/fy20osti/73541.pdf</a></p></li>
+<li><p>Deline C, Ayala Pelaez S, MacAlpine S, Olalla C. Bifacial PV System Mismatch Loss Estimation &amp; Parameterization. Presented in: 36th EU PVSEC, Marseille Fr. Slides: <a class="reference external" href="https://www.nrel.gov/docs/fy19osti/74885.pdf">https://www.nrel.gov/docs/fy19osti/74885.pdf</a>. Proceedings: <a class="reference external" href="https://www.nrel.gov/docs/fy20osti/73541.pdf">https://www.nrel.gov/docs/fy20osti/73541.pdf</a></p></li>
 <li><p>Ayala Pelaez S, Deline C, MacAlpine S, Olalla C. Bifacial PV system mismatch loss estimation. Poster presented at the 6th BifiPV Workshop, Amsterdam 2019. <a class="reference external" href="https://www.nrel.gov/docs/fy19osti/74831.pdf">https://www.nrel.gov/docs/fy19osti/74831.pdf</a> and <a class="reference external" href="http://bifipv-workshop.com/index.php?id=amsterdam-2019-program">http://bifipv-workshop.com/index.php?id=amsterdam-2019-program</a></p></li>
 </ul>
 <p>Ideally <strong>mismatch losses M</strong> should be calculated for the whole year, and then the <strong>mismatch loss factor to apply to Grear “Lrear”</strong> required by due diligence softwares can be calculated:</p>
-<p><img alt="3e69e0befca14e6f8f0e80c1749970d7" class="no-scaled-link" src="../_images/Lrear_solving.PNG" style="width: 400px;" /></p>
+<p><img alt="c647014c38bf4dcaaf6edade385b61b9" class="no-scaled-link" src="../_images/Lrear_solving.PNG" style="width: 400px;" /></p>
 <p>In this journal we will explore calculating mismatch loss M for a reduced set of hours. A procedure similar to that in Tutorial 3 will be used to generate various hourly irradiance measurements in the results folder, which the mismatch.py module will load and analyze. Analysis is done with PVMismatch, so this must be installed.</p>
 <section id="STEPS:">
-<h2>STEPS:<a class="headerlink" href="#STEPS:" title="Permalink to this heading">#</a></h2>
+<h2>STEPS:<a class="headerlink" href="#STEPS:" title="Link to this heading">#</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1. Run an hourly simulation
 2. Do mismatch analysis on the results.
 </pre></div>
 </div>
 <section id="1.-Run-an-hourly-simulation">
-<h3>1. Run an hourly simulation<a class="headerlink" href="#1.-Run-an-hourly-simulation" title="Permalink to this heading">#</a></h3>
+<h3>1. Run an hourly simulation<a class="headerlink" href="#1.-Run-an-hourly-simulation" title="Link to this heading">#</a></h3>
 <p>This will generate the results over which we will perform the mismatch analysis. Here we are doing only 1 day to make this faster.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bifacial_radiance</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="n">testfolder</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;bifacial_radiance&#39;</span> <span class="o">/</span> <span class="s1">&#39;TEMP&#39;</span><span class="o">/</span> <span class="s1">&#39;Tutorial_08&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">testfolder</span><span class="p">):</span>
@@ -884,6 +617,8 @@ Calculating Sun position for Metdata that is right-labeled  with a delta of -30 
 
 Module Name: PVmodule
 Module PVmodule updated in module.json
+Pre-existing .rad file objects\PVmodule.rad will be overwritten
+
 Creating ~3 skyfiles.
 Created 3 skyfiles in /skies/
 
@@ -894,28 +629,23 @@ Making 3 octfiles in root directory.
 Created 1axis_2021-11-06_0800.oct
 Created 1axis_2021-11-06_0900.oct
 Created 1axis_2021-11-06_1000.oct
-Linescan in process: 1axis_2021-11-06_0800_Front
-Linescan in process: 1axis_2021-11-06_0800_Back
-Saved: results\irr_1axis_2021-11-06_0800.csv
-Index: 2021-11-06_0800. Wm2Front: 216.96855833333333. Wm2Back: 6.093165249999999
-Linescan in process: 1axis_2021-11-06_0900_Front
-Linescan in process: 1axis_2021-11-06_0900_Back
-Saved: results\irr_1axis_2021-11-06_0900.csv
-Index: 2021-11-06_0900. Wm2Front: 371.74485000000004. Wm2Back: 34.83021
-Linescan in process: 1axis_2021-11-06_1000_Front
-Linescan in process: 1axis_2021-11-06_1000_Back
-Saved: results\irr_1axis_2021-11-06_1000.csv
-Index: 2021-11-06_1000. Wm2Front: 335.9888916666666. Wm2Back: 40.308077499999996
-Saving a cumulative-results file in the main simulation folder.This adds up by sensor location the irradiance over all hours or configurations considered.
-Warning: This file saving routine does not clean results, so if your setup has ygaps, or 2+modules or torque tubes, doing a deeper cleaning and working with the individual results files in the results folder is highly suggested.
-
-Saving Cumulative results
-Saved: cumulative_results_.csv
+Linescan in process: 1axis_2021-11-06_0800_Scene0_Row4_Module10_Front
+Linescan in process: 1axis_2021-11-06_0800_Scene0_Row4_Module10_Back
+Saved: results\irr_1axis_2021-11-06_0800_Scene0_Row4_Module10.csv
+Index: 2021-11-06_0800. Wm2Front: 216.943925. Wm2Back: 6.079492166666667
+Linescan in process: 1axis_2021-11-06_0900_Scene0_Row4_Module10_Front
+Linescan in process: 1axis_2021-11-06_0900_Scene0_Row4_Module10_Back
+Saved: results\irr_1axis_2021-11-06_0900_Scene0_Row4_Module10.csv
+Index: 2021-11-06_0900. Wm2Front: 371.8801583333333. Wm2Back: 34.6894225
+Linescan in process: 1axis_2021-11-06_1000_Scene0_Row4_Module10_Front
+Linescan in process: 1axis_2021-11-06_1000_Scene0_Row4_Module10_Back
+Saved: results\irr_1axis_2021-11-06_1000_Scene0_Row4_Module10.csv
+Index: 2021-11-06_1000. Wm2Front: 335.72138333333334. Wm2Back: 41.0856625
 </pre></div></div>
 </div>
 </section>
 <section id="2.-Do-mismatch-analysis-on-the-results">
-<h3>2. Do mismatch analysis on the results<a class="headerlink" href="#2.-Do-mismatch-analysis-on-the-results" title="Permalink to this heading">#</a></h3>
+<h3>2. Do mismatch analysis on the results<a class="headerlink" href="#2.-Do-mismatch-analysis-on-the-results" title="Link to this heading">#</a></h3>
 <p>There are various things that we need to know about the module at this stage.</p>
 <ul class="simple">
 <li><p>Orientation: If it was simulated in portrait or landscape orientation.</p></li>
@@ -935,7 +665,7 @@ Saved: cumulative_results_.csv
 <span class="n">bififactor</span><span class="o">=</span><span class="mf">0.9</span> <span class="c1"># Bifaciality factor DOES matter now, as the rear irradiance values will be multiplied by this factor.</span>
 <span class="n">numcells</span><span class="o">=</span> <span class="mi">72</span><span class="c1"># Options are 72 or 96 at the moment.</span>
 <span class="n">downsamplingmethod</span> <span class="o">=</span> <span class="s1">&#39;byCenter&#39;</span> <span class="c1"># Options are &#39;byCenter&#39; or &#39;byAverage&#39;.</span>
-<span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">mismatch</span><span class="o">.</span><span class="n">analysisIrradianceandPowerMismatch</span><span class="p">(</span><span class="n">testfolder</span><span class="o">=</span><span class="n">resultfolder</span><span class="p">,</span> <span class="n">writefiletitle</span><span class="o">=</span><span class="n">writefiletitle</span><span class="p">,</span> <span class="n">portraitorlandscape</span><span class="o">=</span><span class="n">portraitorlandscape</span><span class="p">,</span>
+<span class="n">analysisIrradianceandPowerMismatch</span><span class="p">(</span><span class="n">testfolder</span><span class="o">=</span><span class="n">resultfolder</span><span class="p">,</span> <span class="n">writefiletitle</span><span class="o">=</span><span class="n">writefiletitle</span><span class="p">,</span> <span class="n">portraitorlandscape</span><span class="o">=</span><span class="n">portraitorlandscape</span><span class="p">,</span>
                                                               <span class="n">bififactor</span><span class="o">=</span><span class="n">bififactor</span><span class="p">,</span> <span class="n">numcells</span><span class="o">=</span><span class="n">numcells</span><span class="p">)</span>
 
 <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Your hourly mismatch values are now saved in the file above! :D&quot;</span><span class="p">)</span>
@@ -947,11 +677,215 @@ Saved: cumulative_results_.csv
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-3 files in the directory
-Same number of sensorsy and cellsy for your module.
-Saved Results to  Mismatch_Results.csv
-Your hourly mismatch values are now saved in the file above! :D
+6 files in the directory
 </pre></div></div>
+</div>
+<p>Reads and calculates power output and mismatch for each file in the testfolder where all the bifacial_radiance irradiance results .csv are saved. First load each file, cleans it and resamples it to the numsensors set in this function, and then calculates irradiance mismatch and PVMismatch power output for averaged, minimum, or detailed irradiances on each cell for the cases of A) only 12 or 8 downsmaples values are considered (at the center of each cell), and B) 12 or 8 values are obtained from
+averaging all the irradiances falling in the area of the cell (No edges or inter-cell spacing are considered at this moment). Then it saves all the A and B irradiances, as well as the cleaned/resampled front and rear irradiances.</p>
+<p>Ideally sensorsy in the read data is &gt;&gt; 12 to give results for the irradiance mismatch in the cell.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analysisIrradianceandPowerMismatch</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="n">writefiletitle</span><span class="p">,</span> <span class="n">portraitorlandscape</span><span class="p">,</span> <span class="n">bififactor</span><span class="p">,</span> <span class="n">numcells</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">downsamplingmethod</span><span class="o">=</span><span class="s1">&#39;byCenter&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Use this when sensorsy calculated with bifacial_radiance &gt; cellsy</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    testfolder:   folder containing output .csv files for bifacial_radiance</span>
+<span class="sd">    writefiletitle:   .csv title where the output results will be saved.</span>
+<span class="sd">    portraitorlandscape: &#39;portrait&#39; or &#39;landscape&#39;, for PVMismatch input</span>
+<span class="sd">                      which defines the electrical interconnects inside the module.</span>
+<span class="sd">    bififactor: bifaciality factor of the module. Max 1.0. ALL Rear irradiance values saved include the bifi-factor.</span>
+<span class="sd">    downsampling method: 1 - &#39;byCenter&#39; - 2 - &#39;byAverage&#39;</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    # User information.</span>
+<span class="sd">    import bifacial_radiance</span>
+<span class="sd">    testfolder=r&#39;C:\Users\sayala\Documents\HPC_Scratch\EUPVSEC\HPC Tracking Results\RICHMOND\Bifacial_Radiance Results\PVPMC_0\results&#39;</span>
+<span class="sd">    writefiletitle= r&#39;C:\Users\sayala\Documents\HPC_Scratch\EUPVSEC\HPC Tracking Results\RICHMOND\Bifacial_Radiance Results\PVPMC_0\test_df.csv&#39;</span>
+<span class="sd">    sensorsy=100</span>
+<span class="sd">    portraitorlandscape = &#39;portrait&#39;</span>
+<span class="sd">    analysis.analysisIrradianceandPowerMismatch(testfolder, writefiletitle, portraitorlandscape, bififactor=1.0, numcells=72)</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="kn">import</span> <span class="n">load</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">glob</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+    <span class="c1"># Default variables</span>
+    <span class="n">numpanels</span><span class="o">=</span><span class="mi">1</span> <span class="c1"># 1 at the moment, necessary for the cleaning routine.</span>
+    <span class="n">automatic</span><span class="o">=</span><span class="kc">True</span>
+
+    <span class="c1">#loadandclean</span>
+    <span class="c1"># testfolder = r&#39;C:\Users\sayala\Documents\HPC_Scratch\EUPVSEC\PinPV_Bifacial_Radiance_Runs\HPCResults\df4_FixedTilt\FixedTilt_Cairo_C_0.15\results&#39;</span>
+    <span class="n">filelist</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">testfolder</span><span class="p">))</span>
+    <span class="c1">#filelist = sorted(glob.glob(os.path.join(&#39;testfolder&#39;,&#39;*.csv&#39;)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> files in the directory&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filelist</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()))</span>
+
+    <span class="c1"># Check number of sensors on data.</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span><span class="n">filelist</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">sensorsy</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+
+    <span class="c1"># Setup PVMismatch parameters</span>
+    <span class="n">stdpl</span><span class="p">,</span> <span class="n">cellsx</span><span class="p">,</span> <span class="n">cellsy</span> <span class="o">=</span> <span class="n">_setupforPVMismatch</span><span class="p">(</span><span class="n">portraitorlandscape</span><span class="o">=</span><span class="n">portraitorlandscape</span><span class="p">,</span> <span class="n">sensorsy</span><span class="o">=</span><span class="n">sensorsy</span><span class="p">,</span> <span class="n">numcells</span><span class="o">=</span><span class="n">numcells</span><span class="p">)</span>
+
+    <span class="n">F</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">B</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">filelist</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()):</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span><span class="n">filelist</span><span class="p">[</span><span class="n">z</span><span class="p">]))</span>
+            <span class="p">[</span><span class="n">frontres</span><span class="p">,</span> <span class="n">backres</span><span class="p">]</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">deepcleanResult</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sensorsy</span><span class="o">=</span><span class="n">sensorsy</span><span class="p">,</span> <span class="n">numpanels</span><span class="o">=</span><span class="n">numpanels</span><span class="p">,</span> <span class="n">automatic</span><span class="o">=</span><span class="n">automatic</span><span class="p">)</span>
+            <span class="n">F</span><span class="p">[</span><span class="n">filelist</span><span class="p">[</span><span class="n">z</span><span class="p">]]</span><span class="o">=</span><span class="n">frontres</span>
+            <span class="n">B</span><span class="p">[</span><span class="n">filelist</span><span class="p">[</span><span class="n">z</span><span class="p">]]</span><span class="o">=</span><span class="n">backres</span>
+
+    <span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="o">*</span><span class="n">bififactor</span>
+    <span class="c1"># Downsample routines:</span>
+    <span class="k">if</span> <span class="n">sensorsy</span> <span class="o">&gt;</span> <span class="n">cellsy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">downsamplingmethod</span> <span class="o">==</span> <span class="s1">&#39;byCenter&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sensors y &gt; cellsy; Downsampling data by finding CellCenter method&quot;</span><span class="p">)</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="n">_sensorsdownsampletocellbyCenter</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">cellsy</span><span class="p">)</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">_sensorsdownsampletocellbyCenter</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">cellsy</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">downsamplingmethod</span> <span class="o">==</span> <span class="s1">&#39;byAverage&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sensors y &gt; cellsy; Downsampling data by Averaging data into Cells method&quot;</span><span class="p">)</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="n">_sensorsdownsampletocellsbyAverage</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">cellsy</span><span class="p">)</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">_sensorsdownsampletocellsbyAverage</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">cellsy</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Sensors y &gt; cellsy for your module. Select a proper downsampling method (&#39;byCenter&#39;, or &#39;byAverage&#39;)&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+    <span class="k">elif</span> <span class="n">sensorsy</span> <span class="o">&lt;</span> <span class="n">cellsy</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sensors y &lt; cellsy; Upsampling data by Interpolation&quot;</span><span class="p">)</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="n">_sensorupsampletocellsbyInterpolation</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">cellsy</span><span class="p">)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">_sensorupsampletocellsbyInterpolation</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">cellsy</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">sensorsy</span> <span class="o">==</span> <span class="n">cellsy</span><span class="p">:</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Same number of sensorsy and cellsy for your module.&quot;</span><span class="p">)</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="n">F</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">B</span>
+
+    <span class="c1"># Calculate POATs</span>
+    <span class="n">Poat</span> <span class="o">=</span> <span class="n">F</span><span class="o">+</span><span class="n">B</span>
+
+    <span class="c1"># Define arrays to fill in:</span>
+    <span class="n">Pavg_all</span><span class="o">=</span><span class="p">[];</span> <span class="n">Pdet_all</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">Pavg_front_all</span><span class="o">=</span><span class="p">[];</span> <span class="n">Pdet_front_all</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">colkeys</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pvmismatch</span>
+
+    <span class="k">if</span> <span class="n">cellsx</span><span class="o">*</span><span class="n">cellsy</span> <span class="o">==</span> <span class="mi">72</span><span class="p">:</span>
+        <span class="n">cell_pos</span> <span class="o">=</span> <span class="n">pvmismatch</span><span class="o">.</span><span class="n">pvmismatch_lib</span><span class="o">.</span><span class="n">pvmodule</span><span class="o">.</span><span class="n">STD72</span>
+    <span class="k">elif</span> <span class="n">cellsx</span><span class="o">*</span><span class="n">cellsy</span> <span class="o">==</span> <span class="mi">96</span><span class="p">:</span>
+        <span class="n">cell_pos</span> <span class="o">=</span> <span class="n">pvmismatch</span><span class="o">.</span><span class="n">pvmismatch_lib</span><span class="o">.</span><span class="n">pvmodule</span><span class="o">.</span><span class="n">STD96</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error. Only 72 and 96 cells modules supported at the moment. Change numcells to either of this options!&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">pvmod</span><span class="o">=</span><span class="n">pvmismatch</span><span class="o">.</span><span class="n">pvmismatch_lib</span><span class="o">.</span><span class="n">pvmodule</span><span class="o">.</span><span class="n">PVmodule</span><span class="p">(</span><span class="n">cell_pos</span><span class="o">=</span><span class="n">cell_pos</span><span class="p">)</span>
+    <span class="n">pvsys</span> <span class="o">=</span> <span class="n">pvmismatch</span><span class="o">.</span><span class="n">pvsystem</span><span class="o">.</span><span class="n">PVsystem</span><span class="p">(</span><span class="n">numberStrs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">numberMods</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pvmods</span><span class="o">=</span><span class="n">pvmod</span><span class="p">)</span>
+
+
+    <span class="c1"># Calculate powers for each hour:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">colkeys</span><span class="p">)):</span>
+        <span class="n">Pavg</span><span class="p">,</span> <span class="n">Pdet</span> <span class="o">=</span> <span class="n">calculatePVMismatch</span><span class="p">(</span><span class="n">pvsys</span> <span class="o">=</span> <span class="n">pvsys</span><span class="p">,</span> <span class="n">stdpl</span><span class="o">=</span><span class="n">stdpl</span><span class="p">,</span> <span class="n">cellsx</span><span class="o">=</span><span class="n">cellsx</span><span class="p">,</span> <span class="n">cellsy</span><span class="o">=</span><span class="n">cellsy</span><span class="p">,</span> <span class="n">Gpoat</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">Poat</span><span class="p">[</span><span class="n">colkeys</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">/</span><span class="mi">1000</span><span class="p">))</span>
+        <span class="n">Pavg_front</span><span class="p">,</span> <span class="n">Pdet_front</span> <span class="o">=</span> <span class="n">calculatePVMismatch</span><span class="p">(</span><span class="n">pvsys</span> <span class="o">=</span> <span class="n">pvsys</span><span class="p">,</span> <span class="n">stdpl</span> <span class="o">=</span> <span class="n">stdpl</span><span class="p">,</span> <span class="n">cellsx</span> <span class="o">=</span> <span class="n">cellsx</span><span class="p">,</span> <span class="n">cellsy</span> <span class="o">=</span> <span class="n">cellsy</span><span class="p">,</span> <span class="n">Gpoat</span><span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">F</span><span class="p">[</span><span class="n">colkeys</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">/</span><span class="mi">1000</span><span class="p">))</span>
+        <span class="n">Pavg_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pavg</span><span class="p">)</span>
+        <span class="n">Pdet_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pdet</span><span class="p">)</span>
+        <span class="n">Pavg_front_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pavg_front</span><span class="p">)</span>
+        <span class="n">Pdet_front_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Pdet_front</span><span class="p">)</span>
+
+    <span class="c1">## Rename Rows and save dataframe and outputs.</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;FrontIrradiance_cell_&#39;</span><span class="o">+</span><span class="n">F</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">B</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;BackIrradiance_cell_&#39;</span><span class="o">+</span><span class="n">B</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">Poat</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;POAT_Irradiance_cell_&#39;</span><span class="o">+</span><span class="n">Poat</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1"># Statistics Calculatoins</span>
+    <span class="n">dfst</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;MAD/G_Total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mad_fn</span><span class="p">(</span><span class="n">Poat</span><span class="p">)</span>
+    <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;Front_MAD/G_Total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mad_fn</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+    <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;MAD/G_Total**2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;MAD/G_Total&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;Front_MAD/G_Total**2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;Front_MAD/G_Total&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;poat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Poat</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;gfront&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;grear&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;bifi_ratio&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;grear&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;gfront&#39;</span><span class="p">]</span>
+    <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;stdev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Poat</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">/</span> <span class="n">dfst</span><span class="p">[</span><span class="s1">&#39;poat&#39;</span><span class="p">]</span>
+    <span class="n">dfst</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">Poat</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1"># Power Calculations/Saving</span>
+    <span class="n">Pout</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">Pout</span><span class="p">[</span><span class="s1">&#39;Pavg&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">Pavg_all</span>
+    <span class="n">Pout</span><span class="p">[</span><span class="s1">&#39;Pdet&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">Pdet_all</span>
+    <span class="n">Pout</span><span class="p">[</span><span class="s1">&#39;Front_Pavg&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">Pavg_front_all</span>
+    <span class="n">Pout</span><span class="p">[</span><span class="s1">&#39;Front_Pdet&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">Pdet_front_all</span>
+    <span class="n">Pout</span><span class="p">[</span><span class="s1">&#39;Mismatch_rel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">-</span><span class="p">(</span><span class="n">Pout</span><span class="p">[</span><span class="s1">&#39;Pdet&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">Pout</span><span class="p">[</span><span class="s1">&#39;Pavg&#39;</span><span class="p">])</span>
+    <span class="n">Pout</span><span class="p">[</span><span class="s1">&#39;Front_Mismatch_rel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">-</span><span class="p">(</span><span class="n">Pout</span><span class="p">[</span><span class="s1">&#39;Front_Pdet&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">Pout</span><span class="p">[</span><span class="s1">&#39;Front_Pavg&#39;</span><span class="p">])</span>
+    <span class="n">Pout</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">Poat</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1">## Save CSV as one long row</span>
+    <span class="n">df_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">Pout</span><span class="p">,</span> <span class="n">dfst</span><span class="p">,</span> <span class="n">Poat</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">T</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df_all</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">writefiletitle</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saved Results to &quot;</span><span class="p">,</span> <span class="n">writefiletitle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_setupforPVMismatch</span><span class="p">(</span><span class="n">portraitorlandscape</span><span class="p">,</span> <span class="n">sensorsy</span><span class="p">,</span> <span class="n">numcells</span><span class="o">=</span><span class="mi">72</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39; Sets values for calling PVMismatch, for ladscape or portrait modes and</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">    stdpl, cellsx, cellsy = _setupforPVMismatch(portraitorlandscape=&#39;portrait&#39;, sensorsy=100):</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+        <span class="c1"># cell placement for &#39;portrait&#39;.</span>
+    <span class="k">if</span> <span class="n">numcells</span> <span class="o">==</span> <span class="mi">72</span><span class="p">:</span>
+        <span class="n">stdpl</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span>     <span class="mi">24</span><span class="p">,</span>     <span class="mi">47</span><span class="p">,</span>     <span class="mi">48</span><span class="p">,</span>     <span class="mi">71</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span>     <span class="mi">25</span><span class="p">,</span>     <span class="mi">46</span><span class="p">,</span>     <span class="mi">49</span><span class="p">,</span>     <span class="mi">70</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span>     <span class="mi">26</span><span class="p">,</span>     <span class="mi">45</span><span class="p">,</span>     <span class="mi">50</span><span class="p">,</span>     <span class="mi">69</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span>     <span class="mi">27</span><span class="p">,</span>     <span class="mi">44</span><span class="p">,</span>     <span class="mi">51</span><span class="p">,</span>     <span class="mi">68</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span>     <span class="mi">28</span><span class="p">,</span>     <span class="mi">43</span><span class="p">,</span>     <span class="mi">52</span><span class="p">,</span>     <span class="mi">67</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span>     <span class="mi">29</span><span class="p">,</span>     <span class="mi">42</span><span class="p">,</span>     <span class="mi">53</span><span class="p">,</span>     <span class="mi">66</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span>     <span class="mi">30</span><span class="p">,</span>     <span class="mi">41</span><span class="p">,</span>     <span class="mi">54</span><span class="p">,</span>     <span class="mi">65</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span>     <span class="mi">31</span><span class="p">,</span>     <span class="mi">40</span><span class="p">,</span>     <span class="mi">55</span><span class="p">,</span>     <span class="mi">64</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span>     <span class="mi">32</span><span class="p">,</span>     <span class="mi">39</span><span class="p">,</span>     <span class="mi">56</span><span class="p">,</span>     <span class="mi">63</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span>     <span class="mi">33</span><span class="p">,</span>     <span class="mi">38</span><span class="p">,</span>     <span class="mi">57</span><span class="p">,</span>     <span class="mi">62</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">10</span><span class="p">,</span>        <span class="mi">13</span><span class="p">,</span>     <span class="mi">34</span><span class="p">,</span>     <span class="mi">37</span><span class="p">,</span>     <span class="mi">58</span><span class="p">,</span>     <span class="mi">61</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">11</span><span class="p">,</span>        <span class="mi">12</span><span class="p">,</span>     <span class="mi">35</span><span class="p">,</span>     <span class="mi">36</span><span class="p">,</span>     <span class="mi">59</span><span class="p">,</span>     <span class="mi">60</span><span class="p">]])</span>
+
+    <span class="k">elif</span> <span class="n">numcells</span> <span class="o">==</span> <span class="mi">96</span><span class="p">:</span>
+        <span class="n">stdpl</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span>     <span class="mi">24</span><span class="p">,</span>     <span class="mi">47</span><span class="p">,</span>     <span class="mi">48</span><span class="p">,</span>     <span class="mi">71</span><span class="p">,</span>     <span class="mi">72</span><span class="p">,</span>     <span class="mi">95</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">1</span><span class="p">,</span>     <span class="mi">22</span><span class="p">,</span>     <span class="mi">25</span><span class="p">,</span>     <span class="mi">46</span><span class="p">,</span>     <span class="mi">49</span><span class="p">,</span>     <span class="mi">70</span><span class="p">,</span>     <span class="mi">73</span><span class="p">,</span>     <span class="mi">94</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">2</span><span class="p">,</span>     <span class="mi">21</span><span class="p">,</span>     <span class="mi">26</span><span class="p">,</span>     <span class="mi">45</span><span class="p">,</span>     <span class="mi">50</span><span class="p">,</span>     <span class="mi">69</span><span class="p">,</span>     <span class="mi">74</span><span class="p">,</span>     <span class="mi">93</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">3</span><span class="p">,</span>     <span class="mi">20</span><span class="p">,</span>     <span class="mi">27</span><span class="p">,</span>     <span class="mi">44</span><span class="p">,</span>     <span class="mi">51</span><span class="p">,</span>     <span class="mi">68</span><span class="p">,</span>     <span class="mi">75</span><span class="p">,</span>     <span class="mi">92</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">4</span><span class="p">,</span>     <span class="mi">19</span><span class="p">,</span>     <span class="mi">28</span><span class="p">,</span>     <span class="mi">43</span><span class="p">,</span>     <span class="mi">52</span><span class="p">,</span>     <span class="mi">67</span><span class="p">,</span>     <span class="mi">76</span><span class="p">,</span>     <span class="mi">91</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">5</span><span class="p">,</span>     <span class="mi">18</span><span class="p">,</span>     <span class="mi">29</span><span class="p">,</span>     <span class="mi">42</span><span class="p">,</span>     <span class="mi">53</span><span class="p">,</span>     <span class="mi">66</span><span class="p">,</span>     <span class="mi">77</span><span class="p">,</span>     <span class="mi">90</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">6</span><span class="p">,</span>     <span class="mi">17</span><span class="p">,</span>     <span class="mi">30</span><span class="p">,</span>     <span class="mi">41</span><span class="p">,</span>     <span class="mi">54</span><span class="p">,</span>     <span class="mi">65</span><span class="p">,</span>     <span class="mi">78</span><span class="p">,</span>     <span class="mi">89</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">7</span><span class="p">,</span>     <span class="mi">16</span><span class="p">,</span>     <span class="mi">31</span><span class="p">,</span>     <span class="mi">40</span><span class="p">,</span>     <span class="mi">55</span><span class="p">,</span>     <span class="mi">64</span><span class="p">,</span>     <span class="mi">79</span><span class="p">,</span>     <span class="mi">88</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">8</span><span class="p">,</span>     <span class="mi">15</span><span class="p">,</span>     <span class="mi">32</span><span class="p">,</span>     <span class="mi">39</span><span class="p">,</span>     <span class="mi">56</span><span class="p">,</span>     <span class="mi">63</span><span class="p">,</span>     <span class="mi">80</span><span class="p">,</span>     <span class="mi">87</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">9</span><span class="p">,</span>     <span class="mi">14</span><span class="p">,</span>     <span class="mi">33</span><span class="p">,</span>     <span class="mi">38</span><span class="p">,</span>     <span class="mi">57</span><span class="p">,</span>     <span class="mi">62</span><span class="p">,</span>     <span class="mi">81</span><span class="p">,</span>     <span class="mi">86</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">10</span><span class="p">,</span>    <span class="mi">13</span><span class="p">,</span>     <span class="mi">34</span><span class="p">,</span>     <span class="mi">37</span><span class="p">,</span>     <span class="mi">58</span><span class="p">,</span>     <span class="mi">61</span><span class="p">,</span>     <span class="mi">82</span><span class="p">,</span>     <span class="mi">85</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">11</span><span class="p">,</span>    <span class="mi">12</span><span class="p">,</span>     <span class="mi">35</span><span class="p">,</span>     <span class="mi">36</span><span class="p">,</span>     <span class="mi">59</span><span class="p">,</span>     <span class="mi">60</span><span class="p">,</span>     <span class="mi">83</span><span class="p">,</span>     <span class="mi">84</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error. Only 72 and 96 cells modules supported at the moment. Change numcells to either of this options!&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">portraitorlandscape</span> <span class="o">==</span> <span class="s1">&#39;landscape&#39;</span><span class="p">:</span>
+        <span class="n">stdpl</span> <span class="o">=</span> <span class="n">stdpl</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">portraitorlandscape</span> <span class="o">!=</span> <span class="s1">&#39;portrait&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error. portraitorlandscape variable must either be &#39;landscape&#39; or &#39;portrait&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">cellsx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stdpl</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="n">cellsy</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stdpl</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">stdpl</span><span class="p">,</span> <span class="n">cellsx</span><span class="p">,</span> <span class="n">cellsy</span>
+</pre></div>
+</div>
 </div>
 <div class="admonition warning">
 <p>We hope to add more content to this journal for next release so check back! Particularly how to use the Mad_fn to make the mismatch calculation faster, as per the proceedings and publication above!</p>
@@ -995,7 +929,8 @@ Your hourly mismatch values are now saved in the file above! :D
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1015,13 +950,13 @@ Your hourly mismatch values are now saved in the file above! :D
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/8 - Electrical Mismatch Method.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/8 - Electrical Mismatch Method.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -1036,8 +971,8 @@ Your hourly mismatch values are now saved in the file above! :D
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1057,7 +992,7 @@ Your hourly mismatch values are now saved in the file above! :D
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1070,7 +1005,8 @@ Your hourly mismatch values are now saved in the file above! :D
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

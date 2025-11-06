@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bifacial_radiance.load &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>bifacial_radiance.load &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -15,36 +15,40 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/bifacial_radiance/load';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -60,19 +64,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -80,7 +73,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -88,8 +80,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -122,8 +114,8 @@
       
     
     
-    <img src="../../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -183,29 +175,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -254,15 +238,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -279,7 +259,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -340,15 +321,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -396,9 +373,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -416,8 +398,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -429,7 +409,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">bifacial_rad...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">bifacial_radiance.load</span></li>
   </ul>
 </nav>
 </div>
@@ -456,7 +436,7 @@ document.write(`
 <span class="sd">TEMP folder in bifacial_radiance \\ bifacial_radiance</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">deprecated</span><span class="w"> </span><span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="sd">&#39;&#39;&#39; DEPRECATED - doesn&#39;t work with python3</span>
 <span class="sd">def load_inputvariablesfile(inputfile):</span>
@@ -492,6 +472,7 @@ document.write(`
 <span class="sd">            cumulativesky             bool</span>
 <span class="sd">            daydateSimulation         bool</span>
 <span class="sd">            selectTimes               bool</span>
+<span class="sd">            saveImage                 bool     Activates saving of module and scene .HDR images, default True</span>
 <span class="sd">            ========================  =======  =============================</span>
 <span class="sd">    sceneParamsDict : Dictionary </span>
 <span class="sd">        gcrorpitch, gcr, pitch, albedo, nMods, nRows, </span>
@@ -509,6 +490,8 @@ document.write(`
 <span class="sd">         diameter, tubetype, torqueTubeMaterial</span>
 <span class="sd">    analysisParamsDict : Dictionary</span>
 <span class="sd">        sensorsy, modWanted, rowWanted</span>
+<span class="sd">    CECModParamsDict : Dictionary</span>
+<span class="sd">        lpha_sc, a_ref, I_L_ref, I_o_ref,  R_sh_ref, R_s, Adjust</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <span class="sd">    import inputfile as ibf</span>
 
@@ -562,14 +545,23 @@ document.write(`
 <span class="sd">                                 &#39;numcellsy&#39;: ibf.numcellsy,</span>
 <span class="sd">                                 &#39;xcell&#39;: ibf.xcell, &#39;ycell&#39;: ibf.ycell,</span>
 <span class="sd">                                 &#39;xcellgap&#39;: ibf.xcellgap, &#39;ycellgap&#39;: ibf.ycellgap}</span>
+<span class="sd">    CECModParamsDict = {&#39;alpha_sc&#39;: ibf.alpha_sc,</span>
+<span class="sd">                        &#39;a_ref&#39;: ibf.a_ref,</span>
+<span class="sd">                        &#39;I_L_ref&#39;: ibf.I_L_ref,</span>
+<span class="sd">                        &#39;I_o_ref&#39;: ibf.I_o_ref,</span>
+<span class="sd">                        &#39;R_sh_ref&#39;: ibf.R_sh_ref,</span>
+<span class="sd">                        &#39;R_s&#39;: ibf.R_s,</span>
+<span class="sd">                        &#39;Adjust&#39;: ibf.Adjust}</span>
 
 <span class="sd">    return(simulationParamsDict, simulationControlDict, timeControlParamsDict,</span>
 <span class="sd">           moduleParamsDict, cellLevelModuleParamsDict, sceneParamsDict,</span>
-<span class="sd">           trackingParamsDict, analysisParamsDict)</span>
+<span class="sd">           trackingParamsDict, analysisParamsDict, CECModParamsDict)</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="loadRadianceObj"><a class="viewcode-back" href="../../generated/bifacial_radiance.load.loadRadianceObj.html#bifacial_radiance.load.loadRadianceObj">[docs]</a><span class="k">def</span> <span class="nf">loadRadianceObj</span><span class="p">(</span><span class="n">savefile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="loadRadianceObj">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.load.loadRadianceObj.html#bifacial_radiance.load.loadRadianceObj">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">loadRadianceObj</span><span class="p">(</span><span class="n">savefile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load the pickled radiance object for further use</span>
 <span class="sd">    Usage (once you&#39;re in the correct local directory)::</span>
@@ -582,7 +574,7 @@ document.write(`
 <span class="sd">        Optional savefile name. Otherwise default to `save.pickle`</span>
 <span class="sd">            </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">pickle</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
     
     <span class="k">if</span> <span class="n">savefile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">savefile</span> <span class="o">=</span> <span class="s1">&#39;save.pickle&#39;</span>
@@ -592,7 +584,10 @@ document.write(`
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loaded file </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">savefile</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">loadObj</span></div>
 
-<div class="viewcode-block" id="read1Result"><a class="viewcode-back" href="../../generated/bifacial_radiance.load.read1Result.html#bifacial_radiance.load.read1Result">[docs]</a><span class="k">def</span> <span class="nf">read1Result</span><span class="p">(</span><span class="n">selectfile</span><span class="p">):</span>
+
+<div class="viewcode-block" id="read1Result">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.load.read1Result.html#bifacial_radiance.load.read1Result">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">read1Result</span><span class="p">(</span><span class="n">selectfile</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads in a bifacial_radiance results file ``.csv`` format,</span>
 <span class="sd">    and return a :py:class:`~pandas.DataFrame`</span>
@@ -609,16 +604,23 @@ document.write(`
 <span class="sd">        Dataframe with the bifacial_radiance .csv values read.</span>
 <span class="sd">        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
     
     <span class="c1">#resultsDict = pd.read_csv(os.path.join(&#39;results&#39;,selectfile))</span>
     <span class="n">resultsDF</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">selectfile</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="s1">&#39;Unnamed: 0&#39;</span> <span class="ow">in</span> <span class="n">resultsDF</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">resultsDF</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">resultsDF</span><span class="p">[</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">resultsDF</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1">#return(np.array(temp[&#39;Wm2Front&#39;]), np.array(temp[&#39;Wm2Back&#39;]))</span>
     <span class="k">return</span> <span class="n">resultsDF</span></div>
+
 <span class="c1"># End read1Result subroutine</span>
 
-<div class="viewcode-block" id="cleanResult"><a class="viewcode-back" href="../../generated/bifacial_radiance.load.cleanResult.html#bifacial_radiance.load.cleanResult">[docs]</a><span class="k">def</span> <span class="nf">cleanResult</span><span class="p">(</span><span class="n">resultsDF</span><span class="p">,</span> <span class="n">matchers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="cleanResult">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.load.cleanResult.html#bifacial_radiance.load.cleanResult">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">cleanResult</span><span class="p">(</span><span class="n">resultsDF</span><span class="p">,</span> <span class="n">matchers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Replace irradiance values with NaN&#39;s when the scan intersects ground, </span>
 <span class="sd">    sky, or anything in `matchers`.</span>
@@ -644,7 +646,7 @@ document.write(`
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
     
     <span class="k">if</span> <span class="n">matchers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">matchers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sky&#39;</span><span class="p">,</span><span class="s1">&#39;pole&#39;</span><span class="p">,</span><span class="s1">&#39;tube&#39;</span><span class="p">,</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span><span class="s1">&#39;ground&#39;</span><span class="p">,</span> <span class="s1">&#39;3267&#39;</span><span class="p">,</span> <span class="s1">&#39;1540&#39;</span><span class="p">]</span>
@@ -652,11 +654,14 @@ document.write(`
         <span class="n">resultsDF</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">resultsDF</span><span class="o">.</span><span class="n">mattype</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">matchers</span><span class="p">)),</span><span class="s1">&#39;Wm2Front&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;rearMat&#39;</span> <span class="ow">in</span> <span class="n">resultsDF</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="s1">&#39;Wm2Back&#39;</span> <span class="ow">in</span> <span class="n">resultsDF</span><span class="p">)</span> <span class="p">:</span>
         <span class="n">resultsDF</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">resultsDF</span><span class="o">.</span><span class="n">rearMat</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">matchers</span><span class="p">)),</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-    
+
     <span class="k">return</span> <span class="n">resultsDF</span></div>
 
 
-<div class="viewcode-block" id="loadTrackerDict"><a class="viewcode-back" href="../../generated/bifacial_radiance.load.loadTrackerDict.html#bifacial_radiance.load.loadTrackerDict">[docs]</a><span class="k">def</span> <span class="nf">loadTrackerDict</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">fileprefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="loadTrackerDict">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.load.loadTrackerDict.html#bifacial_radiance.load.loadTrackerDict">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">loadTrackerDict</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">fileprefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a trackerdict by reading all files in the `\\results` directory.</span>
 <span class="sd">    fileprefix is used to select only certain matching files in `\\results`</span>
@@ -684,10 +689,14 @@ document.write(`
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO: get this module working   </span>
-    <span class="kn">import</span> <span class="nn">re</span><span class="o">,</span> <span class="nn">os</span>
-    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: loadTrackerDict has not been updated to the new v0.5.0&#39;</span> <span class="o">+</span>\
+          <span class="s1">&#39; dictionary structure and is currently incomplete. Please&#39;</span> <span class="o">+</span>\
+          <span class="s1">&#39; reach out at github.com/NREL/bifacial_radiance/issues if&#39;</span> <span class="o">+</span>\
+          <span class="s1">&#39; this is functionality you need.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        
     <span class="c1"># get list of filenames in \results\</span>
     <span class="n">filelist</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">))</span>
     
@@ -726,10 +735,58 @@ document.write(`
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Files loaded: </span><span class="si">{}</span><span class="s1">;  Wm2Front_avg: </span><span class="si">{:0.1f}</span><span class="s1">; Wm2Rear_avg: </span><span class="si">{:0.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Wm2FrontTotal</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Wm2BackTotal</span><span class="p">)</span> <span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;final key loaded: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">finalkey</span><span class="p">))</span>
     <span class="k">return</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">totaldict</span><span class="p">)</span></div>
+
     <span class="c1">#end loadTrackerDict subroutine.  set demo.Wm2Front = totaldict.Wm2Front. demo.Wm2Back = totaldict.Wm2Back</span>
 
+<span class="k">def</span><span class="w"> </span><span class="nf">getResults</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">cumulativesky</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Iterate over trackerdict and return irradiance results</span>
+<span class="sd">    following analysis1axis runs</span>
 
-<span class="k">def</span> <span class="nf">_exportTrackerDict</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">savefile</span><span class="p">,</span> <span class="n">reindex</span><span class="p">):</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    trackerdict : dict</span>
+<span class="sd">        trackerdict, after analysis1axis has been run</span>
+<span class="sd">    </span>
+<span class="sd">    cumulativesky : Bool</span>
+<span class="sd">        determines whether trackerdict index is labeled &#39;timestamp&#39; or &#39;angle&#39;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    results : Pandas.DataFrame</span>
+<span class="sd">        dataframe containing irradiance scan results.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_printRow</span><span class="p">(</span><span class="n">analysisobj</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cumulativesky</span><span class="p">:</span>
+            <span class="n">keyname</span> <span class="o">=</span> <span class="s1">&#39;theta&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">keyname</span> <span class="o">=</span> <span class="s1">&#39;timestamp&#39;</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">keyname</span><span class="p">:</span><span class="n">key</span><span class="p">},</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                         <span class="n">analysisobj</span><span class="o">.</span><span class="n">results</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">trackerdict</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">extra_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;surf_azm&#39;</span><span class="p">,</span><span class="s1">&#39;surf_tilt&#39;</span><span class="p">,</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
+            <span class="n">data_extra</span> <span class="o">=</span> <span class="n">df</span><span class="p">(</span><span class="nb">dict</span><span class="p">([(</span><span class="n">col</span><span class="p">,</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">col</span><span class="p">])</span> \
+                                            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">extra_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">trackerdict</span><span class="p">[</span><span class="n">key</span><span class="p">]]),</span> 
+                                      <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                
+            <span class="k">for</span> <span class="n">analysis</span> <span class="ow">in</span> <span class="n">trackerdict</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">]:</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">results</span><span class="p">,</span> 
+                                     <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">_printRow</span><span class="p">(</span><span class="n">analysis</span><span class="p">,</span> <span class="n">key</span><span class="p">),</span><span class="n">data_extra</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                                     <span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+    
+    <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="o">~</span><span class="n">results</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_exportTrackerDict</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">savefile</span><span class="p">,</span> <span class="n">cumulativesky</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reindex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">monthlyyearly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Save a TrackerDict output as a ``.csv`` file.</span>
 <span class="sd">    </span>
@@ -742,43 +799,123 @@ document.write(`
 <span class="sd">        reindex : bool</span>
 <span class="sd">            Boolean indicating if trackerdict should be resampled to include</span>
 <span class="sd">            all 8760 hours in the year (even those when the sun is not up and </span>
-<span class="sd">            irradiance results is empty).</span>
+<span class="sd">            irradiance results is empty). NOTE: this is incompatible with multiple</span>
+<span class="sd">            row / modules per trackerdict entry.</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
-    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exporting TrackerDict&quot;</span><span class="p">)</span>
     
-    <span class="c1"># convert trackerdict into dataframe</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span><span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;dhi&#39;</span><span class="p">,</span><span class="s1">&#39;ghi&#39;</span><span class="p">,</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">,</span><span class="s1">&#39;Wm2Front&#39;</span><span class="p">,</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span><span class="s1">&#39;surf_tilt&#39;</span><span class="p">,</span><span class="s1">&#39;surf_azm&#39;</span><span class="p">,</span><span class="s1">&#39;clearance_height&#39;</span><span class="p">,</span> <span class="s1">&#39;effective_irradiance&#39;</span><span class="p">,</span> <span class="s1">&#39;Pout_module&#39;</span><span class="p">])</span>
-    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Wm2BackAvg&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]]</span>
-    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Wm2FrontAvg&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Wm2Front&#39;</span><span class="p">]]</span>
-
-    <span class="c1"># Search for module object bifaciality</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">trackerdict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-        <span class="n">bifacialityfactor</span> <span class="o">=</span> <span class="n">trackerdict</span><span class="p">[</span><span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">bifi</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="n">bifacialityfactor</span> <span class="o">=</span> <span class="mf">1.0</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bifaciality factor of module not found, setting to &quot;</span><span class="p">,</span> <span class="n">bifacialityfactor</span><span class="p">,</span>
-              <span class="s2">&quot;for BifiRatio calculation&quot;</span><span class="p">)</span>
-        
-    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;BifiRatio&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Wm2BackAvg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">bifacialityfactor</span> <span class="o">/</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;Wm2FrontAvg&#39;</span><span class="p">]</span>
-
-    <span class="k">if</span> <span class="n">reindex</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span> <span class="c1"># change to proper timestamp and interpolate to get 8760 output</span>
-        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;measdatetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">index</span>
-        <span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;measdatetime&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">_%H%M&#39;</span><span class="p">))</span>
-        <span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">asfreq</span><span class="p">()</span>
-  
-    <span class="n">d</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">savefile</span><span class="p">)</span>    
+    <span class="n">d0</span> <span class="o">=</span> <span class="n">getResults</span><span class="p">(</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">cumulativesky</span><span class="p">)</span>
 
     
-<div class="viewcode-block" id="deepcleanResult"><a class="viewcode-back" href="../../generated/bifacial_radiance.load.deepcleanResult.html#bifacial_radiance.load.deepcleanResult">[docs]</a><span class="nd">@deprecated</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="s1">&#39;load.deepcleanResult has been abandoned&#39;</span><span class="o">+</span>\
+    <span class="n">d0</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Wind Speed&#39;</span><span class="p">:</span><span class="s1">&#39;wind_speed&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">columnlist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;rowNum&#39;</span><span class="p">,</span> <span class="s1">&#39;modNum&#39;</span><span class="p">,</span> <span class="s1">&#39;sceneNum&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>	<span class="s1">&#39;Wm2Front&#39;</span><span class="p">,</span>	<span class="s1">&#39;Wm2Back&#39;</span><span class="p">,</span><span class="s1">&#39;DNI&#39;</span><span class="p">,</span><span class="s1">&#39;DHI&#39;</span><span class="p">,</span><span class="s1">&#39;GHI&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;temp_air&#39;</span><span class="p">,</span> <span class="s1">&#39;wind_speed&#39;</span><span class="p">,</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span><span class="s1">&#39;surf_tilt&#39;</span><span class="p">,</span><span class="s1">&#39;surf_azm&#39;</span><span class="p">,</span> <span class="s1">&#39;POA_eff&#39;</span><span class="p">,</span><span class="s1">&#39;Gfront_mean&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;Grear_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;Pout_raw&#39;</span><span class="p">,</span> <span class="s1">&#39;Mismatch&#39;</span><span class="p">,</span> <span class="s1">&#39;Pout&#39;</span><span class="p">,</span> <span class="s1">&#39;Pout_Gfront&#39;</span><span class="p">]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d0</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">d0</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">columnlist</span><span class="p">)]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">columnlist</span><span class="p">])</span>
+
+
+    <span class="c1"># TODO: Continue work from here...</span>
+
+    
+
+    <span class="k">if</span> <span class="n">reindex</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span> <span class="c1"># change to proper timestamp and interpolate to get 8760 output</span>
+       
+        <span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">_%H%M&#39;</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">asfreq</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">d</span><span class="o">=</span><span class="n">temp</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">asfreq</span><span class="p">()</span>
+            <span class="c1">#print(&#39;Warning: Unable to reindex - possibly duplicate entries in trackerdict&#39;)</span>
+
+    <span class="c1"># Add tabs:</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">savefile</span><span class="p">)</span>    
+
+    <span class="k">if</span> <span class="n">monthlyyearly</span><span class="p">:</span>
+
+        <span class="n">D2join</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">D3join</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">D4join</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">rownum</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;rowNum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+           <span class="k">for</span> <span class="n">modnum</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;modNum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+               <span class="k">for</span> <span class="n">sceneNum</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;sceneNum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span><span class="c1">#TODO: is sceneNum iteration required here?</span>
+                    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;rowNum&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">rownum</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;modNum&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">modnum</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;sceneNum&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">sceneNum</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">modnum</span><span class="p">)</span>
+        <span class="c1">#           Gfront_mean.append(filledFront[mask].sum(axis=0).mean())</span>
+                    <span class="n">D2</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="n">D2</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">D2</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">_%H%M&quot;</span><span class="p">)</span>
+                    <span class="n">D2</span> <span class="o">=</span> <span class="n">D2</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">)</span>
+                 <span class="c1">#   D2 = D2.set_index(D2[&#39;timestamp&#39;])</span>
+    
+                    <span class="c1"># Determine if data is sub-hourly</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">D2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span> 
+                        <span class="k">if</span> <span class="p">(</span><span class="n">D2</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">D2</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">&lt;</span> <span class="mf">60.0</span><span class="p">:</span>
+                            <span class="c1"># Subhourly to hourly data averages, doesn&#39;t sum</span>
+                            <span class="c1"># So we get average hourly irradiance as well as Wh on </span>
+                            <span class="c1"># results of power.</span>
+                            <span class="n">D2b</span> <span class="o">=</span> <span class="n">D2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                            <span class="n">D2b</span> <span class="o">=</span> <span class="n">D2b</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">D2b</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                            <span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;BGG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;Grear_mean&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;Gfront_mean&#39;</span><span class="p">]</span>
+                            <span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;BGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;Pout&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;Pout_Gfront&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;Pout&#39;</span><span class="p">]</span>
+                            <span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;Pout_raw&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;Pout&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;Pout_raw&#39;</span><span class="p">]</span>
+                            <span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;rowNum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rownum</span>
+                            <span class="n">D2b</span><span class="p">[</span><span class="s1">&#39;modNum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">modnum</span>
+                            <span class="n">D2b</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;surf_tilt&#39;</span><span class="p">,</span> <span class="s1">&#39;surf_azm&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                            <span class="n">D2b</span><span class="o">=</span><span class="n">D2b</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>  
+                            <span class="n">D2join</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">D2join</span><span class="p">,</span> <span class="n">D2b</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+                    <span class="n">D3</span> <span class="o">=</span> <span class="n">D2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">D2</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;M&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                    <span class="n">D3</span><span class="p">[</span><span class="s1">&#39;BGG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">D3</span><span class="p">[</span><span class="s1">&#39;Grear_mean&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">D3</span><span class="p">[</span><span class="s1">&#39;Gfront_mean&#39;</span><span class="p">]</span>
+                    <span class="n">D3</span><span class="p">[</span><span class="s1">&#39;BGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">D3</span><span class="p">[</span><span class="s1">&#39;Pout&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">D3</span><span class="p">[</span><span class="s1">&#39;Pout_Gfront&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">D3</span><span class="p">[</span><span class="s1">&#39;Pout&#39;</span><span class="p">]</span>
+                    <span class="n">D3</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">D3</span><span class="p">[</span><span class="s1">&#39;Pout_raw&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">D3</span><span class="p">[</span><span class="s1">&#39;Pout&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">D3</span><span class="p">[</span><span class="s1">&#39;Pout_raw&#39;</span><span class="p">]</span>
+                    <span class="n">D3</span><span class="p">[</span><span class="s1">&#39;rowNum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rownum</span>
+                    <span class="n">D3</span><span class="p">[</span><span class="s1">&#39;modNum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">modnum</span>
+                    <span class="n">D3m</span> <span class="o">=</span> <span class="n">D2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">D2</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;M&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                    <span class="n">D3</span><span class="p">[</span><span class="s1">&#39;temp_air&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">D3m</span><span class="p">[</span><span class="s1">&#39;temp_air&#39;</span><span class="p">]</span>
+                    <span class="n">D3</span><span class="p">[</span><span class="s1">&#39;wind_speed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">D3m</span><span class="p">[</span><span class="s1">&#39;wind_speed&#39;</span><span class="p">]</span>
+                    <span class="n">D3</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;surf_tilt&#39;</span><span class="p">,</span> <span class="s1">&#39;surf_azm&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    
+                    <span class="n">D4</span> <span class="o">=</span> <span class="n">D2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">D2</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Y&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                    <span class="n">D4</span><span class="p">[</span><span class="s1">&#39;BGG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">D4</span><span class="p">[</span><span class="s1">&#39;Grear_mean&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">D4</span><span class="p">[</span><span class="s1">&#39;Gfront_mean&#39;</span><span class="p">]</span>
+                    <span class="n">D4</span><span class="p">[</span><span class="s1">&#39;BGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">D4</span><span class="p">[</span><span class="s1">&#39;Pout&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">D4</span><span class="p">[</span><span class="s1">&#39;Pout_Gfront&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">D4</span><span class="p">[</span><span class="s1">&#39;Pout&#39;</span><span class="p">]</span>
+                    <span class="n">D4</span><span class="p">[</span><span class="s1">&#39;Mismatch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">D4</span><span class="p">[</span><span class="s1">&#39;Pout_raw&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">D4</span><span class="p">[</span><span class="s1">&#39;Pout&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">D4</span><span class="p">[</span><span class="s1">&#39;Pout_raw&#39;</span><span class="p">]</span>
+                    <span class="n">D4</span><span class="p">[</span><span class="s1">&#39;rowNum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rownum</span>
+                    <span class="n">D4</span><span class="p">[</span><span class="s1">&#39;modNum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">modnum</span>
+                    <span class="n">D4m</span> <span class="o">=</span> <span class="n">D2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">(</span><span class="n">D2</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Y&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                    <span class="n">D4</span><span class="p">[</span><span class="s1">&#39;temp_air&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">D4m</span><span class="p">[</span><span class="s1">&#39;temp_air&#39;</span><span class="p">]</span>
+                    <span class="n">D4</span><span class="p">[</span><span class="s1">&#39;wind_speed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">D4m</span><span class="p">[</span><span class="s1">&#39;wind_speed&#39;</span><span class="p">]</span>
+                    <span class="n">D4</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;surf_tilt&#39;</span><span class="p">,</span> <span class="s1">&#39;surf_azm&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+                    <span class="n">D3</span><span class="o">=</span><span class="n">D3</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>                
+                    <span class="n">D4</span><span class="o">=</span><span class="n">D4</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                    <span class="n">D3join</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">D3join</span><span class="p">,</span> <span class="n">D3</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="n">D4join</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">D4join</span><span class="p">,</span> <span class="n">D4</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                
+        <span class="n">savefile2</span> <span class="o">=</span> <span class="n">savefile</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_Hourly.csv&#39;</span>        
+        <span class="n">savefile3</span> <span class="o">=</span> <span class="n">savefile</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_Monthly.csv&#39;</span>
+        <span class="n">savefile4</span> <span class="o">=</span> <span class="n">savefile</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_Yearly.csv&#39;</span>    
+        
+        
+        <span class="k">if</span> <span class="n">D2join</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">D2join</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">savefile2</span><span class="p">)</span>      
+        <span class="n">D3join</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">savefile3</span><span class="p">)</span>
+        <span class="n">D4join</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">savefile4</span><span class="p">)</span>
+
+    <span class="k">return</span>
+
+
+<div class="viewcode-block" id="deepcleanResult">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.load.deepcleanResult.html#bifacial_radiance.load.deepcleanResult">[docs]</a>
+<span class="nd">@deprecated</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="s1">&#39;load.deepcleanResult has been abandoned&#39;</span><span class="o">+</span>\
                     <span class="s1">&#39;  Please use load.cleanResult instead&#39;</span><span class="p">,</span>
             <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.5.0&#39;</span><span class="p">)</span>    
-<span class="k">def</span> <span class="nf">deepcleanResult</span><span class="p">(</span><span class="n">resultsDict</span><span class="p">,</span> <span class="n">sensorsy</span><span class="p">,</span> <span class="n">numpanels</span><span class="p">,</span> <span class="n">automatic</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">deepcleanResult</span><span class="p">(</span><span class="n">resultsDict</span><span class="p">,</span> <span class="n">sensorsy</span><span class="p">,</span> <span class="n">numpanels</span><span class="p">,</span> <span class="n">automatic</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;    </span>
 <span class="sd">    Cleans results file read by read1Result. If automatic = False, user is</span>
 <span class="sd">    asked to select material of the module (usually the one with the most results) </span>
@@ -812,10 +949,10 @@ document.write(`
     
     <span class="c1"># #TODO: add automatization of panel select.</span>
 
-    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
     
     
-    <span class="k">def</span> <span class="nf">interp_sub</span><span class="p">(</span><span class="n">panelDict</span><span class="p">,</span> <span class="n">sensorsy</span><span class="p">,</span> <span class="n">frontbackkey</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interp_sub</span><span class="p">(</span><span class="n">panelDict</span><span class="p">,</span> <span class="n">sensorsy</span><span class="p">,</span> <span class="n">frontbackkey</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        -----------</span>
@@ -834,7 +971,7 @@ document.write(`
         <span class="k">return</span> <span class="n">interp_out</span>
 
 
-    <span class="k">def</span> <span class="nf">filter_sub</span><span class="p">(</span><span class="n">resultsDict</span><span class="p">,</span> <span class="n">sensorsy</span><span class="p">,</span> <span class="n">frontmask</span><span class="p">,</span> <span class="n">backmask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filter_sub</span><span class="p">(</span><span class="n">resultsDict</span><span class="p">,</span> <span class="n">sensorsy</span><span class="p">,</span> <span class="n">frontmask</span><span class="p">,</span> <span class="n">backmask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;  </span>
 <span class="sd">        filter_sub: filter resultsDict to accept points where front and rear </span>
 <span class="sd">        materials match the list of strings in frontmask and backmask.</span>
@@ -914,7 +1051,10 @@ document.write(`
         
     <span class="k">return</span> <span class="n">Frontresults</span><span class="p">,</span> <span class="n">Backresults</span><span class="p">;</span>    <span class="c1"># End Deep clean Result subroutine.</span></div>
 
-<div class="viewcode-block" id="readconfigurationinputfile"><a class="viewcode-back" href="../../generated/bifacial_radiance.load.readconfigurationinputfile.html#bifacial_radiance.load.readconfigurationinputfile">[docs]</a><span class="k">def</span> <span class="nf">readconfigurationinputfile</span><span class="p">(</span><span class="n">inifile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="readconfigurationinputfile">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.load.readconfigurationinputfile.html#bifacial_radiance.load.readconfigurationinputfile">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">readconfigurationinputfile</span><span class="p">(</span><span class="n">inifile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function to read configurationinput file for a bifacial_radiance simulation.</span>
 <span class="sd">    </span>
@@ -933,6 +1073,7 @@ document.write(`
 <span class="sd">    torquetubeParamsDict : Dictionary</span>
 <span class="sd">    analysisParamsDict : Dictionary</span>
 <span class="sd">    cellModuleDict : Dictionary</span>
+<span class="sd">    CECMod : Dictionary</span>
 <span class="sd">    frameParamsDict : Dictionary</span>
 <span class="sd">    omegaParamsDict : Dictionary</span>
 <span class="sd">    </span>
@@ -941,11 +1082,11 @@ document.write(`
     <span class="c1">## #TODO: check if modulename exists on jason and rewrite is set to false, then</span>
     <span class="c1">#don&#39;t save moduleParamsDict? Discuss.</span>
 
-    <span class="kn">import</span> <span class="nn">configparser</span>
-    <span class="kn">import</span> <span class="nn">os</span>
-    <span class="kn">import</span> <span class="nn">ast</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">configparser</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
     
-    <span class="k">def</span> <span class="nf">boolConvert</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">boolConvert</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; convert strings &#39;True&#39; and &#39;False&#39; to boolean and convert numbers to float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -1009,7 +1150,7 @@ document.write(`
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Load Warning: latitude or longitude missing/nan in input file.&quot;</span><span class="p">,</span>\
                       <span class="s2">&quot;No Weather file was passed, so default values will be used,&quot;</span><span class="p">,</span>\
                       <span class="s2">&quot;latitud: </span><span class="si">%s</span><span class="s2">, longitude: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">simulationParamsDict</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span> <span class="n">simulationParamsDict</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]))</span>
-    
+
     <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="s2">&quot;moduleParamsDict&quot;</span><span class="p">):</span>
         <span class="n">moduleParamsDict2</span> <span class="o">=</span> <span class="n">boolConvert</span><span class="p">(</span><span class="n">confdict</span><span class="p">[</span><span class="s1">&#39;moduleParamsDict&#39;</span><span class="p">])</span>
         <span class="n">moduleParamsDict</span><span class="o">=</span><span class="p">{}</span> <span class="c1"># Defining a new one to only save relevant values from passed.</span>
@@ -1043,6 +1184,17 @@ document.write(`
             <span class="n">moduleParamsDict</span><span class="p">[</span><span class="s1">&#39;glass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">moduleParamsDict2</span><span class="p">[</span><span class="s1">&#39;glass&#39;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">moduleParamsDict2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;glassEdge&#39;</span><span class="p">):</span>
             <span class="n">moduleParamsDict</span><span class="p">[</span><span class="s1">&#39;glassEdge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">moduleParamsDict2</span><span class="p">[</span><span class="s1">&#39;glassEdge&#39;</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="n">moduleParamsDict</span><span class="p">[</span><span class="s1">&#39;customtext&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">moduleParamsDict2</span><span class="p">[</span><span class="s1">&#39;customtext&#39;</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">moduleParamsDict</span><span class="p">[</span><span class="s1">&#39;customtext&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="n">moduleParamsDict</span><span class="p">[</span><span class="s1">&#39;customObject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">moduleParamsDict2</span><span class="p">[</span><span class="s1">&#39;customObject&#39;</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">moduleParamsDict</span><span class="p">[</span><span class="s1">&#39;customObject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        
         <span class="k">if</span> <span class="n">simulationParamsDict</span><span class="p">[</span><span class="s1">&#39;cellLevelModule&#39;</span><span class="p">]:</span>    
             <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="s2">&quot;cellLevelModuleParamsDict&quot;</span><span class="p">):</span>
                 <span class="n">cellModuleDict</span> <span class="o">=</span> <span class="n">confdict</span><span class="p">[</span><span class="s1">&#39;cellLevelModuleParamsDict&#39;</span><span class="p">]</span>
@@ -1136,11 +1288,13 @@ document.write(`
         <span class="n">sceneParamsDict</span><span class="p">[</span><span class="s1">&#39;gcr&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sceneParamsDict2</span><span class="p">[</span><span class="s1">&#39;gcr&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">sceneParamsDict</span><span class="p">[</span><span class="s1">&#39;pitch&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sceneParamsDict2</span><span class="p">[</span><span class="s1">&#39;pitch&#39;</span><span class="p">]),</span><span class="mi">2</span><span class="p">)</span>
-        
     
+    <span class="k">if</span> <span class="s2">&quot;customObject&quot;</span> <span class="ow">in</span> <span class="n">sceneParamsDict2</span><span class="p">:</span>
+        <span class="n">sceneParamsDict</span><span class="p">[</span><span class="s1">&#39;customObject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sceneParamsDict2</span><span class="p">[</span><span class="s1">&#39;customObject&#39;</span><span class="p">]</span>
+        
     <span class="k">if</span> <span class="n">simulationParamsDict</span><span class="p">[</span><span class="s1">&#39;tracking&#39;</span><span class="p">]:</span>
         <span class="k">if</span> <span class="s1">&#39;axis_aziumth&#39;</span> <span class="ow">in</span> <span class="n">sceneParamsDict2</span><span class="p">:</span>
-            <span class="n">azimuth</span> <span class="o">=</span> <span class="n">sceneParamsDict2</span><span class="p">[</span><span class="s1">&#39;axis_azimuth&#39;</span><span class="p">]</span>
+            <span class="n">azimuth</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sceneParamsDict2</span><span class="p">[</span><span class="s1">&#39;axis_azimuth&#39;</span><span class="p">]),</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">sceneParamsDict2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;azimuth&#39;</span><span class="p">):</span>
             <span class="n">azimuth</span> <span class="o">=</span> <span class="n">sceneParamsDict2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;azimuth&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1206,24 +1360,74 @@ document.write(`
                   <span class="s2">&quot; passed: </span><span class="si">%s</span><span class="s2">, setting to default value: 9&quot;</span> <span class="o">%</span> <span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;sensorsy&#39;</span><span class="p">]</span> <span class="p">)</span>
             <span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;sensorsy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span> <span class="c1">#Default</span>
         <span class="k">try</span><span class="p">:</span> 
-            <span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;modWanted&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;modWanted&#39;</span><span class="p">])</span> 
+            <span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;modWanted&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;modWanted&#39;</span><span class="p">]))</span> 
         <span class="k">except</span><span class="p">:</span>
             <span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;modWanted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#Default</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;analysisParamsDict[&#39;modWanted&#39;] set to middle module by default&quot;</span> <span class="p">)</span>    
         <span class="k">try</span><span class="p">:</span> 
-            <span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;rowWanted&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;rowWanted&#39;</span><span class="p">])</span> 
+            <span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;rowWanted&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;rowWanted&#39;</span><span class="p">]))</span> 
         <span class="k">except</span><span class="p">:</span>
             <span class="n">analysisParamsDict</span><span class="p">[</span><span class="s1">&#39;rowWanted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1">#Default</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;analysisParamsDict[&#39;rowWanted&#39;] set to middle row by default&quot;</span> <span class="p">)</span>    
     
-    <span class="k">if</span> <span class="s2">&quot;frameParamsDict&quot;</span> <span class="ow">in</span> <span class="n">confdict</span><span class="p">:</span>
-        <span class="n">frameParamsDict</span> <span class="o">=</span> <span class="n">boolConvert</span><span class="p">(</span><span class="n">confdict</span><span class="p">[</span><span class="s1">&#39;frameParamsDict&#39;</span><span class="p">])</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">frameParamsDict</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="s2">&quot;omegaParamsDict&quot;</span> <span class="ow">in</span> <span class="n">confdict</span><span class="p">:</span>
-        <span class="n">omegaParamsDict</span> <span class="o">=</span> <span class="n">boolConvert</span><span class="p">(</span><span class="n">confdict</span><span class="p">[</span><span class="s1">&#39;omegaParamsDict&#39;</span><span class="p">])</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">omegaParamsDict</span> <span class="o">=</span> <span class="kc">None</span>
+             
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="s2">&quot;CECModParamsDict&quot;</span><span class="p">):</span>
+        <span class="n">CECModParamsDict</span> <span class="o">=</span> <span class="n">confdict</span><span class="p">[</span><span class="s1">&#39;CECModParamsDict&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;alpha_sc&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;alpha_sc&#39;</span><span class="p">])</span>
+            <span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;a_ref&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;a_ref&#39;</span><span class="p">])</span>
+            <span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;I_L_ref&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;I_L_ref&#39;</span><span class="p">])</span>
+            <span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;I_o_ref&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;I_o_ref&#39;</span><span class="p">])</span>
+            <span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;R_sh_ref&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;R_sh_ref&#39;</span><span class="p">])</span>
+            <span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;R_s&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;R_s&#39;</span><span class="p">])</span>
+            <span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;Adjust&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">CECModParamsDict</span><span class="p">[</span><span class="s1">&#39;Adjust&#39;</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Mising/wrong parameters for CECModParamsDict, setting dictionary to None.&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;MAke sure to include alpha_sc, a_ref, I_L_ref, I_o_ref, &quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;R_sh_ref, R_s, and Adjust.&quot;</span>
+                  <span class="s2">&quot;Performance calculations, if performed, will use default module&quot;</span><span class="p">)</span>
+
+
+    <span class="c1"># Add omegas, frames, piles here</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="s2">&quot;omegaParamsDict&quot;</span><span class="p">):</span>
+        <span class="n">omegaParamsDict</span> <span class="o">=</span> <span class="n">confdict</span><span class="p">[</span><span class="s1">&#39;omegaParamsDict&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span> <span class="c1"># validating the whole dictionary as a whole. #TODO: validate individually maybe.            </span>
+            <span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;x_omega1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;x_omega1&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;mod_overlap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;mod_overlap&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;y_omega&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;y_omega&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;omega_thickness&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;omega_thickness&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;x_omega3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;x_omega3&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;inverted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">omegaParamsDict</span><span class="p">[</span><span class="s1">&#39;inverted&#39;</span><span class="p">]))</span>
+        <span class="k">except</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Load Warning: Omega Parameters passed, &quot;</span><span class="p">,</span>\
+                  <span class="s2">&quot;but some parameters are missing/not numbers.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Add Frames, frames, piles here</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="s2">&quot;frameParamsDict&quot;</span><span class="p">):</span>
+        <span class="n">frameParamsDict</span> <span class="o">=</span> <span class="n">confdict</span><span class="p">[</span><span class="s1">&#39;frameParamsDict&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span> <span class="c1"># validating the whole dictionary as a whole. #TODO: validate individually maybe.            </span>
+            <span class="n">frameParamsDict</span><span class="p">[</span><span class="s1">&#39;frame_width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">frameParamsDict</span><span class="p">[</span><span class="s1">&#39;frame_width&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">frameParamsDict</span><span class="p">[</span><span class="s1">&#39;frame_thickness&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">frameParamsDict</span><span class="p">[</span><span class="s1">&#39;frame_thickness&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">frameParamsDict</span><span class="p">[</span><span class="s1">&#39;frame_z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">frameParamsDict</span><span class="p">[</span><span class="s1">&#39;frame_z&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">frameParamsDict</span><span class="p">[</span><span class="s1">&#39;frame_width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">frameParamsDict</span><span class="p">[</span><span class="s1">&#39;frame_width&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">frameParamsDict</span><span class="p">[</span><span class="s1">&#39;nSides_frame&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frameParamsDict</span><span class="p">[</span><span class="s1">&#39;nSides_frame&#39;</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Load Warning: Fame Parameters passed, &quot;</span><span class="p">,</span>\
+                  <span class="s2">&quot;but some parameters are missing/not numbers.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Piles here</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="s2">&quot;pilesParamsDict&quot;</span><span class="p">):</span>
+        <span class="n">pilesParamsDict</span> <span class="o">=</span> <span class="n">confdict</span><span class="p">[</span><span class="s1">&#39;pilesParamsDict&#39;</span><span class="p">]</span>       
+        <span class="k">try</span><span class="p">:</span> <span class="c1"># validating the whole dictionary as a whole. #TODO: validate individually maybe.            </span>
+            <span class="n">pilesParamsDict</span><span class="p">[</span><span class="s1">&#39;spacingPiles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">pilesParamsDict</span><span class="p">[</span><span class="s1">&#39;spacingPiles&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">pilesParamsDict</span><span class="p">[</span><span class="s1">&#39;pile_lenx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">pilesParamsDict</span><span class="p">[</span><span class="s1">&#39;pile_lenx&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">pilesParamsDict</span><span class="p">[</span><span class="s1">&#39;pile_leny&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">pilesParamsDict</span><span class="p">[</span><span class="s1">&#39;pile_leny&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">pilesParamsDict</span><span class="p">[</span><span class="s1">&#39;pile_height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">pilesParamsDict</span><span class="p">[</span><span class="s1">&#39;pile_height&#39;</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Load Warning: Pile Parameters passed, &quot;</span><span class="p">,</span>\
+                  <span class="s2">&quot;but some parameters are missing/not numbers.&quot;</span><span class="p">)</span>
+
+    
     <span class="c1"># Creating None dictionaries for those empty ones</span>
     <span class="k">try</span><span class="p">:</span> <span class="n">timeControlParamsDict</span>
     <span class="k">except</span><span class="p">:</span> <span class="n">timeControlParamsDict</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1242,19 +1446,37 @@ document.write(`
     
     <span class="k">try</span><span class="p">:</span> <span class="n">cellModuleDict</span>
     <span class="k">except</span><span class="p">:</span> <span class="n">cellModuleDict</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">try</span><span class="p">:</span> <span class="n">CECModParamsDict</span>
+    <span class="k">except</span><span class="p">:</span> <span class="n">CECModParamsDict</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">try</span><span class="p">:</span> <span class="n">frameParamsDict</span>
+    <span class="k">except</span><span class="p">:</span> <span class="n">frameParamsDict</span> <span class="o">=</span> <span class="kc">None</span>
     
+    <span class="k">try</span><span class="p">:</span> <span class="n">pilesParamsDict</span>
+    <span class="k">except</span><span class="p">:</span> <span class="n">pilesParamsDict</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">try</span><span class="p">:</span> <span class="n">omegaParamsDict</span>
+    <span class="k">except</span><span class="p">:</span> <span class="n">omegaParamsDict</span> <span class="o">=</span> <span class="kc">None</span>
+        
     <span class="c1"># end readconfigurationinputfile</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">simulationParamsDict</span><span class="p">,</span> <span class="n">sceneParamsDict</span><span class="p">,</span> <span class="n">timeControlParamsDict</span><span class="p">,</span> 
             <span class="n">moduleParamsDict</span><span class="p">,</span> <span class="n">trackingParamsDict</span><span class="p">,</span> <span class="n">torquetubeParamsDict</span><span class="p">,</span> 
-            <span class="n">analysisParamsDict</span><span class="p">,</span> <span class="n">cellModuleDict</span><span class="p">,</span> <span class="n">frameParamsDict</span><span class="p">,</span> <span class="n">omegaParamsDict</span><span class="p">)</span></div>
+           <span class="n">analysisParamsDict</span><span class="p">,</span> <span class="n">cellModuleDict</span><span class="p">,</span> <span class="n">CECModParamsDict</span><span class="p">,</span>
+           <span class="n">frameParamsDict</span><span class="p">,</span> <span class="n">omegaParamsDict</span><span class="p">,</span> <span class="n">pilesParamsDict</span><span class="p">)</span></div>
 
 
 
-<div class="viewcode-block" id="savedictionariestoConfigurationIniFile"><a class="viewcode-back" href="../../generated/bifacial_radiance.load.savedictionariestoConfigurationIniFile.html#bifacial_radiance.load.savedictionariestoConfigurationIniFile">[docs]</a><span class="k">def</span> <span class="nf">savedictionariestoConfigurationIniFile</span><span class="p">(</span><span class="n">simulationParamsDict</span><span class="p">,</span> <span class="n">sceneParamsDict</span><span class="p">,</span> 
+
+<div class="viewcode-block" id="savedictionariestoConfigurationIniFile">
+<a class="viewcode-back" href="../../generated/bifacial_radiance.load.savedictionariestoConfigurationIniFile.html#bifacial_radiance.load.savedictionariestoConfigurationIniFile">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">savedictionariestoConfigurationIniFile</span><span class="p">(</span><span class="n">simulationParamsDict</span><span class="p">,</span> <span class="n">sceneParamsDict</span><span class="p">,</span> 
                                            <span class="n">timeControlParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">moduleParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
                                            <span class="n">trackingParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">torquetubeParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
                                            <span class="n">analysisParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cellModuleDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
-                                           <span class="n">frameParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">omegaParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inifilename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                                           <span class="n">CECModParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frameParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                                           <span class="n">omegaParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pilesParamsDict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                           <span class="n">inifilename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Saves dictionaries from working memory into a Configuration File</span>
 <span class="sd">    with extension format .ini.</span>
@@ -1282,7 +1504,7 @@ document.write(`
 <span class="sd">    &#39;example.ini&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="kn">import</span> <span class="nn">configparser</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">configparser</span>
     
     <span class="n">config</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">(</span><span class="n">allow_no_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">config</span><span class="o">.</span><span class="n">optionxform</span> <span class="o">=</span> <span class="nb">str</span>
@@ -1307,6 +1529,9 @@ document.write(`
     <span class="k">try</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;cellLevelModuleParamsDict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cellModuleDict</span>
     <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
 
+    <span class="k">try</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;CECModParamsDict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CECModParamsDict</span>
+    <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+
     <span class="k">if</span> <span class="n">frameParamsDict</span><span class="p">:</span>    
         <span class="k">try</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;frameParamsDict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frameParamsDict</span>
         <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
@@ -1315,11 +1540,16 @@ document.write(`
         <span class="k">try</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;omegaParamsDict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">omegaParamsDict</span>
         <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
 
+    <span class="k">if</span> <span class="n">pilesParamsDict</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;pilesParamsDict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pilesParamsDict</span>
+        <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+
     <span class="k">if</span> <span class="n">inifilename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">inifilename</span> <span class="o">=</span> <span class="s1">&#39;example.ini&#39;</span>
     
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">inifilename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">configfile</span><span class="p">:</span>
         <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">configfile</span><span class="p">)</span></div>
+
 <span class="w">        </span>
 
 <span class="sd">&#39;&#39;&#39;</span>
@@ -1403,8 +1633,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1424,7 +1654,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1437,7 +1667,8 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

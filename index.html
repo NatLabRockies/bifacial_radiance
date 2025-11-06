@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Welcome to bifacial_radiance’s documentation! &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>Welcome to bifacial_radiance’s documentation! &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,37 +16,43 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="User Guide" href="user_guide/index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -62,19 +68,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -82,7 +77,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -90,8 +84,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -124,8 +118,8 @@
       
     
     
-    <img src="_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -185,29 +179,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -256,15 +242,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -285,7 +267,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -346,15 +329,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -402,9 +381,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -423,9 +407,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <a class="reference internal image-reference" href="_images/bifacial_radiance.png"><img alt="_images/bifacial_radiance.png" src="_images/bifacial_radiance.png" style="width: 600px;" /></a>
+  <a class="reference internal image-reference" href="_images/bifacial_radiance.png"><img alt="_images/bifacial_radiance.png" src="_images/bifacial_radiance.png" style="width: 600px;" />
+</a>
 <section id="welcome-to-bifacial-radiance-s-documentation">
-<h1>Welcome to bifacial_radiance’s documentation!<a class="headerlink" href="#welcome-to-bifacial-radiance-s-documentation" title="Permalink to this heading">#</a></h1>
+<h1>Welcome to bifacial_radiance’s documentation!<a class="headerlink" href="#welcome-to-bifacial-radiance-s-documentation" title="Link to this heading">#</a></h1>
 <p>bifacial_radiance is a NREL supported tool that provides a set of functions and classes for simulating the performance of bifacial PV systems. More information on bifacial_radiance can be found at the Wiki page.</p>
 <p>The intended audience ranges from PV performance researchers, Engineering Procurement Construction (EPC) companies, installers, investors, consumers and analysts of the PV industry interested in predicting and evaluating bifacial photovoltaic systems.</p>
 <p>The source code for bifacial_radiance is hosted on <a class="reference external" href="https://github.com/NREL/bifacial_radiance">github</a>.</p>
@@ -436,7 +421,7 @@ document.write(`
 ensure consistency throughout the library</p>
 </section>
 <section id="citing-bifacial-radiance">
-<h1>Citing bifacial_radiance<a class="headerlink" href="#citing-bifacial-radiance" title="Permalink to this heading">#</a></h1>
+<h1>Citing bifacial_radiance<a class="headerlink" href="#citing-bifacial-radiance" title="Link to this heading">#</a></h1>
 <p>Many of the contributors to bifacial_radiance work in institutions where
 citation metrics are used in performance or career evaluations. If you
 use bifacial_radiance in a published work, please cite:</p>
@@ -454,7 +439,7 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
 </ul>
 </section>
 <section id="contents">
-<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">#</a></h1>
+<h1>Contents<a class="headerlink" href="#contents" title="Link to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/index.html">User Guide</a><ul>
@@ -509,7 +494,7 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
 </li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#advanced-topcs">Advanced Topcs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/6%20-%20Exploring%20Trackerdict%20Structure.html">6 - Exploring Trackerdict Structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/9%20-%20Torquetube%20Shading.html">9 - Torquetube Shading</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/11%20-%20AgriPV%20Systems.html">11 - AgriPV Systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/14%20-%20Cement%20Racking%20Albedo%20Improvements.html">14 - Cement Racking Albedo Improvements</a></li>
@@ -526,7 +511,7 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
 <li class="toctree-l3"><a class="reference internal" href="tutorials/17%20-%20AgriPV%20-%20Jack%20Solar%20Site%20Modeling.html#2.-Define-all-the-system-variables">2. Define all the system variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/17%20-%20AgriPV%20-%20Jack%20Solar%20Site%20Modeling.html#3.-Build-Scene-for-a-pretty-Image">3. Build Scene for a pretty Image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/17%20-%20AgriPV%20-%20Jack%20Solar%20Site%20Modeling.html#GHI-Calculations">GHI Calculations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/17%20-%20AgriPV%20-%20Jack%20Solar%20Site%20Modeling.html#Next-STEPS:-Raytrace-Every-hour-of-the-Month-on-the-HPC-–-Check-HPC-Scripts-for-Jack-Solar">Next STEPS: Raytrace Every hour of the Month on the HPC – Check HPC Scripts for Jack Solar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/17%20-%20AgriPV%20-%20Jack%20Solar%20Site%20Modeling.html#Next-STEPS:-Raytrace-Every-hour-of-the-Month-on-the-HPC----Check-HPC-Scripts-for-Jack-Solar">Next STEPS: Raytrace Every hour of the Month on the HPC – Check HPC Scripts for Jack Solar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/18%20-%20AgriPV%20-%20Coffee%20Plantation%20with%20Tree%20Modeling.html">18 - AgriPV - Coffee Plantation with Tree Modeling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/15%20-%20New%20Functionalities%20Examples.html">15 - New Functionalities Examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/19%20-%20East%20%26%20West%20Facing%20Sheds.html">19 - East &amp; West Facing Sheds</a></li>
@@ -562,7 +547,8 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
 </li>
 <li class="toctree-l2"><a class="reference internal" href="manualapi.html#analysis">Analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="manualapi.html#methods-for-irradiance-calculations">Methods for irradiance calculations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="manualapi.html#mismatch">Mismatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manualapi.html#power-and-mismatch">Power and Mismatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manualapi.html#agripv-ground-scans">AgriPV Ground Scans</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="manualapi.html#support">Support</a><ul>
@@ -576,42 +562,42 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-4-4-october-14-2024">v0.4.4 (October / 14 / 2024)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-5-0-november-6-2025">v0.5.0 (November 6, 2025)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#deprecations">Deprecations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#api-changes">API Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#enhancements">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#deprecations">Deprecations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#bug-fixes">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#documentation">Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#contributors">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-4-3-aug-27-2024">v0.4.3 (Aug 27 2024)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-4-4-october-14-2024">v0.4.4 (October / 14 / 2024)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id1">API Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id2">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id3">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id4">Documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id5">Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id3">Deprecations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id4">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id5">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id6">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-4-2-03-10-2023">v0.4.2 (03 / 10 / 2023)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id6">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id7">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id8">Deprecations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id9">Documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id10">API Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-4-3-aug-27-2024">v0.4.3 (Aug 27 2024)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id7">API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id8">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id9">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id10">Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id11">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-4-1-03-09-2022">v0.4.1 (03 / 09 / 2022)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id12">API Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-4-2-03-10-2023">v0.4.2 (03 / 10 / 2023)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id12">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id13">Enhancements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id14">Deprecations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id15">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id16">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id15">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id16">API Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id17">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-4-0-02-03-2022">v0.4.0 (02 / 03 / 2022)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-4-1-03-09-2022">v0.4.1 (03 / 09 / 2022)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id18">API Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id19">Enhancements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id20">Deprecations</a></li>
@@ -620,51 +606,60 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id23">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-4-05-26-2020">v0.3.4 (05 / 26 / 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id24">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id25">API Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id26">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#testing">Testing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id27">Documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id28">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-4-0-02-03-2022">v0.4.0 (02 / 03 / 2022)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id24">API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id25">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id26">Deprecations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id27">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id28">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id29">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-3-2-04-16-2020">v0.3.3.2 (04 / 16 / 2020)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id29">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id30">API Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id31">Bug fixes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id32">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-4-05-26-2020">v0.3.4 (05 / 26 / 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id30">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id31">API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id32">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#testing">Testing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id33">Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id34">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-3-1-10-16-2019">v0.3.3.1 (10 / 16 / 2019)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-3-10-14-2019">v0.3.3 (10 / 14 / 2019)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id35">API Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id36">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-3-2-04-16-2020">v0.3.3.2 (04 / 16 / 2020)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id35">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id36">API Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id37">Bug fixes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id38">Testing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id39">Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id40">Contributors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-0-05-14-2019">v0.3.0 (05 / 14 / 2019)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-3-1-10-16-2019">v0.3.3.1 (10 / 16 / 2019)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-3-10-14-2019">v0.3.3 (10 / 14 / 2019)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id41">API Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id42">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id43">Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id43">Bug fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id44">Testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id45">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id46">Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-0-05-14-2019">v0.3.0 (05 / 14 / 2019)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id47">API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id48">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id49">Contributors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-2-4-02-27-2019">v0.2.4 (02 / 27 / 2019)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id44">API Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id45">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id50">API Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id51">Enhancements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="whatsnew.html#bugs">Bugs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id46">Testing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id47">Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id52">Testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id53">Contributors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-2-3-11-14-2018">v0.2.3 (11 / 14 / 2018)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id48">Enhancements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id49">Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id54">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="whatsnew.html#id55">Contributors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-2-2-08-29-2018">v0.2.2 (08 / 29 / 2018)</a></li>
@@ -684,7 +679,7 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
 </div>
 </section>
 <section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">#</a></h1>
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">#</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
@@ -718,7 +713,8 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -738,13 +734,13 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="_sources/index.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -759,8 +755,8 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -780,7 +776,7 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -793,7 +789,8 @@ bifacial_radiance that you used. bifacial_radiance DOIs are listed at
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

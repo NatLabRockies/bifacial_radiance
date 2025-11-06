@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>6 - Exploring Trackerdict Structure &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>6 - Exploring Trackerdict Structure &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,40 +16,45 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/6 - Exploring Trackerdict Structure';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8 - Electrical Mismatch Method" href="8%20-%20Electrical%20Mismatch%20Method.html" />
+    <link rel="next" title="8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)" href="8%20-%20Electrical%20Mismatch%20Method.html" />
     <link rel="prev" title="13 - Modeling Modules with Glass" href="13%20-%20Modeling%20Modules%20with%20Glass.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -65,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -85,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,8 +120,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -188,29 +181,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -259,15 +244,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -286,7 +267,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -347,15 +329,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,7 +399,7 @@ document.write(`
 </ul>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">6 - Exploring Trackerdict Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="9%20-%20Torquetube%20Shading.html">9 - Torquetube Shading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11%20-%20AgriPV%20Systems.html">11 - AgriPV Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14%20-%20Cement%20Racking%20Albedo%20Improvements.html">14 - Cement Racking Albedo Improvements</a></li>
@@ -452,9 +430,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -472,8 +455,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -485,7 +466,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">6 -...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">6 - Exploring Trackerdict Structure</span></li>
   </ul>
 </nav>
 </div>
@@ -502,262 +483,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+  <div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span> <span class="k">as</span> <span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pprint</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -765,8 +499,19 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Working on a  Windows 10
+Python version  3.11.8 | packaged by conda-forge | (main, Feb 16 2024, 20:40:50) [MSC v.1937 64 bit (AMD64)]
+Pandas version  2.2.3
+bifacial_radiance version  0.5.0b2.dev4+gedb973d.d20250924
+</pre></div></div>
+</div>
 <section id="6---Exploring-Trackerdict-Structure">
-<h1>6 - Exploring Trackerdict Structure<a class="headerlink" href="#6---Exploring-Trackerdict-Structure" title="Permalink to this heading">#</a></h1>
+<h1>6 - Exploring Trackerdict Structure<a class="headerlink" href="#6---Exploring-Trackerdict-Structure" title="Link to this heading">#</a></h1>
 <p>Tutorial 6 gives a good, detailed introduction to the trackerdict structure step by step. Here is a condensed summary of functions you can use to explore the tracker dictionary.</p>
 <p><strong>Steps:</strong></p>
 <ol class="arabic simple">
@@ -775,16 +520,16 @@ div.rendered_html tbody tr:hover {
 <li><p>Explore Save Options</p></li>
 </ol>
 <section id="1.-Create-a-short-Simulation-+-tracker-dictionary-beginning-to-end-for-1-day">
-<h2>1. Create a short Simulation + tracker dictionary beginning to end for 1 day<a class="headerlink" href="#1.-Create-a-short-Simulation-+-tracker-dictionary-beginning-to-end-for-1-day" title="Permalink to this heading">#</a></h2>
+<h2>1. Create a short Simulation + tracker dictionary beginning to end for 1 day<a class="headerlink" href="#1.-Create-a-short-Simulation-+-tracker-dictionary-beginning-to-end-for-1-day" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bifacial_radiance</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="n">testfolder</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;bifacial_radiance&#39;</span> <span class="o">/</span> <span class="s1">&#39;Tutorial_06&#39;</span><span class="p">)</span>
+<span class="n">testfolder</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;bifacial_radiance&#39;</span> <span class="o">/</span> <span class="s1">&#39;TEMP&#39;</span> <span class="o">/</span> <span class="s1">&#39;Tutorial_06&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">testfolder</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">testfolder</span><span class="p">)</span>
 
@@ -859,7 +604,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-path = C:\Users\mprillim\sam_dev\bifacial_radiance\bifacial_radiance\Tutorial_06
+path = C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_06
 Making path: images
 Making path: objects
 Making path: results
@@ -878,7 +623,7 @@ Calculating Sun position for Metdata that is right-labeled  with a delta of -30 
 
 Module Name: test-module
 Module was shifted by 0.078 in X to avoid sensors on air
-This is a Cell-Level detailed module with Packaging Factor of 0.81 %
+This is a Cell-Level detailed module with Packaging Factor of 0.81
 Module test-module updated in module.json
 Creating ~4 skyfiles.
 Created 4 skyfiles in /skies/
@@ -891,31 +636,26 @@ Created 1axis_2021-11-06_1100.oct
 Created 1axis_2021-11-06_1200.oct
 Created 1axis_2021-11-06_1300.oct
 Created 1axis_2021-11-06_1400.oct
-Linescan in process: 1axis_2021-11-06_1100_Front
-Linescan in process: 1axis_2021-11-06_1100_Back
-Saved: results\irr_1axis_2021-11-06_1100.csv
-Index: 2021-11-06_1100. Wm2Front: 330.40732962962966. Wm2Back: 59.466602222222214
-Linescan in process: 1axis_2021-11-06_1200_Front
-Linescan in process: 1axis_2021-11-06_1200_Back
-Saved: results\irr_1axis_2021-11-06_1200.csv
-Index: 2021-11-06_1200. Wm2Front: 198.1420037037037. Wm2Back: 38.49673555555556
-Linescan in process: 1axis_2021-11-06_1300_Front
-Linescan in process: 1axis_2021-11-06_1300_Back
-Saved: results\irr_1axis_2021-11-06_1300.csv
-Index: 2021-11-06_1300. Wm2Front: 247.1418111111111. Wm2Back: 49.16649851851852
-Linescan in process: 1axis_2021-11-06_1400_Front
-Linescan in process: 1axis_2021-11-06_1400_Back
-Saved: results\irr_1axis_2021-11-06_1400.csv
-Index: 2021-11-06_1400. Wm2Front: 124.24930370370369. Wm2Back: 32.21901444444445
-Saving a cumulative-results file in the main simulation folder.This adds up by sensor location the irradiance over all hours or configurations considered.
-Warning: This file saving routine does not clean results, so if your setup has ygaps, or 2+modules or torque tubes, doing a deeper cleaning and working with the individual results files in the results folder is highly suggested.
-
-Saving Cumulative results
-Saved: cumulative_results_.csv
+Linescan in process: 1axis_2021-11-06_1100_Scene0_Row1_Module2_Front
+Linescan in process: 1axis_2021-11-06_1100_Scene0_Row1_Module2_Back
+Saved: results\irr_1axis_2021-11-06_1100_Scene0_Row1_Module2.csv
+Index: 2021-11-06_1100. Wm2Front: 329.3102185185185. Wm2Back: 59.174216666666666
+Linescan in process: 1axis_2021-11-06_1200_Scene0_Row1_Module2_Front
+Linescan in process: 1axis_2021-11-06_1200_Scene0_Row1_Module2_Back
+Saved: results\irr_1axis_2021-11-06_1200_Scene0_Row1_Module2.csv
+Index: 2021-11-06_1200. Wm2Front: 196.77327037037037. Wm2Back: 38.48871777777778
+Linescan in process: 1axis_2021-11-06_1300_Scene0_Row1_Module2_Front
+Linescan in process: 1axis_2021-11-06_1300_Scene0_Row1_Module2_Back
+Saved: results\irr_1axis_2021-11-06_1300_Scene0_Row1_Module2.csv
+Index: 2021-11-06_1300. Wm2Front: 245.56651481481478. Wm2Back: 49.09279555555556
+Linescan in process: 1axis_2021-11-06_1400_Scene0_Row1_Module2_Front
+Linescan in process: 1axis_2021-11-06_1400_Scene0_Row1_Module2_Back
+Saved: results\irr_1axis_2021-11-06_1400_Scene0_Row1_Module2.csv
+Index: 2021-11-06_1400. Wm2Front: 123.32471111111113. Wm2Back: 32.11295481481481
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -923,219 +663,449 @@ Saved: cumulative_results_.csv
 {&#39;2021-11-06_1100&#39;: {&#39;surf_azm&#39;: 90.0,
   &#39;surf_tilt&#39;: 32.06,
   &#39;theta&#39;: -32.06,
-  &#39;ghi&#39;: 303,
-  &#39;dhi&#39;: 191,
-  &#39;temp_air&#39;: 19.4,
-  &#39;wind_speed&#39;: 7.2,
+  &#39;dni&#39;: np.int64(203),
+  &#39;ghi&#39;: np.int64(303),
+  &#39;dhi&#39;: np.int64(191),
+  &#39;temp_air&#39;: np.float64(19.4),
+  &#39;wind_speed&#39;: np.float64(7.2),
   &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1100.rad&#39;,
-  &#39;radfile&#39;: &#39;objects\\1axis2021-11-06_1100__C_1.16301_rtr_10.00000_tilt_32.06000_3modsx1rows_origin0,0.rad&#39;,
-  &#39;scene&#39;: {&#39;module&#39;: {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;hpc&#39;: False, &#39;name&#39;: &#39;Scene0&#39;, &#39;gcr&#39;: 0.4284, &#39;text&#39;: &#39;!xform -rx 32.06 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 objects\\test-module.rad&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1100__C_1.16301_rtr_10.00000_tilt_32.06000_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;tilt&#39;: 0, &#39;pitch&#39;: 10, &#39;clearance_height&#39;: 2.3, &#39;azimuth&#39;: 90.0, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0}},
+  &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.4284), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: np.float64(1.036), &#39;y&#39;: np.float64(2.092), &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.046), &#39;sceney&#39;: np.float64(4.284), &#39;scenez&#39;: np.float64(0.1), &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020711 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020711 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1100__C_1.16_rtr_10.00_tilt_32_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;tilt&#39;: 32.06, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(2.3)}, &#39;text&#39;: &#39;!xform -rx 32.06 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}],
   &#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;,
-  &#39;AnalysisObj&#39;: {&#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;, &#39;name&#39;: &#39;1axis_2021-11-06_1100&#39;, &#39;hpc&#39;: False, &#39;x&#39;: [1.46341, 1.100345, 0.7372787, 0.3742128, 0.01114695, -0.3519189, -0.7149848, -1.078051, -1.441117], &#39;y&#39;: [8.960805e-17, 6.737667e-17, 4.51453e-17, 2.291393e-17, 6.825537e-19, -2.154882e-17, -4.378019e-17, -6.601157e-17, -8.824294e-17], &#39;z&#39;: [1.408206, 1.635604, 1.863002, 2.0904, 2.317797, 2.545195, 2.772593, 2.999991, 3.227388], &#39;rearZ&#39;: [1.389562, 1.616959, 1.844357, 2.071755, 2.299153, 2.52655, 2.753948, 2.981346, 3.208743], &#39;mattype&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;, &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], &#39;rearMat&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;, &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], &#39;Wm2Front&#39;: [337.20706666666666, 337.6397, 337.00833333333327, 337.3246666666667, 273.78326666666663, 337.2169666666666, 337.4324666666667, 337.6477666666667, 338.40573333333333], &#39;Wm2Back&#39;: [60.91701333333333, 60.583059999999996, 60.04819333333334, 57.43180999999999, 42.28062, 61.19686333333333, 63.16713000000001, 64.29886, 65.27587], &#39;Back/FrontRatio&#39;: [0.1806511153054662, 0.17943056035602342, 0.17817961520353548, 0.17025627064646723, 0.15443042259063344, 0.18147569045105252, 0.18719877024646045, 0.190431200548341, 0.19289175885192197], &#39;backRatio&#39;: [0.1806511153054662, 0.17943056035602342, 0.17817961520353548, 0.17025627064646723, 0.15443042259063344, 0.18147569045105252, 0.18719877024646045, 0.190431200548341, 0.19289175885192197], &#39;rearX&#39;: [1.451733, 1.088667, 0.7256009, 0.3625351, -0.000530807, -0.3635967, -0.7266626, -1.089728, -1.452794], &#39;rearY&#39;: [8.889299e-17, 6.666162e-17, 4.443024e-17, 2.219887e-17, -3.250256e-20, -2.226388e-17, -4.449525e-17, -6.672662e-17, -8.895799e-17]},
-  &#39;Wm2Front&#39;: [337.20706666666666,
-   337.6397,
-   337.00833333333327,
-   337.3246666666667,
-   273.78326666666663,
-   337.2169666666666,
-   337.4324666666667,
-   337.6477666666667,
-   338.40573333333333],
-  &#39;Wm2Back&#39;: [60.91701333333333,
-   60.583059999999996,
-   60.04819333333334,
-   57.43180999999999,
-   42.28062,
-   61.19686333333333,
-   63.16713000000001,
-   64.29886,
-   65.27587],
-  &#39;backRatio&#39;: [0.1806511153054662,
-   0.17943056035602342,
-   0.17817961520353548,
-   0.17025627064646723,
-   0.15443042259063344,
-   0.18147569045105252,
-   0.18719877024646045,
-   0.190431200548341,
-   0.19289175885192197]},
+  &#39;AnalysisObj&#39;: [&lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.18, 0.179, 0.178, 0.17, 0.154, 0.182, 0.188, 0.19, 0.193], &#39;Wm2Back&#39;: [60.327, 60.171, 59.696, 57.051, 41.987, 61.09, 63.204, 64.002, 65.04], &#39;Wm2Front&#39;: [335.442, 335.781, 336.234, 336.514, 273.072, 336.56, 336.807, 337.054, 336.329], &#39;backRatio&#39;: [0.18, 0.179, 0.178, 0.17, 0.154, 0.182, 0.188, 0.19, 0.193], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;,
+          &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], dtype=object), &#39;modWanted&#39;: 2, &#39;name&#39;: &#39;1axis_2021-11-06_1100_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;,
+          &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], dtype=object), &#39;rearX&#39;: [1.449, 1.086, 0.723, 0.36, -0.003, -0.366, -0.728, -1.092, -1.455], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [1.386, 1.613, 1.841, 2.068, 2.295, 2.523, 2.75, 2.977, 3.205], &#39;rowWanted&#39;: 1, &#39;sceneNum&#39;: 0, &#39;x&#39;: [1.466, 1.103, 0.74, 0.377, 0.014, -0.35, -0.712, -1.075, -1.438], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [1.411, 1.639, 1.866, 2.094, 2.32, 2.547, 2.775, 3.004, 3.23]}]},
  &#39;2021-11-06_1200&#39;: {&#39;surf_azm&#39;: 90.0,
   &#39;surf_tilt&#39;: 9.27,
   &#39;theta&#39;: -9.27,
-  &#39;ghi&#39;: 200,
-  &#39;dhi&#39;: 197,
-  &#39;temp_air&#39;: 20.0,
-  &#39;wind_speed&#39;: 5.2,
+  &#39;dni&#39;: np.int64(5),
+  &#39;ghi&#39;: np.int64(200),
+  &#39;dhi&#39;: np.int64(197),
+  &#39;temp_air&#39;: np.float64(20.0),
+  &#39;wind_speed&#39;: np.float64(5.2),
   &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1200.rad&#39;,
-  &#39;radfile&#39;: &#39;objects\\1axis2021-11-06_1200__C_1.95495_rtr_10.00000_tilt_9.27000_3modsx1rows_origin0,0.rad&#39;,
-  &#39;scene&#39;: {&#39;module&#39;: {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;hpc&#39;: False, &#39;name&#39;: &#39;Scene0&#39;, &#39;gcr&#39;: 0.4284, &#39;text&#39;: &#39;!xform -rx 9.27 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 objects\\test-module.rad&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1200__C_1.95495_rtr_10.00000_tilt_9.27000_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;tilt&#39;: 9.27, &#39;pitch&#39;: 10, &#39;clearance_height&#39;: 1.954951469221026, &#39;azimuth&#39;: 90.0, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0}},
+  &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.4284), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: np.float64(1.036), &#39;y&#39;: np.float64(2.092), &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.046), &#39;sceney&#39;: np.float64(4.284), &#39;scenez&#39;: np.float64(0.1), &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020711 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020711 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1200__C_1.95_rtr_10.00_tilt_9_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;tilt&#39;: 9.27, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(2.3)}, &#39;text&#39;: &#39;!xform -rx 9.27 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}],
   &#39;octfile&#39;: &#39;1axis_2021-11-06_1200.oct&#39;,
-  &#39;AnalysisObj&#39;: {&#39;octfile&#39;: &#39;1axis_2021-11-06_1200.oct&#39;, &#39;name&#39;: &#39;1axis_2021-11-06_1200&#39;, &#39;hpc&#39;: False, &#39;x&#39;: [1.694604, 1.271798, 0.8489932, 0.426188, 0.003382829, -0.4194224, -0.8422275, -1.265033, -1.687838], &#39;y&#39;: [1.037645e-16, 7.787519e-17, 5.198584e-17, 2.609649e-17, 2.071385e-19, -2.568221e-17, -5.157156e-17, -7.746091e-17, -1.033503e-16], &#39;z&#39;: [2.044687, 2.113697, 2.182706, 2.251716, 2.320726, 2.389735, 2.458745, 2.527755, 2.596765], &#39;rearZ&#39;: [2.022974, 2.091984, 2.160994, 2.230003, 2.299013, 2.368023, 2.437032, 2.506042, 2.575052], &#39;mattype&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;, &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], &#39;rearMat&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;, &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], &#39;Wm2Front&#39;: [198.11946666666665, 198.12856666666667, 198.1377666666667, 198.14700000000002, 198.15623333333335, 198.16546666666667, 198.17466666666667, 198.1839, 198.06496666666666], &#39;Wm2Back&#39;: [34.83488666666667, 34.24818666666667, 33.691833333333335, 32.87728, 69.20081, 33.90951666666666, 35.152636666666666, 35.88444, 36.67103], &#39;Back/FrontRatio&#39;: [0.17582679494327863, 0.172857525723487, 0.17004160215660302, 0.16592284554979103, 0.3492217207311971, 0.17111632072294772, 0.1773811954713579, 0.18106545957840378, 0.18514553821210072], &#39;backRatio&#39;: [0.17582679494327863, 0.172857525723487, 0.17004160215660302, 0.16592284554979103, 0.3492217207311971, 0.17111632072294772, 0.1773811954713579, 0.18106545957840378, 0.18514553821210072], &#39;rearX&#39;: [1.69106, 1.268254, 0.8454493, 0.4226441, -0.0001610871, -0.4229663, -0.8457714, -1.268577, -1.691382], &#39;rearY&#39;: [1.035475e-16, 7.765819e-17, 5.176884e-17, 2.587949e-17, -9.863739e-21, -2.589921e-17, -5.178856e-17, -7.767792e-17, -1.035673e-16]},
-  &#39;Wm2Front&#39;: [198.11946666666665,
-   198.12856666666667,
-   198.1377666666667,
-   198.14700000000002,
-   198.15623333333335,
-   198.16546666666667,
-   198.17466666666667,
-   198.1839,
-   198.06496666666666],
-  &#39;Wm2Back&#39;: [34.83488666666667,
-   34.24818666666667,
-   33.691833333333335,
-   32.87728,
-   69.20081,
-   33.90951666666666,
-   35.152636666666666,
-   35.88444,
-   36.67103],
-  &#39;backRatio&#39;: [0.17582679494327863,
-   0.172857525723487,
-   0.17004160215660302,
-   0.16592284554979103,
-   0.3492217207311971,
-   0.17111632072294772,
-   0.1773811954713579,
-   0.18106545957840378,
-   0.18514553821210072]},
+  &#39;AnalysisObj&#39;: [&lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.177, 0.174, 0.172, 0.167, 0.349, 0.173, 0.18, 0.183, 0.186], &#39;Wm2Back&#39;: [34.819, 34.251, 33.808, 32.866, 68.729, 33.948, 35.339, 36.043, 36.596], &#39;Wm2Front&#39;: [196.751, 196.756, 196.762, 196.767, 196.772, 196.778, 196.783, 196.789, 196.802], &#39;backRatio&#39;: [0.177, 0.174, 0.172, 0.167, 0.349, 0.173, 0.18, 0.183, 0.186], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;,
+          &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], dtype=object), &#39;modWanted&#39;: 2, &#39;name&#39;: &#39;1axis_2021-11-06_1200_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-11-06_1200.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;,
+          &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], dtype=object), &#39;rearX&#39;: [1.69, 1.268, 0.845, 0.422, -0.001, -0.423, -0.847, -1.27, -1.692], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [2.02, 2.088, 2.158, 2.227, 2.295, 2.365, 2.434, 2.502, 2.572], &#39;rowWanted&#39;: 1, &#39;sceneNum&#39;: 0, &#39;x&#39;: [1.695, 1.272, 0.85, 0.427, 0.004, -0.418, -0.842, -1.266, -1.688], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [2.049, 2.117, 2.188, 2.256, 2.324, 2.395, 2.463, 2.531, 2.602]}]},
  &#39;2021-11-06_1300&#39;: {&#39;surf_azm&#39;: 90.0,
   &#39;surf_tilt&#39;: -14.87,
   &#39;theta&#39;: 14.87,
-  &#39;ghi&#39;: 250,
-  &#39;dhi&#39;: 249,
-  &#39;temp_air&#39;: 20.0,
-  &#39;wind_speed&#39;: 7.2,
+  &#39;dni&#39;: np.int64(3),
+  &#39;ghi&#39;: np.int64(250),
+  &#39;dhi&#39;: np.int64(249),
+  &#39;temp_air&#39;: np.float64(20.0),
+  &#39;wind_speed&#39;: np.float64(7.2),
   &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1300.rad&#39;,
-  &#39;radfile&#39;: &#39;objects\\1axis2021-11-06_1300__C_1.75031_rtr_10.00000_tilt_-14.87000_3modsx1rows_origin0,0.rad&#39;,
-  &#39;scene&#39;: {&#39;module&#39;: {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;hpc&#39;: False, &#39;name&#39;: &#39;Scene0&#39;, &#39;gcr&#39;: 0.4284, &#39;text&#39;: &#39;!xform -rx -14.87 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 objects\\test-module.rad&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1300__C_1.75031_rtr_10.00000_tilt_-14.87000_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;tilt&#39;: -14.87, &#39;pitch&#39;: 10, &#39;clearance_height&#39;: 1.7503054702295644, &#39;azimuth&#39;: 90.0, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0}},
+  &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.4284), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: np.float64(1.036), &#39;y&#39;: np.float64(2.092), &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.046), &#39;sceney&#39;: np.float64(4.284), &#39;scenez&#39;: np.float64(0.1), &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020711 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020711 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1300__C_1.75_rtr_10.00_tilt_-15_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;tilt&#39;: -14.87, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(2.3)}, &#39;text&#39;: &#39;!xform -rx -14.87 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}],
   &#39;octfile&#39;: &#39;1axis_2021-11-06_1300.oct&#39;,
-  &#39;AnalysisObj&#39;: {&#39;octfile&#39;: &#39;1axis_2021-11-06_1300.oct&#39;, &#39;name&#39;: &#39;1axis_2021-11-06_1300&#39;, &#39;hpc&#39;: False, &#39;x&#39;: [1.650823, 1.23677, 0.8227171, 0.408664, -0.005389162, -0.4194423, -0.8334954, -1.247549, -1.661602], &#39;y&#39;: [1.010838e-16, 7.573034e-17, 5.037689e-17, 2.502345e-17, -3.29991e-19, -2.568343e-17, -5.103688e-17, -7.639032e-17, -1.017438e-16], &#39;z&#39;: [2.760052, 2.650113, 2.540175, 2.430236, 2.320297, 2.210358, 2.100419, 1.99048, 1.880541], &#39;rearZ&#39;: [2.738789, 2.62885, 2.518911, 2.408972, 2.299033, 2.189095, 2.079156, 1.969217, 1.859278], &#39;mattype&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;, &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], &#39;rearMat&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;, &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], &#39;Wm2Front&#39;: [247.13283333333334, 247.1093, 247.0856, 247.06193333333331, 247.03823333333335, 247.01456666666664, 247.29599999999996, 247.27796666666666, 247.25986666666665], &#39;Wm2Back&#39;: [47.766070000000006, 46.72716333333333, 45.55165333333334, 44.57091333333333, 86.23722, 41.25900666666667, 42.92781666666667, 43.42467, 44.033973333333336], &#39;Back/FrontRatio&#39;: [0.19328017275389922, 0.189094357189212, 0.18435501291180234, 0.18040307678691314, 0.3490830943586963, 0.16702998609939163, 0.1735881012170252, 0.17561004312403442, 0.17808711069793226], &#39;backRatio&#39;: [0.19328017275389922, 0.189094357189212, 0.18435501291180234, 0.18040307678691314, 0.3490830943586963, 0.16702998609939163, 0.1735881012170252, 0.17561004312403442, 0.17808711069793226], &#39;rearX&#39;: [1.656469, 1.242416, 0.8283629, 0.4143098, 0.0002566268, -0.4137965, -0.8278496, -1.241903, -1.655956], &#39;rearY&#39;: [1.014295e-16, 7.607604e-17, 5.07226e-17, 2.536916e-17, 1.571386e-20, -2.533773e-17, -5.069117e-17, -7.604461e-17, -1.013981e-16]},
-  &#39;Wm2Front&#39;: [247.13283333333334,
-   247.1093,
-   247.0856,
-   247.06193333333331,
-   247.03823333333335,
-   247.01456666666664,
-   247.29599999999996,
-   247.27796666666666,
-   247.25986666666665],
-  &#39;Wm2Back&#39;: [47.766070000000006,
-   46.72716333333333,
-   45.55165333333334,
-   44.57091333333333,
-   86.23722,
-   41.25900666666667,
-   42.92781666666667,
-   43.42467,
-   44.033973333333336],
-  &#39;backRatio&#39;: [0.19328017275389922,
-   0.189094357189212,
-   0.18435501291180234,
-   0.18040307678691314,
-   0.3490830943586963,
-   0.16702998609939163,
-   0.1735881012170252,
-   0.17561004312403442,
-   0.17808711069793226]},
+  &#39;AnalysisObj&#39;: [&lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.194, 0.19, 0.186, 0.182, 0.349, 0.168, 0.175, 0.177, 0.179], &#39;Wm2Back&#39;: [47.659, 46.663, 45.62, 44.597, 85.648, 41.271, 42.886, 43.441, 44.05], &#39;Wm2Front&#39;: [245.611, 245.601, 245.591, 245.581, 245.571, 245.561, 245.551, 245.522, 245.509], &#39;backRatio&#39;: [0.194, 0.19, 0.186, 0.182, 0.349, 0.168, 0.175, 0.177, 0.179], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;,
+          &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], dtype=object), &#39;modWanted&#39;: 2, &#39;name&#39;: &#39;1axis_2021-11-06_1300_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-11-06_1300.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;,
+          &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], dtype=object), &#39;rearX&#39;: [1.657, 1.243, 0.829, 0.415, 0.001, -0.413, -0.827, -1.241, -1.655], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [2.734, 2.625, 2.514, 2.404, 2.295, 2.184, 2.074, 1.965, 1.855], &#39;rowWanted&#39;: 1, &#39;sceneNum&#39;: 0, &#39;x&#39;: [1.649, 1.235, 0.821, 0.407, -0.007, -0.421, -0.835, -1.249, -1.663], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [2.764, 2.654, 2.543, 2.434, 2.324, 2.215, 2.104, 1.994, 1.885]}]},
  &#39;2021-11-06_1400&#39;: {&#39;surf_azm&#39;: 90.0,
   &#39;surf_tilt&#39;: -36.95,
   &#39;theta&#39;: 36.95,
-  &#39;ghi&#39;: 136,
-  &#39;dhi&#39;: 135,
-  &#39;temp_air&#39;: 17.2,
-  &#39;wind_speed&#39;: 6.7,
+  &#39;dni&#39;: np.int64(2),
+  &#39;ghi&#39;: np.int64(136),
+  &#39;dhi&#39;: np.int64(135),
+  &#39;temp_air&#39;: np.float64(17.2),
+  &#39;wind_speed&#39;: np.float64(6.7),
   &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1400.rad&#39;,
-  &#39;radfile&#39;: &#39;objects\\1axis2021-11-06_1400__C_1.01241_rtr_10.00000_tilt_-36.95000_3modsx1rows_origin0,0.rad&#39;,
-  &#39;scene&#39;: {&#39;module&#39;: {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;hpc&#39;: False, &#39;name&#39;: &#39;Scene0&#39;, &#39;gcr&#39;: 0.4284, &#39;text&#39;: &#39;!xform -rx -36.95 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 objects\\test-module.rad&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1400__C_1.01241_rtr_10.00000_tilt_-36.95000_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;tilt&#39;: -36.95, &#39;pitch&#39;: 10, &#39;clearance_height&#39;: 1.012405558600545, &#39;azimuth&#39;: 90.0, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0}},
+  &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.4284), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: np.float64(1.036), &#39;y&#39;: np.float64(2.092), &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.046), &#39;sceney&#39;: np.float64(4.284), &#39;scenez&#39;: np.float64(0.1), &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020711 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020711 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1400__C_1.01_rtr_10.00_tilt_-37_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;tilt&#39;: -36.95, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(2.3)}, &#39;text&#39;: &#39;!xform -rx -36.95 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}],
   &#39;octfile&#39;: &#39;1axis_2021-11-06_1400.oct&#39;,
-  &#39;AnalysisObj&#39;: {&#39;octfile&#39;: &#39;1axis_2021-11-06_1400.oct&#39;, &#39;name&#39;: &#39;1axis_2021-11-06_1400&#39;, &#39;hpc&#39;: False, &#39;x&#39;: [1.356818, 1.014457, 0.6720971, 0.3297368, -0.01262347, -0.3549838, -0.6973441, -1.039704, -1.382065], &#39;y&#39;: [8.308113e-17, 6.21176e-17, 4.115408e-17, 2.019056e-17, -7.729649e-19, -2.173649e-17, -4.270001e-17, -6.366353e-17, -8.462706e-17], &#39;z&#39;: [3.346858, 3.089339, 2.83182, 2.574301, 2.316782, 2.059263, 1.801745, 1.544226, 1.286707], &#39;rearZ&#39;: [3.329276, 3.071758, 2.814239, 2.55672, 2.299201, 2.041682, 1.784163, 1.526644, 1.269125], &#39;mattype&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;, &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], &#39;rearMat&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;, &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], &#39;Wm2Front&#39;: [124.42463333333335, 124.31856666666665, 124.21103333333333, 124.407, 124.27879999999999, 124.1492, 124.29609999999998, 124.10283333333332, 124.05556666666666], &#39;Wm2Back&#39;: [33.30500333333334, 32.75482, 32.21354, 31.187083333333334, 46.71498, 27.4618, 29.25820333333333, 28.460649999999998, 28.61505], &#39;Back/FrontRatio&#39;: [0.2676699522526039, 0.2634727652150225, 0.2593431500598037, 0.25068390564379567, 0.37588554213959147, 0.2211981938007349, 0.2353892675962137, 0.2293293384706086, 0.23066130853747632], &#39;backRatio&#39;: [0.2676699522526039, 0.2634727652150225, 0.2593431500598037, 0.25068390564379567, 0.37588554213959147, 0.2211981938007349, 0.2353892675962137, 0.2293293384706086, 0.23066130853747632], &#39;rearX&#39;: [1.370042, 1.027682, 0.6853217, 0.3429614, 0.0006011179, -0.3417592, -0.6841195, -1.02648, -1.36884], &#39;rearY&#39;: [8.38909e-17, 6.292738e-17, 4.196385e-17, 2.100033e-17, 3.680785e-20, -2.092672e-17, -4.189024e-17, -6.285376e-17, -8.381728e-17]},
-  &#39;Wm2Front&#39;: [124.42463333333335,
-   124.31856666666665,
-   124.21103333333333,
-   124.407,
-   124.27879999999999,
-   124.1492,
-   124.29609999999998,
-   124.10283333333332,
-   124.05556666666666],
-  &#39;Wm2Back&#39;: [33.30500333333334,
-   32.75482,
-   32.21354,
-   31.187083333333334,
-   46.71498,
-   27.4618,
-   29.25820333333333,
-   28.460649999999998,
-   28.61505],
-  &#39;backRatio&#39;: [0.2676699522526039,
-   0.2634727652150225,
-   0.2593431500598037,
-   0.25068390564379567,
-   0.37588554213959147,
-   0.2211981938007349,
-   0.2353892675962137,
-   0.2293293384706086,
-   0.23066130853747632]}}
+  &#39;AnalysisObj&#39;: [&lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.268, 0.264, 0.26, 0.251, 0.376, 0.223, 0.235, 0.233, 0.232], &#39;Wm2Back&#39;: [33.11, 32.596, 32.041, 31.031, 46.393, 27.452, 29.017, 28.752, 28.626], &#39;Wm2Front&#39;: [123.516, 123.404, 123.29, 123.488, 123.341, 123.193, 123.34, 123.145, 123.205], &#39;backRatio&#39;: [0.268, 0.264, 0.26, 0.251, 0.376, 0.223, 0.235, 0.233, 0.232], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;,
+          &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;,
+          &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], dtype=object), &#39;modWanted&#39;: 2, &#39;name&#39;: &#39;1axis_2021-11-06_1400_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-11-06_1400.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;,
+          &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;,
+          &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], dtype=object), &#39;rearX&#39;: [1.372, 1.029, 0.688, 0.345, 0.003, -0.339, -0.683, -1.024, -1.366], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [3.326, 3.068, 2.81, 2.555, 2.297, 2.04, 1.781, 1.523, 1.266], &#39;rowWanted&#39;: 1, &#39;sceneNum&#39;: 0, &#39;x&#39;: [1.354, 1.012, 0.67, 0.327, -0.015, -0.356, -0.7, -1.042, -1.384], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [3.35, 3.092, 2.834, 2.578, 2.32, 2.062, 1.805, 1.547, 1.289]}]}}
 </pre></div></div>
 </div>
 </section>
-<section id="2.-Explore-the-tracker-dictionary">
-<h2>2. Explore the tracker dictionary<a class="headerlink" href="#2.-Explore-the-tracker-dictionary" title="Permalink to this heading">#</a></h2>
-<p>You can use any of the below options to explore the tracking dictionary. Copy it into an empty cell to see their contents.</p>
+<section id="2.-Explore-the-RadianceObj">
+<h2>2. Explore the RadianceObj<a class="headerlink" href="#2.-Explore-the-RadianceObj" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">demo</span><span class="p">)</span>   <span class="c1"># Shows all keys for top-level RadianceObj</span>
-
-<span class="n">trackerkeys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="c1"># get the trackerdict keys to see a specific hour.</span>
-
-<span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="c1"># This prints all trackerdict content</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">]</span>  <span class="c1"># This shows the Scene Object contents</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">scenex</span>  <span class="c1"># This shows the Module Object in the Scene&#39;s contents</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sceneDict</span> <span class="c1"># Printing the scene dictionary saved in the Scene Object</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sceneDict</span><span class="p">[</span><span class="s1">&#39;tilt&#39;</span><span class="p">]</span> <span class="c1"># Addressing one of the variables in the scene dictionary</span>
-
-
-<span class="c1"># Looking at the AnalysisObj results indivudally</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">]</span>  <span class="c1"># This shows the Analysis Object contents</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mattype</span> <span class="c1"># Addressing one of the variables in the Analysis Object</span>
-
-<span class="c1"># Looking at the Analysis results Accumulated for the day:</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">Wm2Back</span>  <span class="c1"># this value is the addition of every individual irradiance result for each hour simulated.</span>
-
-<span class="c1">#  Access module values</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">scenex</span>
-<br/></pre></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Methods: </span><span class="si">{</span><span class="n">demo</span><span class="o">.</span><span class="n">methods</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># Shows all methods for top-level RadianceObj</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Columns: </span><span class="si">{</span><span class="n">demo</span><span class="o">.</span><span class="n">columns</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># shows all data columns or attributes of RadianceObj, some of which are deprecated</span>
+</pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;metdata&#39;: &lt;bifacial_radiance.main.MetObj object at 0x000001B686A32050&gt;, &#39;data&#39;: {}, &#39;path&#39;: &#39;C:\\Users\\mprillim\\sam_dev\\bifacial_radiance\\bifacial_radiance\\Tutorial_06&#39;, &#39;name&#39;: &#39;2021-11-06_1400&#39;, &#39;materialfiles&#39;: [&#39;materials\\ground.rad&#39;], &#39;skyfiles&#39;: [&#39;skies\\sky2_37.5_-77.33_2021-11-06_1400.rad&#39;], &#39;radfiles&#39;: [], &#39;octfile&#39;: &#39;1axis_2021-11-06_1400.oct&#39;, &#39;Wm2Front&#39;: array([906.884     , 907.19613333, 906.44273333, 906.9406    ,
-       843.25653333, 906.5462    , 907.19923333, 907.21246667,
-       907.78613333]), &#39;Wm2Back&#39;: array([176.82297333, 174.31323   , 171.50522   , 166.06708667,
-       244.43363   , 163.82718667, 170.50578667, 172.06862   ,
-       174.59592333]), &#39;backRatio&#39;: 0.19928946612004073, &#39;hpc&#39;: False, &#39;nowstr&#39;: &#39;2024-04-05_15734&#39;, &#39;basename&#39;: &#39;tutorial_6&#39;, &#39;ground&#39;: &lt;bifacial_radiance.main.GroundObj object at 0x000001B686AB8250&gt;, &#39;epwfile&#39;: &#39;EPWs\\USA_VA_Richmond.724010_TMY2.epw&#39;, &#39;gencumsky_metfile&#39;: &#39;EPWs\\metdata_temp.csv&#39;, &#39;module&#39;: {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;trackerdict&#39;: {&#39;2021-11-06_1100&#39;: {&#39;surf_azm&#39;: 90.0, &#39;surf_tilt&#39;: 32.06, &#39;theta&#39;: -32.06, &#39;ghi&#39;: 303, &#39;dhi&#39;: 191, &#39;temp_air&#39;: 19.4, &#39;wind_speed&#39;: 7.2, &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1100.rad&#39;, &#39;radfile&#39;: &#39;objects\\1axis2021-11-06_1100__C_1.16301_rtr_10.00000_tilt_32.06000_3modsx1rows_origin0,0.rad&#39;, &#39;scene&#39;: {&#39;module&#39;: {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;hpc&#39;: False, &#39;name&#39;: &#39;Scene0&#39;, &#39;gcr&#39;: 0.4284, &#39;text&#39;: &#39;!xform -rx 32.06 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 objects\\test-module.rad&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1100__C_1.16301_rtr_10.00000_tilt_32.06000_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;tilt&#39;: 0, &#39;pitch&#39;: 10, &#39;clearance_height&#39;: 2.3, &#39;azimuth&#39;: 90.0, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0}}, &#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;, &#39;AnalysisObj&#39;: {&#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;, &#39;name&#39;: &#39;1axis_2021-11-06_1100&#39;, &#39;hpc&#39;: False, &#39;x&#39;: [1.46341, 1.100345, 0.7372787, 0.3742128, 0.01114695, -0.3519189, -0.7149848, -1.078051, -1.441117], &#39;y&#39;: [8.960805e-17, 6.737667e-17, 4.51453e-17, 2.291393e-17, 6.825537e-19, -2.154882e-17, -4.378019e-17, -6.601157e-17, -8.824294e-17], &#39;z&#39;: [1.408206, 1.635604, 1.863002, 2.0904, 2.317797, 2.545195, 2.772593, 2.999991, 3.227388], &#39;rearZ&#39;: [1.389562, 1.616959, 1.844357, 2.071755, 2.299153, 2.52655, 2.753948, 2.981346, 3.208743], &#39;mattype&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;, &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], &#39;rearMat&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;, &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], &#39;Wm2Front&#39;: [337.20706666666666, 337.6397, 337.00833333333327, 337.3246666666667, 273.78326666666663, 337.2169666666666, 337.4324666666667, 337.6477666666667, 338.40573333333333], &#39;Wm2Back&#39;: [60.91701333333333, 60.583059999999996, 60.04819333333334, 57.43180999999999, 42.28062, 61.19686333333333, 63.16713000000001, 64.29886, 65.27587], &#39;Back/FrontRatio&#39;: [0.1806511153054662, 0.17943056035602342, 0.17817961520353548, 0.17025627064646723, 0.15443042259063344, 0.18147569045105252, 0.18719877024646045, 0.190431200548341, 0.19289175885192197], &#39;backRatio&#39;: [0.1806511153054662, 0.17943056035602342, 0.17817961520353548, 0.17025627064646723, 0.15443042259063344, 0.18147569045105252, 0.18719877024646045, 0.190431200548341, 0.19289175885192197], &#39;rearX&#39;: [1.451733, 1.088667, 0.7256009, 0.3625351, -0.000530807, -0.3635967, -0.7266626, -1.089728, -1.452794], &#39;rearY&#39;: [8.889299e-17, 6.666162e-17, 4.443024e-17, 2.219887e-17, -3.250256e-20, -2.226388e-17, -4.449525e-17, -6.672662e-17, -8.895799e-17]}, &#39;Wm2Front&#39;: [337.20706666666666, 337.6397, 337.00833333333327, 337.3246666666667, 273.78326666666663, 337.2169666666666, 337.4324666666667, 337.6477666666667, 338.40573333333333], &#39;Wm2Back&#39;: [60.91701333333333, 60.583059999999996, 60.04819333333334, 57.43180999999999, 42.28062, 61.19686333333333, 63.16713000000001, 64.29886, 65.27587], &#39;backRatio&#39;: [0.1806511153054662, 0.17943056035602342, 0.17817961520353548, 0.17025627064646723, 0.15443042259063344, 0.18147569045105252, 0.18719877024646045, 0.190431200548341, 0.19289175885192197]}, &#39;2021-11-06_1200&#39;: {&#39;surf_azm&#39;: 90.0, &#39;surf_tilt&#39;: 9.27, &#39;theta&#39;: -9.27, &#39;ghi&#39;: 200, &#39;dhi&#39;: 197, &#39;temp_air&#39;: 20.0, &#39;wind_speed&#39;: 5.2, &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1200.rad&#39;, &#39;radfile&#39;: &#39;objects\\1axis2021-11-06_1200__C_1.95495_rtr_10.00000_tilt_9.27000_3modsx1rows_origin0,0.rad&#39;, &#39;scene&#39;: {&#39;module&#39;: {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;hpc&#39;: False, &#39;name&#39;: &#39;Scene0&#39;, &#39;gcr&#39;: 0.4284, &#39;text&#39;: &#39;!xform -rx 9.27 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 objects\\test-module.rad&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1200__C_1.95495_rtr_10.00000_tilt_9.27000_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;tilt&#39;: 9.27, &#39;pitch&#39;: 10, &#39;clearance_height&#39;: 1.954951469221026, &#39;azimuth&#39;: 90.0, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0}}, &#39;octfile&#39;: &#39;1axis_2021-11-06_1200.oct&#39;, &#39;AnalysisObj&#39;: {&#39;octfile&#39;: &#39;1axis_2021-11-06_1200.oct&#39;, &#39;name&#39;: &#39;1axis_2021-11-06_1200&#39;, &#39;hpc&#39;: False, &#39;x&#39;: [1.694604, 1.271798, 0.8489932, 0.426188, 0.003382829, -0.4194224, -0.8422275, -1.265033, -1.687838], &#39;y&#39;: [1.037645e-16, 7.787519e-17, 5.198584e-17, 2.609649e-17, 2.071385e-19, -2.568221e-17, -5.157156e-17, -7.746091e-17, -1.033503e-16], &#39;z&#39;: [2.044687, 2.113697, 2.182706, 2.251716, 2.320726, 2.389735, 2.458745, 2.527755, 2.596765], &#39;rearZ&#39;: [2.022974, 2.091984, 2.160994, 2.230003, 2.299013, 2.368023, 2.437032, 2.506042, 2.575052], &#39;mattype&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;, &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], &#39;rearMat&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;, &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], &#39;Wm2Front&#39;: [198.11946666666665, 198.12856666666667, 198.1377666666667, 198.14700000000002, 198.15623333333335, 198.16546666666667, 198.17466666666667, 198.1839, 198.06496666666666], &#39;Wm2Back&#39;: [34.83488666666667, 34.24818666666667, 33.691833333333335, 32.87728, 69.20081, 33.90951666666666, 35.152636666666666, 35.88444, 36.67103], &#39;Back/FrontRatio&#39;: [0.17582679494327863, 0.172857525723487, 0.17004160215660302, 0.16592284554979103, 0.3492217207311971, 0.17111632072294772, 0.1773811954713579, 0.18106545957840378, 0.18514553821210072], &#39;backRatio&#39;: [0.17582679494327863, 0.172857525723487, 0.17004160215660302, 0.16592284554979103, 0.3492217207311971, 0.17111632072294772, 0.1773811954713579, 0.18106545957840378, 0.18514553821210072], &#39;rearX&#39;: [1.69106, 1.268254, 0.8454493, 0.4226441, -0.0001610871, -0.4229663, -0.8457714, -1.268577, -1.691382], &#39;rearY&#39;: [1.035475e-16, 7.765819e-17, 5.176884e-17, 2.587949e-17, -9.863739e-21, -2.589921e-17, -5.178856e-17, -7.767792e-17, -1.035673e-16]}, &#39;Wm2Front&#39;: [198.11946666666665, 198.12856666666667, 198.1377666666667, 198.14700000000002, 198.15623333333335, 198.16546666666667, 198.17466666666667, 198.1839, 198.06496666666666], &#39;Wm2Back&#39;: [34.83488666666667, 34.24818666666667, 33.691833333333335, 32.87728, 69.20081, 33.90951666666666, 35.152636666666666, 35.88444, 36.67103], &#39;backRatio&#39;: [0.17582679494327863, 0.172857525723487, 0.17004160215660302, 0.16592284554979103, 0.3492217207311971, 0.17111632072294772, 0.1773811954713579, 0.18106545957840378, 0.18514553821210072]}, &#39;2021-11-06_1300&#39;: {&#39;surf_azm&#39;: 90.0, &#39;surf_tilt&#39;: -14.87, &#39;theta&#39;: 14.87, &#39;ghi&#39;: 250, &#39;dhi&#39;: 249, &#39;temp_air&#39;: 20.0, &#39;wind_speed&#39;: 7.2, &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1300.rad&#39;, &#39;radfile&#39;: &#39;objects\\1axis2021-11-06_1300__C_1.75031_rtr_10.00000_tilt_-14.87000_3modsx1rows_origin0,0.rad&#39;, &#39;scene&#39;: {&#39;module&#39;: {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;hpc&#39;: False, &#39;name&#39;: &#39;Scene0&#39;, &#39;gcr&#39;: 0.4284, &#39;text&#39;: &#39;!xform -rx -14.87 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 objects\\test-module.rad&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1300__C_1.75031_rtr_10.00000_tilt_-14.87000_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;tilt&#39;: -14.87, &#39;pitch&#39;: 10, &#39;clearance_height&#39;: 1.7503054702295644, &#39;azimuth&#39;: 90.0, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0}}, &#39;octfile&#39;: &#39;1axis_2021-11-06_1300.oct&#39;, &#39;AnalysisObj&#39;: {&#39;octfile&#39;: &#39;1axis_2021-11-06_1300.oct&#39;, &#39;name&#39;: &#39;1axis_2021-11-06_1300&#39;, &#39;hpc&#39;: False, &#39;x&#39;: [1.650823, 1.23677, 0.8227171, 0.408664, -0.005389162, -0.4194423, -0.8334954, -1.247549, -1.661602], &#39;y&#39;: [1.010838e-16, 7.573034e-17, 5.037689e-17, 2.502345e-17, -3.29991e-19, -2.568343e-17, -5.103688e-17, -7.639032e-17, -1.017438e-16], &#39;z&#39;: [2.760052, 2.650113, 2.540175, 2.430236, 2.320297, 2.210358, 2.100419, 1.99048, 1.880541], &#39;rearZ&#39;: [2.738789, 2.62885, 2.518911, 2.408972, 2.299033, 2.189095, 2.079156, 1.969217, 1.859278], &#39;mattype&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;, &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], &#39;rearMat&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;, &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], &#39;Wm2Front&#39;: [247.13283333333334, 247.1093, 247.0856, 247.06193333333331, 247.03823333333335, 247.01456666666664, 247.29599999999996, 247.27796666666666, 247.25986666666665], &#39;Wm2Back&#39;: [47.766070000000006, 46.72716333333333, 45.55165333333334, 44.57091333333333, 86.23722, 41.25900666666667, 42.92781666666667, 43.42467, 44.033973333333336], &#39;Back/FrontRatio&#39;: [0.19328017275389922, 0.189094357189212, 0.18435501291180234, 0.18040307678691314, 0.3490830943586963, 0.16702998609939163, 0.1735881012170252, 0.17561004312403442, 0.17808711069793226], &#39;backRatio&#39;: [0.19328017275389922, 0.189094357189212, 0.18435501291180234, 0.18040307678691314, 0.3490830943586963, 0.16702998609939163, 0.1735881012170252, 0.17561004312403442, 0.17808711069793226], &#39;rearX&#39;: [1.656469, 1.242416, 0.8283629, 0.4143098, 0.0002566268, -0.4137965, -0.8278496, -1.241903, -1.655956], &#39;rearY&#39;: [1.014295e-16, 7.607604e-17, 5.07226e-17, 2.536916e-17, 1.571386e-20, -2.533773e-17, -5.069117e-17, -7.604461e-17, -1.013981e-16]}, &#39;Wm2Front&#39;: [247.13283333333334, 247.1093, 247.0856, 247.06193333333331, 247.03823333333335, 247.01456666666664, 247.29599999999996, 247.27796666666666, 247.25986666666665], &#39;Wm2Back&#39;: [47.766070000000006, 46.72716333333333, 45.55165333333334, 44.57091333333333, 86.23722, 41.25900666666667, 42.92781666666667, 43.42467, 44.033973333333336], &#39;backRatio&#39;: [0.19328017275389922, 0.189094357189212, 0.18435501291180234, 0.18040307678691314, 0.3490830943586963, 0.16702998609939163, 0.1735881012170252, 0.17561004312403442, 0.17808711069793226]}, &#39;2021-11-06_1400&#39;: {&#39;surf_azm&#39;: 90.0, &#39;surf_tilt&#39;: -36.95, &#39;theta&#39;: 36.95, &#39;ghi&#39;: 136, &#39;dhi&#39;: 135, &#39;temp_air&#39;: 17.2, &#39;wind_speed&#39;: 6.7, &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1400.rad&#39;, &#39;radfile&#39;: &#39;objects\\1axis2021-11-06_1400__C_1.01241_rtr_10.00000_tilt_-36.95000_3modsx1rows_origin0,0.rad&#39;, &#39;scene&#39;: {&#39;module&#39;: {&#39;x&#39;: 1.036, &#39;y&#39;: 2.092, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: 1.046, &#39;sceney&#39;: 4.284, &#39;scenez&#39;: 0.1, &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020710678118654756 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;hpc&#39;: False, &#39;name&#39;: &#39;Scene0&#39;, &#39;gcr&#39;: 0.4284, &#39;text&#39;: &#39;!xform -rx -36.95 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 objects\\test-module.rad&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1400__C_1.01241_rtr_10.00000_tilt_-36.95000_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;tilt&#39;: -36.95, &#39;pitch&#39;: 10, &#39;clearance_height&#39;: 1.012405558600545, &#39;azimuth&#39;: 90.0, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0}}, &#39;octfile&#39;: &#39;1axis_2021-11-06_1400.oct&#39;, &#39;AnalysisObj&#39;: {&#39;octfile&#39;: &#39;1axis_2021-11-06_1400.oct&#39;, &#39;name&#39;: &#39;1axis_2021-11-06_1400&#39;, &#39;hpc&#39;: False, &#39;x&#39;: [1.356818, 1.014457, 0.6720971, 0.3297368, -0.01262347, -0.3549838, -0.6973441, -1.039704, -1.382065], &#39;y&#39;: [8.308113e-17, 6.21176e-17, 4.115408e-17, 2.019056e-17, -7.729649e-19, -2.173649e-17, -4.270001e-17, -6.366353e-17, -8.462706e-17], &#39;z&#39;: [3.346858, 3.089339, 2.83182, 2.574301, 2.316782, 2.059263, 1.801745, 1.544226, 1.286707], &#39;rearZ&#39;: [3.329276, 3.071758, 2.814239, 2.55672, 2.299201, 2.041682, 1.784163, 1.526644, 1.269125], &#39;mattype&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;, &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], &#39;rearMat&#39;: [&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;, &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], &#39;Wm2Front&#39;: [124.42463333333335, 124.31856666666665, 124.21103333333333, 124.407, 124.27879999999999, 124.1492, 124.29609999999998, 124.10283333333332, 124.05556666666666], &#39;Wm2Back&#39;: [33.30500333333334, 32.75482, 32.21354, 31.187083333333334, 46.71498, 27.4618, 29.25820333333333, 28.460649999999998, 28.61505], &#39;Back/FrontRatio&#39;: [0.2676699522526039, 0.2634727652150225, 0.2593431500598037, 0.25068390564379567, 0.37588554213959147, 0.2211981938007349, 0.2353892675962137, 0.2293293384706086, 0.23066130853747632], &#39;backRatio&#39;: [0.2676699522526039, 0.2634727652150225, 0.2593431500598037, 0.25068390564379567, 0.37588554213959147, 0.2211981938007349, 0.2353892675962137, 0.2293293384706086, 0.23066130853747632], &#39;rearX&#39;: [1.370042, 1.027682, 0.6853217, 0.3429614, 0.0006011179, -0.3417592, -0.6841195, -1.02648, -1.36884], &#39;rearY&#39;: [8.38909e-17, 6.292738e-17, 4.196385e-17, 2.100033e-17, 3.680785e-20, -2.092672e-17, -4.189024e-17, -6.285376e-17, -8.381728e-17]}, &#39;Wm2Front&#39;: [124.42463333333335, 124.31856666666665, 124.21103333333333, 124.407, 124.27879999999999, 124.1492, 124.29609999999998, 124.10283333333332, 124.05556666666666], &#39;Wm2Back&#39;: [33.30500333333334, 32.75482, 32.21354, 31.187083333333334, 46.71498, 27.4618, 29.25820333333333, 28.460649999999998, 28.61505], &#39;backRatio&#39;: [0.2676699522526039, 0.2634727652150225, 0.2593431500598037, 0.25068390564379567, 0.37588554213959147, 0.2211981938007349, 0.2353892675962137, 0.2293293384706086, 0.23066130853747632]}}, &#39;cumulativesky&#39;: False, &#39;hub_height&#39;: 2.3}
+Methods: [&#39;addMaterial&#39;, &#39;analysis1axis&#39;, &#39;analysis1axisground&#39;, &#39;appendtoScene&#39;, &#39;calculatePerformance1axis&#39;, &#39;exportTrackerDict&#39;, &#39;genCumSky&#39;, &#39;genCumSky1axis&#39;, &#39;gendaylit&#39;, &#39;gendaylit1axis&#39;, &#39;gendaylit2manual&#39;, &#39;generate_spectra&#39;, &#39;generate_spectral_tmys&#39;, &#39;getEPW&#39;, &#39;getSingleTimestampTrackerAngle&#39;, &#39;getfilelist&#39;, &#39;loadtrackerdict&#39;, &#39;makeCustomObject&#39;, &#39;makeModule&#39;, &#39;makeOct&#39;, &#39;makeOct1axis&#39;, &#39;makeScene&#39;, &#39;makeScene1axis&#39;, &#39;printModules&#39;, &#39;readWeatherData&#39;, &#39;readWeatherFile&#39;, &#39;returnMaterialFiles&#39;, &#39;returnOctFiles&#39;, &#39;save&#39;, &#39;sceneNames&#39;, &#39;set1axis&#39;, &#39;setGround&#39;]
+
+Columns: [&#39;Wm2Back&#39;, &#39;Wm2Front&#39;, &#39;basename&#39;, &#39;compiledResults&#39;, &#39;cumulativesky&#39;, &#39;data&#39;, &#39;epwfile&#39;, &#39;gencumsky_metfile&#39;, &#39;ground&#39;, &#39;hpc&#39;, &#39;hub_height&#39;, &#39;materialfiles&#39;, &#39;metdata&#39;, &#39;module&#39;, &#39;name&#39;, &#39;nowstr&#39;, &#39;octfile&#39;, &#39;path&#39;, &#39;results&#39;, &#39;scenes&#39;, &#39;skyfiles&#39;, &#39;trackerdict&#39;]
 </pre></div></div>
 </div>
+</section>
+<section id="3.-Explore-the-tracker-dictionary">
+<h2>3. Explore the tracker dictionary<a class="headerlink" href="#3.-Explore-the-tracker-dictionary" title="Link to this heading">#</a></h2>
+<p>You can use any of the below options to explore the tracking dictionary. Copy it into an empty cell to see their contents.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trackerkeys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="c1"># get the trackerdict keys to see a specific hour.</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;trackerdict element </span><span class="si">{</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># This prints all trackerdict content</span>
+</pre></div>
+</div>
+</div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+trackerdict element 2021-11-06_1100: {&#39;surf_azm&#39;: 90.0, &#39;surf_tilt&#39;: 32.06, &#39;theta&#39;: -32.06, &#39;dni&#39;: np.int64(203), &#39;ghi&#39;: np.int64(303), &#39;dhi&#39;: np.int64(191), &#39;temp_air&#39;: np.float64(19.4), &#39;wind_speed&#39;: np.float64(7.2), &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1100.rad&#39;, &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.4284), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: np.float64(1.036), &#39;y&#39;: np.float64(2.092), &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.046), &#39;sceney&#39;: np.float64(4.284), &#39;scenez&#39;: np.float64(0.1), &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020711 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020711 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1100__C_1.16_rtr_10.00_tilt_32_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;tilt&#39;: 32.06, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(2.3)}, &#39;text&#39;: &#39;!xform -rx 32.06 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}], &#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;, &#39;AnalysisObj&#39;: [&lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.18, 0.179, 0.178, 0.17, 0.154, 0.182, 0.188, 0.19, 0.193], &#39;Wm2Back&#39;: [60.327, 60.171, 59.696, 57.051, 41.987, 61.09, 63.204, 64.002, 65.04], &#39;Wm2Front&#39;: [335.442, 335.781, 336.234, 336.514, 273.072, 336.56, 336.807, 337.054, 336.329], &#39;backRatio&#39;: [0.18, 0.179, 0.178, 0.17, 0.154, 0.182, 0.188, 0.19, 0.193], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;,
+       &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;,
+       &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;,
+       &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;,
+       &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], dtype=object), &#39;modWanted&#39;: 2, &#39;name&#39;: &#39;1axis_2021-11-06_1100_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;,
+       &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;,
+       &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;,
+       &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;,
+       &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], dtype=object), &#39;rearX&#39;: [1.449, 1.086, 0.723, 0.36, -0.003, -0.366, -0.728, -1.092, -1.455], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [1.386, 1.613, 1.841, 2.068, 2.295, 2.523, 2.75, 2.977, 3.205], &#39;rowWanted&#39;: 1, &#39;sceneNum&#39;: 0, &#39;x&#39;: [1.466, 1.103, 0.74, 0.377, 0.014, -0.35, -0.712, -1.075, -1.438], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [1.411, 1.639, 1.866, 2.094, 2.32, 2.547, 2.775, 3.004, 3.23]}]}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">]</span>  <span class="c1"># This shows an array of Scene Object contents, one for each scene made in makeScene</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1.046
+[&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.4284), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: np.float64(1.036), &#39;y&#39;: np.float64(2.092), &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.046), &#39;sceney&#39;: np.float64(4.284), &#39;scenez&#39;: np.float64(0.1), &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black cellPVmodule 0.156 0.156 0.02 | xform -t -0.44 -2.142 0 -a 6 -t 0.176 0 0 -a 12 -t 0 0.176 0 -a 2 -t 0 2.192 0\r\n! genbox black octtube1a 1.046 0.04142135623730951 0.1 | xform -t -0.523 -0.020711 -0.15000000000000002\r\n! genbox black octtube1b 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020711 -0.05 -rx 45 -t 0 0 -0.1\r\n! genbox black octtube1c 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 90 -t 0 0 -0.1\r\n! genbox black octtube1d 1.046 0.04142135623730951 0.1 | xform -t -0.445 -0.020710678118654756 -0.05 -rx 135 -t 0 0 -0.1 &#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.1, &#39;zgap&#39;: 0.05}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1100__C_1.16_rtr_10.00_tilt_32_3modsx1rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;tilt&#39;: 32.06, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(2.3)}, &#39;text&#39;: &#39;!xform -rx 32.06 -t 0 0 2.3 -a 3 -t 1.046 0 0 -a 1 -t 0 10 0 -i 1 -t -1.046 -0.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}]
 </pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scenex: </span><span class="si">{</span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">scenex</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># This shows the Module Object in the Scene&#39;s contents</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sceneDict: </span><span class="si">{</span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;scene&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sceneDict</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># Printing the scene dictionary saved in the Scene Object</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+scenex: 1.046
+sceneDict: {&#39;pitch&#39;: 10, &#39;nMods&#39;: 3, &#39;nRows&#39;: 1, &#39;tilt&#39;: 32.06, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(2.3)}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Looking at the AnalysisObj results indivudally</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="c1"># This shows an array of Analysis Object contents</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">mattype:  </span><span class="si">{</span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mattype</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">)</span><span class="c1"># Addressing one of the variables in the Analysis Object</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.18, 0.179, 0.178, 0.17, 0.154, 0.182, 0.188, 0.19, 0.193], &#39;Wm2Back&#39;: [60.327, 60.171, 59.696, 57.051, 41.987, 61.09, 63.204, 64.002, 65.04], &#39;Wm2Front&#39;: [335.442, 335.781, 336.234, 336.514, 273.072, 336.56, 336.807, 337.054, 336.329], &#39;backRatio&#39;: [0.18, 0.179, 0.178, 0.17, 0.154, 0.182, 0.188, 0.19, 0.193], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;,
+       &#39;a1.0.a2.7.0.cellPVmodule.6457&#39;, &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;,
+       &#39;a1.0.octtube1a.6457&#39;, &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;,
+       &#39;a1.0.a2.4.1.cellPVmodule.6457&#39;, &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;,
+       &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;], dtype=object), &#39;modWanted&#39;: 2, &#39;name&#39;: &#39;1axis_2021-11-06_1100_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a1.0.a2.2.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.4.0.cellPVmodule.2310&#39;,
+       &#39;a1.0.a2.7.0.cellPVmodule.2310&#39;, &#39;a1.0.a2.9.0.cellPVmodule.2310&#39;,
+       &#39;sky&#39;, &#39;a1.0.a2.2.1.cellPVmodule.2310&#39;,
+       &#39;a1.0.a2.4.1.cellPVmodule.2310&#39;, &#39;a1.0.a2.7.1.cellPVmodule.2310&#39;,
+       &#39;a1.0.a2.9.1.cellPVmodule.2310&#39;], dtype=object), &#39;rearX&#39;: [1.449, 1.086, 0.723, 0.36, -0.003, -0.366, -0.728, -1.092, -1.455], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [1.386, 1.613, 1.841, 2.068, 2.295, 2.523, 2.75, 2.977, 3.205], &#39;rowWanted&#39;: 1, &#39;sceneNum&#39;: 0, &#39;x&#39;: [1.466, 1.103, 0.74, 0.377, 0.014, -0.35, -0.712, -1.075, -1.438], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [1.411, 1.639, 1.866, 2.094, 2.32, 2.547, 2.775, 3.004, 3.23]}]
+
+mattype:  [&#39;a1.0.a2.2.0.cellPVmodule.6457&#39; &#39;a1.0.a2.4.0.cellPVmodule.6457&#39;
+ &#39;a1.0.a2.7.0.cellPVmodule.6457&#39; &#39;a1.0.a2.9.0.cellPVmodule.6457&#39;
+ &#39;a1.0.octtube1a.6457&#39; &#39;a1.0.a2.2.1.cellPVmodule.6457&#39;
+ &#39;a1.0.a2.4.1.cellPVmodule.6457&#39; &#39;a1.0.a2.7.1.cellPVmodule.6457&#39;
+ &#39;a1.0.a2.9.1.cellPVmodule.6457&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Looking at the Analysis results Accumulated for the day:</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">results</span>
+<br/><br/><br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>name</th>
+      <th>modNum</th>
+      <th>rowNum</th>
+      <th>sceneNum</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>rearZ</th>
+      <th>mattype</th>
+      <th>rearMat</th>
+      <th>Wm2Front</th>
+      <th>Wm2Back</th>
+      <th>backRatio</th>
+      <th>rearX</th>
+      <th>rearY</th>
+      <th>surf_azm</th>
+      <th>surf_tilt</th>
+      <th>theta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2021-11-06_1100</td>
+      <td>1axis_2021-11-06_1100_Scene0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>[1.466, 1.103, 0.7397, 0.377, 0.01367, -0.3496...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[1.411, 1.639, 1.866, 2.094, 2.32, 2.547, 2.77...</td>
+      <td>[1.386, 1.613, 1.841, 2.068, 2.295, 2.523, 2.7...</td>
+      <td>[a1.0.a2.2.0.cellPVmodule.6457, a1.0.a2.4.0.ce...</td>
+      <td>[a1.0.a2.2.0.cellPVmodule.2310, a1.0.a2.4.0.ce...</td>
+      <td>[335.4420333333333, 335.78093333333334, 336.23...</td>
+      <td>[60.32731333333333, 60.17080666666667, 59.6963...</td>
+      <td>[0.17984369129343472, 0.17919608142506777, 0.1...</td>
+      <td>[1.449, 1.086, 0.723, 0.3604, -0.00293, -0.366...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>90.0</td>
+      <td>32.06</td>
+      <td>-32.06</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2021-11-06_1200</td>
+      <td>1axis_2021-11-06_1200_Scene0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>[1.695, 1.272, 0.8496, 0.4268, 0.003906, -0.41...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[2.049, 2.117, 2.188, 2.256, 2.324, 2.395, 2.4...</td>
+      <td>[2.02, 2.088, 2.158, 2.227, 2.295, 2.365, 2.43...</td>
+      <td>[a1.0.a2.2.0.cellPVmodule.6457, a1.0.a2.4.0.ce...</td>
+      <td>[a1.0.a2.2.0.cellPVmodule.2310, a1.0.a2.4.0.ce...</td>
+      <td>[196.7508, 196.75609999999998, 196.76156666666...</td>
+      <td>[34.81922333333333, 34.25118666666666, 33.8081...</td>
+      <td>[0.17697029116548532, 0.17407852965238188, 0.1...</td>
+      <td>[1.69, 1.268, 0.8447, 0.4219, -0.000977, -0.42...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>90.0</td>
+      <td>9.27</td>
+      <td>-9.27</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2021-11-06_1300</td>
+      <td>1axis_2021-11-06_1300_Scene0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>[1.649, 1.235, 0.8213, 0.4072, -0.006836, -0.4...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[2.764, 2.654, 2.543, 2.434, 2.324, 2.215, 2.1...</td>
+      <td>[2.734, 2.625, 2.514, 2.404, 2.295, 2.184, 2.0...</td>
+      <td>[a1.0.a2.2.0.cellPVmodule.6457, a1.0.a2.4.0.ce...</td>
+      <td>[a1.0.a2.2.0.cellPVmodule.2310, a1.0.a2.4.0.ce...</td>
+      <td>[245.61113333333333, 245.6013, 245.59126666666...</td>
+      <td>[47.659349999999996, 46.66338, 45.619546666666...</td>
+      <td>[0.19404314173404028, 0.18999569629437507, 0.1...</td>
+      <td>[1.657, 1.243, 0.829, 0.415, 0.000977, -0.413,...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>90.0</td>
+      <td>-14.87</td>
+      <td>14.87</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2021-11-06_1400</td>
+      <td>1axis_2021-11-06_1400_Scene0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>[1.3545, 1.012, 0.67, 0.3271, -0.01465, -0.356...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[3.35, 3.092, 2.834, 2.578, 2.32, 2.062, 1.805...</td>
+      <td>[3.326, 3.068, 2.81, 2.555, 2.297, 2.04, 1.781...</td>
+      <td>[a1.0.a2.2.0.cellPVmodule.6457, a1.0.a2.4.0.ce...</td>
+      <td>[a1.0.a2.2.0.cellPVmodule.2310, a1.0.a2.4.0.ce...</td>
+      <td>[123.51633333333332, 123.40366666666667, 123.2...</td>
+      <td>[33.10988, 32.59641333333334, 32.04081, 31.030...</td>
+      <td>[0.2680585720762538, 0.2641424689503909, 0.259...</td>
+      <td>[1.372, 1.029, 0.6875, 0.3447, 0.00293, -0.338...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>90.0</td>
+      <td>-36.95</td>
+      <td>36.95</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">Wm2Back</span>  <span class="c1"># this value is a series of arrays of every individual irradiance result for each hour simulated.</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0    [60.32731333333333, 60.17080666666667, 59.6963...
+1    [34.81922333333333, 34.25118666666666, 33.8081...
+2    [47.659349999999996, 46.66338, 45.619546666666...
+3    [33.10988, 32.59641333333334, 32.04081, 31.030...
+Name: Wm2Back, dtype: object
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DataFrame of all results for one AnalysisObj.  These are compiled in demo.results</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">[</span><span class="n">trackerkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;AnalysisObj&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">results</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>modNum</th>
+      <th>rowNum</th>
+      <th>sceneNum</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>rearZ</th>
+      <th>mattype</th>
+      <th>rearMat</th>
+      <th>Wm2Front</th>
+      <th>Wm2Back</th>
+      <th>backRatio</th>
+      <th>rearX</th>
+      <th>rearY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1axis_2021-11-06_1100_Scene0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>[1.466, 1.103, 0.7397, 0.377, 0.01367, -0.3496...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[1.411, 1.639, 1.866, 2.094, 2.32, 2.547, 2.77...</td>
+      <td>[1.386, 1.613, 1.841, 2.068, 2.295, 2.523, 2.7...</td>
+      <td>[a1.0.a2.2.0.cellPVmodule.6457, a1.0.a2.4.0.ce...</td>
+      <td>[a1.0.a2.2.0.cellPVmodule.2310, a1.0.a2.4.0.ce...</td>
+      <td>[335.4420333333333, 335.78093333333334, 336.23...</td>
+      <td>[60.32731333333333, 60.17080666666667, 59.6963...</td>
+      <td>[0.17984369129343472, 0.17919608142506777, 0.1...</td>
+      <td>[1.449, 1.086, 0.723, 0.3604, -0.00293, -0.366...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
 </div>
 </section>
 <section id="3.-Explore-Save-Options">
-<h2>3. Explore Save Options<a class="headerlink" href="#3.-Explore-Save-Options" title="Permalink to this heading">#</a></h2>
+<h2>3. Explore Save Options<a class="headerlink" href="#3.-Explore-Save-Options" title="Link to this heading">#</a></h2>
 <p>The following lines offer ways to save your trackerdict or your demo object.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">exportTrackerDict</span><span class="p">(</span><span class="n">trackerdict</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="p">,</span> <span class="n">savefile</span> <span class="o">=</span> <span class="s1">&#39;results</span><span class="se">\\</span><span class="s1">test_reindexTrue.csv&#39;</span><span class="p">,</span> <span class="n">reindex</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
@@ -1149,6 +1119,7 @@ Saved: cumulative_results_.csv
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Exporting TrackerDict
+2
 Saved to file results\demopickle.pickle
 </pre></div></div>
 </div>
@@ -1179,7 +1150,7 @@ Saved to file results\demopickle.pickle
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">8 - Electrical Mismatch Method</p>
+        <p class="prev-next-title">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1190,7 +1161,8 @@ Saved to file results\demopickle.pickle
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1202,19 +1174,20 @@ Saved to file results\demopickle.pickle
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#1.-Create-a-short-Simulation-+-tracker-dictionary-beginning-to-end-for-1-day">1. Create a short Simulation + tracker dictionary beginning to end for 1 day</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#2.-Explore-the-tracker-dictionary">2. Explore the tracker dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#2.-Explore-the-RadianceObj">2. Explore the RadianceObj</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#3.-Explore-the-tracker-dictionary">3. Explore the tracker dictionary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#3.-Explore-Save-Options">3. Explore Save Options</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/6 - Exploring Trackerdict Structure.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/6 - Exploring Trackerdict Structure.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -1229,8 +1202,8 @@ Saved to file results\demopickle.pickle
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1250,7 +1223,7 @@ Saved to file results\demopickle.pickle
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1263,7 +1236,8 @@ Saved to file results\demopickle.pickle
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

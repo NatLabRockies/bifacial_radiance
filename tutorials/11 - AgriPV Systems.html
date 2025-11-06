@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11 - AgriPV Systems &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>11 - AgriPV Systems &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,34 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -50,6 +54,7 @@
     <link rel="prev" title="9 - Torquetube Shading" href="9%20-%20Torquetube%20Shading.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -65,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -85,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,8 +120,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -188,29 +181,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -259,15 +244,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -286,7 +267,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -347,15 +329,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,7 +399,7 @@ document.write(`
 </ul>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="6%20-%20Exploring%20Trackerdict%20Structure.html">6 - Exploring Trackerdict Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="9%20-%20Torquetube%20Shading.html">9 - Torquetube Shading</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">11 - AgriPV Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14%20-%20Cement%20Racking%20Albedo%20Improvements.html">14 - Cement Racking Albedo Improvements</a></li>
@@ -452,9 +430,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -472,8 +455,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -485,7 +466,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">11 - AgriPV Systems</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">11 - AgriPV Systems</span></li>
   </ul>
 </nav>
 </div>
@@ -502,262 +483,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
-<div class="nbinput nblast docutils container">
+  <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span> <span class="k">as</span> <span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">br</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -766,7 +499,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <section id="11---AgriPV-Systems">
-<h1>11 - AgriPV Systems<a class="headerlink" href="#11---AgriPV-Systems" title="Permalink to this heading">#</a></h1>
+<h1>11 - AgriPV Systems<a class="headerlink" href="#11---AgriPV-Systems" title="Link to this heading">#</a></h1>
 <p>This journal shows how to model an AgriPV site, calculating the irradiance not only on the modules but also the irradiance received by the ground to evaluate available solar ersource for plants.</p>
 <p>We assume that bifacia_radiacne is already installed in your computer. This works for bifacial_radiance v.3 release.</p>
 <p>These journal outlines 4 useful uses of bifacial_radiance and some tricks:</p>
@@ -777,7 +510,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Adding object to simulate variations in ground albedo from different crops between rows.</p></li>
 </ul>
 <section id="Steps:">
-<h2>Steps:<a class="headerlink" href="#Steps:" title="Permalink to this heading">#</a></h2>
+<h2>Steps:<a class="headerlink" href="#Steps:" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Generate the geometry</p></li>
 <li><p>Analyse the Ground Irradiance</p></li>
@@ -786,11 +519,11 @@ div.rendered_html tbody tr:hover {
 </ol>
 </section>
 <section id="Preview-of-what-we-will-create:">
-<h2>Preview of what we will create:<a class="headerlink" href="#Preview-of-what-we-will-create:" title="Permalink to this heading">#</a></h2>
+<h2>Preview of what we will create:<a class="headerlink" href="#Preview-of-what-we-will-create:" title="Link to this heading">#</a></h2>
 <p><img alt="Another view" src="../_images/AgriPV_2.PNG" /> <img alt="AgriPV Image We will create" src="../_images/AgriPV_1.PNG" /> And this is how it will look like:</p>
 <img alt="AgriPV modeled step 4" src="../_images/AgriPV_step4.PNG" />
 <section id="1.-Generate-the-geometry">
-<h3>1. Generate the geometry<a class="headerlink" href="#1.-Generate-the-geometry" title="Permalink to this heading">#</a></h3>
+<h3>1. Generate the geometry<a class="headerlink" href="#1.-Generate-the-geometry" title="Link to this heading">#</a></h3>
 <p>This section goes from setting up variables to making the OCT axis. We are also adding some custom elements for the torquetubes and posts.</p>
 <p>We’ve done this before a couple times, no new stuff here.</p>
 <p>The magic is that, for doing the carport we see in the figure, we are going to do a 4-up configuration of modules (<strong>numpanels</strong>), and we are going to repeat that 3-UP 6 times (<strong>nMods</strong>)</p>
@@ -798,8 +531,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="n">testfolder</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;bifacial_radiance&#39;</span> <span class="o">/</span> <span class="s1">&#39;TEMP&#39;</span> <span class="o">/</span>  <span class="s1">&#39;Tutorial_11&#39;</span><span class="p">)</span>
 
@@ -815,16 +548,18 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Your simulation will be stored in C:\Users\mprillim\sam_dev\bifacial_radiance\bifacial_radiance\TEMP\Tutorial_11
+Your simulation will be stored in C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_11
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bifacial_radiance</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 </pre></div>
 </div>
 </div>
@@ -877,7 +612,7 @@ Your simulation will be stored in C:\Users\mprillim\sam_dev\bifacial_radiance\bi
 
 <span class="c1"># Now let&#39;s run the example</span>
 
-<span class="n">demo</span> <span class="o">=</span> <span class="n">RadianceObj</span><span class="p">(</span><span class="n">simulationname</span><span class="p">,</span><span class="n">path</span> <span class="o">=</span> <span class="n">testfolder</span><span class="p">)</span>
+<span class="n">demo</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">RadianceObj</span><span class="p">(</span><span class="n">simulationname</span><span class="p">,</span><span class="n">path</span> <span class="o">=</span> <span class="n">testfolder</span><span class="p">)</span>
 <span class="n">demo</span><span class="o">.</span><span class="n">setGround</span><span class="p">(</span><span class="n">albedo</span><span class="p">)</span>
 <span class="n">epwfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getEPW</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span> <span class="c1"># NJ lat/lon 40.0583° N, 74.4057</span>
 <span class="n">metdata</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">readWeatherFile</span><span class="p">(</span><span class="n">epwfile</span><span class="p">,</span> <span class="n">coerce_year</span><span class="o">=</span><span class="mi">2001</span><span class="p">)</span>
@@ -900,7 +635,7 @@ Your simulation will be stored in C:\Users\mprillim\sam_dev\bifacial_radiance\bi
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-path = C:\Users\mprillim\sam_dev\bifacial_radiance\bifacial_radiance\TEMP\Tutorial_11
+path = C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_11
 Loading albedo, 1 value(s), 0.200 avg
 1 nonzero albedo values.
 Getting weather file: USA_NJ_McGuire.AFB.724096_TMY3.epw
@@ -912,7 +647,7 @@ Calculating Sun position for Metdata that is right-labeled  with a delta of -30 
 
 Module Name: test-module
 Module was shifted by 0.078 in X to avoid sensors on air
-This is a Cell-Level detailed module with Packaging Factor of 0.81 %
+This is a Cell-Level detailed module with Packaging Factor of 0.81
 Module test-module updated in module.json
 Pre-existing .rad file objects\test-module.rad will be overwritten
 
@@ -935,7 +670,7 @@ Created tutorial_11.oct
 <p>And adjust the view parameters, you should see this image.</p>
 <img alt="AgriPV modeled step 1" src="../_images/AgriPV_step1.PNG" />
 <section id="Adding-the-structure">
-<h4>Adding the structure<a class="headerlink" href="#Adding-the-structure" title="Permalink to this heading">#</a></h4>
+<h4>Adding the structure<a class="headerlink" href="#Adding-the-structure" title="Link to this heading">#</a></h4>
 <p>We will add on the torquetube and pillars.</p>
 <p>Positions of the piles could be done more programatically, but they are kinda estimated at the moment.</p>
 <div class="nbinput docutils container">
@@ -948,19 +683,19 @@ Created tutorial_11.oct
 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;! genbox Metal_Aluminum_Anodized torquetube_row1 </span><span class="si">{}</span><span class="s1"> 0.2 0.3 | xform -t </span><span class="si">{}</span><span class="s1"> -0.1 -0.3 | xform -t 0 0 4.2&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                                                     <span class="n">torquetubelength</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">torquetubelength</span><span class="o">+</span><span class="n">module</span><span class="o">.</span><span class="n">sceney</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span>
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">radfile</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;!xform -rz 0&quot;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">radfile</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
 
 <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Post2&#39;</span>
 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;! genbox Metal_Aluminum_Anodized torquetube_row2 </span><span class="si">{}</span><span class="s1"> 0.2 0.3 | xform -t </span><span class="si">{}</span><span class="s1"> -0.1 -0.3 | xform -t 0 15 4.2&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                                             <span class="n">torquetubelength</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">torquetubelength</span><span class="o">+</span><span class="n">module</span><span class="o">.</span><span class="n">sceney</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span>
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">radfile</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;!xform -rz 0&quot;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
 
 <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Post3&#39;</span>
 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;! genbox Metal_Aluminum_Anodized torquetube_row2 </span><span class="si">{}</span><span class="s1"> 0.2 0.3 | xform -t </span><span class="si">{}</span><span class="s1"> -0.1 -0.3 | xform -t 0 -15 4.2&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                                               <span class="n">torquetubelength</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">torquetubelength</span><span class="o">+</span><span class="n">module</span><span class="o">.</span><span class="n">sceney</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span>
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">radfile</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;!xform -rz 0&quot;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
 <br/></pre></div>
 </div>
 </div>
@@ -995,7 +730,7 @@ Custom Object Name objects\Post3.rad
     <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">! genrev Metal_Grey tube</span><span class="si">{}</span><span class="s1">row3 t*4.2 0.15 32 | xform -t </span><span class="si">{}</span><span class="s1"> -15 0&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">pile1x</span><span class="o">-</span><span class="n">pilesep</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
 
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">radfile</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;!xform -rz 0&quot;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span> <span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
 
 <span class="n">octfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct</span><span class="p">()</span>  <span class="c1"># makeOct combines all of the ground, sky and object files we just added into a .oct file.</span>
 </pre></div>
@@ -1013,7 +748,7 @@ Created tutorial_11.oct
 </div>
 </section>
 <section id="View-the-geometry-with-the-posts-on-:">
-<h4>View the geometry with the posts on :<a class="headerlink" href="#View-the-geometry-with-the-posts-on-:" title="Permalink to this heading">#</a></h4>
+<h4>View the geometry with the posts on :<a class="headerlink" href="#View-the-geometry-with-the-posts-on-:" title="Link to this heading">#</a></h4>
 <p><strong>rvu -vf views:nbsphinx-math:`front`.vp -e .01 -pe 0.4 -vp 12 -10 3.5 -vd -0.0995 0.9950 0.0 tutorial_11.oct</strong></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -1030,64 +765,48 @@ Created tutorial_11.oct
 </section>
 </section>
 <section id="2.-Analyse-the-Ground-Irradiance">
-<h3>2. Analyse the Ground Irradiance<a class="headerlink" href="#2.-Analyse-the-Ground-Irradiance" title="Permalink to this heading">#</a></h3>
+<h3>2. Analyse the Ground Irradiance<a class="headerlink" href="#2.-Analyse-the-Ground-Irradiance" title="Link to this heading">#</a></h3>
 <p>Now let’s do some analysis along the ground, starting from the edge of the modules. We wil select to start in the center of the array.</p>
 <p>We are also increasign the number of points sampled accross the collector width, with the variable <strong>sensorsy</strong> passed to <strong>moduleanalysis</strong>. We are also increasing the step between sampling points, to be able to sample in between the rows.</p>
-<div class="nbinput nblast docutils container">
+<p><strong>We’ll use the new ``AnalysisObj.groundAnalysis()`` function starting in v0.5.0 to determine the scan points on the ground.</strong></p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span> <span class="o">=</span> <span class="n">AnalysisObj</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">demo</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">AnalysisObj</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">demo</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 <span class="n">sensorsy</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">frontscan</span><span class="p">,</span> <span class="n">backscan</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">moduleAnalysis</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">sensorsy</span><span class="o">=</span><span class="n">sensorsy</span><span class="p">)</span>
-<br/></pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groundscan</span> <span class="o">=</span> <span class="n">frontscan</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groundscan</span><span class="p">[</span><span class="s1">&#39;zstart&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.05</span>  <span class="c1"># setting it 5 cm from the ground.</span>
-<span class="n">groundscan</span><span class="p">[</span><span class="s1">&#39;zinc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># no tilt necessary.</span>
-<span class="n">groundscan</span><span class="p">[</span><span class="s1">&#39;yinc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pitch</span><span class="o">/</span><span class="p">(</span><span class="n">sensorsy</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># increasing spacing so it covers all distance between rows</span>
+<span class="n">groundscan</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">groundAnalysis</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">sensorsground</span><span class="o">=</span><span class="n">sensorsy</span><span class="p">)</span>
 <span class="n">groundscan</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;xstart&#39;: 1.5159739062663865e-16,
- &#39;ystart&#39;: -1.237886635821746,
- &#39;zstart&#39;: 0.05,
- &#39;xinc&#39;: -1.5802346387185998e-17,
- &#39;yinc&#39;: 0.7894736842105263,
- &#39;zinc&#39;: 0,
+{&#39;xstart&#39;: np.float16(0.0),
+ &#39;ystart&#39;: np.float16(0.0),
+ &#39;zstart&#39;: np.float16(0.05),
+ &#39;xinc&#39;: np.float16(0.0),
+ &#39;yinc&#39;: np.float16(-0.7896),
+ &#39;zinc&#39;: np.float16(0.0),
  &#39;sx_xinc&#39;: 0.0,
  &#39;sx_yinc&#39;: 0.0,
  &#39;sx_zinc&#39;: 0.0,
  &#39;Nx&#39;: 1,
  &#39;Ny&#39;: 20,
  &#39;Nz&#39;: 1,
- &#39;orient&#39;: &#39;-0.000 0.574 -0.819&#39;}
+ &#39;orient&#39;: &#39;0 0 -1&#39;}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span><span class="o">.</span><span class="n">analysis</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">simulationname</span><span class="o">+</span><span class="s2">&quot;_groundscan&quot;</span><span class="p">,</span> <span class="n">groundscan</span><span class="p">,</span> <span class="n">backscan</span><span class="p">)</span>  <span class="c1"># compare the back vs front irradiance</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span><span class="o">.</span><span class="n">analysis</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">simulationname</span><span class="o">+</span><span class="s2">&quot;_scan&quot;</span><span class="p">,</span> <span class="n">groundscan</span><span class="p">)</span>  <span class="c1"># compare the back vs front irradiance</span>
 <br/></pre></div>
 </div>
 </div>
@@ -1096,9 +815,101 @@ Created tutorial_11.oct
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Linescan in process: tutorial_11_groundscan_Front
-Linescan in process: tutorial_11_groundscan_Back
-Saved: results\irr_tutorial_11_groundscan.csv
+Linescan in process: tutorial_11_scan_Row2_Module3_Front
+Saved: results\irr_tutorial_11_scan_Row2_Module3.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;Wm2&#39;: array([332.89396667, 691.32513333, 715.60123333, 735.5388    ,
+        744.5296    , 749.1159    , 750.81526667, 752.03366667,
+        751.96643333, 747.43736667, 743.95496667, 738.61256667,
+        734.60366667, 723.0667    , 708.3394    , 696.8361    ,
+        342.9871    , 323.97993333, 317.4839    , 337.0623    ]),
+ &#39;x&#39;: array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0.]),
+ &#39;y&#39;: array([  0.    ,  -0.7896,  -1.579 ,  -2.37  ,  -3.158 ,  -3.947 ,
+         -4.74  ,  -5.527 ,  -6.316 ,  -7.105 ,  -7.895 ,  -8.69  ,
+         -9.48  , -10.266 , -11.055 , -11.84  , -12.63  , -13.42  ,
+        -14.21  , -15.    ]),
+ &#39;z&#39;: array([0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05,
+        0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]),
+ &#39;r&#39;: array([332.7998, 691.1785, 715.4303, 735.3883, 744.4058, 749.002 ,
+        750.7009, 751.9545, 751.8872, 747.358 , 743.8846, 738.5325,
+        734.5281, 722.988 , 708.2579, 696.7358, 342.8804, 323.8683,
+        317.3708, 336.9688]),
+ &#39;g&#39;: array([332.8915, 691.3184, 715.5896, 735.5281, 744.5209, 749.1077,
+        750.807 , 752.0269, 751.9597, 747.4299, 743.9487, 738.6053,
+        734.5966, 723.0601, 708.3321, 696.8274, 342.9784, 323.9724,
+        317.4785, 337.0594]),
+ &#39;b&#39;: array([332.9906, 691.4785, 715.7838, 735.7   , 744.6621, 749.238 ,
+        750.9379, 752.1196, 752.0524, 747.5242, 744.0316, 738.6999,
+        734.6863, 723.152 , 708.4282, 696.9451, 343.1025, 324.0991,
+        317.6024, 337.1587]),
+ &#39;mattype&#39;: array([&#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;,
+        &#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;,
+        &#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;,
+        &#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;,
+        &#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;],
+       dtype=&#39;&lt;U32&#39;),
+ &#39;title&#39;: &#39;tutorial_11_scan_Row2_Module3_Front&#39;}
+</pre></div></div>
+</div>
+<p>This is the result for only one ‘chord’ accross the ground. Let’s now do a X-Y scan of the ground.</p>
+</section>
+<section id="3.-Analyse-and-MAP-the-Ground-Irradiance">
+<h3>3. Analyse and MAP the Ground Irradiance<a class="headerlink" href="#3.-Analyse-and-MAP-the-Ground-Irradiance" title="Link to this heading">#</a></h3>
+<p>We will use the same technique to find the irradiance on the ground used above, but will move it along the X-axis to map from the start of one module to the next.</p>
+<p>We will sample around the module that is placed at the center of the field.</p>
+<img alt="AgriPV modeled step 4" src="../_images/spacing_between_modules.PNG" />
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the groundAnalysis function released in bifacial_radiance v0.5.0. With sensorsx=20 it will be a 2D scan.</span>
+
+<span class="n">groundscan</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">groundAnalysis</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">sensorsground</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">sensorsgroundx</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">modWanted</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">groundscan</span><span class="p">[</span><span class="s1">&#39;ystart&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">sceneDict</span><span class="p">[</span><span class="s1">&#39;pitch&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">3</span>   <span class="c1"># start the scan in the middle of the row for better visualization</span>
+<span class="n">groundscan</span><span class="p">[</span><span class="s1">&#39;yinc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">groundscan</span><span class="p">[</span><span class="s1">&#39;yinc&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># zoom in for higher resolution scan</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">groundscan</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;xstart&#39;: np.float16(0.0), &#39;ystart&#39;: 5.0, &#39;zstart&#39;: np.float16(0.05), &#39;xinc&#39;: np.float16(0.0), &#39;yinc&#39;: np.float16(-0.1531), &#39;zinc&#39;: np.float16(0.0), &#39;sx_xinc&#39;: np.float64(0.08023529411764706), &#39;sx_yinc&#39;: np.float64(9.825989611982292e-18), &#39;sx_zinc&#39;: 0.0, &#39;Nx&#39;: 50, &#39;Ny&#39;: 50, &#39;Nz&#39;: 1, &#39;orient&#39;: &#39;0 0 -1&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span><span class="o">.</span><span class="n">analysis</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">simulationname</span><span class="o">+</span><span class="s2">&quot;_scan_xy&quot;</span><span class="p">,</span> <span class="n">groundscan</span><span class="p">)</span>  <span class="c1"># only need to pass a front groundscan</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Linescan in process: tutorial_11_scan_xy_Row2_Module3_Front
+Saved: results\irr_tutorial_11_scan_xy_Row2_Module3.csv
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1107,350 +918,65 @@ Saved: results\irr_tutorial_11_groundscan.csv
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-({&#39;Wm2&#39;: [707.7193666666666,
-   679.3139666666666,
-   320.71520000000004,
-   321.5017,
-   326.947,
-   355.2678,
-   703.1252000000001,
-   717.6289666666667,
-   730.9323333333333,
-   738.5453666666667,
-   744.1402333333334,
-   748.625,
-   750.1326666666668,
-   753.2622333333334,
-   754.2802333333333,
-   753.4847333333332,
-   749.6281333333333,
-   744.2707333333334,
-   730.8705333333334,
-   709.3668333333334],
-  &#39;x&#39;: [1.515974e-16,
-   1.35795e-16,
-   1.199927e-16,
-   1.041904e-16,
-   8.838801e-17,
-   7.258566e-17,
-   5.678331e-17,
-   4.098097e-17,
-   2.517862e-17,
-   9.376273e-18,
-   -6.426073e-18,
-   -2.222842e-17,
-   -3.803077e-17,
-   -5.383311e-17,
-   -6.963546e-17,
-   -8.543781e-17,
-   -1.012402e-16,
-   -1.170425e-16,
-   -1.328448e-16,
-   -1.486472e-16],
-  &#39;y&#39;: [-1.237887,
-   -0.448413,
-   0.3410607,
-   1.130534,
-   1.920008,
-   2.709482,
-   3.498955,
-   4.288429,
-   5.077903,
-   5.867377,
-   6.65685,
-   7.446324,
-   8.235798,
-   9.025271,
-   9.814745,
-   10.60422,
-   11.39369,
-   12.18317,
-   12.97264,
-   13.76211],
-  &#39;z&#39;: [0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05,
-   0.05],
-  &#39;r&#39;: [707.5753,
-   679.1962,
-   320.6044,
-   321.3819,
-   326.8311,
-   355.1729,
-   703.0397,
-   717.5341,
-   730.8545,
-   738.4874,
-   744.0706,
-   748.5612,
-   750.0686,
-   753.1605,
-   754.1783,
-   753.3657,
-   749.512,
-   744.1373,
-   730.7393,
-   709.2124],
-  &#39;g&#39;: [707.7124,
-   679.3104,
-   320.7099,
-   321.4949,
-   326.9389,
-   355.2608,
-   703.1177,
-   717.6204,
-   730.9257,
-   738.5405,
-   744.1342,
-   748.6193,
-   750.127,
-   753.2527,
-   754.2706,
-   753.4746,
-   749.619,
-   744.2607,
-   730.8623,
-   709.3582],
-  &#39;b&#39;: [707.8704,
-   679.4353,
-   320.8313,
-   321.6283,
-   327.071,
-   355.3697,
-   703.2182,
-   717.7324,
-   731.0168,
-   738.6082,
-   744.2159,
-   748.6945,
-   750.2024,
-   753.3735,
-   754.3918,
-   753.6139,
-   749.7534,
-   744.4142,
-   731.01,
-   709.5299],
-  &#39;mattype&#39;: [&#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;,
-   &#39;groundplane&#39;],
-  &#39;title&#39;: &#39;tutorial_11_groundscan_Front&#39;},
- {&#39;Wm2&#39;: [258.8127,
-   131.0589,
-   130.75906666666668,
-   130.4594,
-   125.61353333333334,
-   124.4103,
-   258.8127,
-   100.8693,
-   87.56585,
-   81.7781,
-   135.29413333333335,
-   127.25869999999999,
-   129.3859666666667,
-   258.8127,
-   132.0198,
-   133.18776666666668,
-   134.2764,
-   135.00026666666668,
-   135.94163333333333,
-   258.8127],
-  &#39;x&#39;: [1.50052e-16,
-   1.342497e-16,
-   1.184474e-16,
-   1.02645e-16,
-   8.684266e-17,
-   7.104032e-17,
-   5.523797e-17,
-   3.943562e-17,
-   2.363328e-17,
-   7.83093e-18,
-   -7.971416e-18,
-   -2.377376e-17,
-   -3.957611e-17,
-   -5.537846e-17,
-   -7.11808e-17,
-   -8.698315e-17,
-   -1.027855e-16,
-   -1.185878e-16,
-   -1.343902e-16,
-   -1.501925e-16],
-  &#39;y&#39;: [-1.225268,
-   -1.096232,
-   -0.9671961,
-   -0.8381601,
-   -0.7091242,
-   -0.5800882,
-   -0.4510523,
-   -0.3220163,
-   -0.1929803,
-   -0.0639444,
-   0.06509155,
-   0.1941275,
-   0.3231635,
-   0.4521994,
-   0.5812354,
-   0.7102713,
-   0.8393073,
-   0.9683432,
-   1.097379,
-   1.226415],
-  &#39;z&#39;: [3.440837,
-   3.531189,
-   3.621541,
-   3.711893,
-   3.802245,
-   3.892597,
-   3.982949,
-   4.073301,
-   4.163653,
-   4.254005,
-   4.344357,
-   4.434709,
-   4.525061,
-   4.615413,
-   4.705765,
-   4.796117,
-   4.886468,
-   4.97682,
-   5.067172,
-   5.157524],
-  &#39;r&#39;: [258.8127,
-   130.8674,
-   130.568,
-   130.2688,
-   125.3934,
-   124.1923,
-   258.8127,
-   100.1214,
-   86.4007,
-   80.33697,
-   134.2312,
-   126.7886,
-   128.908,
-   258.8127,
-   131.8432,
-   133.0096,
-   134.1148,
-   134.8378,
-   135.8387,
-   258.8127],
-  &#39;g&#39;: [258.8127,
-   131.0518,
-   130.752,
-   130.4523,
-   125.5993,
-   124.3962,
-   258.8127,
-   100.7859,
-   87.42799,
-   81.59953,
-   135.1632,
-   127.206,
-   129.3324,
-   258.8127,
-   132.0045,
-   133.1724,
-   134.2626,
-   134.9864,
-   135.9336,
-   258.8127],
-  &#39;b&#39;: [258.8127,
-   131.2575,
-   130.9572,
-   130.6571,
-   125.8479,
-   124.6424,
-   258.8127,
-   101.7006,
-   88.86886,
-   83.3978,
-   136.488,
-   127.7815,
-   129.9175,
-   258.8127,
-   132.2117,
-   133.3813,
-   134.4518,
-   135.1766,
-   136.0526,
-   258.8127],
-  &#39;mattype&#39;: [&#39;sky&#39;,
-   &#39;a2.1.a5.1.0.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.2.0.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.3.0.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.4.0.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.5.0.cellPVmodule.2310&#39;,
-   &#39;sky&#39;,
-   &#39;a2.1.a5.0.1.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.1.1.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.2.1.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.3.1.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.4.1.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.5.1.cellPVmodule.2310&#39;,
-   &#39;sky&#39;,
-   &#39;a2.1.a5.0.2.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.1.2.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.2.2.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.3.2.cellPVmodule.2310&#39;,
-   &#39;a2.1.a5.4.2.cellPVmodule.2310&#39;,
-   &#39;sky&#39;],
-  &#39;title&#39;: &#39;tutorial_11_groundscan_Back&#39;})
+{&#39;Wm2&#39;: array([726.9225    , 725.8793    , 724.83606667, ..., 729.0038    ,
+        732.92426667, 737.66856667], shape=(2500,)),
+ &#39;x&#39;: array([0.      , 0.      , 0.      , ..., 3.931529, 3.931529, 3.931529],
+       shape=(2500,)),
+ &#39;y&#39;: array([ 5.      ,  4.847656,  4.695312, ..., -2.195312, -2.347656,
+        -2.5     ], shape=(2500,)),
+ &#39;z&#39;: array([0.05, 0.05, 0.05, ..., 0.05, 0.05, 0.05], shape=(2500,)),
+ &#39;r&#39;: array([726.8588, 725.8158, 724.7727, ..., 728.8752, 732.791 , 737.5244],
+       shape=(2500,)),
+ &#39;g&#39;: array([726.9164, 725.8732, 724.83  , ..., 728.9965, 732.9161, 737.6588],
+       shape=(2500,)),
+ &#39;b&#39;: array([726.9923, 725.9489, 724.9055, ..., 729.1397, 733.0657, 737.8225],
+       shape=(2500,)),
+ &#39;mattype&#39;: array([&#39;groundplane&#39;, &#39;groundplane&#39;, &#39;groundplane&#39;, ..., &#39;groundplane&#39;,
+        &#39;groundplane&#39;, &#39;groundplane&#39;], shape=(2500,), dtype=&#39;&lt;U32&#39;),
+ &#39;title&#39;: &#39;tutorial_11_scan_xy_Row2_Module3_Front&#39;}
 </pre></div></div>
 </div>
-<p>This is the result for only one ‘chord’ accross the ground. Let’s now do a X-Y scan of the ground.</p>
-</section>
-<section id="3.-Analyse-and-MAP-the-Ground-Irradiance">
-<h3>3. Analyse and MAP the Ground Irradiance<a class="headerlink" href="#3.-Analyse-and-MAP-the-Ground-Irradiance" title="Permalink to this heading">#</a></h3>
-<p>We will use the same technique to find the irradiance on the ground used above, but will move it along the X-axis to map from the start of one module to the next.</p>
-<p>We will sample around the module that is placed at the center of the field.</p>
-<img alt="AgriPV modeled step 4" src="../_images/spacing_between_modules.PNG" />
+<p>read the results file</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span><span class="s1">&#39;irr_tutorial_11_scan_xy_Row2_Module3.csv&#39;</span><span class="p">)</span>
+<span class="n">resultsDF</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sensorsx</span> <span class="o">=</span> <span class="mi">20</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a pivot table to reshape data into a grid</span>
+<span class="n">heatmap_data</span> <span class="o">=</span> <span class="n">resultsDF</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Wm2Front&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="c1">#plt.imshow(heatmap_data,  aspect=&#39;auto&#39;, origin=&#39;lower&#39;)  # imshow doesn&#39;t preserve correct x and y coordinates.</span>
+<span class="c1">#plt.colorbar(label=&#39;Wm-2&#39;)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">heatmap_data</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Wm-2&#39;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Heatmap: ground irradiance&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_11_-_AgriPV_Systems_30_0.png" src="../_images/tutorials_11_-_AgriPV_Systems_30_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Deprecated method, but still works.</span>
+<span class="n">sensorsx</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">startgroundsample</span><span class="o">=-</span><span class="n">module</span><span class="o">.</span><span class="n">scenex</span>
 <span class="n">spacingbetweensamples</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">scenex</span><span class="o">/</span><span class="p">(</span><span class="n">sensorsx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
@@ -1462,79 +988,11 @@ Saved: results\irr_tutorial_11_groundscan.csv
     <span class="n">groundscan</span><span class="p">[</span><span class="s1">&#39;yinc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pitch</span><span class="o">/</span><span class="p">(</span><span class="n">sensorsy</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># increasing spacing so it covers all distance between rows</span>
     <span class="n">groundscan</span><span class="p">[</span><span class="s1">&#39;xstart&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">startgroundsample</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">spacingbetweensamples</span>   <span class="c1"># increasing spacing so it covers all distance between rows</span>
     <span class="n">analysis</span><span class="o">.</span><span class="n">analysis</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">simulationname</span><span class="o">+</span><span class="s2">&quot;_groundscan_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">groundscan</span><span class="p">,</span> <span class="n">backscan</span><span class="p">)</span>  <span class="c1"># compare the back vs front irradiance</span>
-<br/></pre></div>
+</pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Linescan in process: tutorial_11_groundscan_0_Front
-Linescan in process: tutorial_11_groundscan_0_Back
-Saved: results\irr_tutorial_11_groundscan_0.csv
-Linescan in process: tutorial_11_groundscan_1_Front
-Linescan in process: tutorial_11_groundscan_1_Back
-Saved: results\irr_tutorial_11_groundscan_1.csv
-Linescan in process: tutorial_11_groundscan_2_Front
-Linescan in process: tutorial_11_groundscan_2_Back
-Saved: results\irr_tutorial_11_groundscan_2.csv
-Linescan in process: tutorial_11_groundscan_3_Front
-Linescan in process: tutorial_11_groundscan_3_Back
-Saved: results\irr_tutorial_11_groundscan_3.csv
-Linescan in process: tutorial_11_groundscan_4_Front
-Linescan in process: tutorial_11_groundscan_4_Back
-Saved: results\irr_tutorial_11_groundscan_4.csv
-Linescan in process: tutorial_11_groundscan_5_Front
-Linescan in process: tutorial_11_groundscan_5_Back
-Saved: results\irr_tutorial_11_groundscan_5.csv
-Linescan in process: tutorial_11_groundscan_6_Front
-Linescan in process: tutorial_11_groundscan_6_Back
-Saved: results\irr_tutorial_11_groundscan_6.csv
-Linescan in process: tutorial_11_groundscan_7_Front
-Linescan in process: tutorial_11_groundscan_7_Back
-Saved: results\irr_tutorial_11_groundscan_7.csv
-Linescan in process: tutorial_11_groundscan_8_Front
-Linescan in process: tutorial_11_groundscan_8_Back
-Saved: results\irr_tutorial_11_groundscan_8.csv
-Linescan in process: tutorial_11_groundscan_9_Front
-Linescan in process: tutorial_11_groundscan_9_Back
-Saved: results\irr_tutorial_11_groundscan_9.csv
-Linescan in process: tutorial_11_groundscan_10_Front
-Linescan in process: tutorial_11_groundscan_10_Back
-Saved: results\irr_tutorial_11_groundscan_10.csv
-Linescan in process: tutorial_11_groundscan_11_Front
-Linescan in process: tutorial_11_groundscan_11_Back
-Saved: results\irr_tutorial_11_groundscan_11.csv
-Linescan in process: tutorial_11_groundscan_12_Front
-Linescan in process: tutorial_11_groundscan_12_Back
-Saved: results\irr_tutorial_11_groundscan_12.csv
-Linescan in process: tutorial_11_groundscan_13_Front
-Linescan in process: tutorial_11_groundscan_13_Back
-Saved: results\irr_tutorial_11_groundscan_13.csv
-Linescan in process: tutorial_11_groundscan_14_Front
-Linescan in process: tutorial_11_groundscan_14_Back
-Saved: results\irr_tutorial_11_groundscan_14.csv
-Linescan in process: tutorial_11_groundscan_15_Front
-Linescan in process: tutorial_11_groundscan_15_Back
-Saved: results\irr_tutorial_11_groundscan_15.csv
-Linescan in process: tutorial_11_groundscan_16_Front
-Linescan in process: tutorial_11_groundscan_16_Back
-Saved: results\irr_tutorial_11_groundscan_16.csv
-Linescan in process: tutorial_11_groundscan_17_Front
-Linescan in process: tutorial_11_groundscan_17_Back
-Saved: results\irr_tutorial_11_groundscan_17.csv
-Linescan in process: tutorial_11_groundscan_18_Front
-Linescan in process: tutorial_11_groundscan_18_Back
-Saved: results\irr_tutorial_11_groundscan_18.csv
-Linescan in process: tutorial_11_groundscan_19_Front
-Linescan in process: tutorial_11_groundscan_19_Back
-Saved: results\irr_tutorial_11_groundscan_19.csv
-</pre></div></div>
-</div>
-<p>Read all the files generated into one dataframe</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filestarter</span> <span class="o">=</span> <span class="s2">&quot;irr_tutorial_11_groundscan_&quot;</span>
@@ -1542,9 +1000,7 @@ Saved: results\irr_tutorial_11_groundscan_19.csv
 <span class="n">filelist</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">)))</span>
 <span class="n">prefixed</span> <span class="o">=</span> <span class="p">[</span><span class="n">filename</span> <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filelist</span> <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">filestarter</span><span class="p">)]</span>
 <span class="n">arrayWm2Front</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">arrayWm2Back</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">arrayMatFront</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">arrayMatBack</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">filenamed</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">faillist</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -1556,67 +1012,40 @@ Saved: results\irr_tutorial_11_groundscan_19.csv
     <span class="n">ind</span> <span class="o">=</span> <span class="n">prefixed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">resultsDF</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="n">prefixed</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="n">resultsDF</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="n">prefixed</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
         <span class="n">arrayWm2Front</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">resultsDF</span><span class="p">[</span><span class="s1">&#39;Wm2Front&#39;</span><span class="p">]))</span>
-        <span class="n">arrayWm2Back</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">resultsDF</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]))</span>
         <span class="n">arrayMatFront</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">resultsDF</span><span class="p">[</span><span class="s1">&#39;mattype&#39;</span><span class="p">]))</span>
-        <span class="n">arrayMatBack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">resultsDF</span><span class="p">[</span><span class="s1">&#39;rearMat&#39;</span><span class="p">]))</span>
         <span class="n">filenamed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prefixed</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; FAILED &quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">prefixed</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="n">faillist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prefixed</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
-<span class="n">resultsdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">arrayWm2Front</span><span class="p">,</span> <span class="n">arrayWm2Back</span><span class="p">,</span>
-                                  <span class="n">arrayMatFront</span><span class="p">,</span> <span class="n">arrayMatBack</span><span class="p">)),</span>
-                         <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;br_Wm2Front&#39;</span><span class="p">,</span> <span class="s1">&#39;br_Wm2Back&#39;</span><span class="p">,</span>
-                                    <span class="s1">&#39;br_MatFront&#39;</span><span class="p">,</span> <span class="s1">&#39;br_MatBack&#39;</span><span class="p">])</span>
+<span class="n">resultsdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">arrayWm2Front</span><span class="p">,</span>
+                                  <span class="n">arrayMatFront</span><span class="p">)),</span>
+                         <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;br_Wm2Front&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;br_MatFront&#39;</span><span class="p">])</span>
 <span class="n">resultsdf</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filenamed</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-21 files in the directory
-20 groundscan files in the directory
-</pre></div></div>
-</div>
 <p>Creating a new dataframe where each element in the front irradiance list is a column. Also transpose and reverse so it looks like a top-down view of the ground.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resultsdf</span><span class="p">[</span><span class="s1">&#39;br_Wm2Front&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">())</span>
 <span class="n">reversed_df</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">iloc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mf">11.7</span><span class="p">,</span><span class="mf">8.27</span><span class="p">)})</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mf">11.7</span><span class="p">,</span><span class="mf">8.27</span><span class="p">)})</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">sns</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;module &#39;seaborn&#39; from &#39;C:\\Users\\mprillim\\AppData\\Local\\anaconda3\\Lib\\site-packages\\seaborn\\__init__.py&#39;&gt;
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">reversed_df</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">reversed_df</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">reversed_df</span><span class="p">[</span><span class="o">-</span><span class="mi">20</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -1630,93 +1059,71 @@ Saved: results\irr_tutorial_11_groundscan_19.csv
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-            0           1           2           3           4           5   \
-19  706.103133  708.401400  721.409200  717.619833  715.598133  714.769967
-18  729.545700  730.459500  736.484300  733.422067  733.810267  732.349067
-17  744.611167  744.542333  744.579000  744.724633  750.426100  744.390300
-16  750.814333  751.606700  749.812433  750.632400  751.096500  750.848633
-15  753.168167  753.276833  753.276567  755.596267  752.409900  752.694000
-14  755.519533  752.961300  752.966167  755.388967  753.513033  752.432300
-13  754.755633  752.870133  752.360067  752.922700  752.463167  753.046767
-12  750.480900  752.070000  750.826967  751.828333  751.950300  752.030000
-11  748.509767  747.130000  749.399867  746.466000  748.227600  746.539433
-10  745.415200  744.417000  743.864667  744.758867  744.103900  742.821967
-9   738.088100  739.890267  741.674200  738.149167  737.464833  736.426367
-8   731.910667  730.627967  729.591467  731.874200  731.301133  730.675900
-7   720.658000  718.901000  720.356467  722.543900  721.599267  720.658700
-6   705.715100  705.710900  705.746200  707.904900  707.941067  707.607633
-5   355.021367  680.047933  687.220900  689.482767  688.437867  690.134767
-4   338.137467  328.818467  669.616733  665.818167  669.199033  670.765433
-3   320.249833  319.284800  320.558033  321.297400  320.372400  322.348033
-2   327.381400  651.769900  275.794300  291.608000  650.141667  662.958800
-1   675.499700  677.584933  705.427933  697.571600  690.976100  691.939233
-0   709.134933  708.707133  715.170800  716.620033  715.826767  714.051933
+         0        1        2        3        4        5        6        7   \
+19  707.406  717.969  716.894  714.724  714.243  716.414  712.684  712.545
+18  729.280  732.414  729.824  730.705  729.512  728.390  732.200  729.413
+17  742.290  741.332  741.132  742.073  740.483  742.423  740.617  742.121
+16  748.540  749.139  750.334  747.030  746.692  748.511  748.210  747.987
+15  751.114  750.602  750.646  748.215  751.154  750.184  750.756  748.963
+14  750.900  751.425  750.603  751.448  750.752  749.719  750.619  749.944
+13  749.895  750.598  750.358  750.608  749.556  748.857  749.798  748.299
+12  749.067  747.934  746.706  748.213  748.873  747.933  745.351  747.451
+11  747.113  743.653  745.578  743.618  744.040  745.298  742.976  745.138
+10  740.553  740.609  740.436  740.262  741.033  741.978  740.426  741.833
+9   737.209  736.845  736.907  736.815  737.291  736.247  734.540  736.351
+8   729.293  729.673  727.995  728.887  726.439  725.763  728.758  727.641
+7   719.901  718.717  720.173  718.191  716.884  718.772  719.067  718.369
+6   700.821  702.329  705.662  701.864  707.937  704.963  700.293  704.312
+5   354.341  683.318  687.082  686.330  686.340  684.015  687.402  684.329
+4   334.167  662.397  664.277  668.186  670.255  664.270  664.053  663.075
+3   320.988  314.571  319.350  321.853  321.258  321.913  320.597  319.688
+2   320.926  273.219  294.420  647.285  657.277  664.323  668.472  664.876
+1   673.899  704.114  693.208  692.315  687.508  688.551  685.345  681.715
+0   707.498  716.469  715.741  713.949  716.359  714.613  711.151  711.483
 
-            6           7           8           9           10          11  \
-19  717.691533  711.522867  712.757500  710.257500  709.220933  709.313067
-18  733.783333  735.913067  732.007233  733.509267  730.354000  727.958400
-17  745.029333  743.979700  744.263733  743.381600  743.023400  744.490167
-16  749.903167  751.742567  749.769567  751.066300  753.117233  751.002000
-15  751.250233  752.366833  753.492867  753.876900  753.367467  751.385933
-14  753.530700  754.778467  752.997567  753.582500  753.520900  754.236267
-13  753.227333  753.807267  751.415867  752.906700  751.486333  753.493467
-12  750.532067  750.670900  749.872667  750.832367  750.489133  750.151933
-11  748.346967  748.892033  748.041633  749.023133  746.868867  749.238767
-10  745.314000  743.720400  746.012533  743.005167  743.646567  744.196700
-9   738.304500  739.222567  738.664833  738.182167  738.772300  736.990800
-8   729.956467  731.690267  729.075000  732.476567  732.160167  728.579133
-7   720.596533  717.014033  720.265167  721.179033  722.140600  718.498733
-6   702.689367  704.966000  706.626000  704.748233  704.622767  701.180133
-5   689.890667  687.784400  686.179433  681.387233  351.740667  350.329433
-4   666.880300  669.387933  667.090400  664.898567  330.810567  328.805800
-3   327.578400  324.940033  325.044300  326.605767  320.433933  316.942600
-2   668.190433  666.299400  664.494500  330.880267  327.974767  327.230867
-1   694.239867  687.681200  681.103600  680.670400  680.848533  675.766867
-0   714.675833  711.183500  714.889300  708.400500  707.713700  706.633333
+         8        9        10       11       12       13       14       15  \
+19  705.832  708.720  703.669  704.252  702.321  708.024  718.406  706.891
+18  728.908  729.055  725.850  730.129  726.288  727.500  728.547  727.856
+17  741.224  739.863  738.964  740.845  741.500  740.430  742.609  745.785
+16  745.745  749.318  745.715  748.944  750.367  749.119  747.044  747.491
+15  751.969  750.249  750.950  751.556  751.332  749.325  750.176  751.702
+14  751.767  751.910  751.030  751.151  750.852  751.570  751.093  751.438
+13  751.435  751.356  749.836  749.849  749.996  750.831  750.609  749.603
+12  748.000  748.337  748.766  749.181  748.254  747.095  749.462  748.451
+11  746.259  744.259  743.422  744.654  746.670  745.473  746.861  745.804
+10  738.829  742.371  740.733  741.055  742.475  742.264  742.060  740.075
+9   736.462  736.461  735.780  736.916  736.081  738.540  737.089  737.146
+8   729.293  728.309  727.202  729.124  728.198  727.733  730.143  729.315
+7   716.004  717.708  716.707  719.645  717.529  718.759  718.789  716.356
+6   700.026  698.568  701.876  701.915  703.323  697.521  703.071  702.413
+5   675.622  352.690  353.954  680.402  350.238  352.881  350.218  352.422
+4   659.245  329.629  330.931  328.748  328.929  327.717  656.867  326.471
+3   319.938  319.540  320.286  316.757  318.837  315.101  319.000  312.704
+2   329.639  324.359  326.718  646.582  322.878  321.502  322.878  320.654
+1   676.957  676.866  674.528  670.076  685.064  677.959  674.577  678.735
+0   705.578  705.871  701.008  706.876  706.066  704.624  707.191  707.824
 
-            12          13          14          15          16          17  \
-19  706.175833  707.180167  707.157300  712.048733  711.981600  712.040900
-18  730.764033  731.337400  730.642267  731.579567  732.021133  734.080200
-17  744.146933  744.611200  744.521800  750.407100  744.508967  744.732367
-16  751.809200  752.194033  751.928133  751.819000  752.302333  750.826333
-15  755.611933  752.418633  753.354900  753.825367  754.609733  753.545500
-14  755.459067  753.681333  752.879167  753.613000  754.177467  754.335200
-13  752.477633  752.804200  752.309033  752.380667  752.349700  753.632500
-12  751.937000  751.482567  751.690500  751.212533  750.968867  751.490867
-11  745.877267  749.956467  746.414533  748.219567  747.418833  750.582933
-10  743.980700  744.447867  744.451467  743.770867  744.250100  743.863700
-9   738.769033  740.103767  739.964800  740.716233  740.526967  739.124967
-8   731.160033  732.168800  732.826267  732.408633  729.162133  728.532900
-7   720.710100  723.232600  719.786533  722.325033  721.168400  720.971133
-6   701.214467  701.417100  705.849133  704.621900  703.753500  707.717633
-5   352.463567  354.728900  349.988367  351.652033  352.812367  356.005000
-4   326.716367  332.401600  657.308800  327.399467  332.307633  332.213533
-3   315.542133  321.294167  316.153100  317.716767  319.481167  319.000733
-2   322.115700  326.696033  325.644433  328.398267  334.000367  333.711533
-1   678.285333  675.390400  680.057467  683.956267  684.276000  692.499100
-0   707.710367  708.147867  708.910233  712.326833  712.278500  711.902933
-
-            18          19
-19  715.376667  717.643300
-18  732.649500  733.783533
-17  744.968867  745.995367
-16  752.177467  749.564300
-15  752.481233  754.267833
-14  753.339100  753.756800
-13  752.515900  752.555833
-12  750.258367  751.863267
-11  748.909267  747.531667
-10  743.856633  743.706133
-9   740.541067  740.049867
-8   730.285833  731.056367
-7   720.315467  720.296133
-6   704.827100  705.745667
-5   358.585133  685.921833
-4   335.268367  665.815167
-3   318.638567  324.686667
-2   648.111033  627.050300
-1   697.486433  704.735667
-0   715.283367  718.631267
+         16       17       18       19
+19  708.602  709.554  715.373  721.070
+18  729.540  730.513  730.164  729.620
+17  742.639  742.209  742.780  741.877
+16  749.018  746.404  747.755  746.784
+15  749.695  751.076  750.510  751.580
+14  752.223  750.664  750.881  751.237
+13  751.574  749.701  750.096  750.593
+12  746.353  750.063  749.250  748.708
+11  745.252  744.550  745.143  746.247
+10  740.399  740.694  742.419  740.563
+9   736.811  735.837  735.107  737.445
+8   727.679  725.720  726.642  728.830
+7   718.192  717.113  720.348  718.582
+6   701.093  699.885  701.115  703.428
+5   354.495  352.973  358.208  686.067
+4   330.890  334.090  328.851  664.724
+3   317.191  319.022  320.305  314.738
+2   327.450  328.641  648.727  629.784
+1   680.499  686.356  691.963  699.706
+0   710.695  708.237  712.785  715.473
 
 </pre></div></div>
 </div>
@@ -1724,15 +1131,15 @@ Saved: results\irr_tutorial_11_groundscan_19.csv
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_11_-_AgriPV_Systems_34_1.png" src="../_images/tutorials_11_-_AgriPV_Systems_34_1.png" />
+<img alt="../_images/tutorials_11_-_AgriPV_Systems_35_1.png" src="../_images/tutorials_11_-_AgriPV_Systems_35_1.png" />
 </div>
 </div>
 </section>
 <section id="4.-Adding-different-Albedo-Sections">
-<h3>4. Adding different Albedo Sections<a class="headerlink" href="#4.-Adding-different-Albedo-Sections" title="Permalink to this heading">#</a></h3>
+<h3>4. Adding different Albedo Sections<a class="headerlink" href="#4.-Adding-different-Albedo-Sections" title="Link to this heading">#</a></h3>
 <p>Add a surface (just like we added the pillars) with a specific reflectivity to represent different albedo sections. In the image, we can see that the albedo between the crops is different than the crop albedo. Let’s assume that the abledo between the crops is higher than the crop’s albedo which wa previuosly set a 0.2.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Center_Grass&#39;</span>
@@ -1740,21 +1147,11 @@ Saved: results\irr_tutorial_11_groundscan_19.csv
 <span class="n">carpositiony</span><span class="o">=-</span><span class="mi">1</span>
 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;! genbox white_EPDM CenterPatch 28 12 0.1 | xform -t -14 2 0&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">carpositionx</span><span class="p">,</span> <span class="n">carpositiony</span><span class="p">)</span>
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="p">,</span> <span class="s1">&#39;!xform -rz 0&#39;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="p">)</span>
 
 <span class="n">octfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">getfilelist</span><span class="p">())</span>
 <br/></pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-
-Custom Object Name objects\Center_Grass.rad
-Created tutorial_11.oct
-</pre></div></div>
 </div>
 <p>Viewing with rvu:</p>
 <img alt="AgriPV modeled step 4" src="../_images/AgriPV_step4.PNG" />
@@ -1797,7 +1194,8 @@ Created tutorial_11.oct
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1824,13 +1222,13 @@ Created tutorial_11.oct
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/11 - AgriPV Systems.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/11 - AgriPV Systems.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -1845,8 +1243,8 @@ Created tutorial_11.oct
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1866,7 +1264,7 @@ Created tutorial_11.oct
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1879,7 +1277,8 @@ Created tutorial_11.oct
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

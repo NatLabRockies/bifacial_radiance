@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>5 - Bifacial Carports and Canopies &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>5 - Bifacial Carports and Canopies &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,34 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -50,6 +54,7 @@
     <link rel="prev" title="4 - Debugging with Custom Objects" href="4%20-%20Debugging%20with%20Custom%20Objects.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -65,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -85,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,8 +120,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -188,29 +181,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -259,15 +244,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -286,7 +267,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -347,15 +329,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,7 +399,7 @@ document.write(`
 </ul>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="6%20-%20Exploring%20Trackerdict%20Structure.html">6 - Exploring Trackerdict Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="9%20-%20Torquetube%20Shading.html">9 - Torquetube Shading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11%20-%20AgriPV%20Systems.html">11 - AgriPV Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14%20-%20Cement%20Racking%20Albedo%20Improvements.html">14 - Cement Racking Albedo Improvements</a></li>
@@ -452,9 +430,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -472,8 +455,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -485,7 +466,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">5 -...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">5 - Bifacial Carports and Canopies</span></li>
   </ul>
 </nav>
 </div>
@@ -502,262 +483,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+  <div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span> <span class="k">as</span> <span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -765,8 +499,19 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Working on a  Windows 10
+Python version  3.11.8 | packaged by conda-forge | (main, Feb 16 2024, 20:40:50) [MSC v.1937 64 bit (AMD64)]
+Pandas version  2.2.3
+bifacial_radiance version  0.5.0b2.dev4+gedb973d.d20250924
+</pre></div></div>
+</div>
 <section id="5---Bifacial-Carports-and-Canopies">
-<h1>5 - Bifacial Carports and Canopies<a class="headerlink" href="#5---Bifacial-Carports-and-Canopies" title="Permalink to this heading">#</a></h1>
+<h1>5 - Bifacial Carports and Canopies<a class="headerlink" href="#5---Bifacial-Carports-and-Canopies" title="Link to this heading">#</a></h1>
 <p>This journal shows how to model a carport or canopy ~ a fixed structure, usually at a high clearance from the ground, with more than one bifacial solar module in the same inclined-plane to create a “shade” for the cars/people below.</p>
 <p>We assume that bifacia_radiacne is already installed in yoru computer. This works for bifacial_radiance v.3 release.</p>
 <p>These journal outlines 4 useful uses of bifacial_radiance and some tricks:</p>
@@ -777,7 +522,7 @@ div.rendered_html tbody tr:hover {
 </li><li><p>Adding an object to simulate a car with a specific reflectivity.</p>
 </li></ul><p>This is what we will create: <img alt="Carport Image We will create" src="../_images/Carport.png" /></p>
 <section id="Steps:">
-<h2>Steps:<a class="headerlink" href="#Steps:" title="Permalink to this heading">#</a></h2>
+<h2>Steps:<a class="headerlink" href="#Steps:" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Setup of Variables through Making OCT Axis</p></li>
 <li><p>Adding the pillars</p></li>
@@ -787,25 +532,17 @@ div.rendered_html tbody tr:hover {
 </ol>
 </section>
 <section id="1.-Setup-of-Variables-through-Making-OCT-Axis">
-<h2>1. Setup of Variables through Making OCT Axis<a class="headerlink" href="#1.-Setup-of-Variables-through-Making-OCT-Axis" title="Permalink to this heading">#</a></h2>
+<h2>1. Setup of Variables through Making OCT Axis<a class="headerlink" href="#1.-Setup-of-Variables-through-Making-OCT-Axis" title="Link to this heading">#</a></h2>
 <p>We’ve done this before a couple times, no new stuff here.</p>
 <p>The magic is that, for doing the carport we see in the figure, we are going to do a 4-up configuration of modules (<strong>numpanels</strong>), and we are going to repeat that 4-UP 7 times (<strong>nMods</strong>)</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bifacial_radiance</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</pre></div>
-</div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="n">testfolder</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;bifacial_radiance&#39;</span> <span class="o">/</span> <span class="s1">&#39;TEMP&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Your simulation will be stored in </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">testfolder</span><span class="p">)</span>
 
 <span class="n">simulationname</span> <span class="o">=</span> <span class="s1">&#39;tutorial_5&#39;</span>
 
@@ -837,7 +574,7 @@ div.rendered_html tbody tr:hover {
 
 <span class="c1">## Now let&#39;s run the example</span>
 
-<span class="n">demo</span> <span class="o">=</span> <span class="n">RadianceObj</span><span class="p">(</span><span class="n">simulationname</span><span class="p">,</span><span class="n">path</span> <span class="o">=</span> <span class="n">testfolder</span><span class="p">)</span>
+<span class="n">demo</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">RadianceObj</span><span class="p">(</span><span class="n">simulationname</span><span class="p">,</span><span class="n">path</span> <span class="o">=</span> <span class="n">testfolder</span><span class="p">)</span>
 <span class="n">demo</span><span class="o">.</span><span class="n">setGround</span><span class="p">(</span><span class="n">albedo</span><span class="p">)</span>
 <span class="n">epwfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getEPW</span><span class="p">(</span><span class="mf">40.0583</span><span class="p">,</span><span class="o">-</span><span class="mf">74.4057</span><span class="p">)</span> <span class="c1"># NJ lat/lon 40.0583° N, 74.4057</span>
 <span class="n">metdata</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">readWeatherFile</span><span class="p">(</span><span class="n">epwfile</span><span class="p">,</span> <span class="n">coerce_year</span><span class="o">=</span><span class="mi">2021</span><span class="p">)</span>
@@ -858,13 +595,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-path = C:\Users\mprillim\sam_dev\bifacial_radiance\bifacial_radiance\TEMP
-Making path: images
-Making path: objects
-Making path: results
-Making path: skies
-Making path: EPWs
-Making path: materials
+Your simulation will be stored in C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP
+path = C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP
 Loading albedo, 1 value(s), 0.280 avg
 1 nonzero albedo values.
 Getting weather file: USA_NJ_McGuire.AFB.724096_TMY3.epw
@@ -878,17 +610,19 @@ Warning: boolean input `torquetube` passed into makeModule. Starting in v0.4.0 t
 
 Module Name: test-module
 Module test-module updated in module.json
+Pre-existing .rad file objects\test-module.rad will be overwritten
+
 Created tutorial_5.oct
 </pre></div></div>
 </div>
 <p>If you view the Oct file at this point, you should see the array of 7 modules, with 4 modules each along the collector widt.</p>
 </section>
 <section id="2.-Adding-the-pillars">
-<h2>2. Adding the pillars<a class="headerlink" href="#2.-Adding-the-pillars" title="Permalink to this heading">#</a></h2>
+<h2>2. Adding the pillars<a class="headerlink" href="#2.-Adding-the-pillars" title="Link to this heading">#</a></h2>
 <p>We will add 4 pillars at roughly the back and front corners of the structure. Some of the code below is to calculate the positions of where the pillars will be at.</p>
 <p>We are calculating the location with some math geometry</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xright</span><span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="mi">4</span>
@@ -903,24 +637,24 @@ Created tutorial_5.oct
 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;! genbox black cuteBox 0.5 0.5 </span><span class="si">{}</span><span class="s1"> | xform -t -0.25 -0.25 0 -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> 0&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">z2nd</span><span class="p">,</span> <span class="n">xleft</span><span class="p">,</span> <span class="n">y2nd</span><span class="p">)</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">text</span><span class="p">)</span>
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">radfile</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;!xform -rz 0&quot;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
 
 <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Post2&#39;</span>
 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;! genbox black cuteBox 0.5 0.5 </span><span class="si">{}</span><span class="s1"> | xform -t -0.25 -0.25 0 -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> 0&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">z2nd</span><span class="p">,</span> <span class="n">xright</span><span class="p">,</span> <span class="n">y2nd</span><span class="p">)</span>
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="p">,</span> <span class="s1">&#39;!xform -rz 0&#39;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
 
 <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Post3&#39;</span>
 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;! genbox black cuteBox 0.5 0.5 </span><span class="si">{}</span><span class="s1"> | xform -t -0.25 -0.25 0 -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> 0&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">z6th</span><span class="p">,</span> <span class="n">xright</span><span class="p">,</span> <span class="n">y6th</span><span class="p">)</span>
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="p">,</span> <span class="s1">&#39;!xform -rz 0&#39;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
 
 <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Post4&#39;</span>
 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;! genbox black cuteBox 0.5 0.5 </span><span class="si">{}</span><span class="s1"> | xform -t -0.25 -0.25 0 -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> 0&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">z6th</span><span class="p">,</span> <span class="n">xleft</span><span class="p">,</span> <span class="n">y6th</span><span class="p">)</span>
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="p">,</span> <span class="s1">&#39;!xform -rz 0&#39;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
 
-<span class="n">octfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">getfilelist</span><span class="p">())</span>  <span class="c1"># makeOct combines all of the ground, sky and object files into a .oct file.</span>
+<span class="n">octfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct</span><span class="p">()</span>  <span class="c1"># makeOct combines all of the ground, sky and object files into a .oct file.</span>
 </pre></div>
 </div>
 </div>
@@ -943,7 +677,7 @@ Created tutorial_5.oct
 </div>
 </section>
 <section id="View-the-geometry-with-the-posts-on-:">
-<h2>View the geometry with the posts on :<a class="headerlink" href="#View-the-geometry-with-the-posts-on-:" title="Permalink to this heading">#</a></h2>
+<h2>View the geometry with the posts on :<a class="headerlink" href="#View-the-geometry-with-the-posts-on-:" title="Link to this heading">#</a></h2>
 <p><strong>rvu -vf views:nbsphinx-math:`front`.vp -e .01 -pe 0.4 -vp 3.5 -20 22 tutorial_5.oct</strong></p>
 <p>-pe sets the exposure levels, and -vp sets the view point so the carport is centered (at least on my screen. you can play with the values). It should look like this:</p>
 <img alt="Carpport with posts" src="../_images/Carport.png" />
@@ -961,14 +695,14 @@ Created tutorial_5.oct
 </div>
 </section>
 <section id="3.-Analysis-of-the-collector-width">
-<h2>3. Analysis of the collector width<a class="headerlink" href="#3.-Analysis-of-the-collector-width" title="Permalink to this heading">#</a></h2>
+<h2>3. Analysis of the collector width<a class="headerlink" href="#3.-Analysis-of-the-collector-width" title="Link to this heading">#</a></h2>
 <p>Now let’s do some analysis along the slope of the modules. Each result file will contain irradiance for the 4 modules that make up the slope of the carport. You can select which “module” along the row you sample too.</p>
 <p>We are also increasign the number of points sampled accross the collector width, with the variable <strong>sensorsy</strong> passed to <strong>moduleanalysis</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span> <span class="o">=</span> <span class="n">AnalysisObj</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">demo</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">AnalysisObj</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">demo</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 <span class="n">modWanted</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">rowWanted</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">frontscan</span><span class="p">,</span> <span class="n">backscan</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">moduleAnalysis</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">modWanted</span><span class="o">=</span><span class="n">modWanted</span><span class="p">,</span> <span class="n">rowWanted</span><span class="o">=</span><span class="n">rowWanted</span><span class="p">,</span> <span class="n">sensorsy</span><span class="o">=</span><span class="n">sensorsy</span><span class="p">)</span>
@@ -984,10 +718,10 @@ Created tutorial_5.oct
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Linescan in process: tutorial_5Mod1_Front
-Linescan in process: tutorial_5Mod1_Back
-Saved: results\irr_tutorial_5Mod1.csv
-Annual bifacial ratio average:  0.213
+Linescan in process: tutorial_5Mod1_Row1_Module1_Front
+Linescan in process: tutorial_5Mod1_Row1_Module1_Back
+Saved: results\irr_tutorial_5Mod1_Row1_Module1.csv
+Annual bifacial ratio average:  0.179
 
 </pre></div></div>
 </div>
@@ -998,7 +732,7 @@ Annual bifacial ratio average:  0.213
 <p>Notice we are passing a CUSTOM simulation name so the results are generated in separate csv files.</p>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modWanted</span> <span class="o">=</span> <span class="mi">2</span>
@@ -1006,7 +740,7 @@ Annual bifacial ratio average:  0.213
 <span class="n">frontscan</span><span class="p">,</span> <span class="n">backscan</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">moduleAnalysis</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">modWanted</span><span class="o">=</span><span class="n">modWanted</span><span class="p">,</span> <span class="n">rowWanted</span><span class="o">=</span><span class="n">rowWanted</span><span class="p">,</span> <span class="n">sensorsy</span><span class="o">=</span><span class="n">sensorsy</span><span class="p">)</span>
 
 <span class="n">analysis</span><span class="o">.</span><span class="n">analysis</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">simulationname</span><span class="o">+</span><span class="s2">&quot;Mod2&quot;</span><span class="p">,</span> <span class="n">frontscan</span><span class="p">,</span> <span class="n">backscan</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Annual bifacial ratio average:  </span><span class="si">%0.3f</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span> <span class="nb">sum</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Annual bifacial ratio average:  </span><span class="si">%0.3f</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span> <span class="nb">sum</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">))</span>  <span class="p">)</span>
 
 
 <span class="n">modWanted</span> <span class="o">=</span> <span class="mi">3</span>
@@ -1023,29 +757,29 @@ Annual bifacial ratio average:  0.213
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Linescan in process: tutorial_5Mod2_Front
-Linescan in process: tutorial_5Mod2_Back
-Saved: results\irr_tutorial_5Mod2.csv
-Annual bifacial ratio average:  0.219
-Linescan in process: tutorial_5Mod3_Front
-Linescan in process: tutorial_5Mod3_Back
-Saved: results\irr_tutorial_5Mod3.csv
-Annual bifacial ratio average:  0.218
+Linescan in process: tutorial_5Mod2_Row1_Module2_Front
+Linescan in process: tutorial_5Mod2_Row1_Module2_Back
+Saved: results\irr_tutorial_5Mod2_Row1_Module2.csv
+Annual bifacial ratio average:  0.175
+Linescan in process: tutorial_5Mod3_Row1_Module3_Front
+Linescan in process: tutorial_5Mod3_Row1_Module3_Back
+Saved: results\irr_tutorial_5Mod3_Row1_Module3.csv
+Annual bifacial ratio average:  0.173
 </pre></div></div>
 </div>
 </section>
-<section id="4.-Mapping-the-irradiance-througout-all-the-Carport-(“Hack”-the-sensors)">
-<h2>4. Mapping the irradiance througout all the Carport (“Hack” the sensors)<a class="headerlink" href="#4.-Mapping-the-irradiance-througout-all-the-Carport-(“Hack”-the-sensors)" title="Permalink to this heading">#</a></h2>
+<section id="4.-Mapping-the-irradiance-througout-all-the-Carport-(%22Hack%22-the-sensors)">
+<h2>4. Mapping the irradiance througout all the Carport (“Hack” the sensors)<a class="headerlink" href="#4.-Mapping-the-irradiance-througout-all-the-Carport-(%22Hack%22-the-sensors)" title="Link to this heading">#</a></h2>
 <p>You can “hack” the sensors starting locations to obtain an irradinace distribution map. This is easier when the modules are facing South, or East/West. Below is an example, you’ll have to repeat over all the modules/ all the surface area with as much resolution as you have patience to see edge-effects.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HACK Frontscan and Backscan</span>
 <span class="n">frontscan</span><span class="p">[</span><span class="s1">&#39;xstart&#39;</span><span class="p">]</span><span class="o">=-</span><span class="mf">1.2</span>
 
 <span class="n">analysis</span><span class="o">.</span><span class="n">analysis</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">simulationname</span><span class="o">+</span><span class="s2">&quot;Mod3_point2&quot;</span><span class="p">,</span> <span class="n">frontscan</span><span class="p">,</span> <span class="n">backscan</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Annual bifacial ratio average:  </span><span class="si">%0.3f</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span> <span class="nb">sum</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Annual bifacial ratio average:  </span><span class="si">%0.3f</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span> <span class="nb">sum</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">Wm2Back</span><span class="p">)</span>  <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">Wm2Front</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
 <br/></pre></div>
 </div>
 </div>
@@ -1054,10 +788,10 @@ Annual bifacial ratio average:  0.218
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Linescan in process: tutorial_5Mod3_point2_Front
-Linescan in process: tutorial_5Mod3_point2_Back
-Saved: results\irr_tutorial_5Mod3_point2.csv
-Annual bifacial ratio average:  0.218
+Linescan in process: tutorial_5Mod3_point2_Row1_Module3_Front
+Linescan in process: tutorial_5Mod3_point2_Row1_Module3_Back
+Saved: results\irr_tutorial_5Mod3_point2_Row1_Module3.csv
+Annual bifacial ratio average:  0.173
 </pre></div></div>
 </div>
 <div class="admonition warning">
@@ -1065,11 +799,11 @@ Annual bifacial ratio average:  0.218
 <p>(This process might be automated in a future release TBD)</p>
 </div>
 </section>
-<section id="5.-Adding-a-“Car”">
-<h2>5. Adding a “Car”<a class="headerlink" href="#5.-Adding-a-“Car”" title="Permalink to this heading">#</a></h2>
+<section id="5.-Adding-a-%22Car%22">
+<h2>5. Adding a “Car”<a class="headerlink" href="#5.-Adding-a-%22Car%22" title="Link to this heading">#</a></h2>
 <p>Add a surface (just like we added the pillars) with a specific reflectivity to represent a car. If you are doing hourly simulation you can compare how much the irradiance increases with and without the car, and if you keep track of your parking lot comings/goings this could make an interesting toy-problem: how much are your employees contributing to your rear irradiance production?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Car_1&#39;</span>
@@ -1077,7 +811,7 @@ Annual bifacial ratio average:  0.218
 <span class="n">carpositiony</span><span class="o">=-</span><span class="mi">1</span>
 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;! genbox white_EPDM HondaFit 1.6 4.5 1.5 | xform -t -0.8 -2.25 0 -t </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> 0&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">carpositionx</span><span class="p">,</span> <span class="n">carpositiony</span><span class="p">)</span>
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="p">,</span> <span class="s1">&#39;!xform -rz 0&#39;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
 
 <span class="n">octfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">getfilelist</span><span class="p">())</span>  <span class="c1"># run makeOct to combine the ground, sky and all new scene object files</span>
 </pre></div>
@@ -1144,7 +878,8 @@ Created tutorial_5.oct
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1160,19 +895,19 @@ Created tutorial_5.oct
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#2.-Adding-the-pillars">2. Adding the pillars</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#View-the-geometry-with-the-posts-on-:">View the geometry with the posts on :</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#3.-Analysis-of-the-collector-width">3. Analysis of the collector width</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#4.-Mapping-the-irradiance-througout-all-the-Carport-(“Hack”-the-sensors)">4. Mapping the irradiance througout all the Carport (“Hack” the sensors)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#5.-Adding-a-“Car”">5. Adding a “Car”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#4.-Mapping-the-irradiance-througout-all-the-Carport-(%22Hack%22-the-sensors)">4. Mapping the irradiance througout all the Carport (“Hack” the sensors)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#5.-Adding-a-%22Car%22">5. Adding a “Car”</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/5 - Bifacial Carports and Canopies.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/5 - Bifacial Carports and Canopies.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -1187,8 +922,8 @@ Created tutorial_5.oct
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1208,7 +943,7 @@ Created tutorial_5.oct
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1221,7 +956,8 @@ Created tutorial_5.oct
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

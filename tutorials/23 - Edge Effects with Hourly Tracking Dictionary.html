@@ -1,0 +1,949 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>23 - Edge Effects with Hourly Tracking Dictionary &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/23 - Edge Effects with Hourly Tracking Dictionary';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../manualapi.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whatsnew.html">
+    What’s New
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../validation.html">
+    Validation
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NREL/bifacial_radiance" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/bifacial-radiance" title="StackOverflow" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-stack-overflow fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/bifacial_radiance" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../manualapi.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whatsnew.html">
+    What’s New
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../validation.html">
+    Validation
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NREL/bifacial_radiance" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://stackoverflow.com/questions/tagged/bifacial-radiance" title="StackOverflow" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-stack-overflow fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">StackOverflow</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/bifacial_radiance" title="PyPI" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-python fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">PyPI</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">23 - Edge Effects with Hourly Tracking Dictionary</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="23---Edge-Effects-with-Hourly-Tracking-Dictionary">
+<h1>23 - Edge Effects with Hourly Tracking Dictionary<a class="headerlink" href="#23---Edge-Effects-with-Hourly-Tracking-Dictionary" title="Link to this heading">#</a></h1>
+<p>The tracker dictionary is the internal structure of bifacial_radiance to keep track of the multiple Angles or Hours that it’s simulating, the rad files, scene, oct files and analysis. Before release v0.4.3, while you could run analysis various times to model different modules in the field and it would save your CSV irradiances, it only kep track of ONE analysis object (the one that was generated last). Given our new performance module calculation functionality, this was updated so that now it
+keeps track of every module/row analyzed. See example below.</p>
+<p>Here we model a central module and an edge module on the center row of an array, to evaluate edge effects.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">testfolder</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;bifacial_radiance&#39;</span> <span class="o">/</span> <span class="s1">&#39;TEMP&#39;</span> <span class="o">/</span> <span class="s1">&#39;Tutorial_23&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">testfolder</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">testfolder</span><span class="p">)</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Your simulation will be stored in </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">testfolder</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Your simulation will be stored in C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_23
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pprint</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">simulationName</span> <span class="o">=</span> <span class="s1">&#39;Tutorial 23&#39;</span>
+<span class="n">moduletype</span> <span class="o">=</span> <span class="s1">&#39;test-module&#39;</span>
+<span class="n">albedo</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="mf">37.5</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">77.6</span>
+
+<span class="c1">#makeModule parameters</span>
+<span class="n">modx</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">mody</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">xgap</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">ygap</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">zgap</span> <span class="o">=</span> <span class="mf">0.15</span>
+<span class="n">numpanels</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Scene variables</span>
+<span class="n">nMods</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">nRows</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">hub_height</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="c1"># meters</span>
+<span class="n">pitch</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># meters</span>
+<span class="n">gcr</span> <span class="o">=</span> <span class="n">mody</span><span class="o">/</span><span class="n">pitch</span>
+
+<span class="c1"># Traking parameters</span>
+<span class="n">cumulativesky</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">limit_angle</span> <span class="o">=</span> <span class="mi">45</span> <span class="c1"># degrees</span>
+<span class="n">angledelta</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c1">#</span>
+<span class="n">backtrack</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<span class="n">torquetube</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># the Tracker rotates around the panels</span>
+<span class="n">tubeParams</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;diameter&#39;</span><span class="p">:</span><span class="mf">0.15</span><span class="p">,</span>
+              <span class="s1">&#39;tubetype&#39;</span><span class="p">:</span><span class="s1">&#39;round&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;material&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;axisofrotation&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">}</span>
+
+<span class="n">startdate</span> <span class="o">=</span> <span class="s1">&#39;11_06_11&#39;</span>
+<span class="n">enddate</span> <span class="o">=</span> <span class="s1">&#39;11_06_12&#39;</span>
+<span class="n">demo</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">RadianceObj</span><span class="p">(</span><span class="n">simulationName</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">testfolder</span><span class="p">)</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">setGround</span><span class="p">(</span><span class="n">albedo</span><span class="p">)</span>
+<span class="n">epwfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getEPW</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span><span class="n">lon</span><span class="p">)</span>
+<span class="n">metdata</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">readWeatherFile</span><span class="p">(</span><span class="n">epwfile</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="n">startdate</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">enddate</span><span class="p">)</span>
+<span class="n">mymodule</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">ModuleObj</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">moduletype</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">modx</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">mody</span><span class="p">,</span> <span class="n">xgap</span><span class="o">=</span><span class="n">xgap</span><span class="p">,</span> <span class="n">ygap</span><span class="o">=</span><span class="n">ygap</span><span class="p">,</span>
+                <span class="n">zgap</span><span class="o">=</span><span class="n">zgap</span><span class="p">,</span> <span class="n">numpanels</span><span class="o">=</span><span class="n">numpanels</span><span class="p">,</span> <span class="n">tubeParams</span><span class="o">=</span><span class="n">tubeParams</span><span class="p">)</span>
+<span class="n">sceneDict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;pitch&#39;</span><span class="p">:</span><span class="n">pitch</span><span class="p">,</span><span class="s1">&#39;hub_height&#39;</span><span class="p">:</span><span class="n">hub_height</span><span class="p">,</span> <span class="s1">&#39;nMods&#39;</span><span class="p">:</span> <span class="n">nMods</span><span class="p">,</span> <span class="s1">&#39;nRows&#39;</span><span class="p">:</span> <span class="n">nRows</span><span class="p">}</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">set1axis</span><span class="p">(</span><span class="n">limit_angle</span> <span class="o">=</span> <span class="n">limit_angle</span><span class="p">,</span> <span class="n">backtrack</span> <span class="o">=</span> <span class="n">backtrack</span><span class="p">,</span> <span class="n">gcr</span> <span class="o">=</span> <span class="n">gcr</span><span class="p">,</span> <span class="n">cumulativesky</span> <span class="o">=</span> <span class="n">cumulativesky</span><span class="p">)</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">gendaylit1axis</span><span class="p">()</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">makeScene1axis</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="n">mymodule</span><span class="p">,</span><span class="n">sceneDict</span><span class="o">=</span><span class="n">sceneDict</span><span class="p">)</span> <span class="c1">#makeScene creates a .rad file with 20 modules per row, 7 rows.</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">makeOct1axis</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+path = C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_23
+Loading albedo, 1 value(s), 0.200 avg
+1 nonzero albedo values.
+Getting weather file: USA_VA_Richmond.724010_TMY2.epw
+ ... OK!
+8760 line in WeatherFile. Assuming this is a standard hourly WeatherFile for the year for purposes of saving Gencumulativesky temporary weather files in EPW folder.
+Coercing year to 2021
+Filtering dates
+Saving file EPWs\metdata_temp.csv, # points: 8760
+Calculating Sun position for Metdata that is right-labeled  with a delta of -30 mins. i.e. 12 is 11:30 sunpos
+
+Module Name: test-module
+Module test-module updated in module.json
+Pre-existing .rad file objects\test-module.rad will be overwritten
+
+Creating ~2 skyfiles.
+Created 2 skyfiles in /skies/
+
+Making ~2 .rad files for gendaylit 1-axis workflow (this takes a minute..)
+2 Radfiles created in /objects/
+
+Making 2 octfiles in root directory.
+Created 1axis_2021-11-06_1100.oct
+Created 1axis_2021-11-06_1200.oct
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;2021-11-06_1100&#39;: {&#39;surf_azm&#39;: 90.0,
+  &#39;surf_tilt&#39;: 32.06,
+  &#39;theta&#39;: -32.06,
+  &#39;dni&#39;: np.int64(203),
+  &#39;ghi&#39;: np.int64(303),
+  &#39;dhi&#39;: np.int64(191),
+  &#39;temp_air&#39;: np.float64(19.4),
+  &#39;wind_speed&#39;: np.float64(7.2),
+  &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1100.rad&#39;,
+  &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.333333), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: 1, &#39;y&#39;: 2, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.01), &#39;sceney&#39;: np.float64(2.0), &#39;scenez&#39;: np.float64(0.225), &#39;numpanels&#39;: 1, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black test-module 1 2 0.02 | xform -t -0.5 -1.0 0 -a 1 -t 0 2.0 0\r\n! genrev black tube1 t*1.01 0.075 32 | xform -ry 90 -t -0.505 0 -0.22499999999999998&#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.0, &#39;zgap&#39;: 0.15}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1100__C_0.97_rtr_6.00_tilt_32_20modsx7rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 6, &#39;nMods&#39;: 20, &#39;nRows&#39;: 7, &#39;tilt&#39;: 32.06, &#39;clearance_height&#39;: np.float64(0.9691929526002403), &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(1.5)}, &#39;text&#39;: &#39;!xform -rx 32.06 -t 0 0 1.5 -a 20 -t 1.01 0 0 -a 7 -t 0 6 0 -i 1 -t -9.09 -18.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}],
+  &#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;},
+ &#39;2021-11-06_1200&#39;: {&#39;surf_azm&#39;: 90.0,
+  &#39;surf_tilt&#39;: 9.27,
+  &#39;theta&#39;: -9.27,
+  &#39;dni&#39;: np.int64(5),
+  &#39;ghi&#39;: np.int64(200),
+  &#39;dhi&#39;: np.int64(197),
+  &#39;temp_air&#39;: np.float64(20.0),
+  &#39;wind_speed&#39;: np.float64(5.2),
+  &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1200.rad&#39;,
+  &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.333333), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: 1, &#39;y&#39;: 2, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.01), &#39;sceney&#39;: np.float64(2.0), &#39;scenez&#39;: np.float64(0.225), &#39;numpanels&#39;: 1, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black test-module 1 2 0.02 | xform -t -0.5 -1.0 0 -a 1 -t 0 2.0 0\r\n! genrev black tube1 t*1.01 0.075 32 | xform -ry 90 -t -0.505 0 -0.22499999999999998&#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.0, &#39;zgap&#39;: 0.15}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1200__C_1.34_rtr_6.00_tilt_9_20modsx7rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 6, &#39;nMods&#39;: 20, &#39;nRows&#39;: 7, &#39;tilt&#39;: 9.27, &#39;clearance_height&#39;: np.float64(1.3389129174701335), &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(1.5)}, &#39;text&#39;: &#39;!xform -rx 9.27 -t 0 0 1.5 -a 20 -t 1.01 0 0 -a 7 -t 0 6 0 -i 1 -t -9.09 -18.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}],
+  &#39;octfile&#39;: &#39;1axis_2021-11-06_1200.oct&#39;}}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">trackerdict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([&#39;2021-11-06_1100&#39;, &#39;2021-11-06_1200&#39;])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">analysis1axis</span><span class="p">(</span><span class="n">modWanted</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Linescan in process: 1axis_2021-11-06_1100_Scene0_Row4_Module1_Front
+Linescan in process: 1axis_2021-11-06_1100_Scene0_Row4_Module1_Back
+Saved: results\irr_1axis_2021-11-06_1100_Scene0_Row4_Module1.csv
+Index: 2021-11-06_1100. Wm2Front: 331.6499111111111. Wm2Back: 50.24847888888889
+Linescan in process: 1axis_2021-11-06_1100_Scene0_Row4_Module10_Front
+Linescan in process: 1axis_2021-11-06_1100_Scene0_Row4_Module10_Back
+Saved: results\irr_1axis_2021-11-06_1100_Scene0_Row4_Module10.csv
+Index: 2021-11-06_1100. Wm2Front: 327.00686666666667. Wm2Back: 32.40893888888889
+Linescan in process: 1axis_2021-11-06_1200_Scene0_Row4_Module1_Front
+Linescan in process: 1axis_2021-11-06_1200_Scene0_Row4_Module1_Back
+Saved: results\irr_1axis_2021-11-06_1200_Scene0_Row4_Module1.csv
+Index: 2021-11-06_1200. Wm2Front: 196.3093111111111. Wm2Back: 27.20591555555556
+Linescan in process: 1axis_2021-11-06_1200_Scene0_Row4_Module10_Front
+Linescan in process: 1axis_2021-11-06_1200_Scene0_Row4_Module10_Back
+Saved: results\irr_1axis_2021-11-06_1200_Scene0_Row4_Module10.csv
+Index: 2021-11-06_1200. Wm2Front: 196.04993333333334. Wm2Back: 20.8418
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;2021-11-06_1100&#39;: {&#39;surf_azm&#39;: 90.0,
+  &#39;surf_tilt&#39;: 32.06,
+  &#39;theta&#39;: -32.06,
+  &#39;dni&#39;: np.int64(203),
+  &#39;ghi&#39;: np.int64(303),
+  &#39;dhi&#39;: np.int64(191),
+  &#39;temp_air&#39;: np.float64(19.4),
+  &#39;wind_speed&#39;: np.float64(7.2),
+  &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1100.rad&#39;,
+  &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.333333), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: 1, &#39;y&#39;: 2, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.01), &#39;sceney&#39;: np.float64(2.0), &#39;scenez&#39;: np.float64(0.225), &#39;numpanels&#39;: 1, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black test-module 1 2 0.02 | xform -t -0.5 -1.0 0 -a 1 -t 0 2.0 0\r\n! genrev black tube1 t*1.01 0.075 32 | xform -ry 90 -t -0.505 0 -0.22499999999999998&#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.0, &#39;zgap&#39;: 0.15}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1100__C_0.97_rtr_6.00_tilt_32_20modsx7rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 6, &#39;nMods&#39;: 20, &#39;nRows&#39;: 7, &#39;tilt&#39;: 32.06, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(1.5)}, &#39;text&#39;: &#39;!xform -rx 32.06 -t 0 0 1.5 -a 20 -t 1.01 0 0 -a 7 -t 0 6 0 -i 1 -t -9.09 -18.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}],
+  &#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;,
+  &#39;AnalysisObj&#39;: [&lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.162, 0.16, 0.151, 0.141, 0.12, 0.143, 0.157, 0.163, 0.166], &#39;Wm2Back&#39;: [53.15, 52.595, 50.047, 46.84, 39.766, 47.713, 52.195, 54.478, 55.452], &#39;Wm2Front&#39;: [328.93, 329.648, 330.366, 331.421, 331.963, 332.504, 333.002, 333.339, 333.676], &#39;backRatio&#39;: [0.162, 0.16, 0.151, 0.141, 0.12, 0.143, 0.157, 0.163, 0.166], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a0.3.a0.test-module.6457&#39;, &#39;a0.3.a0.test-module.6457&#39;,
+          &#39;a0.3.a0.test-module.6457&#39;, &#39;a0.3.a0.test-module.6457&#39;,
+          &#39;a0.3.a0.test-module.6457&#39;, &#39;a0.3.a0.test-module.6457&#39;,
+          &#39;a0.3.a0.test-module.6457&#39;, &#39;a0.3.a0.test-module.6457&#39;,
+          &#39;a0.3.a0.test-module.6457&#39;], dtype=object), &#39;modWanted&#39;: 1, &#39;name&#39;: &#39;1axis_2021-11-06_1100_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a0.3.a0.test-module.2310&#39;, &#39;a0.3.a0.test-module.2310&#39;,
+          &#39;a0.3.a0.test-module.2310&#39;, &#39;a0.3.a0.test-module.2310&#39;,
+          &#39;a0.3.a0.test-module.2310&#39;, &#39;a0.3.a0.test-module.2310&#39;,
+          &#39;a0.3.a0.test-module.2310&#39;, &#39;a0.3.a0.test-module.2310&#39;,
+          &#39;a0.3.a0.test-module.2310&#39;], dtype=object), &#39;rearX&#39;: [0.675, 0.506, 0.336, 0.166, -0.003, -0.172, -0.342, -0.511, -0.681], &#39;rearY&#39;: [-9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09], &#39;rearZ&#39;: [1.071, 1.178, 1.283, 1.39, 1.496, 1.602, 1.708, 1.814, 1.92], &#39;rowWanted&#39;: 4, &#39;sceneNum&#39;: 0, &#39;x&#39;: [0.691, 0.522, 0.352, 0.183, 0.013, -0.156, -0.326, -0.495, -0.665], &#39;y&#39;: [-9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09], &#39;z&#39;: [1.097, 1.203, 1.309, 1.415, 1.521, 1.627, 1.733, 1.84, 1.945]},
+   &lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.111, 0.104, 0.096, 0.082, 0.091, 0.094, 0.099, 0.106, 0.109], &#39;Wm2Back&#39;: [35.579, 33.598, 31.185, 26.629, 29.665, 31.039, 32.63, 34.973, 36.383], &#39;Wm2Front&#39;: [320.548, 322.072, 324.792, 325.935, 327.077, 329.06, 330.002, 330.943, 332.632], &#39;backRatio&#39;: [0.111, 0.104, 0.096, 0.082, 0.091, 0.094, 0.099, 0.106, 0.109], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a9.3.a0.test-module.6457&#39;, &#39;a9.3.a0.test-module.6457&#39;,
+          &#39;a9.3.a0.test-module.6457&#39;, &#39;a9.3.a0.test-module.6457&#39;,
+          &#39;a9.3.a0.test-module.6457&#39;, &#39;a9.3.a0.test-module.6457&#39;,
+          &#39;a9.3.a0.test-module.6457&#39;, &#39;a9.3.a0.test-module.6457&#39;,
+          &#39;a9.3.a0.test-module.6457&#39;], dtype=object), &#39;modWanted&#39;: 10, &#39;name&#39;: &#39;1axis_2021-11-06_1100_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-11-06_1100.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a9.3.a0.test-module.2310&#39;, &#39;a9.3.a0.test-module.2310&#39;,
+          &#39;a9.3.a0.test-module.2310&#39;, &#39;a9.3.a0.test-module.2310&#39;,
+          &#39;a9.3.a0.test-module.2310&#39;, &#39;a9.3.a0.test-module.2310&#39;,
+          &#39;a9.3.a0.test-module.2310&#39;, &#39;a9.3.a0.test-module.2310&#39;,
+          &#39;a9.3.a0.test-module.2310&#39;], dtype=object), &#39;rearX&#39;: [0.675, 0.506, 0.336, 0.166, -0.003, -0.172, -0.342, -0.511, -0.681], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [1.071, 1.178, 1.283, 1.39, 1.496, 1.602, 1.708, 1.814, 1.92], &#39;rowWanted&#39;: 4, &#39;sceneNum&#39;: 0, &#39;x&#39;: [0.691, 0.522, 0.352, 0.183, 0.013, -0.156, -0.326, -0.495, -0.665], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [1.097, 1.203, 1.309, 1.415, 1.521, 1.627, 1.733, 1.84, 1.945]}]},
+ &#39;2021-11-06_1200&#39;: {&#39;surf_azm&#39;: 90.0,
+  &#39;surf_tilt&#39;: 9.27,
+  &#39;theta&#39;: -9.27,
+  &#39;dni&#39;: np.int64(5),
+  &#39;ghi&#39;: np.int64(200),
+  &#39;dhi&#39;: np.int64(197),
+  &#39;temp_air&#39;: np.float64(20.0),
+  &#39;wind_speed&#39;: np.float64(5.2),
+  &#39;skyfile&#39;: &#39;skies\\sky2_37.5_-77.33_2021-11-06_1200.rad&#39;,
+  &#39;scenes&#39;: [&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.333333), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: 1, &#39;y&#39;: 2, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(1.01), &#39;sceney&#39;: np.float64(2.0), &#39;scenez&#39;: np.float64(0.225), &#39;numpanels&#39;: 1, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black test-module 1 2 0.02 | xform -t -0.5 -1.0 0 -a 1 -t 0 2.0 0\r\n! genrev black tube1 t*1.01 0.075 32 | xform -ry 90 -t -0.505 0 -0.22499999999999998&#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: 0, &#39;xgap&#39;: 0.01, &#39;ygap&#39;: 0.0, &#39;zgap&#39;: 0.15}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: &#39;objects\\1axis2021-11-06_1200__C_1.34_rtr_6.00_tilt_9_20modsx7rows_origin0,0.rad&#39;, &#39;sceneDict&#39;: {&#39;pitch&#39;: 6, &#39;nMods&#39;: 20, &#39;nRows&#39;: 7, &#39;tilt&#39;: 9.27, &#39;azimuth&#39;: 90.0, &#39;modulez&#39;: 0.02, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0, &#39;hub_height&#39;: np.float64(1.5)}, &#39;text&#39;: &#39;!xform -rx 9.27 -t 0 0 1.5 -a 20 -t 1.01 0 0 -a 7 -t 0 6 0 -i 1 -t -9.09 -18.0 0 -rz 90.0 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}],
+  &#39;octfile&#39;: &#39;1axis_2021-11-06_1200.oct&#39;,
+  &#39;AnalysisObj&#39;: [&lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.151, 0.149, 0.14, 0.124, 0.109, 0.127, 0.141, 0.151, 0.155], &#39;Wm2Back&#39;: [29.656, 29.229, 27.399, 24.289, 21.425, 24.992, 27.7, 29.704, 30.459], &#39;Wm2Front&#39;: [196.199, 196.218, 196.238, 196.258, 196.278, 196.298, 196.318, 196.338, 196.639], &#39;backRatio&#39;: [0.151, 0.149, 0.14, 0.124, 0.109, 0.127, 0.141, 0.151, 0.155], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a0.3.a0.test-module.6457&#39;, &#39;a0.3.a0.test-module.6457&#39;,
+          &#39;a0.3.a0.test-module.6457&#39;, &#39;a0.3.a0.test-module.6457&#39;,
+          &#39;a0.3.a0.test-module.6457&#39;, &#39;a0.3.a0.test-module.6457&#39;,
+          &#39;a0.3.a0.test-module.6457&#39;, &#39;a0.3.a0.test-module.6457&#39;,
+          &#39;a0.3.a0.test-module.6457&#39;], dtype=object), &#39;modWanted&#39;: 1, &#39;name&#39;: &#39;1axis_2021-11-06_1200_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-11-06_1200.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a0.3.a0.test-module.2310&#39;, &#39;a0.3.a0.test-module.2310&#39;,
+          &#39;a0.3.a0.test-module.2310&#39;, &#39;a0.3.a0.test-module.2310&#39;,
+          &#39;a0.3.a0.test-module.2310&#39;, &#39;a0.3.a0.test-module.2310&#39;,
+          &#39;a0.3.a0.test-module.2310&#39;, &#39;a0.3.a0.test-module.2310&#39;,
+          &#39;a0.3.a0.test-module.2310&#39;], dtype=object), &#39;rearX&#39;: [0.789, 0.591, 0.394, 0.196, -0.001, -0.198, -0.396, -0.593, -0.79], &#39;rearY&#39;: [-9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09], &#39;rearZ&#39;: [1.366, 1.398, 1.431, 1.463, 1.495, 1.527, 1.56, 1.592, 1.624], &#39;rowWanted&#39;: 4, &#39;sceneNum&#39;: 0, &#39;x&#39;: [0.794, 0.596, 0.399, 0.201, 0.004, -0.193, -0.391, -0.588, -0.786], &#39;y&#39;: [-9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9.09], &#39;z&#39;: [1.396, 1.428, 1.46, 1.492, 1.524, 1.557, 1.589, 1.621, 1.653]},
+   &lt;class &#39;bifacial_radiance.main.AnalysisObj&#39;&gt; : {&#39;Back/FrontRatio&#39;: [0.118, 0.114, 0.105, 0.09, 0.088, 0.097, 0.108, 0.116, 0.121], &#39;Wm2Back&#39;: [23.142, 22.391, 20.482, 17.66, 17.212, 19.119, 21.15, 22.745, 23.676], &#39;Wm2Front&#39;: [195.706, 195.749, 195.791, 195.834, 195.876, 196.378, 196.375, 196.372, 196.369], &#39;backRatio&#39;: [0.118, 0.114, 0.105, 0.09, 0.088, 0.097, 0.108, 0.116, 0.121], &#39;hpc&#39;: False, &#39;mattype&#39;: array([&#39;a9.3.a0.test-module.6457&#39;, &#39;a9.3.a0.test-module.6457&#39;,
+          &#39;a9.3.a0.test-module.6457&#39;, &#39;a9.3.a0.test-module.6457&#39;,
+          &#39;a9.3.a0.test-module.6457&#39;, &#39;a9.3.a0.test-module.6457&#39;,
+          &#39;a9.3.a0.test-module.6457&#39;, &#39;a9.3.a0.test-module.6457&#39;,
+          &#39;a9.3.a0.test-module.6457&#39;], dtype=object), &#39;modWanted&#39;: 10, &#39;name&#39;: &#39;1axis_2021-11-06_1200_Scene0&#39;, &#39;octfile&#39;: &#39;1axis_2021-11-06_1200.oct&#39;, &#39;power_data&#39;: None, &#39;rearMat&#39;: array([&#39;a9.3.a0.test-module.2310&#39;, &#39;a9.3.a0.test-module.2310&#39;,
+          &#39;a9.3.a0.test-module.2310&#39;, &#39;a9.3.a0.test-module.2310&#39;,
+          &#39;a9.3.a0.test-module.2310&#39;, &#39;a9.3.a0.test-module.2310&#39;,
+          &#39;a9.3.a0.test-module.2310&#39;, &#39;a9.3.a0.test-module.2310&#39;,
+          &#39;a9.3.a0.test-module.2310&#39;], dtype=object), &#39;rearX&#39;: [0.789, 0.591, 0.394, 0.196, -0.001, -0.198, -0.396, -0.593, -0.79], &#39;rearY&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;rearZ&#39;: [1.366, 1.398, 1.431, 1.463, 1.495, 1.527, 1.56, 1.592, 1.624], &#39;rowWanted&#39;: 4, &#39;sceneNum&#39;: 0, &#39;x&#39;: [0.794, 0.596, 0.399, 0.201, 0.004, -0.193, -0.391, -0.588, -0.786], &#39;y&#39;: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], &#39;z&#39;: [1.396, 1.428, 1.46, 1.492, 1.524, 1.557, 1.589, 1.621, 1.653]}]}}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Analysis results are now stored in demo.results</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">results</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>name</th>
+      <th>modNum</th>
+      <th>rowNum</th>
+      <th>sceneNum</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>rearZ</th>
+      <th>mattype</th>
+      <th>rearMat</th>
+      <th>Wm2Front</th>
+      <th>Wm2Back</th>
+      <th>backRatio</th>
+      <th>rearX</th>
+      <th>rearY</th>
+      <th>surf_azm</th>
+      <th>surf_tilt</th>
+      <th>theta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2021-11-06_1100</td>
+      <td>1axis_2021-11-06_1100_Scene0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>0</td>
+      <td>[0.6914, 0.522, 0.3523, 0.1826, 0.01318, -0.15...</td>
+      <td>[-9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9....</td>
+      <td>[1.097, 1.203, 1.309, 1.415, 1.521, 1.627, 1.7...</td>
+      <td>[1.071, 1.178, 1.283, 1.39, 1.496, 1.602, 1.70...</td>
+      <td>[a0.3.a0.test-module.6457, a0.3.a0.test-module...</td>
+      <td>[a0.3.a0.test-module.2310, a0.3.a0.test-module...</td>
+      <td>[328.9303, 329.6475, 330.3657, 331.4214, 331.9...</td>
+      <td>[53.14966999999999, 52.59494, 50.04681, 46.840...</td>
+      <td>[0.161582889801001, 0.15954854943978208, 0.151...</td>
+      <td>[0.6753, 0.506, 0.3362, 0.1665, -0.00293, -0.1...</td>
+      <td>[-9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9....</td>
+      <td>90.0</td>
+      <td>32.06</td>
+      <td>-32.06</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2021-11-06_1100</td>
+      <td>1axis_2021-11-06_1100_Scene0</td>
+      <td>10</td>
+      <td>4</td>
+      <td>0</td>
+      <td>[0.6914, 0.522, 0.3523, 0.1826, 0.01318, -0.15...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[1.097, 1.203, 1.309, 1.415, 1.521, 1.627, 1.7...</td>
+      <td>[1.071, 1.178, 1.283, 1.39, 1.496, 1.602, 1.70...</td>
+      <td>[a9.3.a0.test-module.6457, a9.3.a0.test-module...</td>
+      <td>[a9.3.a0.test-module.2310, a9.3.a0.test-module...</td>
+      <td>[320.5485, 322.0716, 324.7921, 325.9352, 327.0...</td>
+      <td>[35.57898, 33.59836, 31.185019999999998, 26.62...</td>
+      <td>[0.11099371547920057, 0.10431921250053561, 0.0...</td>
+      <td>[0.6753, 0.506, 0.3362, 0.1665, -0.00293, -0.1...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>90.0</td>
+      <td>32.06</td>
+      <td>-32.06</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2021-11-06_1200</td>
+      <td>1axis_2021-11-06_1200_Scene0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>0</td>
+      <td>[0.7935, 0.596, 0.3987, 0.2012, 0.003906, -0.1...</td>
+      <td>[-9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9....</td>
+      <td>[1.3955, 1.428, 1.46, 1.492, 1.524, 1.557, 1.5...</td>
+      <td>[1.366, 1.398, 1.431, 1.463, 1.495, 1.527, 1.5...</td>
+      <td>[a0.3.a0.test-module.6457, a0.3.a0.test-module...</td>
+      <td>[a0.3.a0.test-module.2310, a0.3.a0.test-module...</td>
+      <td>[196.1987, 196.2184, 196.2383, 196.2582, 196.2...</td>
+      <td>[29.65619, 29.22897, 27.398890000000005, 24.28...</td>
+      <td>[0.15115308535130276, 0.14896065322796828, 0.1...</td>
+      <td>[0.7886, 0.5913, 0.3938, 0.1963, -0.000977, -0...</td>
+      <td>[-9.09, -9.09, -9.09, -9.09, -9.09, -9.09, -9....</td>
+      <td>90.0</td>
+      <td>9.27</td>
+      <td>-9.27</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2021-11-06_1200</td>
+      <td>1axis_2021-11-06_1200_Scene0</td>
+      <td>10</td>
+      <td>4</td>
+      <td>0</td>
+      <td>[0.7935, 0.596, 0.3987, 0.2012, 0.003906, -0.1...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>[1.3955, 1.428, 1.46, 1.492, 1.524, 1.557, 1.5...</td>
+      <td>[1.366, 1.398, 1.431, 1.463, 1.495, 1.527, 1.5...</td>
+      <td>[a9.3.a0.test-module.6457, a9.3.a0.test-module...</td>
+      <td>[a9.3.a0.test-module.2310, a9.3.a0.test-module...</td>
+      <td>[195.7062, 195.7486, 195.79100000000003, 195.8...</td>
+      <td>[23.14173, 22.39054, 20.48163, 17.66005, 17.21...</td>
+      <td>[0.11824669710669816, 0.11438357983873275, 0.1...</td>
+      <td>[0.7886, 0.5913, 0.3938, 0.1963, -0.000977, -0...</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</td>
+      <td>90.0</td>
+      <td>9.27</td>
+      <td>-9.27</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/23 - Edge Effects with Hourly Tracking Dictionary.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, NREL.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

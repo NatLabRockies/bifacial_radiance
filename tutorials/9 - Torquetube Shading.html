@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>9 - Torquetube Shading &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>9 - Torquetube Shading &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,34 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -47,9 +51,10 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="11 - AgriPV Systems" href="11%20-%20AgriPV%20Systems.html" />
-    <link rel="prev" title="8 - Electrical Mismatch Method" href="8%20-%20Electrical%20Mismatch%20Method.html" />
+    <link rel="prev" title="8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)" href="8%20-%20Electrical%20Mismatch%20Method.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -65,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -85,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,8 +120,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -188,29 +181,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -259,15 +244,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -286,7 +267,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -347,15 +329,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,7 +399,7 @@ document.write(`
 </ul>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="6%20-%20Exploring%20Trackerdict%20Structure.html">6 - Exploring Trackerdict Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">9 - Torquetube Shading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11%20-%20AgriPV%20Systems.html">11 - AgriPV Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14%20-%20Cement%20Racking%20Albedo%20Improvements.html">14 - Cement Racking Albedo Improvements</a></li>
@@ -452,9 +430,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -472,8 +455,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -485,7 +466,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">9 -...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">9 - Torquetube Shading</span></li>
   </ul>
 </nav>
 </div>
@@ -502,262 +483,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+  <div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span> <span class="k">as</span> <span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">br</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -765,10 +498,21 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Working on a  Windows 10
+Python version  3.11.8 | packaged by conda-forge | (main, Feb 16 2024, 20:40:50) [MSC v.1937 64 bit (AMD64)]
+Pandas version  2.2.3
+bifacial_radiance version  0.5.0b2.dev4+gedb973d.d20250924
+</pre></div></div>
+</div>
 <section id="9---Torquetube-Shading">
-<h1>9 - Torquetube Shading<a class="headerlink" href="#9---Torquetube-Shading" title="Permalink to this heading">#</a></h1>
+<h1>9 - Torquetube Shading<a class="headerlink" href="#9---Torquetube-Shading" title="Link to this heading">#</a></h1>
 <section id="Recreating-JPV-2019-/-PVSC-2018-Fig.-13">
-<h2>Recreating JPV 2019 / PVSC 2018 Fig. 13<a class="headerlink" href="#Recreating-JPV-2019-/-PVSC-2018-Fig.-13" title="Permalink to this heading">#</a></h2>
+<h2>Recreating JPV 2019 / PVSC 2018 Fig. 13<a class="headerlink" href="#Recreating-JPV-2019-/-PVSC-2018-Fig.-13" title="Link to this heading">#</a></h2>
 <p>Calculating and plotting shading from torque tube on 1-axis tracking for 1 day, which is figure 13 in:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Ayala Pelaez S, Deline C, Greenberg P, Stein JS, Kostuk RK. Model and validation of single-axis tracking with bifacial PV. IEEE J Photovoltaics. 2019;9(3):715–21. https://ieeexplore.ieee.org/document/8644027 and https://www.nrel.gov/docs/fy19osti/72039.pdf (pre-print, conference version)
 </pre></div>
@@ -778,12 +522,12 @@ div.rendered_html tbody tr:hover {
 <ul class="simple">
 <li><p>Sensor position is now always generated E to W on N-S tracking systems, so same sensor positions can just be added for this calculation at the end without needing to flip the sensors.</p></li>
 <li><p>Torquetubes get automatically generated in makeModule. Following PVSC 2018 paper, rotation is around the modules and not around the torque tube axis (which is a new feature)</p></li>
-<li><p>Simulating only 1 day on single-axis tracking easier with cumulativesky = False and gendaylit1axis(startdate=‘06/24’, enddate=‘06/24’</p></li>
+<li><p>Simulating only 1 day on single-axis tracking easier with cumulativesky = False and gendaylit1axis(startdate=’06/24’, enddate=’06/24’</p></li>
 <li><p>Sensors get generated very close to surface, so all results are from the module surface and not the torquetube for this 1-UP case.</p></li>
 </ul>
 </section>
 <section id="Steps:">
-<h2>Steps:<a class="headerlink" href="#Steps:" title="Permalink to this heading">#</a></h2>
+<h2>Steps:<a class="headerlink" href="#Steps:" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Running the simulations for all the cases:</p></li>
 <li><p>Baseline Case: No Torque Tube</p></li>
@@ -795,13 +539,13 @@ div.rendered_html tbody tr:hover {
 <li><p>Overall Shading Factor (for 1 day)</p></li>
 </ol>
 <section id="1.-Running-the-simulations-for-all-the-cases">
-<h3>1. Running the simulations for all the cases<a class="headerlink" href="#1.-Running-the-simulations-for-all-the-cases" title="Permalink to this heading">#</a></h3>
+<h3>1. Running the simulations for all the cases<a class="headerlink" href="#1.-Running-the-simulations-for-all-the-cases" title="Link to this heading">#</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="n">testfolder</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;bifacial_radiance&#39;</span> <span class="o">/</span> <span class="s1">&#39;TEMP&#39;</span> <span class="o">/</span> <span class="s1">&#39;Tutorial_09&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">testfolder</span><span class="p">):</span>
@@ -816,11 +560,11 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Your simulation will be stored in C:\Users\mprillim\sam_dev\bifacial_radiance\bifacial_radiance\TEMP\Tutorial_09
+Your simulation will be stored in C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_09
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># VARIABLES of the simulation:</span>
@@ -856,12 +600,12 @@ Your simulation will be stored in C:\Users\mprillim\sam_dev\bifacial_radiance\bi
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulation Start.</span>
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 
@@ -880,8 +624,8 @@ Your simulation will be stored in C:\Users\mprillim\sam_dev\bifacial_radiance\bi
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0+untagged.1552.g4b73b19.dirty
-path = C:\Users\mprillim\sam_dev\bifacial_radiance\bifacial_radiance\TEMP\Tutorial_09
+0.5.0b2.dev4+gedb973d.d20250924
+path = C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_09
 Making path: images
 Making path: objects
 Making path: results
@@ -898,15 +642,15 @@ Filtering dates
 Saving file EPWs\metdata_temp.csv, # points: 8760
 Calculating Sun position for Metdata that is right-labeled  with a delta of -30 mins. i.e. 12 is 11:30 sunpos
 Creating ~14 skyfiles.
-Created 13 skyfiles in /skies/
+Created 14 skyfiles in /skies/
 </pre></div></div>
 </div>
 </section>
 <section id="A.-Baseline-Case:-No-Torque-Tube">
-<h3>A. Baseline Case: No Torque Tube<a class="headerlink" href="#A.-Baseline-Case:-No-Torque-Tube" title="Permalink to this heading">#</a></h3>
+<h3>A. Baseline Case: No Torque Tube<a class="headerlink" href="#A.-Baseline-Case:-No-Torque-Tube" title="Link to this heading">#</a></h3>
 <p>When torquetube is False, zgap is the distance from axis of torque tube to module surface, but since we are rotating from the module’s axis, this Zgap doesn’t matter for this baseline case.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#CASE 0 No torque tube</span>
@@ -934,10 +678,10 @@ Module _NoTT updated in module.json
 Pre-existing .rad file objects\_NoTT.rad will be overwritten
 
 
-Making ~13 .rad files for gendaylit 1-axis workflow (this takes a minute..)
-13 Radfiles created in /objects/
+Making ~14 .rad files for gendaylit 1-axis workflow (this takes a minute..)
+14 Radfiles created in /objects/
 
-Making 13 octfiles in root directory.
+Making 14 octfiles in root directory.
 Created 1axis_2021-06-24_0600.oct
 Created 1axis_2021-06-24_0700.oct
 Created 1axis_2021-06-24_0800.oct
@@ -951,70 +695,70 @@ Created 1axis_2021-06-24_1500.oct
 Created 1axis_2021-06-24_1600.oct
 Created 1axis_2021-06-24_1700.oct
 Created 1axis_2021-06-24_1800.oct
-Linescan in process: 1axis_2021-06-24_0600_NoTT_Front
-Linescan in process: 1axis_2021-06-24_0600_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_0600_NoTT.csv
-Index: 2021-06-24_0600. Wm2Front: 160.88263616666666. Wm2Back: 17.052301766666666
-Linescan in process: 1axis_2021-06-24_0700_NoTT_Front
-Linescan in process: 1axis_2021-06-24_0700_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_0700_NoTT.csv
-Index: 2021-06-24_0700. Wm2Front: 712.2108816666666. Wm2Back: 15.622919750000001
-Linescan in process: 1axis_2021-06-24_0800_NoTT_Front
-Linescan in process: 1axis_2021-06-24_0800_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_0800_NoTT.csv
-Index: 2021-06-24_0800. Wm2Front: 924.9510896666667. Wm2Back: 69.13558540000001
-Linescan in process: 1axis_2021-06-24_0900_NoTT_Front
-Linescan in process: 1axis_2021-06-24_0900_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_0900_NoTT.csv
-Index: 2021-06-24_0900. Wm2Front: 1039.6374066666667. Wm2Back: 85.08654363333333
-Linescan in process: 1axis_2021-06-24_1000_NoTT_Front
-Linescan in process: 1axis_2021-06-24_1000_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_1000_NoTT.csv
-Index: 2021-06-24_1000. Wm2Front: 1078.17375. Wm2Back: 107.69227871666666
-Linescan in process: 1axis_2021-06-24_1100_NoTT_Front
-Linescan in process: 1axis_2021-06-24_1100_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_1100_NoTT.csv
-Index: 2021-06-24_1100. Wm2Front: 1084.088385. Wm2Back: 133.61162201666667
-Linescan in process: 1axis_2021-06-24_1200_NoTT_Front
-Linescan in process: 1axis_2021-06-24_1200_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_1200_NoTT.csv
-Index: 2021-06-24_1200. Wm2Front: 1085.979685. Wm2Back: 150.43989916666666
-Linescan in process: 1axis_2021-06-24_1300_NoTT_Front
-Linescan in process: 1axis_2021-06-24_1300_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_1300_NoTT.csv
-Index: 2021-06-24_1300. Wm2Front: 1084.0961999999997. Wm2Back: 152.44494883333334
-Linescan in process: 1axis_2021-06-24_1400_NoTT_Front
-Linescan in process: 1axis_2021-06-24_1400_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_1400_NoTT.csv
-Index: 2021-06-24_1400. Wm2Front: 1090.7722316666668. Wm2Back: 139.7355665
-Linescan in process: 1axis_2021-06-24_1500_NoTT_Front
-Linescan in process: 1axis_2021-06-24_1500_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_1500_NoTT.csv
-Index: 2021-06-24_1500. Wm2Front: 1089.9997033333334. Wm2Back: 115.14025953333334
-Linescan in process: 1axis_2021-06-24_1600_NoTT_Front
-Linescan in process: 1axis_2021-06-24_1600_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_1600_NoTT.csv
-Index: 2021-06-24_1600. Wm2Front: 1064.2920499999998. Wm2Back: 88.6373849
-Linescan in process: 1axis_2021-06-24_1700_NoTT_Front
-Linescan in process: 1axis_2021-06-24_1700_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_1700_NoTT.csv
-Index: 2021-06-24_1700. Wm2Front: 974.1812123333334. Wm2Back: 74.30484108333333
-Linescan in process: 1axis_2021-06-24_1800_NoTT_Front
-Linescan in process: 1axis_2021-06-24_1800_NoTT_Back
-Saved: results\irr_1axis_2021-06-24_1800_NoTT.csv
-Index: 2021-06-24_1800. Wm2Front: 795.4285283333334. Wm2Back: 29.184145816666668
-Saving a cumulative-results file in the main simulation folder.This adds up by sensor location the irradiance over all hours or configurations considered.
-Warning: This file saving routine does not clean results, so if your setup has ygaps, or 2+modules or torque tubes, doing a deeper cleaning and working with the individual results files in the results folder is highly suggested.
-
-Saving Cumulative results
-Saved: cumulative_results__NoTT.csv
+Created 1axis_2021-06-24_1900.oct
+Linescan in process: 1axis_2021-06-24_0600_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0600_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0600_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0600. Wm2Front: 160.61333133333335. Wm2Back: 17.108433666666667
+Linescan in process: 1axis_2021-06-24_0700_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0700_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0700_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0700. Wm2Front: 711.8865435. Wm2Back: 15.716010416666666
+Linescan in process: 1axis_2021-06-24_0800_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0800_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0800_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0800. Wm2Front: 924.6059534999999. Wm2Back: 69.45826663333334
+Linescan in process: 1axis_2021-06-24_0900_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0900_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0900_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0900. Wm2Front: 1038.910115. Wm2Back: 84.86849265000001
+Linescan in process: 1axis_2021-06-24_1000_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1000_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1000_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1000. Wm2Front: 1077.66266. Wm2Back: 107.6461374
+Linescan in process: 1axis_2021-06-24_1100_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1100_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1100_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1100. Wm2Front: 1083.7125216666666. Wm2Back: 133.4556714
+Linescan in process: 1axis_2021-06-24_1200_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1200_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1200_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1200. Wm2Front: 1085.3191166666668. Wm2Back: 150.71347516666665
+Linescan in process: 1axis_2021-06-24_1300_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1300_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1300_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1300. Wm2Front: 1083.4486733333335. Wm2Back: 152.49291916666667
+Linescan in process: 1axis_2021-06-24_1400_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1400_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1400_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1400. Wm2Front: 1090.0625216666667. Wm2Back: 139.56060100000002
+Linescan in process: 1axis_2021-06-24_1500_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1500_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1500_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1500. Wm2Front: 1089.5583033333335. Wm2Back: 115.80682831666665
+Linescan in process: 1axis_2021-06-24_1600_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1600_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1600_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1600. Wm2Front: 1063.31393. Wm2Back: 88.37872263333333
+Linescan in process: 1axis_2021-06-24_1700_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1700_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1700_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1700. Wm2Front: 973.9297876666667. Wm2Back: 74.25426416666667
+Linescan in process: 1axis_2021-06-24_1800_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1800_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1800_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1800. Wm2Front: 795.2664161666667. Wm2Back: 29.030996633333334
+Linescan in process: 1axis_2021-06-24_1900_NoTT_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1900_NoTT_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1900_NoTT_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1900. Wm2Front: 309.2898725. Wm2Back: 17.900574133333336
 </pre></div></div>
 </div>
 </section>
 <section id="B.-ZGAP-=-0.1">
-<h3>B. ZGAP = 0.1<a class="headerlink" href="#B.-ZGAP-=-0.1" title="Permalink to this heading">#</a></h3>
+<h3>B. ZGAP = 0.1<a class="headerlink" href="#B.-ZGAP-=-0.1" title="Link to this heading">#</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#ZGAP 0.1</span>
@@ -1041,10 +785,10 @@ Saved: cumulative_results__NoTT.csv
 Module Name: _zgap0.1
 Module _zgap0.1 updated in module.json
 
-Making ~13 .rad files for gendaylit 1-axis workflow (this takes a minute..)
-13 Radfiles created in /objects/
+Making ~14 .rad files for gendaylit 1-axis workflow (this takes a minute..)
+14 Radfiles created in /objects/
 
-Making 13 octfiles in root directory.
+Making 14 octfiles in root directory.
 Created 1axis_2021-06-24_0600.oct
 Created 1axis_2021-06-24_0700.oct
 Created 1axis_2021-06-24_0800.oct
@@ -1058,70 +802,70 @@ Created 1axis_2021-06-24_1500.oct
 Created 1axis_2021-06-24_1600.oct
 Created 1axis_2021-06-24_1700.oct
 Created 1axis_2021-06-24_1800.oct
-Linescan in process: 1axis_2021-06-24_0600_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_0600_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_0600_zgap0.1.csv
-Index: 2021-06-24_0600. Wm2Front: 160.898549. Wm2Back: 16.260428746666665
-Linescan in process: 1axis_2021-06-24_0700_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_0700_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_0700_zgap0.1.csv
-Index: 2021-06-24_0700. Wm2Front: 712.2312021666667. Wm2Back: 14.770642416666664
-Linescan in process: 1axis_2021-06-24_0800_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_0800_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_0800_zgap0.1.csv
-Index: 2021-06-24_0800. Wm2Front: 925.001799. Wm2Back: 65.63304201666666
-Linescan in process: 1axis_2021-06-24_0900_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_0900_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_0900_zgap0.1.csv
-Index: 2021-06-24_0900. Wm2Front: 1039.8872783333334. Wm2Back: 80.59172066666667
-Linescan in process: 1axis_2021-06-24_1000_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_1000_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_1000_zgap0.1.csv
-Index: 2021-06-24_1000. Wm2Front: 1078.9054883333333. Wm2Back: 102.25665925000001
-Linescan in process: 1axis_2021-06-24_1100_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_1100_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_1100_zgap0.1.csv
-Index: 2021-06-24_1100. Wm2Front: 1083.9738016666668. Wm2Back: 126.44433045000001
-Linescan in process: 1axis_2021-06-24_1200_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_1200_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_1200_zgap0.1.csv
-Index: 2021-06-24_1200. Wm2Front: 1085.9060633333333. Wm2Back: 142.93360295
-Linescan in process: 1axis_2021-06-24_1300_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_1300_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_1300_zgap0.1.csv
-Index: 2021-06-24_1300. Wm2Front: 1083.783486666667. Wm2Back: 145.74923025
-Linescan in process: 1axis_2021-06-24_1400_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_1400_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_1400_zgap0.1.csv
-Index: 2021-06-24_1400. Wm2Front: 1090.7420983333332. Wm2Back: 134.02686028333335
-Linescan in process: 1axis_2021-06-24_1500_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_1500_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_1500_zgap0.1.csv
-Index: 2021-06-24_1500. Wm2Front: 1090.7095816666667. Wm2Back: 110.74830723333335
-Linescan in process: 1axis_2021-06-24_1600_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_1600_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_1600_zgap0.1.csv
-Index: 2021-06-24_1600. Wm2Front: 1064.2907666666665. Wm2Back: 84.94880501666667
-Linescan in process: 1axis_2021-06-24_1700_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_1700_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_1700_zgap0.1.csv
-Index: 2021-06-24_1700. Wm2Front: 974.4170208333334. Wm2Back: 70.43353035
-Linescan in process: 1axis_2021-06-24_1800_zgap0.1_Front
-Linescan in process: 1axis_2021-06-24_1800_zgap0.1_Back
-Saved: results\irr_1axis_2021-06-24_1800_zgap0.1.csv
-Index: 2021-06-24_1800. Wm2Front: 795.5130283333333. Wm2Back: 27.62965528333333
-Saving a cumulative-results file in the main simulation folder.This adds up by sensor location the irradiance over all hours or configurations considered.
-Warning: This file saving routine does not clean results, so if your setup has ygaps, or 2+modules or torque tubes, doing a deeper cleaning and working with the individual results files in the results folder is highly suggested.
-
-Saving Cumulative results
-Saved: cumulative_results__zgap0.1.csv
+Created 1axis_2021-06-24_1900.oct
+Linescan in process: 1axis_2021-06-24_0600_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0600_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0600_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0600. Wm2Front: 160.79456283333332. Wm2Back: 16.149412396666666
+Linescan in process: 1axis_2021-06-24_0700_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0700_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0700_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0700. Wm2Front: 714.142931. Wm2Back: 16.990744218333333
+Linescan in process: 1axis_2021-06-24_0800_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0800_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0800_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0800. Wm2Front: 927.6359336666667. Wm2Back: 67.13198245
+Linescan in process: 1axis_2021-06-24_0900_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0900_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0900_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0900. Wm2Front: 1039.9753983333333. Wm2Back: 95.34997313333334
+Linescan in process: 1axis_2021-06-24_1000_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1000_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1000_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1000. Wm2Front: 1077.69022. Wm2Back: 114.38867850000001
+Linescan in process: 1axis_2021-06-24_1100_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1100_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1100_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1100. Wm2Front: 1084.0945733333333. Wm2Back: 129.43752946666666
+Linescan in process: 1axis_2021-06-24_1200_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1200_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1200_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1200. Wm2Front: 1085.3231933333334. Wm2Back: 132.16437158333335
+Linescan in process: 1axis_2021-06-24_1300_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1300_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1300_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1300. Wm2Front: 1083.5638116666669. Wm2Back: 130.74440076666667
+Linescan in process: 1axis_2021-06-24_1400_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1400_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1400_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1400. Wm2Front: 1090.2652516666667. Wm2Back: 132.6973246833333
+Linescan in process: 1axis_2021-06-24_1500_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1500_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1500_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1500. Wm2Front: 1089.9819400000001. Wm2Back: 120.36316593333333
+Linescan in process: 1axis_2021-06-24_1600_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1600_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1600_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1600. Wm2Front: 1064.56622. Wm2Back: 99.018636
+Linescan in process: 1axis_2021-06-24_1700_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1700_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1700_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1700. Wm2Front: 977.1144816666667. Wm2Back: 79.30465405
+Linescan in process: 1axis_2021-06-24_1800_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1800_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1800_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1800. Wm2Front: 797.9707716666666. Wm2Back: 25.663987683333335
+Linescan in process: 1axis_2021-06-24_1900_zgap0.1_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1900_zgap0.1_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1900_zgap0.1_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1900. Wm2Front: 309.3469401666667. Wm2Back: 16.957719663333332
 </pre></div></div>
 </div>
 </section>
 <section id="C.-ZGAP-=-0.2">
-<h3>C. ZGAP = 0.2<a class="headerlink" href="#C.-ZGAP-=-0.2" title="Permalink to this heading">#</a></h3>
+<h3>C. ZGAP = 0.2<a class="headerlink" href="#C.-ZGAP-=-0.2" title="Link to this heading">#</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#ZGAP 0.2</span>
@@ -1148,10 +892,10 @@ Saved: cumulative_results__zgap0.1.csv
 Module Name: _zgap0.2
 Module _zgap0.2 updated in module.json
 
-Making ~13 .rad files for gendaylit 1-axis workflow (this takes a minute..)
-13 Radfiles created in /objects/
+Making ~14 .rad files for gendaylit 1-axis workflow (this takes a minute..)
+14 Radfiles created in /objects/
 
-Making 13 octfiles in root directory.
+Making 14 octfiles in root directory.
 Created 1axis_2021-06-24_0600.oct
 Created 1axis_2021-06-24_0700.oct
 Created 1axis_2021-06-24_0800.oct
@@ -1165,70 +909,70 @@ Created 1axis_2021-06-24_1500.oct
 Created 1axis_2021-06-24_1600.oct
 Created 1axis_2021-06-24_1700.oct
 Created 1axis_2021-06-24_1800.oct
-Linescan in process: 1axis_2021-06-24_0600_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_0600_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_0600_zgap0.2.csv
-Index: 2021-06-24_0600. Wm2Front: 160.95127333333335. Wm2Back: 16.368343216666666
-Linescan in process: 1axis_2021-06-24_0700_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_0700_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_0700_zgap0.2.csv
-Index: 2021-06-24_0700. Wm2Front: 712.0640086666666. Wm2Back: 14.946760753333333
-Linescan in process: 1axis_2021-06-24_0800_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_0800_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_0800_zgap0.2.csv
-Index: 2021-06-24_0800. Wm2Front: 925.1001738333332. Wm2Back: 66.81114501666667
-Linescan in process: 1axis_2021-06-24_0900_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_0900_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_0900_zgap0.2.csv
-Index: 2021-06-24_0900. Wm2Front: 1039.7707583333333. Wm2Back: 80.6326604
-Linescan in process: 1axis_2021-06-24_1000_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_1000_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_1000_zgap0.2.csv
-Index: 2021-06-24_1000. Wm2Front: 1078.3525883333332. Wm2Back: 102.99589575
-Linescan in process: 1axis_2021-06-24_1100_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_1100_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_1100_zgap0.2.csv
-Index: 2021-06-24_1100. Wm2Front: 1084.2332666666669. Wm2Back: 127.92269833333332
-Linescan in process: 1axis_2021-06-24_1200_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_1200_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_1200_zgap0.2.csv
-Index: 2021-06-24_1200. Wm2Front: 1086.0881933333333. Wm2Back: 143.99365805
-Linescan in process: 1axis_2021-06-24_1300_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_1300_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_1300_zgap0.2.csv
-Index: 2021-06-24_1300. Wm2Front: 1083.8707083333334. Wm2Back: 145.80315151666665
-Linescan in process: 1axis_2021-06-24_1400_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_1400_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_1400_zgap0.2.csv
-Index: 2021-06-24_1400. Wm2Front: 1090.1761900000001. Wm2Back: 134.82734448333332
-Linescan in process: 1axis_2021-06-24_1500_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_1500_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_1500_zgap0.2.csv
-Index: 2021-06-24_1500. Wm2Front: 1090.4470716666667. Wm2Back: 112.26905996666666
-Linescan in process: 1axis_2021-06-24_1600_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_1600_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_1600_zgap0.2.csv
-Index: 2021-06-24_1600. Wm2Front: 1064.020625. Wm2Back: 85.77698421666666
-Linescan in process: 1axis_2021-06-24_1700_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_1700_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_1700_zgap0.2.csv
-Index: 2021-06-24_1700. Wm2Front: 974.2239405. Wm2Back: 71.19313243333335
-Linescan in process: 1axis_2021-06-24_1800_zgap0.2_Front
-Linescan in process: 1axis_2021-06-24_1800_zgap0.2_Back
-Saved: results\irr_1axis_2021-06-24_1800_zgap0.2.csv
-Index: 2021-06-24_1800. Wm2Front: 795.4349030000001. Wm2Back: 28.006287783333338
-Saving a cumulative-results file in the main simulation folder.This adds up by sensor location the irradiance over all hours or configurations considered.
-Warning: This file saving routine does not clean results, so if your setup has ygaps, or 2+modules or torque tubes, doing a deeper cleaning and working with the individual results files in the results folder is highly suggested.
-
-Saving Cumulative results
-Saved: cumulative_results__zgap0.2.csv
+Created 1axis_2021-06-24_1900.oct
+Linescan in process: 1axis_2021-06-24_0600_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0600_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0600_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0600. Wm2Front: 160.69127733333335. Wm2Back: 16.13198465
+Linescan in process: 1axis_2021-06-24_0700_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0700_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0700_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0700. Wm2Front: 714.0970468333333. Wm2Back: 17.00923173333333
+Linescan in process: 1axis_2021-06-24_0800_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0800_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0800_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0800. Wm2Front: 927.6200985. Wm2Back: 67.34797225
+Linescan in process: 1axis_2021-06-24_0900_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0900_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0900_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0900. Wm2Front: 1039.569765. Wm2Back: 96.1848546
+Linescan in process: 1axis_2021-06-24_1000_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1000_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1000_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1000. Wm2Front: 1077.65024. Wm2Back: 115.02018179999999
+Linescan in process: 1axis_2021-06-24_1100_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1100_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1100_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1100. Wm2Front: 1083.6396583333333. Wm2Back: 130.65506715
+Linescan in process: 1axis_2021-06-24_1200_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1200_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1200_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1200. Wm2Front: 1085.16057. Wm2Back: 132.77163008333332
+Linescan in process: 1axis_2021-06-24_1300_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1300_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1300_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1300. Wm2Front: 1083.6495366666666. Wm2Back: 131.3902534
+Linescan in process: 1axis_2021-06-24_1400_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1400_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1400_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1400. Wm2Front: 1089.5272816666666. Wm2Back: 134.13126923333334
+Linescan in process: 1axis_2021-06-24_1500_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1500_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1500_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1500. Wm2Front: 1089.5370016666666. Wm2Back: 122.10894130000001
+Linescan in process: 1axis_2021-06-24_1600_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1600_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1600_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1600. Wm2Front: 1064.522875. Wm2Back: 100.99782898333335
+Linescan in process: 1axis_2021-06-24_1700_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1700_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1700_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1700. Wm2Front: 977.2259275000001. Wm2Back: 80.06400821666666
+Linescan in process: 1axis_2021-06-24_1800_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1800_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1800_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1800. Wm2Front: 797.9606495. Wm2Back: 25.91583303333333
+Linescan in process: 1axis_2021-06-24_1900_zgap0.2_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1900_zgap0.2_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1900_zgap0.2_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1900. Wm2Front: 309.21895966666665. Wm2Back: 17.228730433333336
 </pre></div></div>
 </div>
 </section>
 <section id="D.-ZGAP-=-0.3">
-<h3>D. ZGAP = 0.3<a class="headerlink" href="#D.-ZGAP-=-0.3" title="Permalink to this heading">#</a></h3>
+<h3>D. ZGAP = 0.3<a class="headerlink" href="#D.-ZGAP-=-0.3" title="Link to this heading">#</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#ZGAP 0.3</span>
@@ -1255,10 +999,10 @@ Saved: cumulative_results__zgap0.2.csv
 Module Name: _zgap0.3
 Module _zgap0.3 updated in module.json
 
-Making ~13 .rad files for gendaylit 1-axis workflow (this takes a minute..)
-13 Radfiles created in /objects/
+Making ~14 .rad files for gendaylit 1-axis workflow (this takes a minute..)
+14 Radfiles created in /objects/
 
-Making 13 octfiles in root directory.
+Making 14 octfiles in root directory.
 Created 1axis_2021-06-24_0600.oct
 Created 1axis_2021-06-24_0700.oct
 Created 1axis_2021-06-24_0800.oct
@@ -1272,74 +1016,74 @@ Created 1axis_2021-06-24_1500.oct
 Created 1axis_2021-06-24_1600.oct
 Created 1axis_2021-06-24_1700.oct
 Created 1axis_2021-06-24_1800.oct
-Linescan in process: 1axis_2021-06-24_0600_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_0600_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_0600_zgap0.3.csv
-Index: 2021-06-24_0600. Wm2Front: 160.92600333333334. Wm2Back: 16.4185512
-Linescan in process: 1axis_2021-06-24_0700_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_0700_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_0700_zgap0.3.csv
-Index: 2021-06-24_0700. Wm2Front: 712.0821578333332. Wm2Back: 15.082249303333333
-Linescan in process: 1axis_2021-06-24_0800_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_0800_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_0800_zgap0.3.csv
-Index: 2021-06-24_0800. Wm2Front: 925.3213965. Wm2Back: 66.92433681666667
-Linescan in process: 1axis_2021-06-24_0900_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_0900_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_0900_zgap0.3.csv
-Index: 2021-06-24_0900. Wm2Front: 1040.1536216666666. Wm2Back: 82.37073673333333
-Linescan in process: 1axis_2021-06-24_1000_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_1000_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_1000_zgap0.3.csv
-Index: 2021-06-24_1000. Wm2Front: 1078.30118. Wm2Back: 103.90044036666669
-Linescan in process: 1axis_2021-06-24_1100_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_1100_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_1100_zgap0.3.csv
-Index: 2021-06-24_1100. Wm2Front: 1083.84623. Wm2Back: 129.20831475
-Linescan in process: 1axis_2021-06-24_1200_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_1200_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_1200_zgap0.3.csv
-Index: 2021-06-24_1200. Wm2Front: 1085.6493133333333. Wm2Back: 145.744944
-Linescan in process: 1axis_2021-06-24_1300_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_1300_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_1300_zgap0.3.csv
-Index: 2021-06-24_1300. Wm2Front: 1084.0368883333333. Wm2Back: 148.1513217
-Linescan in process: 1axis_2021-06-24_1400_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_1400_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_1400_zgap0.3.csv
-Index: 2021-06-24_1400. Wm2Front: 1090.1315183333334. Wm2Back: 135.46233535
-Linescan in process: 1axis_2021-06-24_1500_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_1500_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_1500_zgap0.3.csv
-Index: 2021-06-24_1500. Wm2Front: 1089.88029. Wm2Back: 113.04730078333333
-Linescan in process: 1axis_2021-06-24_1600_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_1600_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_1600_zgap0.3.csv
-Index: 2021-06-24_1600. Wm2Front: 1063.76805. Wm2Back: 86.71621508333334
-Linescan in process: 1axis_2021-06-24_1700_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_1700_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_1700_zgap0.3.csv
-Index: 2021-06-24_1700. Wm2Front: 974.2528921666667. Wm2Back: 72.84506613333333
-Linescan in process: 1axis_2021-06-24_1800_zgap0.3_Front
-Linescan in process: 1axis_2021-06-24_1800_zgap0.3_Back
-Saved: results\irr_1axis_2021-06-24_1800_zgap0.3.csv
-Index: 2021-06-24_1800. Wm2Front: 795.6174011666668. Wm2Back: 27.747820300000004
-Saving a cumulative-results file in the main simulation folder.This adds up by sensor location the irradiance over all hours or configurations considered.
-Warning: This file saving routine does not clean results, so if your setup has ygaps, or 2+modules or torque tubes, doing a deeper cleaning and working with the individual results files in the results folder is highly suggested.
-
-Saving Cumulative results
-Saved: cumulative_results__zgap0.3.csv
+Created 1axis_2021-06-24_1900.oct
+Linescan in process: 1axis_2021-06-24_0600_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0600_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0600_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0600. Wm2Front: 160.6142815. Wm2Back: 16.04715678333333
+Linescan in process: 1axis_2021-06-24_0700_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0700_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0700_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0700. Wm2Front: 713.9713545. Wm2Back: 17.162669100000002
+Linescan in process: 1axis_2021-06-24_0800_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0800_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0800_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0800. Wm2Front: 927.5181026666667. Wm2Back: 66.89136905
+Linescan in process: 1axis_2021-06-24_0900_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_0900_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_0900_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_0900. Wm2Front: 1039.88624. Wm2Back: 96.3735126
+Linescan in process: 1axis_2021-06-24_1000_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1000_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1000_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1000. Wm2Front: 1077.8121083333333. Wm2Back: 115.48856386666667
+Linescan in process: 1axis_2021-06-24_1100_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1100_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1100_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1100. Wm2Front: 1083.3721716666666. Wm2Back: 131.75425473333334
+Linescan in process: 1axis_2021-06-24_1200_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1200_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1200_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1200. Wm2Front: 1085.2130849999999. Wm2Back: 135.79956271666666
+Linescan in process: 1axis_2021-06-24_1300_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1300_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1300_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1300. Wm2Front: 1084.0047533333332. Wm2Back: 133.21333536666668
+Linescan in process: 1axis_2021-06-24_1400_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1400_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1400_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1400. Wm2Front: 1089.2621783333334. Wm2Back: 135.17987356666669
+Linescan in process: 1axis_2021-06-24_1500_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1500_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1500_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1500. Wm2Front: 1090.0221333333332. Wm2Back: 122.11487441666667
+Linescan in process: 1axis_2021-06-24_1600_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1600_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1600_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1600. Wm2Front: 1064.680476666667. Wm2Back: 100.8071343
+Linescan in process: 1axis_2021-06-24_1700_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1700_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1700_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1700. Wm2Front: 977.4757143333333. Wm2Back: 80.27294976666668
+Linescan in process: 1axis_2021-06-24_1800_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1800_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1800_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1800. Wm2Front: 797.9280076666666. Wm2Back: 26.184755483333333
+Linescan in process: 1axis_2021-06-24_1900_zgap0.3_Scene0_Row2_Module5_Front
+Linescan in process: 1axis_2021-06-24_1900_zgap0.3_Scene0_Row2_Module5_Back
+Saved: results\irr_1axis_2021-06-24_1900_zgap0.3_Scene0_Row2_Module5.csv
+Index: 2021-06-24_1900. Wm2Front: 309.27536466666663. Wm2Back: 17.48443143333333
 </pre></div></div>
 </div>
 </section>
 <section id="2.-Read-back-the-values-and-tabulate-average-values-for-unshaded,-10cm-gap-and-30cm-gap">
-<h3>2. Read-back the values and tabulate average values for unshaded, 10cm gap and 30cm gap<a class="headerlink" href="#2.-Read-back-the-values-and-tabulate-average-values-for-unshaded,-10cm-gap-and-30cm-gap" title="Permalink to this heading">#</a></h3>
+<h3>2. Read-back the values and tabulate average values for unshaded, 10cm gap and 30cm gap<a class="headerlink" href="#2.-Read-back-the-values-and-tabulate-average-values-for-unshaded,-10cm-gap-and-30cm-gap" title="Link to this heading">#</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">resultsfolder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">testfolder</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">)</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">resultsfolder</span><span class="p">)</span>
@@ -1366,19 +1110,19 @@ Saved: cumulative_results__zgap0.3.csv
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-C:\Users\mprillim\sam_dev\bifacial_radiance\bifacial_radiance\TEMP\Tutorial_09\results
+C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_09\results
 </pre></div></div>
 </div>
 </section>
 <section id="3.-plot-spatial-loss-values-for-10cm-and-30cm-data">
-<h3>3. plot spatial loss values for 10cm and 30cm data<a class="headerlink" href="#3.-plot-spatial-loss-values-for-10cm-and-30cm-data" title="Permalink to this heading">#</a></h3>
+<h3>3. plot spatial loss values for 10cm and 30cm data<a class="headerlink" href="#3.-plot-spatial-loss-values-for-10cm-and-30cm-data" title="Link to this heading">#</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sans-serif&#39;</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Helvetica&#39;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="c1">#plt.rcParams[&#39;font.family&#39;] = &#39;sans-serif&#39;</span>
+<span class="c1">#plt.rcParams[&#39;font.sans-serif&#39;] = [&#39;Arial&#39;]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.linewidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="c1">#set the value globally</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -1402,135 +1146,34 @@ C:\Users\mprillim\sam_dev\bifacial_radiance\bifacial_radiance\TEMP\Tutorial_09\r
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; not found because none of the following families were found: Helvetica
-</pre></div></div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_9_-_Torquetube_Shading_24_0.png" src="../_images/tutorials_9_-_Torquetube_Shading_24_0.png" />
+</div>
+</div>
+</section>
+<section id="4.-Overall-Shading-Loss-Factor">
+<h3>4. Overall Shading Loss Factor<a class="headerlink" href="#4.-Overall-Shading-Loss-Factor" title="Link to this heading">#</a></h3>
+<p>To calculate shading loss factor, we can use the following equation:</p>
+<p><img alt="7f630d4461484ada89e66c9b0ee6d605" src="../_images/Equation_ShadingFactor.PNG" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ShadingFactor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">cm30_back</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">unsh_back</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">*</span><span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ShadingFactor</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_9_-_Torquetube_Shading_24_1.png" src="../_images/tutorials_9_-_Torquetube_Shading_24_1.png" />
-</div>
-</div>
-</section>
-<section id="4.-Overall-Shading-Loss-Factor">
-<h3>4. Overall Shading Loss Factor<a class="headerlink" href="#4.-Overall-Shading-Loss-Factor" title="Permalink to this heading">#</a></h3>
-<p>To calculate shading loss factor, we can use the following equation:</p>
-<p><img alt="f71a31cb576a4403a0737181b9c90cc4" src="../_images/Equation_ShadingFactor.PNG" /></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ShadingFactor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">cm30_back</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">unsh_back</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">*</span><span class="mi">100</span>
-</pre></div>
-</div>
+<div class="highlight"><pre>
+0.13514724136018952
+</pre></div></div>
 </div>
 </section>
 </section>
@@ -1552,7 +1195,7 @@ WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; no
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">8 - Electrical Mismatch Method</p>
+        <p class="prev-next-title">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</p>
       </div>
     </a>
     <a class="right-next"
@@ -1571,7 +1214,8 @@ WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; no
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1598,13 +1242,13 @@ WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; no
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/9 - Torquetube Shading.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/9 - Torquetube Shading.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -1619,8 +1263,8 @@ WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; no
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1640,7 +1284,7 @@ WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; no
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1653,7 +1297,8 @@ WARNING:matplotlib.font_manager:findfont: Generic family &#39;sans-serif&#39; no
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

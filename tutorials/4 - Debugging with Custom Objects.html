@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4 - Debugging with Custom Objects &#8212; bifacial_radiance 0.4.4 documentation</title>
+    <title>4 - Debugging with Custom Objects &#8212; bifacial_radiance 0.4.4.dev26+ge667a7c documentation</title>
   
   
   
@@ -16,30 +16,34 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/no_scrollbars.css?v=c83b3da8" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css?v=f1f6b6fd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b209ebb4"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=6e93b4f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -50,6 +54,7 @@
     <link rel="prev" title="3 - Single Axis Tracking Hourly" href="3%20-%20Single%20Axis%20Tracking%20Hourly.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.4.dev26+ge667a7c" />
   </head>
   
   
@@ -65,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -85,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,8 +120,8 @@
       
     
     
-    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4 documentation - Home"/>
-    <script>document.write(`<img src="../_static/bifacial_radiance.png" class="logo__image only-dark" alt="bifacial_radiance 0.4.4 documentation - Home"/>`);</script>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-light" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
+    <img src="../_static/bifacial_radiance.png" class="logo__image only-dark pst-js-only" alt="bifacial_radiance 0.4.4.dev26+ge667a7c documentation - Home"/>
   
   
 </a></div>
@@ -188,29 +181,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -259,15 +244,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -286,7 +267,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -347,15 +329,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -421,7 +399,7 @@ document.write(`
 </ul>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="6%20-%20Exploring%20Trackerdict%20Structure.html">6 - Exploring Trackerdict Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="8%20-%20Electrical%20Mismatch%20Method.html">8 - Electrical Mismatch Method (sorry, this tutorial is deprecated and non-functional as of v0.5.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="9%20-%20Torquetube%20Shading.html">9 - Torquetube Shading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11%20-%20AgriPV%20Systems.html">11 - AgriPV Systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14%20-%20Cement%20Racking%20Albedo%20Improvements.html">14 - Cement Racking Albedo Improvements</a></li>
@@ -452,9 +430,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -472,8 +455,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -485,7 +466,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../examples.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">4 -...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">4 - Debugging with Custom Objects</span></li>
   </ul>
 </nav>
 </div>
@@ -502,262 +483,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+  <div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
-<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span> <span class="k">as</span> <span class="nn">br</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">br</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
@@ -765,10 +498,21 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Working on a  Windows 10
+Python version  3.11.8 | packaged by conda-forge | (main, Feb 16 2024, 20:40:50) [MSC v.1937 64 bit (AMD64)]
+Pandas version  2.2.3
+bifacial_radiance version  0.5.0b2.dev4+gedb973d.d20250924
+</pre></div></div>
+</div>
 <section id="4---Debugging-with-Custom-Objects">
-<h1>4 - Debugging with Custom Objects<a class="headerlink" href="#4---Debugging-with-Custom-Objects" title="Permalink to this heading">#</a></h1>
+<h1>4 - Debugging with Custom Objects<a class="headerlink" href="#4---Debugging-with-Custom-Objects" title="Link to this heading">#</a></h1>
 <section id="Fixed-Tilt-2-up-with-Torque-Tube-+-CLEAN-Routine-+-CustomObject">
-<h2>Fixed Tilt 2-up with Torque Tube + CLEAN Routine + CustomObject<a class="headerlink" href="#Fixed-Tilt-2-up-with-Torque-Tube-+-CLEAN-Routine-+-CustomObject" title="Permalink to this heading">#</a></h2>
+<h2>Fixed Tilt 2-up with Torque Tube + CLEAN Routine + CustomObject<a class="headerlink" href="#Fixed-Tilt-2-up-with-Torque-Tube-+-CLEAN-Routine-+-CustomObject" title="Link to this heading">#</a></h2>
 <p>This journal has examples of various things, some which hav ebeen covered before and some in more depth:</p>
 <ul class="simple">
 <li><p>Running a fixed_tilt simulation beginning to end.</p></li>
@@ -791,13 +535,13 @@ div.rendered_html tbody tr:hover {
 </ol>
 </section>
 <section id="1.-Specify-Working-Folder-and-Import-Program">
-<h2>1. Specify Working Folder and Import Program<a class="headerlink" href="#1.-Specify-Working-Folder-and-Import-Program" title="Permalink to this heading">#</a></h2>
+<h2>1. Specify Working Folder and Import Program<a class="headerlink" href="#1.-Specify-Working-Folder-and-Import-Program" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="n">testfolder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;bifacial_radiance&#39;</span> <span class="o">/</span> <span class="s1">&#39;TEMP&#39;</span> <span class="o">/</span> <span class="s1">&#39;Tutorial_04&#39;</span>
 
@@ -809,9 +553,9 @@ div.rendered_html tbody tr:hover {
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">testfolder</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">testfolder</span><span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">bifacial_radiance</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bifacial_radiance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 </pre></div>
 </div>
 </div>
@@ -820,16 +564,16 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Your simulation will be stored in C:\Users\mprillim\sam_dev\bifacial_radiance\bifacial_radiance\TEMP\Tutorial_04
+Your simulation will be stored in C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_04
 </pre></div></div>
 </div>
 </section>
 <section id="2.-Specify-all-variables-for-the-module-and-scene">
-<h2>2. Specify all variables for the module and scene<a class="headerlink" href="#2.-Specify-all-variables-for-the-module-and-scene" title="Permalink to this heading">#</a></h2>
+<h2>2. Specify all variables for the module and scene<a class="headerlink" href="#2.-Specify-all-variables-for-the-module-and-scene" title="Link to this heading">#</a></h2>
 <p>Below find a list of all of the possible parameters for makeModule. scene and simulation parameters are also organized below. This simulation will be a complete simulation in terms of parameters that you can modify.</p>
 <p>The below routine creates a HEXAGONAL torque tube, for a 2-UP configuration of a specific module size. Parameters for the module, the torque tube, and the scene are below. This is being run with gendaylit, for one specific timestamp</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulationname</span> <span class="o">=</span> <span class="s1">&#39;tutorial_4&#39;</span>
@@ -868,9 +612,9 @@ Your simulation will be stored in C:\Users\mprillim\sam_dev\bifacial_radiance\bi
 </div>
 </section>
 <section id="3.-Create-the-Radiance-Object-and-generate-the-Sky">
-<h2>3. Create the Radiance Object and generate the Sky<a class="headerlink" href="#3.-Create-the-Radiance-Object-and-generate-the-Sky" title="Permalink to this heading">#</a></h2>
+<h2>3. Create the Radiance Object and generate the Sky<a class="headerlink" href="#3.-Create-the-Radiance-Object-and-generate-the-Sky" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">RadianceObj</span><span class="p">(</span><span class="n">simulationname</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">testfolder</span><span class="p">))</span>  <span class="c1"># Create a RadianceObj &#39;object&#39;</span>
@@ -888,7 +632,7 @@ Your simulation will be stored in C:\Users\mprillim\sam_dev\bifacial_radiance\bi
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-path = C:\Users\mprillim\sam_dev\bifacial_radiance\bifacial_radiance\TEMP\Tutorial_04
+path = C:\Users\cdeline\Documents\Python Scripts\Bifacial_Radiance\bifacial_radiance\TEMP\Tutorial_04
 Making path: images
 Making path: objects
 Making path: results
@@ -906,7 +650,7 @@ Calculating Sun position for Metdata that is right-labeled  with a delta of -30 
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -916,14 +660,14 @@ Calculating Sun position for Metdata that is right-labeled  with a delta of -30 
 </div>
 </section>
 <section id="4.-Calculating-tracker-angle/geometry-for-a-specific-timestamp">
-<h2>4. Calculating tracker angle/geometry for a specific timestamp<a class="headerlink" href="#4.-Calculating-tracker-angle/geometry-for-a-specific-timestamp" title="Permalink to this heading">#</a></h2>
+<h2>4. Calculating tracker angle/geometry for a specific timestamp<a class="headerlink" href="#4.-Calculating-tracker-angle/geometry-for-a-specific-timestamp" title="Link to this heading">#</a></h2>
 <p>This trick is useful if you are trying to use the fixed-tilt steps in bifacial_radiance to model a tracker for one specific point in time (if you take a picture of a tracker, it looks fixed, right? Well then).</p>
 <p>We assigned a 10 degree tilt at the beginning, but if we were to model a tracker as a fixed-tilt element because we are interested in only one point in time, this routine will tell us what tilt to use. <em>Please note that to model a tracker as fixed tilt, we suggest passing a hub_height, otherwise you will have to calculate the clearance_height manually.</em></p>
 <div class="admonition warning">
 <p>Details: you might have noticed in the previoust tutorial looking at the tracker dictionary, but the way that bifacial_radiance handles tracking: If the tracker is N-S axis azimuth, the surface azimuth of the modules will be set to 90 always, with a tilt that is either positive (for the early morning, facing East), or negative (for the afternoon, facing west).</p>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some tracking parameters that won&#39;t be needed after getting this angle:</span>
@@ -931,7 +675,7 @@ Calculating Sun position for Metdata that is right-labeled  with a delta of -30 
 <span class="n">axis_tilt</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">limit_angle</span> <span class="o">=</span> <span class="mi">60</span>
 <span class="n">backtrack</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">tilt</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getSingleTimestampTrackerAngle</span><span class="p">(</span><span class="n">metdata</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">gcr</span><span class="p">,</span> <span class="n">axis_azimuth</span><span class="p">,</span> <span class="n">axis_tilt</span><span class="p">,</span><span class="n">limit_angle</span><span class="p">,</span> <span class="n">backtrack</span><span class="p">)</span>
+<span class="n">tilt</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">getSingleTimestampTrackerAngle</span><span class="p">(</span><span class="n">timeindex</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">gcr</span><span class="o">=</span><span class="n">gcr</span><span class="p">,</span> <span class="n">azimuth</span><span class="o">=</span><span class="n">axis_azimuth</span><span class="p">,</span> <span class="n">axis_tilt</span><span class="o">=</span><span class="n">axis_tilt</span><span class="p">,</span> <span class="n">limit_angle</span><span class="o">=</span><span class="n">limit_angle</span><span class="p">,</span> <span class="n">backtrack</span><span class="o">=</span><span class="n">backtrack</span><span class="p">)</span>
 
 <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> NEW Calculated Tilt: </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="n">tilt</span><span class="p">)</span>
 </pre></div>
@@ -948,9 +692,9 @@ Calculating Sun position for Metdata that is right-labeled  with a delta of -30 
 </div>
 </section>
 <section id="5.-Making-the-Module-&amp;-the-Scene,-Visualize-and-run-Analysis">
-<h2>5. Making the Module &amp; the Scene, Visualize and run Analysis<a class="headerlink" href="#5.-Making-the-Module-&-the-Scene,-Visualize-and-run-Analysis" title="Permalink to this heading">#</a></h2>
+<h2>5. Making the Module &amp; the Scene, Visualize and run Analysis<a class="headerlink" href="#5.-Making-the-Module-&-the-Scene,-Visualize-and-run-Analysis" title="Link to this heading">#</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Making module with all the variables</span>
@@ -990,7 +734,7 @@ Created tutorial_4.oct
 <p>At this point you should be able to go into a command window (cmd.exe) and check the geometry. It should look like the image at the beginning of the journal. Example:</p>
 <p><strong>rvu -vf views:nbsphinx-math:`front`.vp -e .01 -pe 0.02 -vp -2 -12 14.5 tutorial_4.oct</strong>*</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1">## Comment the line below to run rvu from the Jupyter notebook instead of your terminal.</span>
@@ -1002,7 +746,7 @@ Created tutorial_4.oct
 </div>
 <p>And then proceed happily with your analysis:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analysis</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">AnalysisObj</span><span class="p">(</span><span class="n">octfile</span><span class="p">,</span> <span class="n">demo</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># return an analysis object including the scan dimensions for back irradiance</span>
@@ -1022,20 +766,20 @@ Created tutorial_4.oct
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Linescan in process: tutorial_4_Front
-Linescan in process: tutorial_4_Back
-Saved: results\irr_tutorial_4.csv
+Linescan in process: tutorial_4_Row1_Module2_Front
+Linescan in process: tutorial_4_Row1_Module2_Back
+Saved: results\irr_tutorial_4_Row1_Module2.csv
 </pre></div></div>
 </div>
 </section>
 <section id="6.-Calculate-Bifacial-Ratio-(clean-results)">
-<h2>6. Calculate Bifacial Ratio (clean results)<a class="headerlink" href="#6.-Calculate-Bifacial-Ratio-(clean-results)" title="Permalink to this heading">#</a></h2>
+<h2>6. Calculate Bifacial Ratio (clean results)<a class="headerlink" href="#6.-Calculate-Bifacial-Ratio-(clean-results)" title="Link to this heading">#</a></h2>
 <p>Although we could calculate a bifacial ratio average at this point, this value would be misleading, since some of the sensors generated will fall on the torque tube, the sky, and/or the ground since we have torquetube and ygap in the scene. To calculate the real bifacial ratio average, we must use the clean routines.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultFile</span><span class="o">=</span><span class="s1">&#39;results/irr_tutorial_4.csv&#39;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultFile</span><span class="o">=</span><span class="s1">&#39;results/irr_tutorial_4_Row1_Module2.csv&#39;</span>
 <span class="n">results_loaded</span> <span class="o">=</span> <span class="n">bifacial_radiance</span><span class="o">.</span><span class="n">load</span><span class="o">.</span><span class="n">read1Result</span><span class="p">(</span><span class="n">resultFile</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Printing the dataframe containing the results just calculated in </span><span class="si">%s</span><span class="s2">: &quot;</span> <span class="o">%</span> <span class="n">resultFile</span><span class="p">)</span>
 <span class="n">results_loaded</span>
@@ -1047,11 +791,11 @@ Saved: results\irr_tutorial_4.csv
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Printing the dataframe containing the results just calculated in results/irr_tutorial_4.csv:
+Printing the dataframe containing the results just calculated in results/irr_tutorial_4_Row1_Module2.csv:
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1082,68 +826,80 @@ Printing the dataframe containing the results just calculated in results/irr_tut
       <th>Wm2Front</th>
       <th>Wm2Back</th>
       <th>Back/FrontRatio</th>
+      <th>rearX</th>
+      <th>rearY</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.029825</td>
-      <td>6.305862e-17</td>
-      <td>2.706027</td>
-      <td>2.684100</td>
+      <td>1.029</td>
+      <td>0.0</td>
+      <td>2.710</td>
+      <td>2.680</td>
       <td>a1.0.a0.test-module.6457</td>
       <td>a1.0.a0.test-module.2310</td>
-      <td>911.9455</td>
-      <td>189.940467</td>
-      <td>0.208280</td>
+      <td>909.867</td>
+      <td>186.261</td>
+      <td>0.205</td>
+      <td>1.032</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>1.019254</td>
-      <td>6.241128e-17</td>
-      <td>2.705163</td>
-      <td>2.683236</td>
+      <td>1.019</td>
+      <td>0.0</td>
+      <td>2.710</td>
+      <td>2.680</td>
       <td>a1.0.a0.test-module.6457</td>
       <td>a1.0.a0.test-module.2310</td>
-      <td>911.9457</td>
-      <td>189.720333</td>
-      <td>0.208039</td>
+      <td>909.868</td>
+      <td>186.047</td>
+      <td>0.204</td>
+      <td>1.021</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>1.008682</td>
-      <td>6.176395e-17</td>
-      <td>2.704300</td>
-      <td>2.682373</td>
+      <td>1.008</td>
+      <td>0.0</td>
+      <td>2.709</td>
+      <td>2.678</td>
       <td>a1.0.a0.test-module.6457</td>
       <td>a1.0.a0.test-module.2310</td>
-      <td>911.9458</td>
-      <td>189.499700</td>
-      <td>0.207797</td>
+      <td>909.868</td>
+      <td>185.849</td>
+      <td>0.204</td>
+      <td>1.011</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.998110</td>
-      <td>6.111662e-17</td>
-      <td>2.703436</td>
-      <td>2.681509</td>
+      <td>0.998</td>
+      <td>0.0</td>
+      <td>2.709</td>
+      <td>2.678</td>
       <td>a1.0.a0.test-module.6457</td>
       <td>a1.0.a0.test-module.2310</td>
-      <td>911.9458</td>
-      <td>189.279033</td>
-      <td>0.207555</td>
+      <td>909.868</td>
+      <td>185.635</td>
+      <td>0.204</td>
+      <td>1.000</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.987538</td>
-      <td>6.046929e-17</td>
-      <td>2.702573</td>
-      <td>2.680646</td>
+      <td>0.987</td>
+      <td>0.0</td>
+      <td>2.707</td>
+      <td>2.676</td>
       <td>a1.0.a0.test-module.6457</td>
       <td>a1.0.a0.test-module.2310</td>
-      <td>911.9459</td>
-      <td>189.058400</td>
-      <td>0.207313</td>
+      <td>909.868</td>
+      <td>185.431</td>
+      <td>0.204</td>
+      <td>0.990</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1156,74 +912,86 @@ Printing the dataframe containing the results just calculated in results/irr_tut
       <td>...</td>
       <td>...</td>
       <td>...</td>
+      <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
       <th>195</th>
-      <td>-1.031666</td>
-      <td>-6.317134e-17</td>
-      <td>2.537628</td>
-      <td>2.515701</td>
+      <td>-1.033</td>
+      <td>0.0</td>
+      <td>2.543</td>
+      <td>2.512</td>
       <td>a1.0.a1.test-module.6457</td>
       <td>a1.0.a1.test-module.2310</td>
-      <td>911.9528</td>
-      <td>184.729067</td>
-      <td>0.202564</td>
+      <td>909.878</td>
+      <td>185.560</td>
+      <td>0.204</td>
+      <td>-1.030</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>196</th>
-      <td>-1.042238</td>
-      <td>-6.381867e-17</td>
-      <td>2.536764</td>
-      <td>2.514838</td>
+      <td>-1.043</td>
+      <td>0.0</td>
+      <td>2.541</td>
+      <td>2.510</td>
       <td>a1.0.a1.test-module.6457</td>
       <td>a1.0.a1.test-module.2310</td>
-      <td>911.9529</td>
-      <td>184.896467</td>
-      <td>0.202748</td>
+      <td>909.878</td>
+      <td>185.743</td>
+      <td>0.204</td>
+      <td>-1.040</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>197</th>
-      <td>-1.052810</td>
-      <td>-6.446600e-17</td>
-      <td>2.535901</td>
-      <td>2.513974</td>
+      <td>-1.055</td>
+      <td>0.0</td>
+      <td>2.541</td>
+      <td>2.510</td>
       <td>a1.0.a1.test-module.6457</td>
       <td>a1.0.a1.test-module.2310</td>
-      <td>911.9529</td>
-      <td>185.063900</td>
-      <td>0.202931</td>
+      <td>909.878</td>
+      <td>185.958</td>
+      <td>0.204</td>
+      <td>-1.052</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>198</th>
-      <td>-1.063381</td>
-      <td>-6.511333e-17</td>
-      <td>2.535037</td>
-      <td>2.513110</td>
+      <td>-1.064</td>
+      <td>0.0</td>
+      <td>2.540</td>
+      <td>2.508</td>
       <td>a1.0.a1.test-module.6457</td>
       <td>a1.0.a1.test-module.2310</td>
-      <td>911.9529</td>
-      <td>185.231333</td>
-      <td>0.203115</td>
+      <td>909.878</td>
+      <td>186.141</td>
+      <td>0.205</td>
+      <td>-1.062</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>199</th>
-      <td>-1.073953</td>
-      <td>-6.576067e-17</td>
-      <td>2.534174</td>
-      <td>2.512247</td>
+      <td>-1.074</td>
+      <td>0.0</td>
+      <td>2.540</td>
+      <td>2.508</td>
       <td>a1.0.a1.test-module.6457</td>
       <td>a1.0.a1.test-module.2310</td>
-      <td>911.9529</td>
-      <td>185.398733</td>
-      <td>0.203298</td>
+      <td>909.878</td>
+      <td>186.144</td>
+      <td>0.205</td>
+      <td>-1.071</td>
+      <td>0.0</td>
     </tr>
   </tbody>
 </table>
-<p>200 rows × 9 columns</p>
+<p>200 rows × 11 columns</p>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Looking at only 1 sensor in the middle -- position 100 out of the 200 sensors sampled:&quot;</span><span class="p">)</span>
@@ -1240,27 +1008,29 @@ Looking at only 1 sensor in the middle -- position 100 out of the 200 sensors sa
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-x                             -0.02735
-y                                 -0.0
-z                             2.619669
-rearZ                         2.597742
+x                               -0.028
+y                                  0.0
+z                                2.625
+rearZ                            2.594
 mattype            a1.0.hextube1a.6457
 rearMat                            sky
-Wm2Front                    788.535333
-Wm2Back                       163.0105
-Back/FrontRatio               0.206725
+Wm2Front                       814.726
+Wm2Back                        161.885
+Back/FrontRatio                  0.199
+rearX                           -0.025
+rearY                              0.0
 Name: 100, dtype: object
 </pre></div></div>
 </div>
 <p>As an example, we can see above that sensor 100 falls in the hextube, and in the sky. We need to remove this to calculate the real bifacial_gain from the irradiance falling into the modules. To do this we use cleanResult form the load.py module in bifacial_radiance. This finds the invalid materials and sets the irradiance values for those materials to NaN</p>
 <p>This might take some time in the current version.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cleaning Results:</span>
@@ -1270,7 +1040,7 @@ Name: 100, dtype: object
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sampling the same location as before to see what the results are now:&quot;</span><span class="p">)</span>
@@ -1287,25 +1057,27 @@ Sampling the same location as before to see what the results are now:
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-x                             -0.02735
-y                                 -0.0
-z                             2.619669
-rearZ                         2.597742
+x                               -0.028
+y                                  0.0
+z                                2.625
+rearZ                            2.594
 mattype            a1.0.hextube1a.6457
 rearMat                            sky
 Wm2Front                           NaN
 Wm2Back                            NaN
-Back/FrontRatio               0.206725
+Back/FrontRatio                  0.199
+rearX                           -0.025
+rearY                              0.0
 Name: 100, dtype: object
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CORRECT Annual bifacial ratio average:  </span><span class="si">%0.3f</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span> <span class="n">clean_results</span><span class="p">[</span><span class="s1">&#39;Wm2Back&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">clean_results</span><span class="p">[</span><span class="s1">&#39;Wm2Front&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="p">))</span>
@@ -1320,25 +1092,25 @@ Name: 100, dtype: object
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-CORRECT Annual bifacial ratio average:  0.203
+CORRECT Annual bifacial ratio average:  0.200
 
-(If we had not done the cleaning routine, the bifacial ratio would have been  calculated to 0.205  &lt;-- THIS VALUE IS WRONG)
+(If we had not done the cleaning routine, the bifacial ratio would have been  calculated to 0.202  &lt;-- THIS VALUE IS WRONG)
 </pre></div></div>
 </div>
 </section>
 <section id="7.-Add-Custom-Elements-to-your-Scene-Example:-Marker-at-0,0-position">
-<h2>7. Add Custom Elements to your Scene Example: Marker at 0,0 position<a class="headerlink" href="#7.-Add-Custom-Elements-to-your-Scene-Example:-Marker-at-0,0-position" title="Permalink to this heading">#</a></h2>
+<h2>7. Add Custom Elements to your Scene Example: Marker at 0,0 position<a class="headerlink" href="#7.-Add-Custom-Elements-to-your-Scene-Example:-Marker-at-0,0-position" title="Link to this heading">#</a></h2>
 <p>This shows how to add a custom element, in this case a Cube, that will be placed in the center of your already created scene to mark the 0,0 location.</p>
-<p>This can be added at any point after makeScene has been run once. Notice that if this extra element is in the scene and the analysis sensors fall on this element, they will measure irradiance at this element and no the modules.</p>
+<p>This can be added at any point after makeScene has been run once. Notice that if this extra element is in the scene and the analysis sensors fall on this element, they will measure irradiance at this element and no the modules. <strong>New in v0.5.0</strong>: Multiple sceneobjects can be added to the scene, using <code class="docutils literal notranslate"><span class="pre">customtext</span></code> parameter and <code class="docutils literal notranslate"><span class="pre">append=True</span></code>.</p>
 <p>We are going to create a “MyMarker.rad” file in the objects folder, right after we make the Module. This is a prism (so we use ‘genbox’), that is black from the ground.rad list of materials (‘black’) We are naming it ‘CenterMarker’ Its sides are going to be 0.5x0.5x0.5 m and We are going to leave its bottom surface coincident with the plane z=0, but going to center on X and Y.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;MyMarker&#39;</span>
 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;! genbox black CenterMarker 0.1 0.1 4 | xform -t -0.05 -0.05 0&#39;</span>
 <span class="n">customObject</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeCustomObject</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
-<br/></pre></div>
+</pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1351,14 +1123,56 @@ Custom Object Name objects\MyMarker.rad
 </pre></div></div>
 </div>
 <p>This should have created a MyMarker.rad object on your objects folder.</p>
-<p>But creating the object does not automatically adds it to the seen. So let’s now add the customObject to the Scene. We are not going to translate it or anything because we want it at the center, but you can pass translation, rotation, and any other XFORM command from Radiance.</p>
-<p>I am passing a rotation 0 because xform has to have something (I think) otherwise it gets confused.</p>
+<p>But creating the object does not automatically adds it to the scene. So let’s now add the customObject to the Scene. We are not going to translate it or anything because we want it at the center, but you can pass translation, rotation, and any other XFORM command from Radiance. The custom object is added to the scene .rad file.</p>
+<p>Starting in v0.5.0 we can have multiple scenes, and these are now stored in the array <code class="docutils literal notranslate"><span class="pre">demo.scenes</span></code>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">radfiles</span><span class="p">,</span> <span class="n">customObject</span><span class="p">,</span> <span class="s1">&#39;!xform -rz 0&#39;</span><span class="p">)</span>
-<span class="c1"># makeOct combines all of the ground, sky and object files into a .oct file.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">scenes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;bifacial_radiance.main.SceneObj&#39;&gt; : {&#39;gcr&#39;: np.float64(0.32998), &#39;hpc&#39;: False, &#39;module&#39;: &lt;class &#39;bifacial_radiance.module.ModuleObj&#39;&gt; : {&#39;x&#39;: 1.996, &#39;y&#39;: 0.991, &#39;z&#39;: 0.02, &#39;modulematerial&#39;: &#39;black&#39;, &#39;scenex&#39;: np.float64(2.046), &#39;sceney&#39;: np.float64(2.132), &#39;scenez&#39;: np.float64(0.25), &#39;numpanels&#39;: 2, &#39;bifi&#39;: 1, &#39;text&#39;: &#39;! genbox black test-module 1.996 0.991 0.02 | xform -t -0.998 -1.066 0.25 -a 2 -t 0 1.141 0\r\n! genbox Metal_Grey hextube1a 2.046 0.075 0.129904 | xform -t -1.023 -0.0375 -0.064952\r\n! genbox Metal_Grey hextube1b 2.046 0.075 0.129904 | xform -t -1.023 -0.0375 0.064952 -rx 60 -t 0 0 0\r\n! genbox Metal_Grey hextube1c 2.046 0.075 0.129904 | xform -t -1.023 -0.0375 -0.064952 -rx -60 -t 0 0 0&#39;, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;glass&#39;: False, &#39;glassEdge&#39;: 0.01, &#39;offsetfromaxis&#39;: np.float64(0.25), &#39;xgap&#39;: 0.05, &#39;ygap&#39;: 0.15, &#39;zgap&#39;: 0.175}, &#39;modulefile&#39;: &#39;objects\\test-module.rad&#39;, &#39;name&#39;: &#39;Scene0&#39;, &#39;radfiles&#39;: [&#39;objects\\test-module_C_2.28_rtr_6.46_tilt_-5_4modsx2rows_origin0,0.rad&#39;], &#39;sceneDict&#39;: {&#39;tilt&#39;: -4.67, &#39;pitch&#39;: np.float64(6.461), &#39;hub_height&#39;: 2.35, &#39;azimuth&#39;: 90, &#39;module_type&#39;: &#39;test-module&#39;, &#39;nMods&#39;: 4, &#39;nRows&#39;: 2, &#39;axis_tilt&#39;: 0, &#39;originx&#39;: 0, &#39;originy&#39;: 0}, &#39;text&#39;: &#39;!xform -rx -4.67 -t 0 0 2.35 -a 4 -t 2.046 0 0 -a 2 -t 0 6.461 0 -i 1 -t -2.046 -0.0 0 -rz 90 -t 0 0 0 &#34;objects\\test-module.rad&#34;&#39;}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demo</span><span class="o">.</span><span class="n">scenes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">radfiles</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;objects\\test-module_C_2.28_rtr_6.46_tilt_-5_4modsx2rows_origin0,0.rad&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Append the custom object.  It should now show up in the scene radfile.</span>
+<span class="n">scene</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">scenes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">appendtoScene</span><span class="p">(</span><span class="n">customObject</span><span class="o">=</span><span class="n">customObject</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># makeOct combines all of the ground, sky and object files into a .oct file.</span>
 <span class="n">octfile</span> <span class="o">=</span> <span class="n">demo</span><span class="o">.</span><span class="n">makeOct</span><span class="p">(</span><span class="n">demo</span><span class="o">.</span><span class="n">getfilelist</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -1374,7 +1188,7 @@ Created tutorial_4.oct
 <p>appendtoScene appended to the Scene.rad file the name of the custom object we created and the xform transformation we included as text. Then octfile merged this new scene with the ground and sky files.</p>
 <p>At this point you should be able to go into a command window (cmd.exe) and check the geometry, and the marker should be there.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1">## Comment the line below to run rvu from the Jupyter notebook instead of your terminal.</span>
@@ -1426,7 +1240,8 @@ Created tutorial_4.oct
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1449,13 +1264,13 @@ Created tutorial_4.oct
   </nav></div>
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/4 - Debugging with Custom Objects.ipynb.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/4 - Debugging with Custom Objects.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -1470,8 +1285,8 @@ Created tutorial_4.oct
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1491,7 +1306,7 @@ Created tutorial_4.oct
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -1504,7 +1319,8 @@ Created tutorial_4.oct
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>
