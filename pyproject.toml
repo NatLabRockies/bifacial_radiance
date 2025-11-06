@@ -1,0 +1,95 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bifacial_radiance"
+dynamic = ["version"]
+description = "Tools to interface with Radiance for the PV researcher"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "BSD License (3 clause)"}
+authors = [
+    {name = "Chris Deline", email = "chris.deline@nrel.gov"}
+    {name = "Silvana Ovaitt", email = "silvana.ovaitt@nrel.gov"}
+]
+keywords = ["bifacial", "radiance", "photovoltaics", "pv", "ray tracing"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "configparser",
+    "deprecated",
+    "pandas",
+    "pvlib >= 0.8.0",
+    "pvmismatch",
+    "pyradiance",
+    "requests",
+    "scipy > 1.6.0",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+    "pySMARTS",
+]
+doc = [
+    "ipython",
+    "sphinx >= 1.8.0",
+    "sphinx-autoapi >= 1.1.0",
+    "pydata-sphinx-theme >= 0.14.4",
+    "nbsphinx >= 0.8.8",
+    "sphinx-gallery >= 0.8.1",
+]
+all = [
+    "bifacial_radiance[test,doc]",
+    "jupyter",
+]
+
+[project.urls]
+Homepage = "https://github.com/NREL/bifacial_radiance"
+Documentation = "https://bifacial-radiance.readthedocs.io"
+Repository = "https://github.com/NREL/bifacial_radiance"
+Issues = "https://github.com/NREL/bifacial_radiance/issues"
+
+[tool.setuptools]
+packages = ["bifacial_radiance"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+bifacial_radiance = [
+    "data/ground.rad",
+    "data/gencumulativesky.exe",
+    "data/module.json",
+    "data/default.ini",
+    "images/*",
+]
+
+[tool.setuptools_scm]
+fallback_version = "0.5.0"
+
+[tool.pytest.ini_options]
+addopts = "--verbose"
+
+[tool.coverage.run]
+source = ["bifacial_radiance"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
