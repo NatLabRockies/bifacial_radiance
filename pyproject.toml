@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "BSD License (3 clause)"}
 authors = [
-    {name = "Chris Deline", email = "chris.deline@nrel.gov"}
+    {name = "Chris Deline", email = "chris.deline@nrel.gov"},
     {name = "Silvana Ovaitt", email = "silvana.ovaitt@nrel.gov"}
 ]
 keywords = ["bifacial", "radiance", "photovoltaics", "pv", "ray tracing"]
