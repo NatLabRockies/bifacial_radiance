@@ -95,24 +95,28 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
+        'configparser',
+        'deprecated',
         'pandas ',
         'pvlib >= 0.8.0',
         'pvmismatch',
-        'configparser',
-        'requests',
         'pyradiance',
+        'requests',
         'scipy > 1.6.0',
         'tqdm',
-        'deprecated',
         ],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # for example:
     # $ pip install -e .[dev,test]
-    
 
     extras_require={
+        'test': [
+            'pytest',
+            'pytest-cov',
+            'pySMARTS',
+        ],
         'doc': [
             'ipython',
             'sphinx >= 1.8.0',
@@ -122,7 +126,6 @@ setup(
             # sphinx-gallery is used indirectly for nbsphinx thumbnail galleries; see:
             # https://nbsphinx.readthedocs.io/en/0.6.0/subdir/gallery.html#Creating-Thumbnail-Galleries
             'sphinx-gallery>=0.8.1',
-            'tqdm',
         ],
         'all': [
             'ipython',
@@ -130,6 +133,11 @@ setup(
             'pytest',
             'pytest-cov',
             'pySMARTS',
+            'sphinx >= 1.8.0',
+            'sphinx-autoapi>=1.1.0',
+            'pydata-sphinx-theme>=0.14.4',
+            'nbsphinx>=0.8.8',
+            'sphinx-gallery>=0.8.1',
             ],
     },
     setup_requires=['setuptools_scm'],
