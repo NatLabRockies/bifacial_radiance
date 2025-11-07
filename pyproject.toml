@@ -8,7 +8,7 @@ dynamic = ["version"]
 description = "Tools to interface with Radiance for the PV researcher"
 readme = "README.md"
 requires-python = ">=3.8"
-license = "BSD-3-Clause"
+license = {text = "BSD-3-Clause"}
 license-files = ["LICENSE"]
 authors = [
     {name = "Chris Deline", email = "chris.deline@nrel.gov"},
