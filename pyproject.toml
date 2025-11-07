@@ -8,7 +8,6 @@ dynamic = ["version"]
 description = "Tools to interface with Radiance for the PV researcher"
 readme = "README.md"
 requires-python = ">=3.8"
-license = {text = "BSD-3-Clause"}
 license-files = ["LICENSE"]
 authors = [
     {name = "Chris Deline", email = "chris.deline@nrel.gov"},
@@ -18,6 +17,7 @@ keywords = ["bifacial", "radiance", "photovoltaics", "pv", "ray tracing"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD-3-Clause",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
