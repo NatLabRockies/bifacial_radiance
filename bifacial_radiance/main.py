@@ -915,7 +915,7 @@ class RadianceObj(SuperClass):
         source : str
             To help identify different types of .csv files. If None, it assumes
             it is a TMY3-style formated data. Current options: 'TMY3', 
-            'solargis', 'EPW', 'SAM'
+            'solargis', 'EPW', 'SAM', 'PSM3'
         coerce_year : int
             Year to coerce weather data to in YYYY format, ie 2021. 
             If more than one year of data in the  weather file, year is NOT coerced.
@@ -968,7 +968,7 @@ class RadianceObj(SuperClass):
                 label = 'right'
             metdata, metadata = self._readTMY(weatherFile, label=label, coerce_year=coerce_year)
 
-        if source.lower() =='sam':
+        if source.lower() in ['sam', 'psm3']:
             if label is None:
                 label = 'left'
             metdata, metadata = self._readSAM(weatherFile)
@@ -1390,14 +1390,12 @@ class RadianceObj(SuperClass):
 
     def _readSAM(self, SAMfile=None):
         '''
-        use pvlib to read in a tmy3 file.
-        Note: pvlib 0.7 does not currently support sub-hourly files. Until
-        then, use _readTMYdate() to create the index
+        Read an NSRDB PSM3 weather file (formatted as SAM CSV).
 
         Parameters
         ------------
         tmyfile : str
-            Filename of tmy3 to be read with pvlib.tmy.readtmy3
+            Filename of PSM3 to be read with pvlib.iotools.read_psm3
 
         Returns
         -------
@@ -1408,7 +1406,7 @@ class RadianceObj(SuperClass):
         # Will only work with latest PVLIB Release once htey accept my push..
         # Note Oct. 10
         # import pvlib
-        #(tmydata, metadata) = pvlib.iotools.tmy.read_psm3(filename=SAMfile,
+        #(tmydata, metadata) = pvlib.iotools.read_psm3(filename=SAMfile,
         #                                                  map_variables=True)
         with open(SAMfile) as myfile:
             head = next(myfile)#

@@ -38,6 +38,8 @@ MET_FILENAME3= "Custom_WeatherFile_2years_15mins_BESTFieldData.csv"
 MET_FILENAME4="SOLARGIS_Almeria_Spain_20210331.csv"
 # custom 1 year TMY3 datafile with an added "Tracker Angle (degrees)" column 
 MET_FILENAME5="Custom_WeatherFile_TMY3format_60mins_2021_wTrackerAngles_BESTFieldData.csv"
+# PSM3 (SAM hourly) formatted weather file for Phoenix, AZ
+MET_FILENAME6="phoenix_az_psmv3_60_tmy.csv"
 
 
 #def test_quickExample():
@@ -327,8 +329,7 @@ def test_SceneObj_makeSceneNxR_hightilt():
     scene = demo.makeScene(module='test-module', sceneDict=sceneDict)
     analysis = bifacial_radiance.AnalysisObj()
     (frontscan,backscan) = analysis.moduleAnalysis(scene)
-    
-    
+        
     temp = frontscan.pop('orient')
     '''
     assert [float(x) for x in temp.split(' ')] == pytest.approx([-0.999847695156, -0.0174524064373, 0])
@@ -358,7 +359,7 @@ def test_SceneObj_makeSceneNxR_hightilt():
                             'sx_xinc': 0.0, 'sx_yinc':0.0, 'sx_zinc':0.0}, abs=.001)
     #assert scene.text == '!xform -rz -90 -t -0.795 0.475 0 -rx 65 -t 0 0 0.2 -a 20 -t 1.6 0 0 -a 7 -t 0 1.5 0 -i 1 -t -15.9 -4.5 0 -rz 91 objects\\simple_panel.rad'
     assert scene.text[0:106] == '!xform -rx 65 -t 0 0 0.6304 -a 20 -t 1.6 0 0 -a 7 -t 0 1.5 0 -i 1 -t -14.4 -4.5 0 -rz 91 -t 0 0 0 "objects'
-    
+    assert analysis._linePtsArray(frontscan)[1][0:3] == pytest.approx([0.0032, 0.0025, 0.0018], abs=.0001)
 
  
 def test_AnalysisObj_linePtsMake3D():
@@ -596,7 +597,7 @@ def test_tiltandazimuthModuleTest():
     assert analysis.rearMat[3] == 'a0.0.a0.test-module.2310'
     
 def test_readWeatherFile_extra():
-    # test mm_DD input, trim=true, Silvana's 15-minute multi-year file
+    # test mm_DD input, trim=true, Silvana's 15-minute multi-year file. Test PSM3 file
 
     
     name = "_test_readWeatherFile_extra"   
@@ -621,6 +622,8 @@ def test_readWeatherFile_extra():
     assert metdata2.ghi[0] == 610
     assert metdata3.ghi[0] == 610 
     assert metdata4.ghi[0] == 2  
+
+    metdata6 = demo.readWeatherFile(weatherFile=MET_FILENAME6, source='PSM3')
     
 def test_readWeatherFile_subhourly():
     # need to test out is_leap_and_29Feb and _subhourlydatatoGencumskyformat
