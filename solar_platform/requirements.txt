@@ -1,0 +1,72 @@
+# Core Web Framework
+streamlit>=1.28.0
+streamlit-aggrid>=0.3.4
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Solar Analysis (NREL Tools)
+bifacial-radiance>=0.4.4
+pvlib>=0.10.0
+NREL-PySAM>=4.0.0
+
+# Weather APIs
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# Database
+sqlalchemy>=2.0.0
+alembic>=1.12.0
+psycopg2-binary>=2.9.0  # PostgreSQL support
+
+# Visualization
+plotly>=5.17.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+pydeck>=0.8.0  # 3D map visualizations
+
+# PDF Generation
+fpdf2>=2.7.0
+reportlab>=4.0.0
+
+# Data Validation
+pydantic>=2.4.0
+pydantic-settings>=2.0.0
+
+# Utilities
+python-dateutil>=2.8.2
+pytz>=2023.3
+tqdm>=4.66.0
+
+# API Rate Limiting
+ratelimit>=2.2.1
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.0
+
+# Development
+black>=23.7.0
+flake8>=6.1.0
+mypy>=1.5.0
+
+# Caching
+cachetools>=5.3.0
+diskcache>=5.6.0
+
+# Async support (for concurrent API calls)
+aiohttp>=3.8.5
+asyncio>=3.4.3
+
+# Geographic calculations
+geopy>=2.4.0
+
+# Time series analysis
+statsmodels>=0.14.0
+
+# Excel export support
+openpyxl>=3.1.0
+xlsxwriter>=3.1.0
