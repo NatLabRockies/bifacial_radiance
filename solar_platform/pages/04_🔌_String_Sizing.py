@@ -112,6 +112,51 @@ with tab1:
             help="Site elevation above sea level"
         )
 
+    # Degradation settings
+    st.subheader("⏳ Lifecycle Analysis (Degradation)")
+    deg_col1, deg_col2, deg_col3 = st.columns(3)
+
+    with deg_col1:
+        consider_degradation = st.checkbox(
+            "Include Degradation Analysis",
+            value=True,
+            help="Check EOL voltage to ensure strings stay above MPPT minimum over project life"
+        )
+
+    with deg_col2:
+        degradation_rate = st.number_input(
+            "Annual Degradation Rate (%/year)",
+            min_value=0.0,
+            max_value=2.0,
+            value=0.55,
+            step=0.05,
+            help="Typical: 0.4-0.7%/year for Tier 1 modules",
+            disabled=not consider_degradation
+        )
+
+    with deg_col3:
+        project_lifetime = st.number_input(
+            "Design Life (years)",
+            min_value=10,
+            max_value=40,
+            value=25,
+            step=5,
+            help="Project lifetime for EOL analysis",
+            disabled=not consider_degradation
+        )
+
+    if consider_degradation:
+        eol_factor = (1 - degradation_rate/100) ** project_lifetime
+        st.info(
+            f"📊 At year {project_lifetime} with {degradation_rate}%/year degradation: "
+            f"**{eol_factor*100:.1f}% power retention** | "
+            f"Vmp drops to ~{eol_factor*100:.1f}% of BOL"
+        )
+
+    # Update module params with degradation rate
+    if consider_degradation:
+        module_params['degradation_rate'] = degradation_rate
+
     site_params = {
         'min_temp': min_temp,
         'max_temp': max_temp,
@@ -128,6 +173,8 @@ with tab1:
                 inverter_params=inverter_params,
                 site_params=site_params,
                 safety_factor=1.0,
+                consider_degradation=consider_degradation,
+                project_lifetime_years=project_lifetime if consider_degradation else 25,
             )
 
             # Display results
@@ -137,24 +184,28 @@ with tab1:
             metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
 
             with metric_col1:
+                min_delta = ""
+                if consider_degradation and results['min_modules_eol'] and results['min_modules_eol'] > results['min_modules_bol']:
+                    min_delta = f"+{results['min_modules_eol'] - results['min_modules_bol']} for EOL"
                 st.metric(
                     "Minimum Modules",
                     results['min_modules_per_string'],
-                    help="Minimum modules to stay above MPPT min voltage"
+                    delta=min_delta if min_delta else None,
+                    help="Minimum modules to stay above MPPT min voltage (includes EOL check if enabled)"
                 )
 
             with metric_col2:
                 st.metric(
                     "Maximum Modules",
                     results['max_modules_per_string'],
-                    help="Maximum modules to stay below Vdc max"
+                    help="Maximum modules to stay below Vdc max (BOL cold condition)"
                 )
 
             with metric_col3:
                 st.metric(
                     "Recommended",
                     results['recommended_modules_per_string'],
-                    help="Recommended modules per string"
+                    help="Recommended modules per string (optimized for BOL and EOL)"
                 )
 
             with metric_col4:
@@ -236,11 +287,83 @@ with tab1:
             else:
                 st.error("No valid configurations found!")
 
+            # Lifecycle analysis
+            if consider_degradation and results['degradation_analysis']['lifecycle_analysis'] is not None:
+                st.subheader("⏳ Lifecycle Voltage Analysis")
+
+                lifecycle_df = results['degradation_analysis']['lifecycle_analysis']
+
+                # Display lifecycle table
+                display_df = lifecycle_df.copy()
+                display_df['Year'] = display_df['year'].astype(int)
+                display_df['Power Retention'] = display_df['remaining_power_pct'].apply(lambda x: f"{x:.1f}%")
+                display_df['Vmp @ STC'] = display_df['v_mp_stc'].apply(lambda x: f"{x:.2f} V")
+                display_df['Vmp @ Hot'] = display_df['v_mp_hot'].apply(lambda x: f"{x:.2f} V")
+                display_df['Above MPPT Min'] = display_df['above_mppt_min'].apply(lambda x: "✓" if x else "✗")
+
+                st.dataframe(
+                    display_df[['Year', 'Power Retention', 'Vmp @ STC', 'Vmp @ Hot', 'Above MPPT Min']],
+                    hide_index=True,
+                    use_container_width=True
+                )
+
+                # Voltage over time chart
+                import plotly.graph_objects as go
+
+                fig = go.Figure()
+
+                # String voltage over lifetime
+                for modules in [results['min_modules_per_string'], results['recommended_modules_per_string'], results['max_modules_per_string']]:
+                    fig.add_trace(go.Scatter(
+                        x=lifecycle_df['year'],
+                        y=lifecycle_df['v_mp_hot'] * modules,
+                        mode='lines+markers',
+                        name=f'{modules} modules',
+                        line=dict(width=2),
+                    ))
+
+                # MPPT limits
+                fig.add_hline(
+                    y=inverter_params['mppt_min_voltage'],
+                    line_dash="dash",
+                    line_color="red",
+                    annotation_text="MPPT Min",
+                )
+                fig.add_hline(
+                    y=inverter_params['mppt_max_voltage'],
+                    line_dash="dash",
+                    line_color="red",
+                    annotation_text="MPPT Max",
+                )
+
+                fig.update_layout(
+                    title="String Voltage vs. Project Life (Hot Day Condition)",
+                    xaxis_title="Project Year",
+                    yaxis_title="String Vmp (V)",
+                    hovermode='x unified',
+                    template='plotly_white',
+                    showlegend=True,
+                )
+
+                st.plotly_chart(fig, use_container_width=True)
+
+                # Summary
+                eol_pct = results['degradation_analysis']['eol_power_retention_pct']
+                st.info(
+                    f"📊 **Degradation Summary:** "
+                    f"{degradation_rate}%/year over {project_lifetime} years = "
+                    f"**{eol_pct:.1f}% power retention** at EOL. "
+                    f"Critical check: String must stay above {inverter_params['mppt_min_voltage']}V MPPT minimum."
+                )
+
             # Warnings
             if results['warnings']:
-                st.subheader("⚠️ Warnings")
+                st.subheader("⚠️ Warnings & Recommendations")
                 for warning in results['warnings']:
-                    st.warning(warning)
+                    if "CRITICAL" in warning:
+                        st.error(warning)
+                    else:
+                        st.warning(warning)
 
         except Exception as e:
             st.error(f"Error calculating string size: {e}")

@@ -82,6 +82,9 @@ class StringSizer:
         temp_coeff_voc = module_params.get('temp_coeff_v_oc', -0.29) / 100  # Convert %/°C to fraction
         temp_coeff_vmp = module_params.get('temp_coeff_v_mp', -0.35) / 100
 
+        # Degradation rate (default 0.5%/year for high-quality modules)
+        degradation_rate = module_params.get('degradation_rate', 0.5) / 100  # Convert %/year to fraction
+
         min_temp = site_params['min_temp']
         max_temp = site_params['max_temp']
 
@@ -91,12 +94,29 @@ class StringSizer:
 
         # Calculate voltage at minimum temperature (coldest - highest Voc)
         # Voc(T) = Voc(STC) * [1 + temp_coeff * (T - 25)]
+        # NOTE: Degradation minimally affects Voc, so we use BOL for max voltage check
         delta_t_cold = min_temp - 25
         v_oc_cold = v_oc_stc * (1 + temp_coeff_voc * delta_t_cold)
 
         # Calculate voltage at maximum temperature (hottest - lowest Vmp)
+        # BOL (Beginning of Life - Year 0)
         delta_t_hot = max_temp - 25
-        v_mp_hot = v_mp_stc * (1 + temp_coeff_vmp * delta_t_hot)
+        v_mp_hot_bol = v_mp_stc * (1 + temp_coeff_vmp * delta_t_hot)
+
+        # EOL (End of Life - after degradation)
+        # Degradation primarily affects power through reduced current, but Vmp also drops slightly
+        # Conservative assumption: Vmp degrades at same rate as power
+        if consider_degradation:
+            degradation_factor = (1 - degradation_rate) ** project_lifetime_years
+            v_mp_hot_eol = v_mp_hot_bol * degradation_factor
+            v_mp_stc_eol = v_mp_stc * degradation_factor
+
+            logger.info(f"Degradation analysis: {degradation_rate*100:.2f}%/year over {project_lifetime_years} years")
+            logger.info(f"EOL factor: {degradation_factor:.3f} ({degradation_factor*100:.1f}% remaining)")
+        else:
+            v_mp_hot_eol = v_mp_hot_bol
+            v_mp_stc_eol = v_mp_stc
+            degradation_factor = 1.0
 
         # NEC 690.7: Voc at lowest expected temperature
         # Apply elevation correction if needed (approx 1% per 300m above sea level)
@@ -117,8 +137,23 @@ class StringSizer:
         max_modules = min(max_modules_voc, max_modules_mppt)
 
         # Calculate minimum modules per string (limited by MPPT min)
-        # Use Vmp at hot temp (lowest Vmp)
-        min_modules = int(np.ceil(mppt_min / v_mp_hot))
+        # BOL: Use Vmp at hot temp (lowest Vmp at Year 0)
+        min_modules_bol = int(np.ceil(mppt_min / v_mp_hot_bol))
+
+        # EOL: Use degraded Vmp at hot temp (critical check for lifetime operation)
+        if consider_degradation:
+            min_modules_eol = int(np.ceil(mppt_min / v_mp_hot_eol))
+            # Use the more conservative (higher) value
+            min_modules = max(min_modules_bol, min_modules_eol)
+
+            if min_modules_eol > min_modules_bol:
+                logger.warning(
+                    f"EOL degradation requires additional modules: "
+                    f"BOL={min_modules_bol}, EOL={min_modules_eol}"
+                )
+        else:
+            min_modules = min_modules_bol
+            min_modules_eol = min_modules_bol
 
         # Ensure minimum is at least 1
         min_modules = max(1, min_modules)
@@ -142,12 +177,39 @@ class StringSizer:
 
         # Calculate string voltages at different conditions
         voltages = {
-            'v_oc_cold': v_oc_cold_corrected,
-            'v_oc_stc': v_oc_stc,
-            'v_mp_cold': v_mp_cold,
-            'v_mp_stc': v_mp_stc,
-            'v_mp_hot': v_mp_hot,
+            'v_oc_cold_bol': v_oc_cold_corrected,
+            'v_oc_stc_bol': v_oc_stc,
+            'v_mp_cold_bol': v_mp_cold,
+            'v_mp_stc_bol': v_mp_stc,
+            'v_mp_hot_bol': v_mp_hot_bol,
+            'v_mp_hot_eol': v_mp_hot_eol,
+            'v_mp_stc_eol': v_mp_stc_eol,
         }
+
+        # Lifecycle voltage analysis
+        lifecycle_analysis = None
+        if consider_degradation:
+            lifecycle_years = [0, 5, 10, 15, 20, 25, 30]
+            lifecycle_data = []
+
+            for year in lifecycle_years:
+                if year > project_lifetime_years:
+                    continue
+
+                year_degradation = (1 - degradation_rate) ** year
+                v_mp_hot_year = v_mp_hot_bol * year_degradation
+                v_mp_stc_year = v_mp_stc * year_degradation
+
+                lifecycle_data.append({
+                    'year': year,
+                    'degradation_factor': year_degradation,
+                    'remaining_power_pct': year_degradation * 100,
+                    'v_mp_hot': v_mp_hot_year,
+                    'v_mp_stc': v_mp_stc_year,
+                    'above_mppt_min': v_mp_hot_year > mppt_min / min_modules if min_modules > 0 else False,
+                })
+
+            lifecycle_analysis = pd.DataFrame(lifecycle_data)
 
         # Recommended string size (middle of range)
         recommended = int(np.round((min_modules + max_modules) / 2))
@@ -156,38 +218,83 @@ class StringSizer:
             'min_modules_per_string': min_modules,
             'max_modules_per_string': max_modules,
             'recommended_modules_per_string': recommended,
+            'min_modules_bol': min_modules_bol,
+            'min_modules_eol': min_modules_eol if consider_degradation else None,
             'limiting_factor_max': 'Voc_max' if max_modules_voc < max_modules_mppt else 'MPPT_max',
-            'limiting_factor_min': 'MPPT_min',
+            'limiting_factor_min': 'EOL_MPPT_min' if (consider_degradation and min_modules_eol > min_modules_bol) else 'BOL_MPPT_min',
             'voltages': voltages,
             'string_voltage_range': {
-                'min': min_modules * v_mp_hot,
+                'min_bol': min_modules * v_mp_hot_bol,
+                'min_eol': min_modules * v_mp_hot_eol if consider_degradation else None,
                 'max': max_modules * v_mp_cold,
-                'recommended': recommended * v_mp_stc,
+                'recommended_bol': recommended * v_mp_stc,
+                'recommended_eol': recommended * v_mp_stc_eol if consider_degradation else None,
             },
             'max_strings_per_inverter_current': max_strings_current,
             'max_modules_power_limit': max_modules_power,
+            'degradation_analysis': {
+                'enabled': consider_degradation,
+                'degradation_rate_pct_per_year': degradation_rate * 100 if consider_degradation else None,
+                'project_lifetime_years': project_lifetime_years if consider_degradation else None,
+                'eol_power_retention_pct': degradation_factor * 100 if consider_degradation else None,
+                'lifecycle_analysis': lifecycle_analysis,
+            },
             'warnings': [],
         }
 
         # Add warnings
         if min_modules > max_modules:
             results['warnings'].append(
-                "WARNING: No valid string configuration! "
+                "⛔ CRITICAL: No valid string configuration! "
                 f"Min modules ({min_modules}) > Max modules ({max_modules}). "
                 "Module and inverter are incompatible."
             )
 
         if max_modules < 2:
             results['warnings'].append(
-                "WARNING: Maximum string size is very small. "
+                "⚠️ WARNING: Maximum string size is very small. "
                 "Consider using a different inverter or module."
             )
 
-        if min_modules * v_mp_hot < mppt_min:
+        if min_modules * v_mp_hot_bol < mppt_min:
             results['warnings'].append(
-                f"WARNING: Minimum string voltage ({min_modules * v_mp_hot:.1f}V) "
+                f"⚠️ WARNING: BOL string voltage ({min_modules * v_mp_hot_bol:.1f}V) "
                 f"may be below MPPT minimum ({mppt_min}V) at high temperatures."
             )
+
+        # EOL-specific warnings
+        if consider_degradation:
+            if min_modules_eol > min_modules_bol:
+                results['warnings'].append(
+                    f"🔶 DEGRADATION IMPACT: Additional {min_modules_eol - min_modules_bol} module(s) "
+                    f"required to maintain MPPT operation at EOL (Year {project_lifetime_years}). "
+                    f"EOL Vmp drops to {degradation_factor*100:.1f}% of BOL."
+                )
+
+            # Check if recommended config stays in MPPT window at EOL
+            recommended_v_mp_hot_eol = recommended * v_mp_hot_eol
+            if recommended_v_mp_hot_eol < mppt_min:
+                results['warnings'].append(
+                    f"⛔ CRITICAL: Recommended configuration ({recommended} modules) "
+                    f"falls below MPPT minimum at EOL! "
+                    f"String voltage at Year {project_lifetime_years}: {recommended_v_mp_hot_eol:.1f}V "
+                    f"< MPPT min {mppt_min}V. Increase modules per string."
+                )
+            elif recommended_v_mp_hot_eol < mppt_min * 1.05:
+                results['warnings'].append(
+                    f"⚠️ WARNING: Recommended configuration has <5% margin above MPPT min at EOL. "
+                    f"EOL voltage: {recommended_v_mp_hot_eol:.1f}V, MPPT min: {mppt_min}V. "
+                    f"Consider adding 1-2 modules for safety margin."
+                )
+
+            # Check if minimum config maintains adequate margin
+            min_v_mp_hot_eol = min_modules * v_mp_hot_eol
+            eol_margin_pct = ((min_v_mp_hot_eol - mppt_min) / mppt_min) * 100
+            if eol_margin_pct < 10:
+                results['warnings'].append(
+                    f"⚠️ WARNING: Minimum string size has low EOL margin ({eol_margin_pct:.1f}%). "
+                    f"Industry best practice: >10% margin above MPPT min at EOL."
+                )
 
         logger.info(f"String sizing complete: {min_modules}-{max_modules} modules per string")
         return results
