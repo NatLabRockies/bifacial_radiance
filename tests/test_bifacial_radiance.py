@@ -40,6 +40,8 @@ MET_FILENAME4="SOLARGIS_Almeria_Spain_20210331.csv"
 MET_FILENAME5="Custom_WeatherFile_TMY3format_60mins_2021_wTrackerAngles_BESTFieldData.csv"
 # PSM3 (SAM hourly) formatted weather file for Phoenix, AZ
 MET_FILENAME6="phoenix_az_psmv3_60_tmy.csv"
+# Empty EPWfile
+MET_FILENAME7="empty_file.epw"
 
 
 #def test_quickExample():
@@ -643,6 +645,9 @@ def test_readWeatherFile_subhourly():
     metdata2 = demo.readWeatherFile(weatherFile='USA_NJ_McGuire.AFB.724096_TMY3.epw', coerce_year=2000)
     leapday = (metdata2.tmydata.index.month == 2) & (metdata2.tmydata.index.day == 29)
     assert leapday.sum() == 0
+    # test empty EPW file, make sure it raises an exception
+    with pytest.raises(Exception):
+        metdata3 = demo.readWeatherFile(weatherFile=MET_FILENAME7)
 
 def test_nsrdb_readWeatherFile():
     # initial test of NSRDBWeatherData in main.py
