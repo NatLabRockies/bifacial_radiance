@@ -3202,6 +3202,7 @@ class RadianceObj(SuperClass):
             simulation_path = self.path
 
         from bifacial_radiance import spectral_utils as su
+        import pySMARTS
       
         spectra_path = 'spectra'
         if not os.path.exists(spectra_path):
