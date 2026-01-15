@@ -1512,7 +1512,12 @@ class RadianceObj(SuperClass):
         #(tmydata, metadata) = readepw(epwfile) #
         (tmydata, metadata) = pvlib.iotools.epw.read_epw(epwfile, 
                                                          coerce_year=coerce_year) #pvlib>0.6.1
-        #pvlib uses -1hr offset that needs to be un-done. 
+        # check for sub-hourly data and warn to use SAM .csv instead
+        if len(tmydata.minute.unique()) > 1:
+            print('Warning:  Sub-hourly data detected in EPW file. '+
+                  'Consider converting to SAM .csv format for subhourly support.')
+        #pvlib uses -1hr offset that needs to be un-done, and leap-day adjusted
+        
         tmydata.index = tmydata.index+pd.Timedelta(hours=1) 
         # need to check for leap year here and add a day just in case
         # use indices to check for a leap day and advance it to March 1st
@@ -1520,7 +1525,6 @@ class RadianceObj(SuperClass):
         index2 = tmydata.index.to_series()
         index2.loc[leapday] +=  datetime.timedelta(days=1)
         tmydata.set_index(index2, inplace=True)
-
         
         # rename different field parameters to match output from 
         # pvlib.tmy.readtmy: DNI, DHI, DryBulb, Wspd
@@ -3974,6 +3978,10 @@ class MetObj(SuperClass):
         #First prune all GHI = 0 timepoints.  New as of 0.4.0
         # TODO: is this a good idea?  This changes default behavior...
         tmydata = tmydata[tmydata.GHI > 0]
+        # Check if there's still data.  Otherwise raise bad file error.
+        if tmydata.shape[0] == 0:
+            raise Exception('No valid data points with GHI > 0 found in tmydata. '
+                            'Please check your weather file.')
 
         #  location data.  so far needed:
         # latitude, longitude, elevation, timezone, city
