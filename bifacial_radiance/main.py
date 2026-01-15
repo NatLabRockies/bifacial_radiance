@@ -1645,8 +1645,8 @@ class RadianceObj(SuperClass):
         trackingdata = pvlib.tracking.singleaxis(sunzen, sunaz,
                                              axis_tilt, azimuth,
                                              limit_angle, backtrack, gcr)
-        
-        tracker_theta = float(np.round(trackingdata['tracker_theta'],2))
+        # convert returned np.array or series to float and round to 2 digits
+        tracker_theta = list(trackingdata['tracker_theta'].round(2))[0]
         tracker_theta = tracker_theta*-1 # bifacial_radiance uses East (morning) theta as positive
             
         return tracker_theta
