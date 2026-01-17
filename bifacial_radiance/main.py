@@ -3202,7 +3202,14 @@ class RadianceObj(SuperClass):
             simulation_path = self.path
 
         from bifacial_radiance import spectral_utils as su
-        import pySMARTS
+        try:
+            import pySMARTS
+        except ImportError as exc:
+            raise ImportError(
+                "pySMARTS is required to generate spectra. "
+                "Please install pySMARTS (e.g., via 'pip install pySMARTS') "
+                "to use this functionality."
+            ) from exc
       
         spectra_path = 'spectra'
         if not os.path.exists(spectra_path):

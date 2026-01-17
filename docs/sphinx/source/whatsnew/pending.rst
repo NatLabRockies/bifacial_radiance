@@ -1,6 +1,6 @@
 .. _whatsnew_051:
 
-v0.5.1 (X, X, 2026)
+v0.5.1 (Month DD, 2026)
 ------------------------
 Bugfix release
 
