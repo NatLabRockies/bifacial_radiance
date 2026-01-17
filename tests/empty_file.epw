@@ -6,10 +6,5 @@ HOLIDAYS/DAYLIGHT SAVINGS,No,0,0,0
 COMMENTS 1,"IWEC- WMO#064510 - Europe -- Original Source Data (c) 2001 American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE), Inc., Atlanta, GA, USA.  www.ashrae.org  All rights reserved as noted in the License Agreement and Additional Conditions. DISCLAIMER OF WARRANTIES: The data is provided 'as is' without warranty of any kind, either expressed or implied. The entire risk as to the quality and performance of the data is with you. In no event will ASHRAE or its contractors be liable to you for any damages, including without limitation any lost profits, lost savings, or other incidental or consequential damages arising out of the use or inability to use this data."
 COMMENTS 2, -- Ground temps produced with a standard soil diffusivity of 2.3225760E-03 {m**2/day}
 DATA PERIODS,1,1,Data,Sunday, 1/ 1,12/31
-2024,5,4,1,0,0,99.90,99.90,999,999999,0,0,0,0,0,999999,999999,999999,9999,999,0,99,99,9999,99999,9,999999999,999,999,999,99,999,0,0,0
-2024,5,4,1,15,0,99.90,99.90,999,999999,0,0,0,0,0,999999,999999,999999,9999,999,0,99,99,9999,99999,9,999999999,999,999,999,99,999,0,0,0
-2024,5,4,1,30,0,99.90,99.90,999,999999,0,0,0,0,0,999999,999999,999999,9999,999,0,99,99,9999,99999,9,999999999,999,999,999,99,999,0,0,0
-2024,5,4,1,45,0,99.90,99.90,999,999999,0,0,0,0,0,999999,999999,999999,9999,999,0,99,99,9999,99999,9,999999999,999,999,999,99,999,0,0,0
-2024,5,4,2,0,0,99.90,99.90,999,999999,0,0,0,0,0,999999,999999,999999,9999,999,0,99,99,9999,99999,9,999999999,999,999,999,99,999,0,0,0
-2024,5,4,2,15,0,99.90,99.90,999,999999,0,0,0,0,0,999999,999999,999999,9999,999,0,99,99,9999,99999,9,999999999,999,999,999,99,999,0,0,0
-
+2010,1,1,1,0,0,99.90,99.90,999,999999,0,0,0,0,0,999999,999999,999999,9999,999,0,99,99,9999,99999,9,999999999,999,999,999,99,999,0,0,0
+2010,1,1,2,0,0,99.90,99.90,999,999999,0,0,0,0,0,999999,999999,999999,9999,999,0,99,99,9999,99999,9,999999999,999,999,999,99,999,0,0,0
