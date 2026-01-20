@@ -7,8 +7,9 @@ Bugfix release
 
 Bug fixes
 ~~~~~~~~~
-* Better error checking for installed pySMARTS module and empty weather files, and subhourly .epw files (:pull:`586`)
-
+* Better error checking for empty weather files, and subhourly .epw files (:pull:`586`)
+* Fix numpy >= 2.4.0 error (:pull:`586`)
+* Fix ambiguous spectral_utils load error message when pySMARTS is not installed (:pull:`586`)
 
 Documentation
 ~~~~~~~~~~~~~~
