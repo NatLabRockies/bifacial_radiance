@@ -50,17 +50,17 @@ Overview:
     AnalysisObj: Analysis class for plotting and reporting
 
 """
+import os
+import datetime
+from subprocess import Popen, PIPE  # replacement for os.system()
+import pandas as pd
+import numpy as np
+import warnings
+from deprecated import deprecated
 import logging
 logging.basicConfig()
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.DEBUG)
-
-import os, datetime
-from subprocess import Popen, PIPE  # replacement for os.system()
-import pandas as pd
-import numpy as np 
-import warnings
-from deprecated import deprecated
 
 
 global DATA_PATH # path to data files including module.json.  Global context
@@ -69,13 +69,13 @@ DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data'))
 def _findme(lst, a): #find string match in a list. script from stackexchange
     return [i for i, x in enumerate(lst) if x == a]
 
-def _firstlist(l):  #find first not-none value in a list.  useful for checking multiple keys in dict 
+def _firstlist(l):  # find first not-none value in a list.  useful for checking multiple keys in dict
     try:
         return next(item for item in l if item is not None)
     except StopIteration:
         return None
 
-def _missingKeyWarning(dictype, missingkey, newvalue): # prints warnings 
+def _missingKeyWarning(dictype, missingkey, newvalue):  # prints warnings
     if type(newvalue) is bool:
         valueunit = ''
     else:
@@ -83,7 +83,7 @@ def _missingKeyWarning(dictype, missingkey, newvalue): # prints warnings
     print("Warning: {} Dictionary Parameters passed, but {} is missing. ".format(dictype, missingkey))        
     print("Setting it to default value of {} {} to continue\n".format(newvalue, valueunit))
 
-def _normRGB(r, g, b): #normalize by each color for human vision sensitivity
+def _normRGB(r, g, b):  # normalize by each color for human vision sensitivity
     return r*0.216+g*0.7152+b*0.0722
 
 def _popen(cmd, data_in, data_out=PIPE):
@@ -93,13 +93,13 @@ def _popen(cmd, data_in, data_out=PIPE):
     usage: pass <data_in> to process <cmd> and return results
     based on rgbeimage.py (Thomas Bleicher 2010)
     """
-    if type(cmd) == str:
-        cmd = str(cmd) # gets rid of unicode oddities
-        shell=True
+    if isinstance(cmd, str):
+        cmd = str(cmd)  # gets rid of unicode oddities
+        shell = True
     else:
-        shell=False
-
-    p = Popen(cmd, bufsize=-1, stdin=PIPE, stdout=data_out, stderr=PIPE, shell=shell) #shell=True required for Linux? quick fix, but may be security concern
+        shell = False
+    # shell=True required for Linux? quick fix, but may be security concern
+    p = Popen(cmd, bufsize=-1, stdin=PIPE, stdout=data_out, stderr=PIPE, shell=shell) 
     data, err = p.communicate(data_in)
 
     if err:
@@ -109,7 +109,7 @@ def _popen(cmd, data_in, data_out=PIPE):
             returntuple = (None, 'message: '+err.decode('latin1').strip())
     else:
         if data:
-            returntuple = (data.decode('latin1'), None) #Py3 requires decoding
+            returntuple = (data.decode('latin1'), None)  # Py3 requires decoding
         else:
             returntuple = (None, None)
 
@@ -120,17 +120,17 @@ def _interactive_load(title=None):
     import tkinter
     from tkinter import filedialog
     root = tkinter.Tk()
-    root.withdraw() #Start interactive file input
-    root.attributes("-topmost", True) #Bring window into foreground
-    return filedialog.askopenfilename(parent=root, title=title) #initialdir = data_dir
+    root.withdraw()  # start interactive file input
+    root.attributes("-topmost", True)  # Bring window into foreground
+    return filedialog.askopenfilename(parent=root, title=title)  # initialdir = data_dir
 
 def _interactive_directory(title=None):
     # Tkinter directory picker.  Now Py3.6 compliant!
     import tkinter
     from tkinter import filedialog
     root = tkinter.Tk()
-    root.withdraw() #Start interactive file input
-    root.attributes("-topmost", True) #Bring to front
+    root.withdraw()  # start interactive file input
+    root.attributes("-topmost", True)  # Bring to front
     return filedialog.askdirectory(parent=root, title=title)
 
 def _modDict(originaldict, moddict, relative=False):
@@ -164,100 +164,102 @@ def _modDict(originaldict, moddict, relative=False):
                 newdict[key] = moddict[key]
         except:
             print("Wrong key in modified dictionary")
-    
+
     return newdict
 
 def _heightCasesSwitcher(sceneDict, preferred='hub_height', nonpreferred='clearance_height',
                          suppress_warning=False):
-        """
-        
-        Parameters
-        ----------
-        sceneDict : dictionary
-            Dictionary that might contain more than one way of defining height for 
-            the array: `clearance_height`, `hub_height`, `height`*
-            * height deprecated from sceneDict. This function helps choose
-            * which definition to use.  
-        preferred : str, optional
-            When sceneDict has hub_height and clearance_height, or it only has height,
-            it will leave only the preferred option.. The default is 'hub_height'.
-        nonpreferred : TYPE, optional
-            When sceneDict has hub_height and clearance_height, 
-            it wil ldelete this nonpreferred option. The default is 'clearance_height'.
-        suppress_warning  :  Bool, default False
-            If both heights passed in SceneDict, suppress the warning        
-        
-        Returns
-        -------
-        sceneDict : TYPE
-            Dictionary now containing the appropriate definition for system height. 
-        use_clearanceheight : Bool
-            Helper variable to specify if dictionary has only clearancehet for
-            use inside `makeScene1axis`. Will get deprecated once that internal
-            function is streamlined.
+    """
     
-        """
-        # TODO: When we update to python 3.9.0, this could be a Switch Cases (Structural Pattern Matching):
+    Parameters
+    ----------
+    sceneDict : dictionary
+        Dictionary that might contain more than one way of defining height for 
+        the array: `clearance_height`, `hub_height`, `height`*
+        * height deprecated from sceneDict. This function helps choose
+        * which definition to use.  
+    preferred : str, optional
+        When sceneDict has hub_height and clearance_height, or it only has height,
+        it will leave only the preferred option.. The default is 'hub_height'.
+    nonpreferred : TYPE, optional
+        When sceneDict has hub_height and clearance_height, 
+        it wil ldelete this nonpreferred option. The default is 'clearance_height'.
+    suppress_warning  :  Bool, default False
+        If both heights passed in SceneDict, suppress the warning        
     
-            
-        heightCases = '_'
-        if 'height' in sceneDict:
-            heightCases = heightCases+'height__'
-        if 'clearance_height' in sceneDict:
-            heightCases = heightCases+'clearance_height__'
-        if 'hub_height' in sceneDict:
-            heightCases = heightCases+'hub_height__'
-        
-        use_clearanceheight = False
-        # CASES:
-        if heightCases == '_height__':
-            print("sceneDict Warning: 'height' is being deprecated. "+
-                                  "Renaming as "+preferred)
-            sceneDict[preferred]=sceneDict['height']
-            del sceneDict['height']
-        
-        elif heightCases == '_clearance_height__':
-            #print("Using clearance_height.")
-            use_clearanceheight = True
-            
-        elif heightCases == '_hub_height__':
-            #print("Using hub_height.'")
-            pass
-        elif heightCases == '_height__clearance_height__':  
-            print("sceneDict Warning: 'clearance_height and 'height' "+
-                  "(deprecated) are being passed. removing 'height' "+
-                  "from sceneDict for this tracking routine")
-            del sceneDict['height']
-            use_clearanceheight = True
-                            
-        elif heightCases == '_height__hub_height__':     
-            print("sceneDict Warning: 'height' is being deprecated. Using 'hub_height'")
-            del sceneDict['height']
-        
-        elif heightCases == '_height__clearance_height__hub_height__':       
-            print("sceneDict Warning: 'hub_height', 'clearance_height'"+
-                  ", and 'height' are being passed. Removing 'height'"+
-                  " (deprecated) and "+ nonpreferred+ ", using "+preferred)
-            del sceneDict[nonpreferred]
-        
-        elif heightCases == '_clearance_height__hub_height__':  
-            if not suppress_warning:
-                print("sceneDict Warning: 'hub_height' and 'clearance_height'"+
-                      " are being passed. Using "+preferred+
-                      " and removing "+ nonpreferred)
-            del sceneDict[nonpreferred]
+    Returns
+    -------
+    sceneDict : TYPE
+        Dictionary now containing the appropriate definition for system height. 
+    use_clearanceheight : Bool
+        Helper variable to specify if dictionary has only clearancehet for
+        use inside `makeScene1axis`. Will get deprecated once that internal
+        function is streamlined.
+
+    """
+    # TODO: When we update to python 3.9.0, this could be a Switch Cases (Structural Pattern Matching):
+
+
+    heightCases = '_'
+    if 'height' in sceneDict:
+        heightCases = heightCases+'height__'
+    if 'clearance_height' in sceneDict:
+        heightCases = heightCases+'clearance_height__'
+    if 'hub_height' in sceneDict:
+        heightCases = heightCases+'hub_height__'
+
+    use_clearanceheight = False
+    # CASES:
+    if heightCases == '_height__':
+        print("sceneDict Warning: 'height' is being deprecated. " +
+              "Renaming as " + preferred)
+        sceneDict[preferred] = sceneDict['height']
+        del sceneDict['height']
     
-        else: 
-            print ("sceneDict Error! no argument in sceneDict found "+
-                   "for 'hub_height', 'height' nor 'clearance_height'. "+
-                   "Exiting routine.")
-            
-        return sceneDict, use_clearanceheight
+    elif heightCases == '_clearance_height__':
+        #print("Using clearance_height.")
+        use_clearanceheight = True
+        
+    elif heightCases == '_hub_height__':
+        # print("Using hub_height.'")
+        pass
+    elif heightCases == '_height__clearance_height__':
+        print("sceneDict Warning: 'clearance_height and 'height' " +
+                "(deprecated) are being passed. removing 'height' " +
+                "from sceneDict for this tracking routine")
+        del sceneDict['height']
+        use_clearanceheight = True
+                        
+    elif heightCases == '_height__hub_height__':  
+        print("sceneDict Warning: 'height' is being deprecated. Using 'hub_height'")
+        del sceneDict['height']
+    
+    elif heightCases == '_height__clearance_height__hub_height__':
+        print("sceneDict Warning: 'hub_height', 'clearance_height'" +
+                ", and 'height' are being passed. Removing 'height'" +
+                " (deprecated) and "+ nonpreferred + ", using " + preferred)
+        del sceneDict[nonpreferred]
+    
+    elif heightCases == '_clearance_height__hub_height__':
+        if not suppress_warning:
+            print("sceneDict Warning: 'hub_height' and 'clearance_height'" +
+                    " are being passed. Using " + preferred +
+                    " and removing " + nonpreferred)
+        del sceneDict[nonpreferred]
+
+    else: 
+        print ("sceneDict Error! no argument in sceneDict found " +
+                "for 'hub_height', 'height' nor 'clearance_height'. " +
+                "Exiting routine.")
+        
+    return sceneDict, use_clearanceheight
+
 
 def _is_leap_and_29Feb(s): # Removes Feb. 29 if it a leap year.
     return (s.index.year % 4 == 0) & \
            ((s.index.year % 100 != 0) | (s.index.year % 400 == 0)) & \
            (s.index.month == 2) & (s.index.day == 29)
+
 
 def _subhourlydatatoGencumskyformat(gencumskydata, label='right'):
     # Subroutine to resample, pad, remove leap year and get data in the
@@ -265,14 +267,13 @@ def _subhourlydatatoGencumskyformat(gencumskydata, label='right'):
     # for saving the temporary files for gencumsky in _saveTempTMY and
     # _makeTrackerCSV
     
-
-    #Resample to hourly. Gencumsky wants right-labeled data.
+    # Resample to hourly. Gencumsky wants right-labeled data.
     try:
-        gencumskydata = gencumskydata.resample('60min', closed='right', label='right').mean()  
-    except TypeError: # Pandas 2.0 error
-        gencumskydata = gencumskydata.resample('60min', closed='right', label='right').mean(numeric_only=True) 
+        gencumskydata = gencumskydata.resample('60min', closed='right', label='right').mean() 
+    except TypeError:  # Pandas 2.0 error
+        gencumskydata = gencumskydata.resample('60min', closed='right', label='right').mean(numeric_only=True)
     
-    if label == 'left': #switch from left to right labeled by adding an hour
+    if label == 'left':  # switch from left to right labeled by adding an hour
         gencumskydata.index = gencumskydata.index + pd.to_timedelta('1H')
                      
 
@@ -308,7 +309,7 @@ def _subhourlydatatoGencumskyformat(gencumskydata, label='right'):
     # end _subhourlydatatoGencumskyformat   
 
 def _checkRaypath():
-    # Ensure that os.environ['RAYPATH'] exists and contains current directory '.'     
+    # Ensure that os.environ['RAYPATH'] exists and contains current directory '.'
     if os.name == 'nt':
         splitter = ';'
     else:
@@ -319,14 +320,14 @@ def _checkRaypath():
             raise KeyError()
         raysplit = raypath.split(splitter)
         if not '.' in raysplit:
-            os.environ['RAYPATH'] = splitter.join(filter(None, raysplit + ['.'+splitter]))
+            os.environ['RAYPATH'] = splitter.join(filter(None, raysplit + ['.' + splitter]))
     except (KeyError, AttributeError, TypeError):
         raise Exception('No RAYPATH set for RADIANCE.  Please check your RADIANCE installation.')
 
 class SuperClass:
       def __repr__(self):
           return str(type(self)) + ' : ' + str({key: self.__dict__[key] for key in self.columns})    
-          #return str(self.__dict__)
+
       @property
       def columns(self):
           return [attr for attr in dir(self) if not (attr.startswith('_') or attr.startswith('methods') 
@@ -335,12 +336,11 @@ class SuperClass:
       def methods(self): 
           return [attr for attr in dir(self) if (not (attr.startswith('_') or attr.startswith('methods') 
                                                       or  attr.startswith('columns')) and callable(getattr(self,attr)))]
-  
-    
+
 
 class RadianceObj(SuperClass):
     """
-    The RadianceObj top level class is used to work on radiance objects, 
+    The RadianceObj top level class is used to work on radiance objects,
     keep track of filenames,  sky values, PV module configuration, etc.
 
     Parameters
@@ -375,13 +375,13 @@ class RadianceObj(SuperClass):
         return getResults(self.trackerdict, self.cumulativesky)
     
     @property
-    @deprecated(reason='RadianceObj.Wm2Front has been abandoned'+\
+    @deprecated(reason='RadianceObj.Wm2Front has been abandoned' +
                         '  Please use values recorded in ' +
                         '  AnalysisObj.Wm2Front or RadianceObj.results.',
-                version='0.5.0' )
+                version='0.5.0')
     def Wm2Front(self):
         return None
-    
+
     @property
     @deprecated(reason='RadianceObj.Wm2Back has been abandoned'+\
                         '  Please use values recorded in ' +
@@ -389,8 +389,7 @@ class RadianceObj(SuperClass):
                 version='0.5.0')
     def Wm2Back(self):
         return None
-    
-    
+
     def __repr__(self):
         #return str(self.__dict__)  
         return str(type(self)) + ' : ' +  str({key: self.__dict__[key] 
@@ -1512,7 +1511,12 @@ class RadianceObj(SuperClass):
         #(tmydata, metadata) = readepw(epwfile) #
         (tmydata, metadata) = pvlib.iotools.epw.read_epw(epwfile, 
                                                          coerce_year=coerce_year) #pvlib>0.6.1
-        #pvlib uses -1hr offset that needs to be un-done. 
+        # check for sub-hourly data and warn to use SAM .csv instead
+        if len(tmydata.minute.unique()) > 1:
+            print('Warning:  Sub-hourly data detected in EPW file. '+
+                  'Consider converting to SAM .csv format for subhourly support.')
+        #pvlib uses -1hr offset that needs to be un-done, and leap-day adjusted
+        
         tmydata.index = tmydata.index+pd.Timedelta(hours=1) 
         # need to check for leap year here and add a day just in case
         # use indices to check for a leap day and advance it to March 1st
@@ -1520,7 +1524,6 @@ class RadianceObj(SuperClass):
         index2 = tmydata.index.to_series()
         index2.loc[leapday] +=  datetime.timedelta(days=1)
         tmydata.set_index(index2, inplace=True)
-
         
         # rename different field parameters to match output from 
         # pvlib.tmy.readtmy: DNI, DHI, DryBulb, Wspd
@@ -1641,8 +1644,8 @@ class RadianceObj(SuperClass):
         trackingdata = pvlib.tracking.singleaxis(sunzen, sunaz,
                                              axis_tilt, azimuth,
                                              limit_angle, backtrack, gcr)
-        
-        tracker_theta = float(np.round(trackingdata['tracker_theta'],2))
+        # convert returned np.array or series to float and round to 2 digits
+        tracker_theta = list(trackingdata['tracker_theta'].round(2))[0]
         tracker_theta = tracker_theta*-1 # bifacial_radiance uses East (morning) theta as positive
             
         return tracker_theta
@@ -3198,6 +3201,14 @@ class RadianceObj(SuperClass):
             simulation_path = self.path
 
         from bifacial_radiance import spectral_utils as su
+        try:
+            import pySMARTS
+        except ImportError as exc:
+            raise ImportError(
+                "pySMARTS is required to generate spectra. "
+                "Please install pySMARTS (e.g., via 'pip install pySMARTS') "
+                "to use this functionality."
+            ) from exc
       
         spectra_path = 'spectra'
         if not os.path.exists(spectra_path):
@@ -3974,6 +3985,10 @@ class MetObj(SuperClass):
         #First prune all GHI = 0 timepoints.  New as of 0.4.0
         # TODO: is this a good idea?  This changes default behavior...
         tmydata = tmydata[tmydata.GHI > 0]
+        # Check if there's still data.  Otherwise raise bad file error.
+        if tmydata.shape[0] == 0:
+            raise Exception('No valid data points with GHI > 0 found in tmydata. '
+                            'Please check your weather file.')
 
         #  location data.  so far needed:
         # latitude, longitude, elevation, timezone, city
