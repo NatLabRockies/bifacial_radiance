@@ -1280,8 +1280,10 @@ class RadianceObj(SuperClass):
                                                                         label=label)
 
                     else:
-                        gencumdict = [g for n, g in tmydata.groupby(pd.Grouper(freq='YE'))]
-                        
+                        try:
+                            gencumdict = [g for n, g in tmydata.groupby(pd.Grouper(freq='YE'))]
+                        except ValueError: #Pandas < 3.0
+                            gencumdict = [g for n, g in tmydata.groupby(pd.Grouper(freq='Y'))]
                         for ii in range(0, len(gencumdict)):
                             gencumskydata = gencumdict[ii]
                             gencumskydata = _subhourlydatatoGencumskyformat(gencumskydata,
@@ -3156,7 +3158,8 @@ class RadianceObj(SuperClass):
         
             
     def generate_spectra(self, metdata=None, simulation_path=None, ground_material=None, scale_spectra=False,
-                         scale_albedo=False, scale_albedo_nonspectral_sim=False, scale_upper_bound=2500, min_wavelength=280, max_wavelength=4000):
+                         scale_albedo=False, scale_albedo_nonspectral_sim=False, scale_upper_bound=2500, 
+                         min_wavelength=280, max_wavelength=4000):
 
         """
         Generate spectral irradiance files for spectral simulations using pySMARTS
