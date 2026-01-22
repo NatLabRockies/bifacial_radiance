@@ -28,7 +28,7 @@ classifiers = [
 dependencies = [
     "configparser",
     "deprecated",
-    "pandas < 3.0",
+    "pandas",
     "pvlib >= 0.8.0",
     "pvmismatch",
     "pyradiance",

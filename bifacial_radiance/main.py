@@ -1206,7 +1206,11 @@ class RadianceObj(SuperClass):
             
             if filterdates is not None:
                 print("Filtering dates")
-                tmydata[~filterdates] = 0
+                # Set numeric columns to 0 and string columns to "0" separately for pandas 3.0 compatibility
+                str_cols = tmydata.select_dtypes(include=['object', 'string']).columns
+                num_cols = tmydata.select_dtypes(exclude=['object', 'string']).columns
+                tmydata.loc[~filterdates, str_cols] = "0"
+                tmydata.loc[~filterdates, num_cols] = 0
         
             gencumskydata = tmydata.copy()
             
@@ -1232,7 +1236,10 @@ class RadianceObj(SuperClass):
                 
                 if filterdates is not None:
                     print("Filtering dates")
-                    tmydata[~filterdates] = 0
+                    str_cols = tmydata.select_dtypes(include=['object', 'string']).columns
+                    num_cols = tmydata.select_dtypes(exclude=['object', 'string']).columns
+                    tmydata.loc[~filterdates, str_cols] = "0"
+                    tmydata.loc[~filterdates, num_cols] = 0
         
                 gencumskydata = tmydata.copy()
                 gencumskydata = _subhourlydatatoGencumskyformat(gencumskydata, 
@@ -1273,8 +1280,10 @@ class RadianceObj(SuperClass):
                                                                         label=label)
 
                     else:
-                        gencumdict = [g for n, g in tmydata.groupby(pd.Grouper(freq='Y'))]
-                        
+                        try:
+                            gencumdict = [g for n, g in tmydata.groupby(pd.Grouper(freq='YE'))]
+                        except ValueError: #Pandas < 3.0
+                            gencumdict = [g for n, g in tmydata.groupby(pd.Grouper(freq='Y'))]
                         for ii in range(0, len(gencumdict)):
                             gencumskydata = gencumdict[ii]
                             gencumskydata = _subhourlydatatoGencumskyformat(gencumskydata,
@@ -1590,7 +1599,7 @@ class RadianceObj(SuperClass):
         # Generate index from Date (DD.HH.YYYY) and Time
         data.index = pd.to_datetime(data.Date + ' ' +  data.Time, 
                                     dayfirst=True, utc=True,
-                                    infer_datetime_format = True)
+                                    )
 
         
         return data, metadata
@@ -3149,7 +3158,8 @@ class RadianceObj(SuperClass):
         
             
     def generate_spectra(self, metdata=None, simulation_path=None, ground_material=None, scale_spectra=False,
-                         scale_albedo=False, scale_albedo_nonspectral_sim=False, scale_upper_bound=2500, min_wavelength=280, max_wavelength=4000):
+                         scale_albedo=False, scale_albedo_nonspectral_sim=False, scale_upper_bound=2500, 
+                         min_wavelength=280, max_wavelength=4000):
 
         """
         Generate spectral irradiance files for spectral simulations using pySMARTS
