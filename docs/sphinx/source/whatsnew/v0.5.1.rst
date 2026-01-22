@@ -10,12 +10,11 @@ Bug fixes
 * Better error checking for empty weather files, and subhourly .epw files (:pull:`586`)
 * Fix numpy >= 2.4.0 error (:pull:`586`)
 * Fix ambiguous spectral_utils load error message when pySMARTS is not installed (:pull:`586`)
-* Prevent Pandas 3.0 errors by requiring pandas < 3.0 in pyproject.toml
+* Prevent Pandas 3.0 errors by updating a few I/O lines (:issue:`587`) (:pull:`588`)
 
 Documentation
 ~~~~~~~~~~~~~~
 
 Contributors
 ~~~~~~~~~~~~
-* Silvana Ovaitt (:ghuser:`shirubana`)
 * Chris Deline (:ghuser:`cdeline`)
