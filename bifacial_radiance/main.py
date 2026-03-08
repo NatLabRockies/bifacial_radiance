@@ -98,6 +98,89 @@ def _missingKeyWarning(dictype, missingkey, newvalue): # prints warnings
 def _normRGB(r, g, b): #normalize by each color for human vision sensitivity
     return r*0.216+g*0.7152+b*0.0722
 
+def pextrem(hdr_data):
+    """
+    Find extrema points in a Radiance HDR picture data.
+    Python implementation of the pextrem.c Radiance utility.
+    
+    This function parses HDR image data (in text format from rpict output)
+    and finds the minimum and maximum brightness pixels, returning their
+    coordinates and RGB values.
+    
+    Parameters
+    ----------
+    hdr_data : str or bytes
+        HDR image data in text format (output from rpict -i or similar).
+        Each line should contain: X Y Z R G B values separated by tabs.
+    
+    Returns
+    -------
+    str
+        Output string in the format:
+        "xmin ymin    Rmin Gmin Bmin\\nxmax ymax    Rmax Gmax Bmax"
+        where coordinates and RGB values represent the darkest and brightest
+        pixels in the image.
+    
+    Examples
+    --------
+    >>> hdr_output = rpict_command_output  # some HDR data
+    >>> extrema = pextrem(hdr_output)
+    >>> print(extrema)
+    """
+    # Convert bytes to string if needed
+    if isinstance(hdr_data, bytes):
+        hdr_data = hdr_data.decode('latin1')
+    
+    # Initialize extrema values
+    cmin = [float('inf'), float('inf'), float('inf')]
+    cmax = [0.0, 0.0, 0.0]
+    xmin, ymin = 0, 0
+    xmax, ymax = 0, 0
+    
+    # Parse the HDR data line by line
+    lines = hdr_data.strip().split('\n')
+    
+    for line in lines:
+        if not line.strip():
+            continue
+        
+        parts = line.split('\t')
+        if len(parts) < 6:
+            continue
+        
+        try:
+            x = int(parts[0])
+            y = int(parts[1])
+            z = float(parts[2])  # Not used but in format
+            r = float(parts[3])
+            g = float(parts[4])
+            b = float(parts[5])
+            
+            # Calculate brightness using normalized RGB (human vision sensitivity)
+            brightness = _normRGB(r, g, b)
+            brightness_max = _normRGB(cmax[0], cmax[1], cmax[2])
+            brightness_min = _normRGB(cmin[0], cmin[1], cmin[2])
+            
+            # Check for maximum
+            if brightness > brightness_max:
+                cmax = [r, g, b]
+                xmax, ymax = x, y
+            
+            # Check for minimum
+            if brightness < brightness_min:
+                cmin = [r, g, b]
+                xmin, ymin = x, y
+                
+        except (ValueError, IndexError):
+            # Skip malformed lines
+            continue
+    
+    # Format output similar to pextrem.c
+    output = f"{xmin} {ymin}\t{cmin[0]:.2e} {cmin[1]:.2e} {cmin[2]:.2e}\n"
+    output += f"{xmax} {ymax}\t{cmax[0]:.2e} {cmax[1]:.2e} {cmax[2]:.2e}"
+    
+    return output
+
 def _popen(cmd, data_in, data_out=PIPE):
     """
     Helper function subprocess.popen replaces os.system
@@ -4673,8 +4756,8 @@ class AnalysisObj(SuperClass):
             print('Error: {}'.format(err))
             return
 
-        # TODO: pextrem is not available in pyradiance, keep using subprocess
-        extrm_out,err = _popen("pextrem",WM2_out.encode('latin1') if isinstance(WM2_out, str) else WM2_out)
+        # Use Python implementation of pextrem instead of subprocess
+        extrm_out = pextrem(WM2_out)
         # cast the pextrem string as a float and find the max value
         WM2max = max(map(float,extrm_out.split()))
         print('Saving scene in false color')
