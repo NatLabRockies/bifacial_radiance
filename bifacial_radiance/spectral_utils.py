@@ -388,9 +388,10 @@ def generate_spectra(metdata, simulation_path, ground_material='Gravel', spectra
         walb.to_csv(walbPath)
         print('Weighted albedo CSV saved.')
         weighted_alb = walb
-        return (spectral_alb, spectral_dni, spectral_dhi, weighted_alb)    
+    else:
+        weighted_alb = None
     
-    return (spectral_alb, spectral_dni, spectral_dhi, None)
+    return (spectral_alb, spectral_dni, spectral_dhi, weighted_alb)
 
 def generate_spectral_tmys(wavelengths, spectra_folder, metdata, location_name, output_folder):
     """
