@@ -341,6 +341,23 @@ def _checkRaypath():
             os.environ['RAYPATH'] = splitter.join(filter(None, raysplit + ['.' + splitter]))
     except (KeyError, AttributeError, TypeError):
         raise Exception('No RAYPATH set for RADIANCE.  Please check your RADIANCE installation.')
+    
+def _getradfiles(scenelist):
+    """
+    scenelist:   array of SceneObjs such as in RadianceObj.scenes
+
+    Returns
+    -------
+    list of radfiles
+    """
+    a = []
+    for scene in scenelist:
+        if type(scene.radfiles) == list:
+            for f in scene.radfiles:
+                a.append(f) 
+        else:
+            a.append(scene.radfiles)
+    return a
 
 class SuperClass:
       def __repr__(self):
@@ -514,28 +531,8 @@ class RadianceObj(SuperClass):
         Return concat of matfiles, radfiles and skyfiles
         """
 
-        return self.materialfiles + self.skyfiles + self._getradfiles()
-    
-    def _getradfiles(self, scenelist=None):
-        """
-        iterate over self.scenes to get the radfiles
-
-        Returns
-        -------
-        None.
-
-        """
-        if scenelist is None:
-            scenelist = self.scenes
-        a = []
-        for scene in scenelist:
-            if type(scene.radfiles) == list:
-                for f in scene.radfiles:
-                    a.append(f) 
-            else:
-                a.append(scene.radfiles)
-        return a
-        
+        return self.materialfiles + self.skyfiles + _getradfiles(self.scenes)
+            
     def save(self, savefile=None):
         """
         Pickle the radiance object for further use.
@@ -2374,7 +2371,7 @@ class RadianceObj(SuperClass):
         print('\nMaking {} octfiles in root directory.'.format(indexlist.__len__()))
         for index in sorted(indexlist):  # run through either entire key list of trackerdict, or just a single value
             try:  #TODO: check if this works
-                filelist = self.materialfiles + [trackerdict[index]['skyfile']] + self._getradfiles(trackerdict[index]['scenes'])
+                filelist = self.materialfiles + [trackerdict[index]['skyfile']] + _getradfiles(trackerdict[index]['scenes'])
                 octname = '1axis_%s%s'%(index, customname)
                 trackerdict[index]['octfile'] = self.makeOct(filelist, octname)
             except KeyError as e:
@@ -3824,7 +3821,7 @@ class SceneObj(SuperClass):
 
         self.gcr = round(self.module.sceney / pitch, 6)
         self.text = text
-        self.radfiles = radfile
+        self.radfiles = [radfile]
         self.sceneDict = sceneDict
 #        self.hub_height = hubheight
         return radfile
