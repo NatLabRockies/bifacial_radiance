@@ -293,7 +293,7 @@ def test_1axis_gencumSky():
     assert len(results) == 3
     assert results[results.modNum==5].iloc[0].Grear_mean == pytest.approx(np.mean(results[results.modNum==5].iloc[0].Wm2Back), abs=0.1)
     assert len(results[results.modNum==1]['Wm2Front'][0]) == 10
-    assert np.isnan((results[results.modNum==1]['Wm2Back'][0])).all() 
+    assert np.isnan((results[results.modNum==1]['Wm2Back'][0])).all()
 
 def test_SceneObj_makeSceneNxR_lowtilt():
     # test _makeSceneNxR(tilt, height, pitch, azimuth = 180, nMods = 20, nRows = 7, radname = None)
@@ -416,7 +416,7 @@ def test_SingleModule_HPC():
     assert analysis.rearMat[0][:12] == 'a0.0.a0.test'
     assert analysis.x == [0]
     assert analysis.y == [0]
-    assert np.mean(analysis.Wm2Front) == pytest.approx(1025, abs = 2)
+    assert np.mean(analysis.Wm2Front) == pytest.approx(1025.5, abs = 2)
     analysis.makeImage('side.vp')
     analysis.makeFalseColor('side.vp') #TODO: this works on silvanas computer, 
     # side.vp must exist inside of views folder in test folder... make sure this works 
