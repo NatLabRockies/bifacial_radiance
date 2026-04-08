@@ -68,8 +68,13 @@ LOGGER.setLevel(logging.DEBUG)
 try:
     import pyradiance
     # monkey patch new version of pr.gendaylit that includes -ang input option
+    # and pextrem for falsecolor extrema scaling.
+    # patch no longer needed if pyradiance.__version__ >= 1.2.1
+    # which requires python >= 3.10
     from bifacial_radiance.pyradiance_gendaylit import gendaylit as _gendaylit
+    from bifacial_radiance.pyradiance_gendaylit import pextrem as _pextrem
     pyradiance.gendaylit = _gendaylit
+    pyradiance.pextrem = _pextrem
     PYRADIANCE_AVAILABLE = True
 except ImportError:
     PYRADIANCE_AVAILABLE = False
@@ -336,6 +341,23 @@ def _checkRaypath():
             os.environ['RAYPATH'] = splitter.join(filter(None, raysplit + ['.' + splitter]))
     except (KeyError, AttributeError, TypeError):
         raise Exception('No RAYPATH set for RADIANCE.  Please check your RADIANCE installation.')
+    
+def _getradfiles(scenelist):
+    """
+    scenelist:   array of SceneObjs such as in RadianceObj.scenes
+
+    Returns
+    -------
+    list of radfiles
+    """
+    a = []
+    for scene in scenelist:
+        if type(scene.radfiles) == list:
+            for f in scene.radfiles:
+                a.append(f) 
+        else:
+            a.append(scene.radfiles)
+    return a
 
 class SuperClass:
       def __repr__(self):
@@ -509,28 +531,8 @@ class RadianceObj(SuperClass):
         Return concat of matfiles, radfiles and skyfiles
         """
 
-        return self.materialfiles + self.skyfiles + self._getradfiles()
-    
-    def _getradfiles(self, scenelist=None):
-        """
-        iterate over self.scenes to get the radfiles
-
-        Returns
-        -------
-        None.
-
-        """
-        if scenelist is None:
-            scenelist = self.scenes
-        a = []
-        for scene in scenelist:
-            if type(scene.radfiles) == list:
-                for f in scene.radfiles:
-                    a.append(f) 
-            else:
-                a.append(scene.radfiles)
-        return a
-        
+        return self.materialfiles + self.skyfiles + _getradfiles(self.scenes)
+            
     def save(self, savefile=None):
         """
         Pickle the radiance object for further use.
@@ -1728,7 +1730,7 @@ class RadianceObj(SuperClass):
             print('usage: make sure to run setGround() before gendaylit()')
             return
 
-        if debug is True:
+        if debug:
             print('Sky generated with Gendaylit, with DNI: %0.1f, DHI: %0.1f' % (dni, dhi))
             print("Datetime TimeIndex", metdata.datetime[timeindex])
 
@@ -1781,6 +1783,8 @@ class RadianceObj(SuperClass):
                     "skyfunc glow sky_mat\n0\n0\n4 1 1 1 0\n" + \
                     "\nsky_mat source sky\n0\n0\n4 0 0 1 180\n" + \
                     ground._makeGroundString(index=groundindex, cumulativesky=False))
+                if debug:
+                    print('Using pyRadiance gendaylit output for sky definition')
 
                     
             except Exception as e:
@@ -2367,7 +2371,7 @@ class RadianceObj(SuperClass):
         print('\nMaking {} octfiles in root directory.'.format(indexlist.__len__()))
         for index in sorted(indexlist):  # run through either entire key list of trackerdict, or just a single value
             try:  #TODO: check if this works
-                filelist = self.materialfiles + [trackerdict[index]['skyfile']] + self._getradfiles(trackerdict[index]['scenes'])
+                filelist = self.materialfiles + [trackerdict[index]['skyfile']] + _getradfiles(trackerdict[index]['scenes'])
                 octname = '1axis_%s%s'%(index, customname)
                 trackerdict[index]['octfile'] = self.makeOct(filelist, octname)
             except KeyError as e:
@@ -3600,7 +3604,6 @@ class GroundObj(SuperClass):
             raise err
         return groundstring
 
-        
 
 class SceneObj(SuperClass):
     """
@@ -3818,7 +3821,7 @@ class SceneObj(SuperClass):
 
         self.gcr = round(self.module.sceney / pitch, 6)
         self.text = text
-        self.radfiles = radfile
+        self.radfiles = [radfile]
         self.sceneDict = sceneDict
 #        self.hub_height = hubheight
         return radfile
@@ -3926,18 +3929,25 @@ class SceneObj(SuperClass):
         ground = GroundObj('concrete', silent=True) 
         ltfile = os.path.join(temp_dir.name, f'lt{pid}.rad')
         if PYRADIANCE_AVAILABLE:
-            gensky_out = pyradiance.gensky(altitude=65, azimuth=sunaz, sunny_with_sun=True)
+            gensky_out = pyradiance.gensky(altitude=65, azimuth=sunaz,
+                                           sunny_with_sun=True) + \
+                                           ground._makeGroundString().encode('latin1')
         else:
-            gensky_out = "!gensky -ang %s %s +s\n" %(65, sunaz)
-        with open(ltfile, 'w') as f:
-            f.write(gensky_out + \
+            gensky_out = ("!gensky -ang %s %s +s\n" %(65, sunaz) + \
             "skyfunc glow sky_mat\n0\n0\n4 1 1 1 0\n" + \
             "\nsky_mat source sky\n0\n0\n4 0 0 1 180\n" + \
-            ground._makeGroundString() )
+            ground._makeGroundString()).encode('latin1')
+        with open(ltfile, 'wb') as f:
+            f.write(gensky_out)
         if PYRADIANCE_AVAILABLE:
             pr_scene = pyradiance.Scene('saveImage')
             pr_scene.add_material("materials/ground.rad")
-            pr_scene.add_surface(self.radfiles[0])
+            if type(self.radfiles) == list:
+                pr_scene.add_surface(self.radfiles[0])
+            elif type(self.radfiles) == str:
+                pr_scene.add_surface(self.radfiles)
+            else:
+                raise Exception('SceneObj.radfiles set improperly')
             pr_scene.add_source(ltfile)
             aview = pyradiance.create_default_view()
             aview.vp = vp
@@ -4631,11 +4641,10 @@ class AnalysisObj(SuperClass):
         if name is None:
             name = self.name
 
-        #TODO: update this for cross-platform compatibility w/ os.path.join
         if self.hpc :
             time_to_wait = 10
             time_counter = 0
-            filelist = [octfile, "views/"+viewfile]
+            filelist = os.path.join(octfile, "views", viewfile)
             for file in filelist:
                 while not os.path.exists(file):
                     time.sleep(1)
@@ -4643,12 +4652,32 @@ class AnalysisObj(SuperClass):
                     if time_counter > time_to_wait:break
 
         print('Generating visible render of scene')
-        #TODO: update this for cross-platform compatibility w os.path.join
-        os.system("rpict -dp 256 -ar 48 -ms 1 -ds .2 -dj .9 -dt .1 "+
-                  "-dc .5 -dr 1 -ss 1 -st .1 -ab 3  -aa .1 "+
-                  "-ad 1536 -as 392 -av 25 25 25 -lr 8 -lw 1e-4 -vf views/"
-                  +viewfile+ " " + octfile +
-                  " > images/"+name+viewfile[:-3] +".hdr")
+
+        if PYRADIANCE_AVAILABLE:
+            # Parse view file to get view parameters
+            view_params = []
+            with open(os.path.join("views",viewfile), 'r') as vf:
+                view_content = vf.read().strip()
+                view_params = view_content.split()
+
+            # Set ray parameters for high quality rendering
+            ray_params = ['-dp', '256', '-ar', '48', '-ms', '1', '-ds', '.2', 
+                        '-dj', '.9', '-dt', '.1', '-dc', '.5', '-dr', '1', '-ss', '1', 
+                        '-st', '.1', '-ab', '3', '-aa', '.1', '-ad', '1536', '-as', '392',
+                        '-av', '25', '25', '25', '-lr', '8', '-lw', '1e-4']
+            hdr_raw = pyradiance.rpict(view_params[1:], octfile, params=ray_params)
+            hdr_filename = os.path.join("images","%s%s.hdr"%(name,viewfile[:-3]) )
+            with open(hdr_filename,"wb") as f:
+                f.write(hdr_raw)
+            #hdr_out = pr.pcond(hdr_filename, human=True)
+        else:
+            #TODO: update this for cross-platform compatibility w os.path.join
+            #TODO: update this using _popen instead of os.system.
+            os.system("rpict -dp 256 -ar 48 -ms 1 -ds .2 -dj .9 -dt .1 "+
+                    "-dc .5 -dr 1 -ss 1 -st .1 -ab 3  -aa .1 "+
+                    "-ad 1536 -as 392 -av 25 25 25 -lr 8 -lw 1e-4 -vf views/"
+                    +viewfile+ " " + octfile +
+                    " > images/"+name+viewfile[:-3] +".hdr")
 
     def makeFalseColor(self, viewfile, octfile=None, name=None):
         """
@@ -4673,7 +4702,7 @@ class AnalysisObj(SuperClass):
             try:
                 # Parse view file to get view parameters
                 view_params = []
-                with open(f"views/{viewfile}", 'r') as vf:
+                with open(os.path.join("views",viewfile), 'r') as vf:
                     view_content = vf.read().strip()
                     view_params = view_content.split()
                 
@@ -4683,7 +4712,7 @@ class AnalysisObj(SuperClass):
                              '-st', '.1', '-ab', '3', '-aa', '.1', '-ad', '1536', '-as', '392',
                              '-av', '25', '25', '25', '-lr', '8', '-lw', '1e-4']
                 
-                WM2_out = pyradiance.rpict(view_params, octfile, params=ray_params)
+                WM2_out = pyradiance.rpict(view_params[1:], octfile, params=ray_params)
                 err = None
             except Exception as e:
                 err = f"Error: {str(e)}"
@@ -4699,10 +4728,28 @@ class AnalysisObj(SuperClass):
             print('Error: {}'.format(err))
             return
 
-        # TODO: pextrem is not available in pyradiance, keep using subprocess
-        extrm_out,err = _popen("pextrem",WM2_out.encode('latin1') if isinstance(WM2_out, str) else WM2_out)
-        # cast the pextrem string as a float and find the max value
-        WM2max = max(map(float,extrm_out.split()))
+        # Use pyradiance.pextrem if available, otherwise fall back to subprocess
+        if PYRADIANCE_AVAILABLE:
+            try:
+                min_pt, max_pt = pyradiance.pextrem(WM2_out)
+                # Extract RGB values from max point tuple (x, y, r, g, b)
+                # Calculate max brightness from the max RGB values
+                WM2max = max(max_pt[2], max_pt[3], max_pt[4])
+            except Exception as e:
+                print(f"Error using pyradiance.pextrem: {e}, falling back to subprocess")
+                extrm_out, err = _popen("pextrem", WM2_out.encode('latin1') if isinstance(WM2_out, str) else WM2_out)
+                if err is not None:
+                    print('Error: {}'.format(err))
+                    return
+                WM2max = max(map(float, extrm_out.split()))
+        else:
+            extrm_out, err = _popen("pextrem", WM2_out.encode('latin1') if isinstance(WM2_out, str) else WM2_out)
+            if err is not None:
+                print('Error: {}'.format(err))
+                return
+            # cast the pextrem string as a float and find the max value
+            WM2max = max(map(float, extrm_out.split()))
+        
         print('Saving scene in false color')
         # Use pyradiance.falsecolor if available, otherwise fall back to subprocess
         if PYRADIANCE_AVAILABLE:
@@ -5236,7 +5283,7 @@ class AnalysisObj(SuperClass):
             rowWanted = round(rowWanted)
         self.modWanted = modWanted
         self.rowWanted = rowWanted
-        if debug is True:
+        if debug:
             print( f"Sampling: modWanted {modWanted}, rowWanted {rowWanted} "
                   "out of {nMods} modules, {nRows} rows" )
 
@@ -5397,7 +5444,7 @@ class AnalysisObj(SuperClass):
                 sx_zinc_front = 0.0
                 
                 
-        if debug is True:
+        if debug:
             print("Azimuth", azimuth)
             print("Coordinate Center Point of Desired Panel before azm rotation", x0, y0)
             print("Coordinate Center Point of Desired Panel after azm rotation", x1, y1)

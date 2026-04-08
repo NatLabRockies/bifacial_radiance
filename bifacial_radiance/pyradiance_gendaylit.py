@@ -10,6 +10,14 @@ from typing import Sequence, NamedTuple
 from enum import Enum
 from pyradiance.anci import handle_called_process_error, BINPATH
 
+class xyRGB(NamedTuple):
+    """Represents an extrema point from pextrem with pixel coordinates and RGB values."""
+    x: int
+    y: int
+    R: float
+    G: float
+    B: float
+
 
 @handle_called_process_error
 def gendaylit(
@@ -90,3 +98,77 @@ def gendaylit(
     if interval is not None:
         cmd.extend(["-i", str(interval)])
     return sp.run(cmd, stderr=sp.PIPE, stdout=sp.PIPE, check=True).stdout
+
+@handle_called_process_error
+def pextrem(
+    pic: str | Path | bytes,
+    original: bool = False,
+    original_xyze: bool = False,
+) -> tuple[xyRGB, xyRGB]:
+    """Find extrema points in a Radiance picture.
+    
+    Finds the minimum and maximum brightness pixels in a Radiance HDR picture
+    (RGBE, XYZE, or HyperSpectral format).
+    
+    Args:
+        pic: Path or bytes to input picture file.
+        original: If True, use original exposure values (before exposure compensation).
+        original_xyze: If True, convert XYZE to luminance before finding extrema. 
+        If the input is XYZE, then the second channel is in candelas/meterˆ2, 
+        unless original_xyze is specified, when watts/sr/meterˆ2 are always reported.
+    
+    Returns:
+        Two named tuples (min_xyRGB, max_xyRGB) with fields:
+        x, y (int): pixel coordinates
+        R, G, B (float): color channel values
+        Represents the darkest and brightest pixels in the image.
+    
+    Examples:
+        >>> min_pt, max_pt = pextrem("scene.hdr")
+        >>> print(f"Darkest pixel at ({min_pt.x}, {min_pt.y}): RGB=({min_pt.R}, {min_pt.G}, {min_pt.B})")
+        >>> print(f"Brightest pixel at ({max_pt.x}, {max_pt.y}): RGB=({max_pt.R}, {max_pt.G}, {max_pt.B})")
+    """
+    cmd = [str(BINPATH / "pextrem")]
+    stdin = None
+    
+    if original:
+        cmd.append("-o")
+    elif original_xyze:
+        cmd.append("-O")
+    
+    if isinstance(pic, (Path, str)):
+        cmd.append(str(pic))
+    elif isinstance(pic, bytes):
+        stdin = pic
+    else:
+        raise TypeError("pic must be a Path, str, or bytes")
+    
+    result = sp.run(cmd, check=True, input=stdin, stdout=sp.PIPE)
+    output = result.stdout.decode('latin1').strip()
+    
+    # Parse the output: two lines with format "x y  R G B"
+    lines = output.split('\n')
+    if len(lines) != 2:
+        raise ValueError(f"Unexpected pextrem output format: expected 2 lines, got {len(lines)}")
+    
+    # Parse minimum values (first line)
+    min_parts = lines[0].split()
+    min_point = xyRGB(
+        x=int(min_parts[0]),
+        y=int(min_parts[1]),
+        R=float(min_parts[2]),
+        G=float(min_parts[3]),
+        B=float(min_parts[4])
+    )
+    
+    # Parse maximum values (second line)
+    max_parts = lines[1].split()
+    max_point = xyRGB(
+        x=int(max_parts[0]),
+        y=int(max_parts[1]),
+        R=float(max_parts[2]),
+        G=float(max_parts[3]),
+        B=float(max_parts[4])
+    )
+    
+    return (min_point, max_point)

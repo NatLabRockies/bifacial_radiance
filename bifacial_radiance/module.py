@@ -410,6 +410,11 @@ class ModuleObj(SuperClass):
             pr_scene.add_material("materials/ground.rad")
             pr_scene.add_surface(self.modulefile)
             pr_scene.add_source(ltfile)
+            aview = pyradiance.create_default_view()
+            xyz_mag = np.sqrt(self.scenex**2 + self.sceney**2 + self.scenez**2)
+            aview.vp = (xyz_mag*1.5, xyz_mag*1.5, xyz_mag*1.5)
+            aview.vdir = (-.577, -.577, -.577)
+            pr_scene.add_view(aview)
             image = pyradiance.render(pr_scene, ambbounce=1)
             hdrfile = f"images/{filename}_XYZ.hdr"
             with open(hdrfile, "wb") as wtr:
