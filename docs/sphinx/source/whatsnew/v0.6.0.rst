@@ -1,0 +1,30 @@
+.. _whatsnew_060:
+
+v0.6.0 (XX XX, 2026)
+------------------------
+Major release removing RADIANCE dependence
+
+
+Deprecations
+~~~~~~~~~~~~
+* Support for Python 3.8 and 3.9 removed due to PyRadiance dependence
+* 
+
+API Changes
+~~~~~~~~~~~~
+* :py:class:`~bifacial_radiance.SceneObj.radfiles` is now exclusively a list of filenames instead of a single filename string
+
+Enhancements
+~~~~~~~~~~~~
+* pyRadiance support no longer requires RADIANCE to be installed for most functionality
+
+Bug fixes
+~~~~~~~~~
+
+
+Documentation
+~~~~~~~~~~~~~~
+
+Contributors
+~~~~~~~~~~~~
+* Chris Deline (:ghuser:`cdeline`)
