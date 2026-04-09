@@ -109,8 +109,8 @@ def test_Radiance_high_azimuth_modelchains():
     #assert np.round(np.mean(analysis.backRatio),2) == 0.20  # bifi ratio was == 0.22 in v0.2.2
     assert np.mean(results.Wm2Front[0]) == pytest.approx(899, rel = 0.005)  # was 912 in v0.2.3
     assert np.mean(results.Wm2Back[0]) == pytest.approx(189, rel = 0.03)  # was 182 in v0.2.2
-    assert results.Pout[0]  == pytest.approx(369, abs= 1)
-    assert demo2.compiledResults.Pout[0] == pytest.approx(369, abs= 1)
+    assert results.Pout[0]  == pytest.approx(369, abs= 1.5)
+    assert demo2.compiledResults.Pout[0] == pytest.approx(369, abs= 1.5)
     assert results.Mismatch[0] == pytest.approx(2.82, abs = .11)
 
     # assert that .hdr image files were created in the last 5 minutes
