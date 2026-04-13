@@ -177,7 +177,8 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
         frontscan, backscan = analysis.moduleAnalysis(scene, modWanted=analysisParamsDict['modWanted'],
                                                       rowWanted=analysisParamsDict['rowWanted'],
                                                       sensorsy=analysisParamsDict['sensorsy'])
-        analysis.analysis(octfile, demo.name, frontscan, backscan)
+        analysis.analysis(octfile, demo.name, frontscan, backscan, 
+                          accuracy=analysisParamsDict.get('accuracy', 'low'))
         print('Bifacial ratio yearly average:  %0.3f' %
               (np.mean(analysis.Wm2Back) / np.mean(analysis.Wm2Front)))
 
@@ -218,7 +219,8 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
         trackerdict = demo.analysis1axis(trackerdict=trackerdict,
                                          modWanted=analysisParamsDict['modWanted'],
                                          rowWanted=analysisParamsDict['rowWanted'],
-                                         sensorsy=analysisParamsDict['sensorsy'])
+                                         sensorsy=analysisParamsDict['sensorsy'],
+                                         accuracy=analysisParamsDict.get('accuracy', 'low'))
         
         # TODO: Chris, not all functions were saving/returning analysis before. 
                # It is also not a very good return as it will only include the last key

@@ -34,7 +34,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install Radiance v5.3
+    - name: Install Radiance v6.0
       run: |
         #wget https://github.com/LBNL-ETA/Radiance/releases/download/012cb178/Radiance_012cb178_Linux.zip -O radiance.zip
         wget https://github.com/LBNL-ETA/Radiance/releases/download/rad6R0P2/Radiance_c1700d56_Linux.zip -O radiance.zip
