@@ -1,8 +1,8 @@
 .. _whatsnew_060:
 
-v0.6.0 (X,X, 2026)
+v0.6.0 (XXX XX, 2026)
 ------------------------
-Bugfix release
+Major release
 
 API Changes
 ~~~~~~~~~~~~~
