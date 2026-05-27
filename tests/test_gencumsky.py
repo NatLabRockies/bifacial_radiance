@@ -102,3 +102,70 @@ def test_set1axis_gendaymtx():
     trackerdict = demo.set1axis(use_mtx=True)
     assert trackerdict[5]['count'] == 142
     assert trackerdict[45]['count'] == 821 #
+
+def test_reinhart():
+    bands = bifacial_radiance.main._make_reinhart_bands(1)
+    assert bands == [(0.0, 12.0, 30, 12.0),
+                    (12.0, 24.0, 30, 12.0),
+                    (24.0, 36.0, 24, 15.0),
+                    (36.0, 48.0, 24, 15.0),
+                    (48.0, 60.0, 18, 20.0),
+                    (60.0, 72.0, 12, 30.0),
+                    (72.0, 84.0, 6, 60.0),
+                    (84, 90, 1, 360.0)]
+    bands2 = bifacial_radiance.main._make_reinhart_bands(2)
+    assert bands2 == [(0.0, 6.0, 60, 6.0),
+                    (6.0, 12.0, 60, 6.0),
+                    (12.0, 18.0, 60, 6.0),
+                    (18.0, 24.0, 60, 6.0),
+                    (24.0, 30.0, 48, 7.5),
+                    (30.0, 36.0, 48, 7.5),
+                    (36.0, 42.0, 48, 7.5),
+                    (42.0, 48.0, 48, 7.5),
+                    (48.0, 54.0, 36, 10.0),
+                    (54.0, 60.0, 36, 10.0),
+                    (60.0, 66.0, 24, 15.0),
+                    (66.0, 72.0, 24, 15.0),
+                    (72.0, 78.0, 12, 30.0),
+                    (78.0, 84.0, 12, 30.0),
+                    (84, 90, 1, 360.0)]
+
+def test_gencumskyMTX():
+    # test the genCumSky function with the use_mtx option
+    import datetime
+    
+    # 1 module for STC conditions. DNI:900, DHI:100, sun angle: 33 elevation 0 azimuth
+    name = "test_gencumskyMTX"
+    demo = bifacial_radiance.RadianceObj(name)  # Create a RadianceObj 'object'
+    demo.setGround(0.62) 
+    metdata = demo.readWeatherFile(MET_FILENAME, starttime='06_17_13', endtime='06_17_13')
+    demo.genCumSky(use_mtx=True)  # 1p, June 17th
+    # create a scene using panels in landscape at 10 deg tilt, 1.5m pitch. 0.2 m ground clearance
+    sceneDict = {'tilt':10,'pitch':1.5,'clearance_height':0.2, 'nMods':10, 'nRows':3}  
+    demo.makeModule(name='test',y=0.95,x=1.59, xgap=0)
+    scene = demo.makeScene('test',sceneDict) 
+    octfile = demo.makeOct(demo.getfilelist())  # makeOct combines all of the ground, sky and object files into a .oct file.
+    analysis = bifacial_radiance.AnalysisObj(octfile, demo.name)  # return an analysis object including the scan dimensions for back irradiance
+    (frontscan,backscan) = analysis.moduleAnalysis(scene)
+    analysis.analysis(octfile, demo.name, frontscan, backscan)  # compare the back vs front irradiance  
+    assert analysis.mattype[0][:12] == 'a4.1.a0.test'
+    assert analysis.rearMat[0][:12] == 'a4.1.a0.test'
+    assert np.mean(analysis.x) == pytest.approx(0)
+    rearY = [-0.373, -0.28, -0.186, -0.093, 0.0, 0.094, 0.188, 0.281, 0.375]
+    for (a,b) in zip(rearY, analysis.rearY):
+        assert a == pytest.approx(b, abs=.001)
+
+    if DEBUG:
+        print(np.mean(analysis.Wm2Front))
+        print(np.mean(analysis.Wm2Back))
+        print(np.mean(analysis.backRatio))
+    # Note: gencumsky has 30-50 Wm-2 variability from run to run...  unsure why.
+    assert np.mean(analysis.Wm2Front) == pytest.approx(1030, abs = 60)  #1023,1037,1050, 1035, 1027, 1044, 1015, 1003, 1056
+    assert np.mean(analysis.Wm2Back) == pytest.approx(133, abs = 15) # 127, 131, 131, 135, 130, 139, 120, 145
+    
+    # run 1-axis gencumsky option
+    trackerdict = demo.set1axis(metdata, limit_angle = 45, backtrack = True, gcr = 0.33, use_mtx=True)
+    demo.genCumSky1axis(trackerdict, use_mtx=True)
+    assert os.path.basename(trackerdict[5]['skyfile']) == '1axis_5.0.rad'
+    
+

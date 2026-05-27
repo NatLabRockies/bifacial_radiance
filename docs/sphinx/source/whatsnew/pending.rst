@@ -7,12 +7,16 @@ Bugfix release
 API Changes
 ~~~~~~~~~~~~~
 * RadianceObj.set1axis() has new input `use_mtx` to trigger the gendaymtx cumulative workflow
+* RadianceObj.gencumsky() has new input `use_mtx` to trigger the gendaymtx cumulative workflow
+* RadianceObj.gencumsky1axis() has new input `use_mtx` to trigger the gendaymtx cumulative workflow
 
 
 Enhancements
 ~~~~~~~~~~~~
+* MetObj now has a new parameter MetObj.frequency, set at initialization to track time-series frequency.
+* new function MetObj.makeWEA to create a .wea file for gendaymtx simulations.
 * new function MetObj._makeTrackerMTX to create .WEA files for tracked simulations.
-
+* new function RadianceObj._cal_to_rad to create .WEA files for tracked simulations.
 
 Bug fixes
 ~~~~~~~~~
