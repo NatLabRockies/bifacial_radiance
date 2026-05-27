@@ -362,7 +362,7 @@ def _make_reinhart_bands(M):
     return bands
 
 
-def _mtx_to_cal(patches, M=1, savefile='cumulative_gendaymtx', sky_path='skies'):
+def _mtx_to_cal(patches, M=1, sky_path='skies', savefile='cumulative'):
     """
     Convert a gendaymtx annual cumulative MTX into a
     gencumulativesky-compatible .cal file. Used within gencumsky() when use_mtx = True.
@@ -385,6 +385,9 @@ def _mtx_to_cal(patches, M=1, savefile='cumulative_gendaymtx', sky_path='skies')
     NOTE: azimuth offset vs. gencumulativesky needs empirical verification
     using TODO #3 comparison. Adjust `az_offset_deg` if results diverge.
     """
+    if savefile[-4:].lower() == '.cal':
+        savefile = savefile[:-4]
+
     bands = _make_reinhart_bands(M)
     n_sky_expected = sum(n for _, _, n, _ in bands)
 
@@ -1998,7 +2001,6 @@ class RadianceObj(SuperClass):
         timeZone = self.metdata.timezone
 
         if use_mtx:
-            
             if gencumsky_metfile is None: # assume that it needs to be created from the metdata
                 if self.metdata is None:
                     print("No metdata found. Please run readWeatherFile() first to create metdata, or pass a gencumsky_metfile")
@@ -2009,24 +2011,21 @@ class RadianceObj(SuperClass):
             timestep_count = len(self.metdata.datetime)
 
             # gendaymtx workflow 
-            cmd = f"gendaymtx -m 1 -A -O1 {gencumsky_metfile}"
-            mtx_bytes,err = _popen(cmd,None)
+            cmd = f"gendaymtx -m 1 -A -O1 -h {gencumsky_metfile}"
+            mtx_data,err = _popen(cmd,None)
             if err is not None: print(err)
             """
-            # pyradiance option:
+            # pyradiance option
             from pyradiance import gendaymtx
-            mtx_bytes = gendaymtx(gencumsky_metfile, mfactor=1, average=True, solar_radiance=True)
+            mtx_data = gendaymtx(gencumsky_metfile, mfactor=1, 
+                        average=True, solar_radiance=True, header=False)
             """
-            # convert mtx_bytes to patches, scale average to total and parse out the sky definition        
+            # convert mtx_bytes to patches, scale average to total and parse out the sky definition
+            # with -h (header=False) option we don't need to strip out initial header.        
             try:
-                mtx_data = mtx_bytes.split(b"\r\n\r\n", 1)[1]
-                patches = np.loadtxt(io.BytesIO(mtx_data))
-            except TypeError: # if mtx_bytes is already a string, not bytes
-                mtx_data = mtx_bytes.split("\r\n\r\n", 1)[1]
                 patches = np.loadtxt(io.StringIO(mtx_data))
-            except IndexError:
-                print("Error: gendaymtx did not return expected output. Check that the metfile passed is correct.")
-                return
+            except TypeError: # if mtx_bytes is already bytes, not a string
+                patches = np.loadtxt(io.BytesIO(mtx_data))
             
             # scale patches from average Wm-2 to cumulative Whm-2.  
             if self.metdata.frequency is None:
@@ -2051,8 +2050,6 @@ class RadianceObj(SuperClass):
 
             # convert mtx data to sky definition
             savefile = _mtx_to_cal(patches, M=1, savefile=savefile, sky_path=None)
-            skyname = self._cal_to_rad(sky_path=sky_path, savefile=savefile)
-            
 
         else: # standard gencumsky workflow
 
@@ -2077,53 +2074,23 @@ class RadianceObj(SuperClass):
                 _,err = _popen(cmd, None, f)
                 if err is not None:
                     print(err)
-            """
-            # TODO: replace all of this with a call to _cal_to_rad().
-            # Assign Albedos
-            try:
-                groundstring = self.ground._makeGroundString(cumulativesky=True)
-            except:
-                raise Exception('Error: ground reflection not defined.  '
-                                'Run RadianceObj.setGround() first')
-                
-            
-            skyStr = "#Cumulative Sky Definition\n" +\
-                "void brightfunc skyfunc\n" + \
-                "2 skybright " + "%s.cal\n" % (savefile) + \
-                "0\n" + \
-                "0\n" + \
-                "\nskyfunc glow sky_glow\n" + \
-                "0\n" + \
-                "0\n" + \
-                "4 1 1 1 0\n" + \
-                "\nsky_glow source sky\n" + \
-                "0\n" + \
-                "0\n" + \
-                "4 0 0 1 180\n" + \
-                groundstring
-                
-            skyname = os.path.join(sky_path, savefile+".rad")
-
-            skyFile = open(skyname, 'w')
-            skyFile.write(skyStr)
-            skyFile.close()
-
-            self.skyfiles = [skyname]
-            """
-            skyname = self._cal_to_rad(sky_path=sky_path, savefile=savefile)
+           
+        skyname = self._cal_to_rad(sky_path=sky_path, savefile=savefile)
 
         return skyname
         
 
-    def _cal_to_rad(self, sky_path='skies', savefile='cumulative_gendaymtx'):
+    def _cal_to_rad(self, sky_path='skies', savefile='cumulative'):
         """
         Wrap a .cal file in a Radiance sky .rad description — same template
         as genCumSky() — so it can be passed directly to demo.makeOct().
         Used inside genCumSky() when use_mtx=True.
 
+        Parameters
+        ------------
+        sky_path: directory to save the .rad file with the sky definition. Default is 'skies'
         savefile: .cal filename, with or without .cal extension
 
-        # TODO: refactor to combine with above genCumSky() code.
         """
         if savefile[-3:].lower() == 'cal':
             savefile = savefile[:-4]
@@ -2145,7 +2112,7 @@ class RadianceObj(SuperClass):
             + groundstring
         )
 
-        rad_path = os.path.join(sky_path, savefile+".rad")
+        rad_path = os.path.join(sky_path, savefile + ".rad")
         with open(rad_path, 'w') as f:
             f.write(skyStr)
         # print(f"Written: {rad_path}")
