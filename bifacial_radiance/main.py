@@ -4327,6 +4327,7 @@ class MetObj(SuperClass):
         #trackingdata.index = trackingdata.index + pd.Timedelta(minutes = 30)
         # It may not be exactly 30 minutes any more...
         trackingdata.index = self.sunrisesetdata.index  #this has the original time data in it
+        trackingdata['solpos_timestamp'] = self.sunrisesetdata.corrected_timestamp
 
         # round tracker_theta to increments of angledelta for use in cumulativesky
         def _roundArbitrary(x, base=angledelta):
@@ -4423,6 +4424,88 @@ class MetObj(SuperClass):
 
         return trackerdict
 
+    def _makeTrackerWEA(self, theta_list, trackingdata):
+        '''
+        Create multiple new irradiance csv files with data for each unique
+        rounded tracker angle. Return a dictionary with the new csv filenames
+        and other details, Used for gendaymtx tracking
+
+        Parameters
+        -----------
+        theta_list : array
+             Array of unique tracker angle values
+
+        trackingdata : Pandas 
+             Pandas Series with hourly tracker angles from
+             :pvlib.tracking.singleaxis
+
+        Returns
+        --------
+        trackerdict : dictionary
+              keys: *theta_round tracker angle  (default: -45 to +45 in
+                                                 5 degree increments).
+              sub-array keys:
+                  *datetime:  array of datetime strings in this group of angles
+                  *count:  number of datapoints in this group of angles
+                  *surf_azm:  tracker surface azimuth during this group of angles
+                  *surf_tilt:  tilt angle average during this group of angles
+                  *csvfile:  name of .wea met data file saved in /EPWs/
+        '''
+
+        dt = pd.to_datetime(self.datetime)
+
+        trackerdict = dict.fromkeys(theta_list)
+
+        for theta in sorted(trackerdict):  
+            trackerdict[theta] = TrackerDict({})
+            csvfile = os.path.join('EPWs', '1axis_{}.wea'.format(theta))
+            tempdata = trackingdata[trackingdata['theta_round'] == theta].copy()
+
+            #Set up trackerdict output for each value of theta
+            trackerdict[theta]['csvfile'] = csvfile
+            trackerdict[theta]['surf_azm'] = tempdata['surface_azimuth'].median()
+            trackerdict[theta]['surf_tilt'] = abs(theta)
+            datetimetemp = tempdata.index.strftime('%Y-%m-%d %H:%M:%S') #local time
+            trackerdict[theta]['datetime'] = datetimetemp
+            trackerdict[theta]['count'] = datetimetemp.__len__()
+            
+            #Create new temp wea file with only timestamps at a given angle
+            tempdata['month'] = tempdata.index.month
+            tempdata['day'] = tempdata.index.day
+            tempdata['hour'] = tempdata.solpos_timestamp.dt.hour + \
+                tempdata.solpos_timestamp.dt.minute/60
+            
+            tempdata = tempdata.join(self.tmydata[['dni','dhi']])
+            
+            with open(csvfile, 'w') as f:
+                f.write(self._getWEAHeader())
+                tempdata.to_csv(f, columns=['month', 'day', 'hour', 'dni', 'dhi'],
+                                index=False, header=False, sep=' ', float_format='%.2f',
+                                lineterminator='\n')
+            
+            print('Saving file {}, # points: {}'.format(
+                  trackerdict[theta]['csvfile'], tempdata.__len__()))
+
+        return trackerdict
+    
+    def _getWEAHeader(self):
+        '''
+        Helper function to create header for wea file for 
+        gendaymtx simulations. This is used in the _makeTrackerWEA function.
+
+        Returns
+        -------
+        header : string
+            Header for wea file, with correct number of lines to skip for
+            gencumulativesky -G option.
+        '''
+        header = f'place {self.city}\n'
+        header += f'latitude {self.latitude} \n'
+        header += f'longitude {self.longitude} \n'
+        header += f'time_zone {self.timezone * 15} \n'
+        header += f'site_elevation {self.elevation} \n'
+        header += 'weather_data_file_units 1 \n'
+        return header
 
 class AnalysisObj(SuperClass):
     """
