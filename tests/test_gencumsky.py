@@ -92,3 +92,13 @@ def test_SingleModule_gencumsky_modelchain():
     # Note: gencumsky has 30-50 Wm-2 variability from run to run...  unsure why.
     assert np.mean(analysis.Wm2Front) == pytest.approx(1030, abs = 60)  #1023,1037,1050, 1035, 1027, 1044, 1015, 1003, 1056
     assert np.mean(analysis.Wm2Back) == pytest.approx(133, abs = 15) # 127, 131, 131, 135, 130, 139, 120, 145
+
+
+def test_set1axis_gendaymtx():
+    # load met_filename2 and test the set1axis function with gendaymtx
+    demo = bifacial_radiance.RadianceObj("test_set1axis_gendaymtx")  # Create a RadianceObj 'object'
+    epwfile = MET_FILENAME2
+    metdata = demo.readWeatherFile(weatherFile=epwfile, coerce_year=2001)
+    trackerdict = demo.set1axis(use_mtx=True)
+    assert trackerdict[5]['count'] == 142
+    assert trackerdict[45]['count'] == 821 #

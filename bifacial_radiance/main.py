@@ -1949,7 +1949,7 @@ class RadianceObj(SuperClass):
     def set1axis(self, metdata=None, azimuth=180, limit_angle=45,
                  angledelta=5, backtrack=True, gcr=1.0 / 3, cumulativesky=True,
                  fixed_tilt_angle=None, useMeasuredTrackerAngle=False,
-                 axis_azimuth=None):
+                 axis_azimuth=None, use_mtx=False):
         """
         Set up geometry for 1-axis tracking.  Pull in tracking angle details from
         pvlib, create multiple 8760 metdata sub-files where datetime of met data
@@ -1993,7 +1993,8 @@ class RadianceObj(SuperClass):
         axis_azimuth : numeric
             DEPRECATED.  returns deprecation warning. Pass the tracker 
             axis_azimuth through to azimuth input instead.
-
+        use_mtx : bool
+            Whether to use the gendaymtx file output for the cumulative sky approach
 
         Returns
         -------
@@ -2038,7 +2039,8 @@ class RadianceObj(SuperClass):
                                        backtrack=backtrack,
                                        gcr=gcr,
                                        fixed_tilt_angle=fixed_tilt_angle,
-                                       useMeasuredTrackerAngle=useMeasuredTrackerAngle
+                                       useMeasuredTrackerAngle=useMeasuredTrackerAngle,
+                                       use_mtx=use_mtx
                                        )
         self.trackerdict = trackerdict
         self.cumulativesky = cumulativesky
@@ -4127,7 +4129,7 @@ class MetObj(SuperClass):
 
     def _set1axis(self, azimuth=180, limit_angle=45, angledelta=None, 
                   backtrack=True, gcr=1.0/3.0, cumulativesky=True, 
-                  fixed_tilt_angle=None, axis_tilt=0, useMeasuredTrackerAngle=False):
+                  fixed_tilt_angle=None, axis_tilt=0, useMeasuredTrackerAngle=False, use_mtx=False):
 
         """
         Set up geometry for 1-axis tracking cumulativesky.  Solpos data
@@ -4210,10 +4212,12 @@ class MetObj(SuperClass):
         # get list of unique rounded tracker angles
         theta_list = trackingdata.dropna()['theta_round'].unique()
 
-        if cumulativesky is True:
+        if (cumulativesky is True) & (use_mtx is False):
             # create a separate metfile for each unique tracker theta angle.
             # return dict of filenames and details
             trackerdict = self._makeTrackerCSV(theta_list,trackingdata)
+        elif use_mtx is True:
+            trackerdict = self._makeTrackerMTX(theta_list,trackingdata)
         else:
             # trackerdict uses timestamp as keys. return azimuth
             # and tilt for each timestamp
@@ -4424,7 +4428,7 @@ class MetObj(SuperClass):
 
         return trackerdict
 
-    def _makeTrackerWEA(self, theta_list, trackingdata):
+    def _makeTrackerMTX(self, theta_list, trackingdata):
         '''
         Create multiple new irradiance csv files with data for each unique
         rounded tracker angle. Return a dictionary with the new csv filenames
@@ -4491,7 +4495,7 @@ class MetObj(SuperClass):
     def _getWEAHeader(self):
         '''
         Helper function to create header for wea file for 
-        gendaymtx simulations. This is used in the _makeTrackerWEA function.
+        gendaymtx simulations. This is used in the _makeTrackerMTX function.
 
         Returns
         -------
