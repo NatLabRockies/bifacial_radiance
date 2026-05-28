@@ -7,8 +7,8 @@ Major release
 API Changes
 ~~~~~~~~~~~~~
 * RadianceObj.set1axis() has new input `use_mtx` to trigger the gendaymtx cumulative workflow
-* RadianceObj.gencumsky() has new input `use_mtx` to trigger the gendaymtx cumulative workflow
-* RadianceObj.gencumsky1axis() has new input `use_mtx` to trigger the gendaymtx cumulative workflow
+* RadianceObj.genCumSky() has new input `use_mtx` to trigger the gendaymtx cumulative workflow
+* RadianceObj.genCumSky1axis() has new input `use_mtx` to trigger the gendaymtx cumulative workflow
 
 
 Enhancements
