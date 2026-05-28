@@ -2008,8 +2008,11 @@ class RadianceObj(SuperClass):
                 else:
                     gencumsky_metfile = self.metdata.makeWEA('temp.wea')
             
-            timestep_count = len(self.metdata.datetime)
-
+            def _count_wea_timesteps(weafile):
+                with open(weafile, 'r') as f:
+                    return sum(1 for line in f) -6 # subtract 6 header lines in wea file
+            timestep_count = _count_wea_timesteps(gencumsky_metfile)
+            print(f'There are {timestep_count} timesteps in the .wea file.')
             # gendaymtx workflow 
             cmd = f"gendaymtx -m 1 -A -O1 -h {gencumsky_metfile}"
             mtx_data,err = _popen(cmd,None)
