@@ -4396,7 +4396,7 @@ class MetObj(SuperClass):
             # create a separate metfile for each unique tracker theta angle.
             # return dict of filenames and details
             trackerdict = self._makeTrackerCSV(theta_list,trackingdata)
-        elif use_mtx is True:
+        elif (cumulativesky is True) & (use_mtx is True):
             trackerdict = self._makeTrackerMTX(theta_list,trackingdata)
         else:
             # trackerdict uses timestamp as keys. return azimuth
