@@ -1973,8 +1973,6 @@ class RadianceObj(SuperClass):
             in the year, and MUST have 8760 entries long otherwise gencumulativesky.exe cries. 
         savefile : string
             If savefile is None, defaults to "cumulative"
-        metdata : ``MetObj``
-            MetObj object with list of dni, dhi, ghi and location
         use_mtx : bool
             Whether to use the gendaymtx workflow instead of gencumsky. Requires
             MetObj object with list of dni, dhi, ghi and location.
@@ -2095,7 +2093,7 @@ class RadianceObj(SuperClass):
         savefile: .cal filename, with or without .cal extension
 
         """
-        if savefile[-3:].lower() == 'cal':
+        if savefile[-4:].lower() == '.cal':
             savefile = savefile[:-4]
 
         try:
@@ -4703,8 +4701,8 @@ class MetObj(SuperClass):
 
         Returns
         -------
-        None
-            Saves .wea file in /EPWs/
+         csvfile : str
+             Path to the saved .wea file in /EPWs/
         '''
         if filename is None:
             filename = 'temp.wea'
