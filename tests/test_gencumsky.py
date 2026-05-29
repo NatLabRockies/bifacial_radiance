@@ -131,9 +131,28 @@ def test_reinhart():
                     (84, 90, 1, 360.0)]
 
 def test_gencumskyMTX():
-    # test the genCumSky function with the use_mtx option
+    # test the genCumSky1axis modelchain function with the use_mtx option
     import datetime
+    filename = "ini_gendaymtx.ini"
     
+    (Params)= bifacial_radiance.load.readconfigurationinputfile(inifile=filename)
+    Params[0]['testfolder'] = TESTDIR
+    # unpack the Params tuple with *Params
+    (demo_mtx, temp) = bifacial_radiance.modelchain.runModelChain(*Params ) 
+    analysis_mtx = demo_mtx.trackerdict[5]['AnalysisObj'][0]
+    # make sure the use_mtx=True branch is being taken:
+    assert demo_mtx.trackerdict[5]['csvfile'] == os.path.join('EPWs', '1axis_5.0.wea')
+    # does the scan line up with anything?
+    assert analysis_mtx.mattype[5][:12] == 'a4.1.a0.test'
+    assert analysis_mtx.rearMat[5][:12] == 'a4.1.a0.test'
+    if DEBUG:
+        print(np.mean(analysis_mtx.Wm2Front))
+        print(np.mean(analysis_mtx.Wm2Back))
+        print(np.mean(analysis_mtx.backRatio))
+    assert np.mean(analysis_mtx.Wm2Front) == pytest.approx(1030, abs = 40)  #1035 1008 1032 1034 1009 1050 1047
+    assert np.mean(analysis_mtx.Wm2Back) == pytest.approx(370, abs = 10) # 374 368 368 369 372 368 370
+
+    """
     # 1 module for STC conditions. DNI:900, DHI:100, sun angle: 33 elevation 0 azimuth
     name = "test_gencumskyMTX"
     demo = bifacial_radiance.RadianceObj(name)  # Create a RadianceObj 'object'
@@ -167,5 +186,5 @@ def test_gencumskyMTX():
     trackerdict = demo.set1axis(metdata, limit_angle = 45, backtrack = True, gcr = 0.33, use_mtx=True)
     demo.genCumSky1axis(trackerdict, use_mtx=True)
     assert os.path.basename(trackerdict[5]['skyfile']) == '1axis_5.0.rad'
-    
+    """
 

@@ -159,12 +159,14 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
     if 'gcr' not in sceneParamsDict:  # didn't get gcr passed - need to calculate it
         sceneParamsDict['gcr'] = module.sceney / \
             sceneParamsDict['pitch']
+        
+    use_mtx = simulationParamsDict.get('use_mtx', False)  # default to False if not provided
 
     if simulationParamsDict['tracking'] == False and simulationParamsDict['cumulativeSky'] == True:
     # Fixed gencumsky condition
         scene = demo.makeScene(module=module, 
                                sceneDict=sceneParamsDict, customtext=customObject)
-        demo.genCumSky(demo.gencumsky_metfile)  
+        demo.genCumSky(demo.gencumsky_metfile, use_mtx=use_mtx)  
         
         if pilesParamsDict:
             demo.addPiles(spacingPiles=pilesParamsDict['spacingPiles'], 
@@ -192,19 +194,21 @@ def runModelChain(simulationParamsDict, sceneParamsDict, timeControlParamsDict=N
             trackerdict = demo.set1axis(metdata, 
                                         cumulativesky=simulationParamsDict["cumulativeSky"],
                                         fixed_tilt_angle=sceneParamsDict['tilt'],
-                                        azimuth=sceneParamsDict['azimuth']) 
+                                        azimuth=sceneParamsDict['azimuth'],
+                                        use_mtx=use_mtx) 
         else:
             trackerdict = demo.set1axis(metdata, gcr=sceneParamsDict['gcr'],
                                         azimuth=sceneParamsDict['azimuth'],
                                         limit_angle=trackingParamsDict['limit_angle'],
                                         angledelta=trackingParamsDict['angle_delta'],
                                         backtrack=trackingParamsDict['backtrack'],
-                                        cumulativesky=simulationParamsDict["cumulativeSky"])
+                                        cumulativesky=simulationParamsDict["cumulativeSky"],
+                                        use_mtx=use_mtx) 
             
 
 
         if simulationParamsDict['cumulativeSky']:
-            trackerdict = demo.genCumSky1axis(trackerdict=trackerdict)
+            trackerdict = demo.genCumSky1axis(trackerdict=trackerdict, use_mtx=use_mtx)
         else:           
             trackerdict = demo.gendaylit1axis()                
 
