@@ -767,7 +767,7 @@ class ModuleObj(SuperClass):
                 CECMod = self.CECMod
             else:
                 print("No CECModule data passed; using default for Prism Solar BHC72-400")
-                #url = 'https://raw.githubusercontent.com/NREL/SAM/patch/deploy/libraries/CEC%20Modules.csv'
+                #url = 'https://raw.githubusercontent.com/NatLabRockies/SAM/patch/deploy/libraries/CEC%20Modules.csv'
                 url = os.path.join(DATA_PATH,'CEC Modules.csv')
                 db = pd.read_csv(url, index_col=0) # Reading this might take 1 min or so, the database is big.
                 modfilter2 = db.index.str.startswith('Pr') & db.index.str.endswith('BHC72-400')

@@ -254,7 +254,7 @@ def loadTrackerDict(trackerdict, fileprefix=None):
     
     print('Warning: loadTrackerDict has not been updated to the new v0.5.0' +\
           ' dictionary structure and is currently incomplete. Please' +\
-          ' reach out at github.com/NREL/bifacial_radiance/issues if' +\
+          ' reach out at github.com/NatLabRockies/bifacial_radiance/issues if' +\
           ' this is functionality you need.\n')
 
     # get list of filenames in \results\

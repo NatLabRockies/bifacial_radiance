@@ -9,8 +9,8 @@ description = "Tools to interface with Radiance for the PV researcher"
 readme = "README.md"
 requires-python = ">=3.8"
 authors = [
-    {name = "Chris Deline", email = "chris.deline@nrel.gov"},
-    {name = "Silvana Ovaitt", email = "silvana.ovaitt@nrel.gov"}
+    {name = "Chris Deline", email = "chris.deline@nlr.gov"},
+    {name = "Silvana Ovaitt", email = "silvana.ovaitt@nlr.gov"}
 ]
 keywords = ["bifacial", "radiance", "photovoltaics", "pv", "ray tracing"]
 classifiers = [
@@ -57,10 +57,10 @@ all = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/NREL/bifacial_radiance"
+Homepage = "https://github.com/NatLabRockies/bifacial_radiance"
 Documentation = "https://bifacial-radiance.readthedocs.io"
-Repository = "https://github.com/NREL/bifacial_radiance"
-Issues = "https://github.com/NREL/bifacial_radiance/issues"
+Repository = "https://github.com/NatLabRockies/bifacial_radiance"
+Issues = "https://github.com/NatLabRockies/bifacial_radiance/issues"
 
 [tool.setuptools]
 packages = ["bifacial_radiance"]

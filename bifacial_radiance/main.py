@@ -10,7 +10,7 @@ bifacial_radiance.py - module to develop radiance bifacial scenes, including gen
 Pre-requisites:
     This software is written for Python >3.6 leveraging many Anaconda tools (e.g. pandas, numpy, etc)
 
-    *RADIANCE software should be installed from https://github.com/NREL/Radiance/releases
+    *RADIANCE software should be installed from https://github.com/NatLabRockies/Radiance/releases
 
     *If you want to use gencumulativesky, move 'gencumulativesky.exe' from
     'bifacial_radiance/data' into your RADIANCE source directory.
@@ -900,9 +900,9 @@ class RadianceObj(SuperClass):
         based on github/aahoo.
         
         .. warning::
-            verify=false is required to operate within NREL's network.
+            verify=false is required to operate within NLR's network.
             to avoid annoying warnings, insecurerequestwarning is disabled
-            currently this function is not working within NREL's network.  annoying!
+            currently this function is not working within NLR's network.  annoying!
         
         Parameters
         ----------
@@ -929,7 +929,7 @@ class RadianceObj(SuperClass):
 
         def _returnEPWnames():
             ''' return a dataframe with the name, lat, lon, url of available files'''
-            r = requests.get('https://github.com/NREL/EnergyPlus/raw/develop/weather/master.geojson', verify=False)
+            r = requests.get('https://github.com/NatLabRockies/EnergyPlus/raw/develop/weather/master.geojson', verify=False)
             data = r.json() #metadata for available files
             #download lat/lon and url details for each .epw file into a dataframe
             df = pd.DataFrame({'url':[], 'lat':[], 'lon':[], 'name':[]})
