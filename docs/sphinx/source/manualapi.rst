@@ -48,6 +48,7 @@ Weather
    RadianceObj.getEPW
    RadianceObj.readWeatherFile
    RadianceObj.readWeatherData
+   MetObj.makeWEA
  
 Sky Dome
 --------
