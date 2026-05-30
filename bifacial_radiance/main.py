@@ -332,9 +332,9 @@ def _make_reinhart_bands(M):
     with n_az*M azimuth patches and az_step/M degrees per patch.
     The zenith band (n_az==1) is left as a single patch regardless of M.
 
-    Patch counts: M=1 ? 145, M=2 ? 577 (= M²×144 + 1), M=4 ? 2305.
+    Patch counts: M=1 -> 145, M=2 -> 577 (= M^2*144 + 1), M=4 -> 2305.
     """
-    # Tregenza M=1 base band structure — used as the template for all M values
+    # Tregenza M=1 base band structure -- used as the template for all M values
     _TREGENZA_BANDS = [
         ( 0, 12, 30, 12.0),
         (12, 24, 30, 12.0),
@@ -343,7 +343,7 @@ def _make_reinhart_bands(M):
         (48, 60, 18, 20.0),
         (60, 72, 12, 30.0),
         (72, 84,  6, 60.0),
-        (84, 90,  1, 360.0),  # zenith — never subdivided
+        (84, 90,  1, 360.0),  # zenith -- never subdivided
     ]
 
     bands = []
@@ -416,12 +416,12 @@ def _mtx_to_cal(patches, M=1, sky_path='skies', savefile='cumulative'):
             vals = sky_irr[patch_idx: patch_idx + n]
             patch_idx += n
 
-            if n == 1:  # zenith — no azimuth dependency
+            if n == 1:  # zenith -- no azimuth dependency
                 f.write(f"row{row_idx}=if(and(alt-{alt_lo}, {alt_hi}-alt),"
                         f"{vals[0]:.6f},0);\n\n")
             else:
                 # Append vals[0] at the end as wrap-around guard.
-                # When az is near 360°, select() index reaches n+1; the repeated
+                # When az is near 360deg, select() index reaches n+1; the repeated
                 # first value matches the genCumSky convention and avoids a
                 # "select(): domain error" from rtrace.
                 vals_wrap = list(vals) + [vals[0]]
@@ -2038,13 +2038,13 @@ class RadianceObj(SuperClass):
 
             if debug:
                 print(f"Patches shape:          {patches.shape}  (should be (n_sky+1) x 3)")
-                print(f"Row  0 — ground patch:  {patches[0]}  (expect equal R=G=B)")
-                print(f"Row  1 — lowest sky:    {patches[1]}")
-                print(f"Row 30 — end of band 0: {patches[30]}")
-                print(f"Row 31 — start band 1:  {patches[31]}")
-                print(f"Row -1 — zenith:        {patches[-1]}")
+                print(f"Row  0 -- ground patch:  {patches[0]}  (expect equal R=G=B)")
+                print(f"Row  1 -- lowest sky:    {patches[1]}")
+                print(f"Row 30 -- end of band 0: {patches[30]}")
+                print(f"Row 31 -- start band 1:  {patches[31]}")
+                print(f"Row -1 -- zenith:        {patches[-1]}")
                 print(f"\nScalar irradiance range (sky patches only): "
-                    f"{patches[1:].mean(axis=1).min():.2f} – {patches[1:].mean(axis=1).max():.2f}")
+                    f"{patches[1:].mean(axis=1).min():.2f} - {patches[1:].mean(axis=1).max():.2f}")
                 gendaymtx_total = patches[1:].mean(axis=1).sum()
                 n_sky = patches.shape[0] - 1
                 print(f"\nTotal cumulative sky irradiance (gendaymtx, {n_sky} patches): {gendaymtx_total:.1f}")
@@ -2083,8 +2083,8 @@ class RadianceObj(SuperClass):
 
     def _cal_to_rad(self, sky_path='skies', savefile='cumulative'):
         """
-        Wrap a .cal file in a Radiance sky .rad description — same template
-        as genCumSky() — so it can be passed directly to demo.makeOct().
+        Wrap a .cal file in a Radiance sky .rad description -- same template
+        as genCumSky() -- so it can be passed directly to demo.makeOct().
         Used inside genCumSky() when use_mtx=True.
 
         Parameters
