@@ -332,7 +332,7 @@ def _make_reinhart_bands(M):
     with n_az*M azimuth patches and az_step/M degrees per patch.
     The zenith band (n_az==1) is left as a single patch regardless of M.
 
-    Patch counts: M=1 ? 145, M=2 ? 577 (= M²×144 + 1), M=4 ? 2305.
+    Patch counts: M=1 -> 145, M=2 -> 577 (= M²×144 + 1), M=4 -> 2305.
     """
     # Tregenza M=1 base band structure — used as the template for all M values
     _TREGENZA_BANDS = [
