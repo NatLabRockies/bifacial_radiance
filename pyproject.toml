@@ -7,7 +7,7 @@ name = "bifacial_radiance"
 dynamic = ["version"]
 description = "Tools to interface with Radiance for the PV researcher"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 authors = [
     {name = "Chris Deline", email = "chris.deline@nlr.gov"},
     {name = "Silvana Ovaitt", email = "silvana.ovaitt@nlr.gov"}
@@ -18,12 +18,11 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: BSD License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
     "configparser",
@@ -31,7 +30,7 @@ dependencies = [
     "pandas",
     "pvlib >= 0.8.0",
     "pvmismatch",
-    "pyradiance",
+    "pyradiance >= 1.0.0",
     "requests",
     "scipy > 1.6.0",
     "tqdm",

@@ -11,6 +11,15 @@ import pvlib
 import pandas as pd
 
 from bifacial_radiance.main import _missingKeyWarning, _popen, DATA_PATH
+
+# Import pyradiance availability from main module
+# TODO: remove this if/else and just have the import
+try:
+    from bifacial_radiance.main import PYRADIANCE_AVAILABLE
+    if PYRADIANCE_AVAILABLE:
+        import pyradiance
+except ImportError:
+    PYRADIANCE_AVAILABLE = False
  
 class SuperClass:
     def __repr__(self):
@@ -360,6 +369,8 @@ class ModuleObj(SuperClass):
 
         """
        
+        # TODO: objview is an interactive viewer not available in pyradiance
+        # Keep using subprocess for now
         cmd = 'objview %s %s' % (os.path.join('materials', 'ground.rad'),
                                          self.modulefile)
         _,err = _popen(cmd,None)
@@ -394,19 +405,37 @@ class ModuleObj(SuperClass):
                     "bright source sun2  0  0  4  .3 1 1  5\n"+\
                     "bright source sun3  0  0  4  -1 -.7 1  5")
 
-        # make .rif and run RAD
-        riffile = os.path.join(temp_dir.name, f'ov{pid}.rif')
-        with open(riffile, 'w') as f:
-                f.write("scene= materials/ground.rad " +\
-                        f"{self.modulefile} {ltfile}\n".replace("\\",'/') +\
-                    "EXPOSURE= .5\nUP= Z\nview= XYZ\n" +\
-                    #f"OCTREE= ov{pid}.oct\n"+\
-                    f"oconv= -f\nPICT= images/{filename}")
-        _,err = _popen(["rad",'-s',riffile], None)
-        if err:
-            print(err)
+        if PYRADIANCE_AVAILABLE:
+            pr_scene = pyradiance.Scene('saveImage')
+            pr_scene.add_material("materials/ground.rad")
+            pr_scene.add_surface(self.modulefile)
+            pr_scene.add_source(ltfile)
+            aview = pyradiance.create_default_view()
+            xyz_mag = np.sqrt(self.scenex**2 + self.sceney**2 + self.scenez**2)
+            aview.vp = (xyz_mag*1.5, xyz_mag*1.5, xyz_mag*1.5)
+            aview.vdir = (-.577, -.577, -.577)
+            pr_scene.add_view(aview)
+            image = pyradiance.render(pr_scene, ambbounce=1)
+            hdrfile = f"images/{filename}_XYZ.hdr"
+            with open(hdrfile, "wb") as wtr:
+                wtr.write(image)
+            print(f"Scene image saved: {hdrfile}")
         else:
-            print(f'Module image saved: images/{filename}_XYZ.hdr')
+            # make .rif and run RAD
+            riffile = os.path.join(temp_dir.name, f'ov{pid}.rif')
+            with open(riffile, 'w') as f:
+                    f.write("scene= materials/ground.rad " +\
+                            f"{self.modulefile} {ltfile}\n".replace("\\",'/') +\
+                        "EXPOSURE= .5\nUP= Z\nview= XYZ\n" +\
+                        #f"OCTREE= ov{pid}.oct\n"+\
+                        f"oconv= -f\nPICT= images/{filename}")
+            # TODO: 'rad' is a high-level script not directly available in pyradiance
+            # Keep using subprocess for now
+            _,err = _popen(["rad",'-s',riffile], None)
+            if err:
+                print(err)
+            else:
+                print(f'Module image saved: images/{filename}_XYZ.hdr')
         
         temp_dir.cleanup()
         

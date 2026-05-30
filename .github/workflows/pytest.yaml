@@ -1,15 +1,18 @@
-name: test     
+name: test
 
 on: [pull_request, push]
 
+# Force all JavaScript actions to use Node 24 to silence the v4/v5 warnings
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   pytest:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false  # don't cancel other matrix jobs when one fails
       matrix:
-        python-version: ["3.8","3.11"]
+        python-version: ["3.10", "3.12"]
         # Test two environments:
         # 1) dependencies with pinned versions from requirements.txt
         # 2) 'pip install --upgrade --upgrade-strategy=eager .' to install upgraded
@@ -33,14 +36,16 @@ jobs:
 
     - name: Install Radiance v5.3
       run: |
-        wget https://github.com/LBNL-ETA/Radiance/releases/download/012cb178/Radiance_012cb178_Linux.zip -O radiance.zip
+        #wget https://github.com/LBNL-ETA/Radiance/releases/download/012cb178/Radiance_012cb178_Linux.zip -O radiance.zip
+        wget https://github.com/LBNL-ETA/Radiance/releases/download/rad6R0P2/Radiance_c1700d56_Linux.zip -O radiance.zip
         unzip radiance.zip 
-        tar -xvf radiance-5.3.012cb17835-Linux.tar.gz
+        #tar -xvf radiance-5.3.012cb17835-Linux.tar.gz
+        tar -xvf radiance-6.0.c1700d56cc-Linux.tar.gz
         ls -l $PWD
 
     - name: Copy gencumulativesky into radiance /bin
       run: |
-        cp $PWD/bifacial_radiance/data/gencumulativesky $PWD/radiance-5.3.012cb17835-Linux/usr/local/radiance/bin/
+        cp $PWD/bifacial_radiance/data/gencumulativesky $PWD/radiance-6.0.c1700d56cc-Linux/usr/local/radiance/bin/
 
     - name: Install SMARTS 2.9.5
       run: |
@@ -61,17 +66,18 @@ jobs:
     - name: Set environment variables
       run: |
         # https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#adding-a-system-path
-        echo "/home/runner/work/bifacial_radiance/bifacial_radiance/radiance-5.3.012cb17835-Linux/usr/local/radiance/bin" >> $GITHUB_PATH
+        echo "/home/runner/work/bifacial_radiance/bifacial_radiance/radiance-6.0.c1700d56cc-Linux/usr/local/radiance/bin" >> $GITHUB_PATH
         echo "/home/runner/work/bifacial_radiance/bifacial_radiance/SMARTS_295_Linux" >> $GITHUB_PATH
 
+    - name: Install xvfb
+      run: sudo apt-get update && sudo apt-get install -y xvfb
+
     - name: Test with pytest ${{ matrix.env }}
-      uses: coactions/setup-xvfb@6b00cf1889f4e1d5a48635647013c0508128ee1a  # GUI testing requires xvfb
-      with:
-        run: |
-          coverage run -m pytest
-          coverage report
+      run: |
+        xvfb-run -a coverage run -m pytest
+        coverage report
       env:  # environment variables available to this step
-        RAYPATH: .:/home/runner/work/bifacial_radiance/bifacial_radiance/radiance-5.3.012cb17835-Linux/usr/local/radiance/lib
+        RAYPATH: .:/home/runner/work/bifacial_radiance/bifacial_radiance/radiance-6.0.c1700d56cc-Linux/usr/local/radiance/lib
         SMARTSPATH: /home/runner/work/bifacial_radiance/bifacial_radiance/SMARTS_295_Linux
 
     - name: Coveralls
