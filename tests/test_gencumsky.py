@@ -86,9 +86,9 @@ def test_SingleModule_gencumsky_modelchain():
     for (a,b) in zip(rearY, analysis.rearY):
         assert a == pytest.approx(b, abs=.001)
     if DEBUG:
-        print(np.mean(analysis.Wm2Front))
-        print(np.mean(analysis.Wm2Back))
-        print(np.mean(analysis.backRatio))
+        print(f'Wm2Front: {np.mean(analysis.Wm2Front)}')
+        print(f'Wm2Back: {np.mean(analysis.Wm2Back)}')
+        print(f'backRatio: {np.mean(analysis.backRatio)}')
     # Note: gencumsky has 30-50 Wm-2 variability from run to run...  unsure why.
     assert np.mean(analysis.Wm2Front) == pytest.approx(1030, abs = 60)  #1023,1037,1050, 1035, 1027, 1044, 1015, 1003, 1056
     assert np.mean(analysis.Wm2Back) == pytest.approx(133, abs = 15) # 127, 131, 131, 135, 130, 139, 120, 145

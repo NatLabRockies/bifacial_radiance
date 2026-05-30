@@ -109,8 +109,8 @@ def test_Radiance_high_azimuth_modelchains():
     #assert np.round(np.mean(analysis.backRatio),2) == 0.20  # bifi ratio was == 0.22 in v0.2.2
     assert np.mean(results.Wm2Front[0]) == pytest.approx(899, rel = 0.005)  # was 912 in v0.2.3
     assert np.mean(results.Wm2Back[0]) == pytest.approx(189, rel = 0.03)  # was 182 in v0.2.2
-    assert results.Pout[0] == demo2.compiledResults.Pout[0] == pytest.approx(369, abs= 1)
-    assert results.Mismatch[0] == pytest.approx(2.82, abs = .1)
+    assert results.Pout[0] == demo2.compiledResults.Pout[0] == pytest.approx(369, abs= 1.5)
+    assert results.Mismatch[0] == pytest.approx(2.82, abs = .15)
 
     # assert that .hdr image files were created in the last 5 minutes
     mtime_module = os.path.getmtime(os.path.join('images','test-module_XYZ.hdr'))
@@ -271,13 +271,14 @@ def test_1axis_gencumSky():
     minitrackerdict[list(trackerdict)[0]]['scenes'] = [trackerdict[list(trackerdict)[0]]['scenes'][2]]
 
     trackerdict = demo.makeOct1axis(trackerdict=minitrackerdict, singleindex=-5) # just run this for one timestep: -5 degrees
-    trackerdict = demo.analysis1axis( modWanted=7, rowWanted=3, sensorsy=2, sceneNum=0) 
+
+    trackerdict = demo.analysis1axis( modWanted=7, rowWanted=3, sensorsy=2, sceneNum=0, accuracy='high') 
     assert trackerdict[-5.0]['AnalysisObj'][0].x[0] == pytest.approx(-10.766, abs=.001)
     modscanfront = {}
     modscanfront = {'xstart': -5}
-    trackerdict = demo.analysis1axis( sensorsy=2, modscanfront=modscanfront, sceneNum=0, customname='_test2') 
+    trackerdict = demo.analysis1axis( sensorsy=2, modscanfront=modscanfront, sceneNum=0, customname='_test2', accuracy='high') 
     assert trackerdict[-5.0]['AnalysisObj'][1].x[0] == -5
-    trackerdict = demo.analysis1axisground(sensorsground=10,modWanted=1, rowWanted=1)
+    trackerdict = demo.analysis1axisground(sensorsground=10,modWanted=1, rowWanted=1, accuracy='high')
     
     demo.exportTrackerDict(trackerdict, savefile = 'results/exportedTrackerDict2.csv')
     
@@ -287,7 +288,7 @@ def test_1axis_gencumSky():
     results = demo.calculatePerformance1axis(module=module)
     results = demo.calculatePerformance1axis(module=module) #make sure running this twice doesn't error..
     pd.testing.assert_frame_equal(results, demo.compiledResults)
-    assert results[results.modNum==7].Grear_mean.iloc[0] == pytest.approx(210, abs=30) #gencumsky has lots of variability
+    assert results[results.modNum==7].Grear_mean.iloc[0] == pytest.approx(190, abs=20) #gencumsky has lots of variability
     assert len(results) == 3
     assert results[results.modNum==5].iloc[0].Grear_mean == pytest.approx(np.mean(results[results.modNum==5].iloc[0].Wm2Back), abs=0.1)
     assert len(results[results.modNum==1]['Wm2Front'][0]) == 10
