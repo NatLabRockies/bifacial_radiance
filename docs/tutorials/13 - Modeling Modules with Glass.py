@@ -132,7 +132,7 @@ octfile = demo.makeOct(demo.getfilelist())
 # 
 # ***7. Annotate the image with convert***
 # 
-#     convert render.png -fill black -gravity South -annotate +0+5 'Created with NREL bifacial_radiance https://github.com/NREL/bifacial_radiance' render_annotated.png
+#     convert render.png -fill black -gravity South -annotate +0+5 'Created with NREL bifacial_radiance https://github.com/NatLabRockies/bifacial_radiance' render_annotated.png
 # 
 
 # In[4]:

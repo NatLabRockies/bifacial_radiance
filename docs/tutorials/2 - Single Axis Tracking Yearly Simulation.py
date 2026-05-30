@@ -23,7 +23,7 @@ print("bifacial_radiance version ", br.__version__)
 # 
 # This procedure was presented in:
 # 
-# Ayala Pelaez S, Deline C, Greenberg P, Stein JS, Kostuk RK. Model and validation of single-axis tracking with bifacial PV. IEEE J Photovoltaics. 2019;9(3):715–21. https://ieeexplore.ieee.org/document/8644027 and https://www.nrel.gov/docs/fy19osti/72039.pdf (pre-print, conference version)
+# Ayala Pelaez S, Deline C, Greenberg P, Stein JS, Kostuk RK. Model and validation of single-axis tracking with bifacial PV. IEEE J Photovoltaics. 2019;9(3):715–21. https://ieeexplore.ieee.org/document/8644027 and https://www.nlr.gov/docs/fy19osti/72039.pdf (pre-print, conference version)
 # 
 # 
 # ***Steps:***

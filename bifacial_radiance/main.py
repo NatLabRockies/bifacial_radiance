@@ -10,7 +10,7 @@ bifacial_radiance.py - module to develop radiance bifacial scenes, including gen
 Pre-requisites:
     This software is written for Python >3.6 leveraging many Anaconda tools (e.g. pandas, numpy, etc)
 
-    *RADIANCE software should be installed from https://github.com/NREL/Radiance/releases
+    *RADIANCE software should be installed from https://github.com/LBNL-ETA/Radiance/releases
 
     *If you want to use gencumulativesky, move 'gencumulativesky.exe' from
     'bifacial_radiance/data' into your RADIANCE source directory.
@@ -358,6 +358,116 @@ def _getradfiles(scenelist):
         else:
             a.append(scene.radfiles)
     return a
+
+def _make_reinhart_bands(M):
+    """
+    Build the Reinhart sky band structure for subdivision factor M.
+
+    Each non-zenith Tregenza band is split into M altitude sub-bands, each
+    with n_az*M azimuth patches and az_step/M degrees per patch.
+    The zenith band (n_az==1) is left as a single patch regardless of M.
+
+    Patch counts: M=1 ? 145, M=2 ? 577 (= M²×144 + 1), M=4 ? 2305.
+    """
+    # Tregenza M=1 base band structure — used as the template for all M values
+    _TREGENZA_BANDS = [
+        ( 0, 12, 30, 12.0),
+        (12, 24, 30, 12.0),
+        (24, 36, 24, 15.0),
+        (36, 48, 24, 15.0),
+        (48, 60, 18, 20.0),
+        (60, 72, 12, 30.0),
+        (72, 84,  6, 60.0),
+        (84, 90,  1, 360.0),  # zenith — never subdivided
+    ]
+
+    bands = []
+    for alt_lo, alt_hi, n_az, az_step in _TREGENZA_BANDS:
+        if n_az == 1:                    # zenith: keep as a single patch
+            bands.append((alt_lo, alt_hi, 1, 360.0))
+        else:
+            sub_range = (alt_hi - alt_lo) / M
+            for i in range(M):
+                bands.append((
+                    alt_lo + i * sub_range,
+                    alt_lo + (i + 1) * sub_range,
+                    n_az * M,
+                    az_step / M,
+                ))
+    return bands
+
+
+def _mtx_to_cal(patches, M=1, sky_path='skies', savefile='cumulative'):
+    """
+    Convert a gendaymtx annual cumulative MTX into a
+    gencumulativesky-compatible .cal file. Used within gencumsky() when use_mtx = True.
+
+    Parameters
+    ----------
+    patches : np.ndarray, shape (n_sky+1, 3)
+        Output of read_mtx(). Row 0 = ground; rows 1+ = sky patches.
+    M : int
+        Reinhart subdivision factor (1 = Tregenza, 2 = Reinhart M=2, etc.)
+        Must match the -m value used with gendaymtx.
+    savefile : str
+        Base filename (no extension).
+    sky_path : str
+        Directory for output file.
+
+    Band structure: (alt_lo, alt_hi, n_patches, az_step_deg)
+    Patches within each band run counterclockwise from az=0 (South).
+
+    NOTE: azimuth offset vs. gencumulativesky needs empirical verification
+    using TODO #3 comparison. Adjust `az_offset_deg` if results diverge.
+    """
+    if savefile[-4:].lower() == '.cal':
+        savefile = savefile[:-4]
+
+    bands = _make_reinhart_bands(M)
+    n_sky_expected = sum(n for _, _, n, _ in bands)
+
+    sky_irr = patches[1:].mean(axis=1)  # scalar irradiance per sky patch
+    if sky_irr.shape[0] != n_sky_expected:
+        raise ValueError(
+            f"patches has {sky_irr.shape[0]} sky rows but M={M} expects {n_sky_expected}. "
+            "Check that the MTX file matches the requested M."
+        )
+
+    if sky_path:
+        os.makedirs(sky_path, exist_ok=True)
+        cal_path = os.path.join(sky_path, savefile + '.cal')
+    else:
+        cal_path = savefile + '.cal'
+
+    n_bands = len(bands)
+    row_sum = '+'.join(f"row{i}" for i in range(n_bands))
+
+    with open(cal_path, 'w') as f:
+        f.write(f"{{ Generated from gendaymtx -m {M} -A -O1 }}\n\n")
+        f.write(f"skybright={row_sum};\n\n")
+
+        patch_idx = 0
+        for row_idx, (alt_lo, alt_hi, n, az_step) in enumerate(bands):
+            vals = sky_irr[patch_idx: patch_idx + n]
+            patch_idx += n
+
+            if n == 1:  # zenith — no azimuth dependency
+                f.write(f"row{row_idx}=if(and(alt-{alt_lo}, {alt_hi}-alt),"
+                        f"{vals[0]:.6f},0);\n\n")
+            else:
+                # Append vals[0] at the end as wrap-around guard.
+                # When az is near 360°, select() index reaches n+1; the repeated
+                # first value matches the genCumSky convention and avoids a
+                # "select(): domain error" from rtrace.
+                vals_wrap = list(vals) + [vals[0]]
+                vals_str = ',\n        '.join(f"{v:.6f}" for v in vals_wrap)
+                f.write(f"row{row_idx}=if(and(alt-{alt_lo}, {alt_hi}-alt),"
+                        f"select(floor(0.5+az/{az_step:.2f})+1,\n"
+                        f"        {vals_str}),0);\n\n")
+        f.write("\n\nalt=asin(Dz)*180/PI;\n\naz=if(azi,azi,azi+360);\nazi=atan2(Dx,Dy)*180/PI;\n")
+    print(f"Written: {cal_path}  ({patch_idx} sky patches encoded, M={M})")
+    return cal_path
+
 
 class SuperClass:
       def __repr__(self):
@@ -805,9 +915,9 @@ class RadianceObj(SuperClass):
         based on github/aahoo.
         
         .. warning::
-            verify=false is required to operate within NREL's network.
+            verify=false is required to operate within NLR's network.
             to avoid annoying warnings, insecurerequestwarning is disabled
-            currently this function is not working within NREL's network.  annoying!
+            currently this function is not working within NLR's network.  annoying!
         
         Parameters
         ----------
@@ -834,7 +944,7 @@ class RadianceObj(SuperClass):
 
         def _returnEPWnames():
             ''' return a dataframe with the name, lat, lon, url of available files'''
-            r = requests.get('https://github.com/NREL/EnergyPlus/raw/develop/weather/master.geojson', verify=False)
+            r = requests.get('https://github.com/NatLabRockies/EnergyPlus/raw/develop/weather/master.geojson', verify=False)
             data = r.json() #metadata for available files
             #download lat/lon and url details for each .epw file into a dataframe
             df = pd.DataFrame({'url':[], 'lat':[], 'lon':[], 'name':[]})
@@ -1734,17 +1844,19 @@ class RadianceObj(SuperClass):
             print('Sky generated with Gendaylit, with DNI: %0.1f, DHI: %0.1f' % (dni, dhi))
             print("Datetime TimeIndex", metdata.datetime[timeindex])
 
+        # Use precomputed sun position if available, otherwise calculate from solpos
+        if hasattr(metdata, "sunaz") and hasattr(metdata, "sunalt"):
+            sunaz = float(metdata.sunaz[timeindex])
+            sunalt = float(metdata.sunalt[timeindex])        
+            print("Using precomputed sunaz/sunalt from metadata")
 
-        #Time conversion to correct format and offset.
-        #datetime = metdata.sunrisesetdata['corrected_timestamp'][timeindex]
-        #Don't need any of this any more. Already sunrise/sunset corrected and offset by appropriate interval
-
-        # get solar position zenith and azimuth based on site metadata
-        #solpos = pvlib.irradiance.solarposition.get_solarposition(datetimetz,lat,lon,elev)
-        solpos = metdata.solpos.iloc[timeindex]
-        sunalt = float(solpos.elevation)
-        # Radiance expects azimuth South = 0, PVlib gives South = 180. Must substract 180 to match.
-        sunaz = float(solpos.azimuth)-180.0
+        else:            
+            # get solar position zenith and azimuth based on site metadata
+            #solpos = pvlib.irradiance.solarposition.get_solarposition(datetimetz,lat,lon,elev)
+            solpos = metdata.solpos.iloc[timeindex]
+            sunalt = float(solpos.elevation)
+            # Radiance expects azimuth South = 0, PVlib gives South = 180. Must substract 180 to match.
+            sunaz = float(solpos.azimuth)-180.0
 
         sky_path = 'skies'
 
@@ -1930,7 +2042,7 @@ class RadianceObj(SuperClass):
 
         return skyname
 
-    def genCumSky(self, gencumsky_metfile=None, savefile=None):
+    def genCumSky(self, gencumsky_metfile=None, savefile=None, use_mtx=False):
         """ 
         Generate Skydome using gencumsky. 
         
@@ -1953,7 +2065,9 @@ class RadianceObj(SuperClass):
             in the year, and MUST have 8760 entries long otherwise gencumulativesky.exe cries. 
         savefile : string
             If savefile is None, defaults to "cumulative"
-            
+        use_mtx : bool
+            Whether to use the gendaymtx workflow instead of gencumsky. Requires
+            MetObj object with list of dni, dhi, ghi and location.
         Returns
         --------
         skyname : str
@@ -1961,24 +2075,13 @@ class RadianceObj(SuperClass):
             
         """
         
-        # TODO:  error checking and auto-install of gencumulativesky.exe
         # TODO: add check if readWeatherfile has not be done
-        # TODO: check if it fails if gcc module has been loaded? (common hpc issue)
+        # TODO: look into gendaymtx -g (ground color) option
         
         #import datetime
+        import io
         
-        if gencumsky_metfile is None:
-            gencumsky_metfile = self.gencumsky_metfile
-            if isinstance(gencumsky_metfile, str):
-                print("Loaded ", gencumsky_metfile)
-                
-        if isinstance(gencumsky_metfile, list):
-            print("There are more than 1 year of gencumsky temporal weather file saved."+
-                  "You can pass which file you want with gencumsky_metfile input. Since "+
-                  "No year was selected, defaulting to using the first year of the list")
-            gencumsky_metfile = gencumsky_metfile[0] 
-            print("Loaded ", gencumsky_metfile)
-
+        debug=False
 
         if savefile is None:
             savefile = "cumulative"
@@ -1986,62 +2089,133 @@ class RadianceObj(SuperClass):
         lat = self.metdata.latitude
         lon = self.metdata.longitude
         timeZone = self.metdata.timezone
-        '''
-        cmd = "gencumulativesky +s1 -h 0 -a %s -o %s -m %s %s " %(lat, lon, float(timeZone)*15, filetype) +\
-            "-time %s %s -date %s %s %s %s %s" % (startdt.hour, enddt.hour+1,
-                                                  startdt.month, startdt.day,
-                                                  enddt.month, enddt.day,
-                                                  gencumsky_metfile)
-        '''
-        # TODO: gencumulativesky is a custom RADIANCE command not available in pyradiance
-        # Eventually replace with gendaymtx
-        cmd = (f"gencumulativesky +s1 -h 0 -a {lat} -o {lon} -m "
-               f"{float(timeZone)*15} -G {gencumsky_metfile}" )
-               
-        with open(savefile+".cal","w") as f:
-            _,err = _popen(cmd, None, f)
-            if err is not None:
-                print(err)
 
-        # Assign Albedos
-        try:
-            groundstring = self.ground._makeGroundString(cumulativesky=True)
-        except:
-            raise Exception('Error: ground reflection not defined.  '
-                            'Run RadianceObj.setGround() first')
-            return
-        
-
-
-        skyStr = "#Cumulative Sky Definition\n" +\
-            "void brightfunc skyfunc\n" + \
-            "2 skybright " + "%s.cal\n" % (savefile) + \
-            "0\n" + \
-            "0\n" + \
-            "\nskyfunc glow sky_glow\n" + \
-            "0\n" + \
-            "0\n" + \
-            "4 1 1 1 0\n" + \
-            "\nsky_glow source sky\n" + \
-            "0\n" + \
-            "0\n" + \
-            "4 0 0 1 180\n" + \
-            groundstring
+        if use_mtx:
+            if gencumsky_metfile is None: # assume that it needs to be created from the metdata
+                if self.metdata is None:
+                    print("No metdata found. Please run readWeatherFile() first to create metdata, or pass a gencumsky_metfile")
+                    return
+                else:
+                    gencumsky_metfile = self.metdata.makeWEA('temp.wea')
             
-        skyname = os.path.join(sky_path, savefile+".rad")
+            def _count_wea_timesteps(weafile):
+                with open(weafile, 'r') as f:
+                    return sum(1 for line in f) -6 # subtract 6 header lines in wea file
+            timestep_count = _count_wea_timesteps(gencumsky_metfile)
+            print(f'There are {timestep_count} timesteps in the .wea file.')
+            # gendaymtx workflow 
+            cmd = f"gendaymtx -m 1 -A -O1 -h {gencumsky_metfile}"
+            mtx_data,err = _popen(cmd,None)
+            if err is not None: print(err)
+            """
+            # pyradiance option
+            from pyradiance import gendaymtx
+            mtx_data = gendaymtx(gencumsky_metfile, mfactor=1, 
+                        average=True, solar_radiance=True, header=False)
+            """
+            # convert mtx_bytes to patches, scale average to total and parse out the sky definition
+            # with -h (header=False) option we don't need to strip out initial header.        
+            try:
+                patches = np.loadtxt(io.StringIO(mtx_data))
+            except TypeError: # if mtx_bytes is already bytes, not a string
+                patches = np.loadtxt(io.BytesIO(mtx_data))
+            
+            # scale patches from average Wm-2 to cumulative Whm-2.  
+            if self.metdata.frequency is None:
+                interval_delta = pd.Timedelta('1h')
+            else:
+                interval_delta = self.metdata.frequency
+            divisions_per_hour = pd.Timedelta('1h') / interval_delta
+            patches = patches * timestep_count / divisions_per_hour
 
-        skyFile = open(skyname, 'w')
-        skyFile.write(skyStr)
-        skyFile.close()
+            if debug:
+                print(f"Patches shape:          {patches.shape}  (should be (n_sky+1) x 3)")
+                print(f"Row  0 — ground patch:  {patches[0]}  (expect equal R=G=B)")
+                print(f"Row  1 — lowest sky:    {patches[1]}")
+                print(f"Row 30 — end of band 0: {patches[30]}")
+                print(f"Row 31 — start band 1:  {patches[31]}")
+                print(f"Row -1 — zenith:        {patches[-1]}")
+                print(f"\nScalar irradiance range (sky patches only): "
+                    f"{patches[1:].mean(axis=1).min():.2f} – {patches[1:].mean(axis=1).max():.2f}")
+                gendaymtx_total = patches[1:].mean(axis=1).sum()
+                n_sky = patches.shape[0] - 1
+                print(f"\nTotal cumulative sky irradiance (gendaymtx, {n_sky} patches): {gendaymtx_total:.1f}")
 
-        self.skyfiles = [skyname]#, 'SunFile.rad' ]
+            # convert mtx data to sky definition
+            savefile = _mtx_to_cal(patches, M=1, savefile=savefile, sky_path=None)
+
+        else: # standard gencumsky workflow
+
+            if gencumsky_metfile is None:
+                gencumsky_metfile = self.gencumsky_metfile
+
+                if isinstance(gencumsky_metfile, str):
+                    print("Loaded ", gencumsky_metfile)
+                    
+            if isinstance(gencumsky_metfile, list):
+                print("There are more than 1 year of gencumsky temporal weather file saved."+
+                    "You can pass which file you want with gencumsky_metfile input. Since "+
+                    "No year was selected, defaulting to using the first year of the list")
+                gencumsky_metfile = gencumsky_metfile[0] 
+                print("Loaded ", gencumsky_metfile)
+
+
+            cmd = (f"gencumulativesky +s1 -h 0 -a {lat} -o {lon} -m "
+                f"{float(timeZone)*15} -G {gencumsky_metfile}" )
+                
+            with open(savefile+".cal","w") as f:
+                _,err = _popen(cmd, None, f)
+                if err is not None:
+                    print(err)
+           
+        skyname = self._cal_to_rad(sky_path=sky_path, savefile=savefile)
 
         return skyname
+        
+
+    def _cal_to_rad(self, sky_path='skies', savefile='cumulative'):
+        """
+        Wrap a .cal file in a Radiance sky .rad description — same template
+        as genCumSky() — so it can be passed directly to demo.makeOct().
+        Used inside genCumSky() when use_mtx=True.
+
+        Parameters
+        ------------
+        sky_path: directory to save the .rad file with the sky definition. Default is 'skies'
+        savefile: .cal filename, with or without .cal extension
+
+        """
+        if savefile[-4:].lower() == '.cal':
+            savefile = savefile[:-4]
+
+        try:
+            groundstring = self.ground._makeGroundString(cumulativesky=True)
+        except Exception as e:
+            raise RuntimeError(f"Run self.setGround() first. Error: {e}")
+
+        skyStr = (
+            f"#Cumulative Sky Definition \n"
+            "void brightfunc skyfunc\n"
+            f"2 skybright {savefile}.cal\n"
+            "0\n0\n"
+            "\nskyfunc glow sky_glow\n"
+            "0\n0\n4 1 1 1 0\n"
+            "\nsky_glow source sky\n"
+            "0\n0\n4 0 0 1 180\n"
+            + groundstring
+        )
+
+        rad_path = os.path.join(sky_path, savefile + ".rad")
+        with open(rad_path, 'w') as f:
+            f.write(skyStr)
+        # print(f"Written: {rad_path}")
+        self.skyfiles = [rad_path]
+        return rad_path
 
     def set1axis(self, metdata=None, azimuth=180, limit_angle=45,
                  angledelta=5, backtrack=True, gcr=1.0 / 3, cumulativesky=True,
                  fixed_tilt_angle=None, useMeasuredTrackerAngle=False,
-                 axis_azimuth=None):
+                 axis_azimuth=None, use_mtx=False):
         """
         Set up geometry for 1-axis tracking.  Pull in tracking angle details from
         pvlib, create multiple 8760 metdata sub-files where datetime of met data
@@ -2085,7 +2259,8 @@ class RadianceObj(SuperClass):
         axis_azimuth : numeric
             DEPRECATED.  returns deprecation warning. Pass the tracker 
             axis_azimuth through to azimuth input instead.
-
+        use_mtx : bool
+            Whether to use the gendaymtx file output for the cumulative sky approach
 
         Returns
         -------
@@ -2130,7 +2305,8 @@ class RadianceObj(SuperClass):
                                        backtrack=backtrack,
                                        gcr=gcr,
                                        fixed_tilt_angle=fixed_tilt_angle,
-                                       useMeasuredTrackerAngle=useMeasuredTrackerAngle
+                                       useMeasuredTrackerAngle=useMeasuredTrackerAngle,
+                                       use_mtx=use_mtx
                                        )
         self.trackerdict = trackerdict
         self.cumulativesky = cumulativesky
@@ -2212,7 +2388,7 @@ class RadianceObj(SuperClass):
         self.trackerdict = trackerdict2
         return trackerdict2
 
-    def genCumSky1axis(self, trackerdict=None):
+    def genCumSky1axis(self, trackerdict=None, use_mtx=False):
         """
         1-axis tracking implementation of gencumulativesky.
         Creates multiple .cal files and .rad files, one for each tracker angle.
@@ -2243,7 +2419,7 @@ class RadianceObj(SuperClass):
             # call gencumulativesky with a new .cal and .rad name
             csvfile = trackerdict[theta]['csvfile']
             savefile = '1axis_%s'%(theta)  #prefix for .cal file and skies\*.rad file
-            skyfile = self.genCumSky(gencumsky_metfile=csvfile, savefile=savefile)
+            skyfile = self.genCumSky(gencumsky_metfile=csvfile, savefile=savefile, use_mtx=use_mtx)
             trackerdict[theta]['skyfile'] = skyfile
             print('Created skyfile %s'%(skyfile))
         # delete default skyfile (not strictly necessary)
@@ -4135,8 +4311,12 @@ class MetObj(SuperClass):
         import pvlib
         #import numpy as np
         
-        #First prune all GHI = 0 timepoints.  New as of 0.4.0
-        # TODO: is this a good idea?  This changes default behavior...
+        # infer frequency
+        try:
+            self.frequency = tmydata.index.to_series().diff().mode()[0]
+        except:
+            self.frequency = None
+        # prune all GHI = 0 timepoints.  New as of 0.4.0
         tmydata = tmydata[tmydata.GHI > 0]
         # Check if there's still data.  Otherwise raise bad file error.
         if tmydata.shape[0] == 0:
@@ -4269,7 +4449,7 @@ class MetObj(SuperClass):
 
     def _set1axis(self, azimuth=180, limit_angle=45, angledelta=None, 
                   backtrack=True, gcr=1.0/3.0, cumulativesky=True, 
-                  fixed_tilt_angle=None, axis_tilt=0, useMeasuredTrackerAngle=False):
+                  fixed_tilt_angle=None, axis_tilt=0, useMeasuredTrackerAngle=False, use_mtx=False):
 
         """
         Set up geometry for 1-axis tracking cumulativesky.  Solpos data
@@ -4352,10 +4532,12 @@ class MetObj(SuperClass):
         # get list of unique rounded tracker angles
         theta_list = trackingdata.dropna()['theta_round'].unique()
 
-        if cumulativesky is True:
+        if (cumulativesky is True) & (use_mtx is False):
             # create a separate metfile for each unique tracker theta angle.
             # return dict of filenames and details
             trackerdict = self._makeTrackerCSV(theta_list,trackingdata)
+        elif (cumulativesky is True) & (use_mtx is True):
+            trackerdict = self._makeTrackerMTX(theta_list,trackingdata)
         else:
             # trackerdict uses timestamp as keys. return azimuth
             # and tilt for each timestamp
@@ -4469,6 +4651,7 @@ class MetObj(SuperClass):
         #trackingdata.index = trackingdata.index + pd.Timedelta(minutes = 30)
         # It may not be exactly 30 minutes any more...
         trackingdata.index = self.sunrisesetdata.index  #this has the original time data in it
+        trackingdata['solpos_timestamp'] = self.sunrisesetdata.corrected_timestamp
 
         # round tracker_theta to increments of angledelta for use in cumulativesky
         def _roundArbitrary(x, base=angledelta):
@@ -4565,6 +4748,123 @@ class MetObj(SuperClass):
 
         return trackerdict
 
+    def _makeTrackerMTX(self, theta_list, trackingdata):
+        '''
+        Create multiple new irradiance csv files with data for each unique
+        rounded tracker angle. Return a dictionary with the new csv filenames
+        and other details, Used for gendaymtx tracking
+
+        Parameters
+        -----------
+        theta_list : array
+             Array of unique tracker angle values
+
+        trackingdata : Pandas 
+             Pandas Series with hourly tracker angles from
+             :pvlib.tracking.singleaxis
+
+        Returns
+        --------
+        trackerdict : dictionary
+              keys: *theta_round tracker angle  (default: -45 to +45 in
+                                                 5 degree increments).
+              sub-array keys:
+                  *datetime:  array of datetime strings in this group of angles
+                  *count:  number of datapoints in this group of angles
+                  *surf_azm:  tracker surface azimuth during this group of angles
+                  *surf_tilt:  tilt angle average during this group of angles
+                  *csvfile:  name of .wea met data file saved in /EPWs/
+        '''
+
+        dt = pd.to_datetime(self.datetime)
+
+        trackerdict = dict.fromkeys(theta_list)
+
+        for theta in sorted(trackerdict):  
+            trackerdict[theta] = TrackerDict({})
+            csvfile = os.path.join('EPWs', '1axis_{}.wea'.format(theta))
+            tempdata = trackingdata[trackingdata['theta_round'] == theta].copy()
+
+            #Set up trackerdict output for each value of theta
+            trackerdict[theta]['csvfile'] = csvfile
+            trackerdict[theta]['surf_azm'] = tempdata['surface_azimuth'].median()
+            trackerdict[theta]['surf_tilt'] = abs(theta)
+            datetimetemp = tempdata.index.strftime('%Y-%m-%d %H:%M:%S') #local time
+            trackerdict[theta]['datetime'] = datetimetemp
+            trackerdict[theta]['count'] = datetimetemp.__len__()
+            
+            #Create new temp wea file with only timestamps at a given angle
+            tempdata['month'] = tempdata.index.month
+            tempdata['day'] = tempdata.index.day
+            tempdata['hour'] = tempdata.solpos_timestamp.dt.hour + \
+                tempdata.solpos_timestamp.dt.minute/60
+            
+            tempdata = tempdata.join(self.tmydata[['dni','dhi']])
+            
+            with open(csvfile, 'w') as f:
+                f.write(self._getWEAHeader())
+                tempdata.to_csv(f, columns=['month', 'day', 'hour', 'dni', 'dhi'],
+                                index=False, header=False, sep=' ', float_format='%.2f',
+                                lineterminator='\n')
+            
+            print('Saving file {}, # points: {}'.format(
+                  trackerdict[theta]['csvfile'], tempdata.__len__()))
+
+        return trackerdict
+    
+    def _getWEAHeader(self):
+        '''
+        Helper function to create header for wea file for 
+        gendaymtx simulations. This is used in the _makeTrackerMTX function.
+
+        Returns
+        -------
+        header : string
+            Header for wea file, with correct number of lines to skip for
+            gencumulativesky -G option.
+        '''
+        header = f'place {self.city}\n'
+        header += f'latitude {self.latitude} \n'
+        header += f'longitude {self.longitude} \n'
+        header += f'time_zone {self.timezone * 15} \n'
+        header += f'site_elevation {self.elevation} \n'
+        header += 'weather_data_file_units 1 \n'
+        return header
+    
+    def makeWEA(self, filename=None):
+        '''
+        Create a .wea file for gendaymtx simulations. This is used for fixed tilt
+        simulations and can be used for tracking simulations if use_mtx is True.
+
+        Parameters
+        ----------
+        filename : string
+            Name of .wea file to be saved in /EPWs/
+
+        Returns
+        -------
+         csvfile : str
+             Path to the saved .wea file in /EPWs/
+        '''
+        if filename is None:
+            filename = 'temp.wea'
+        csvfile = os.path.join('EPWs', filename)
+        #Create new tempdata
+        tempdata = self.tmydata[['dni','dhi']].copy()
+        tempdata['month'] = tempdata.index.month
+        tempdata['day'] = tempdata.index.day
+        tempdata['hour'] = tempdata.index.hour + \
+            tempdata.index.minute/60
+        
+        with open(csvfile, 'w') as f:
+            f.write(self._getWEAHeader())
+            # TODO: need to create this tempdata DF...
+            tempdata.to_csv(f, columns=['month', 'day', 'hour', 'dni', 'dhi'],
+                            index=False, header=False, sep=' ', float_format='%.2f',
+                            lineterminator='\n')
+            
+        print('Saving file {}'.format(csvfile))
+        return csvfile
 
 class AnalysisObj(SuperClass):
     """

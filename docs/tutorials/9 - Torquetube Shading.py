@@ -20,7 +20,7 @@ print("bifacial_radiance version ", br.__version__)
 # 
 # Calculating and plotting shading from torque tube on 1-axis tracking for 1 day, which is figure 13 in: 
 # 
-#             Ayala Pelaez S, Deline C, Greenberg P, Stein JS, Kostuk RK. Model and validation of single-axis tracking with bifacial PV. IEEE J Photovoltaics. 2019;9(3):715–21. https://ieeexplore.ieee.org/document/8644027 and https://www.nrel.gov/docs/fy19osti/72039.pdf (pre-print, conference version)
+#             Ayala Pelaez S, Deline C, Greenberg P, Stein JS, Kostuk RK. Model and validation of single-axis tracking with bifacial PV. IEEE J Photovoltaics. 2019;9(3):715–21. https://ieeexplore.ieee.org/document/8644027 and https://www.nlr.gov/docs/fy19osti/72039.pdf (pre-print, conference version)
 # 
 # 
 # This is what we will re-create:

@@ -52,7 +52,7 @@ bifacial_radiance.__version__
 # In[4]:
 
 
-url = 'https://raw.githubusercontent.com/NREL/SAM/patch/deploy/libraries/CEC%20Modules.csv'
+url = 'https://raw.githubusercontent.com/NatLabRockies/SAM/patch/deploy/libraries/CEC%20Modules.csv'
 db = pd.read_csv(url, index_col=0) # Reading this might take 1 min or so, the database is big.
 
 

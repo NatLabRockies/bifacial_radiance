@@ -24,9 +24,9 @@ print("bifacial_radiance version ", br.__version__)
 # 
 # * Deline, C., Ayala Pelaez, S., MacAlpine, S., Olalla, C. Estimating and Parameterizing Mismatch Power Loss in Bifacial Photovoltaic Systems. Progress in PV 2020, https://doi.org/10.1002/pip.3259
 # 
-# * Deline C, Ayala Pelaez S, MacAlpine S, Olalla C. Bifacial PV System Mismatch Loss Estimation & Parameterization. Presented in: 36th EU PVSEC, Marseille Fr. Slides: https://www.nrel.gov/docs/fy19osti/74885.pdf. Proceedings: https://www.nrel.gov/docs/fy20osti/73541.pdf
+# * Deline C, Ayala Pelaez S, MacAlpine S, Olalla C. Bifacial PV System Mismatch Loss Estimation & Parameterization. Presented in: 36th EU PVSEC, Marseille Fr. Slides: https://www.nlr.gov/docs/fy19osti/74885.pdf. Proceedings: https://www.nlr.gov/docs/fy20osti/73541.pdf
 # 
-# * Ayala Pelaez S, Deline C, MacAlpine S, Olalla C. Bifacial PV system mismatch loss estimation. Poster presented at the 6th BifiPV Workshop, Amsterdam 2019. https://www.nrel.gov/docs/fy19osti/74831.pdf and http://bifipv-workshop.com/index.php?id=amsterdam-2019-program 
+# * Ayala Pelaez S, Deline C, MacAlpine S, Olalla C. Bifacial PV system mismatch loss estimation. Poster presented at the 6th BifiPV Workshop, Amsterdam 2019. https://www.nlr.gov/docs/fy19osti/74831.pdf and http://bifipv-workshop.com/index.php?id=amsterdam-2019-program 
 # 
 # Ideally **mismatch losses M** should be calculated for the whole year, and then the **mismatch loss factor to apply to Grear "Lrear"** required by due diligence softwares can be calculated:
 # 

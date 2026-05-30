@@ -1,0 +1,18 @@
+.. _whatsnew_052:
+
+v0.5.2 (May 29, 2026)
+------------------------
+Bugfix release
+
+
+Bug fixes
+~~~~~~~~~
+* Change references that had been nrel.gov domain to nlr.gov domain.
+* Change Github references from github.com/nrel/ to github.com/NatLabRockies/
+
+Documentation
+~~~~~~~~~~~~~~
+
+Contributors
+~~~~~~~~~~~~
+* Chris Deline (:ghuser:`cdeline`)
