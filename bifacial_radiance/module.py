@@ -6,6 +6,8 @@ ModuleObj class for defining module geometry
 
 """
 import os
+import tempfile
+import time
 import numpy as np
 import pvlib
 import pandas as pd
@@ -325,9 +327,28 @@ class ModuleObj(SuperClass):
                 data = jsonmodule.load(configfile)
     
             data.update({self.name:savedata})
-            with open(os.path.join(DATA_PATH, 'module.json') ,'w') as configfile:
-                jsonmodule.dump(data, configfile, indent=4, sort_keys=True, 
-                                cls=MyEncoder)
+            temporary_fd, temporary_path = tempfile.mkstemp(
+                dir=DATA_PATH, prefix='module-', suffix='.json')
+            try:
+                with os.fdopen(temporary_fd, 'w') as configfile:
+                    jsonmodule.dump(data, configfile, indent=4, sort_keys=True,
+                                    cls=MyEncoder)
+                    configfile.flush()
+                    os.fsync(configfile.fileno())
+                for attempt in range(10):
+                    try:
+                        os.replace(temporary_path, filedir)
+                        break
+                    except PermissionError:
+                        if attempt == 9:
+                            raise
+                        time.sleep(0.01)
+            except Exception:
+                try:
+                    os.unlink(temporary_path)
+                except FileNotFoundError:
+                    pass
+                raise
     
             print('Module {} updated in module.json'.format(self.name))
         # check that self.modulefile is not none
