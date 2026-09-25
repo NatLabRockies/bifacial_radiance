@@ -1,0 +1,19 @@
+.. _whatsnew_054
+
+v0.5.4 (September 24, 2026)
+---------------------------
+Bugfix release
+
+
+Bug fixes
+~~~~~~~~~
+* Fixes concurrent write error when multiple threads each call ModuleObj._saveModule. (:issue:`600`) 
+
+Documentation
+~~~~~~~~~~~~~~
+
+Contributors
+~~~~~~~~~~~~
+* Chris Deline (:ghuser:`cdeline`)
+* eurrag (:ghuser:`eurrag`)
+* Co-authored-by: github-copilot <noreply@github.com>

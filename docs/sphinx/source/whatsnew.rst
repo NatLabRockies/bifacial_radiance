@@ -7,6 +7,7 @@ What's New
 These are new features and improvements of note in each release.
 
 .. include:: whatsnew/pending.rst
+.. include:: whatsnew/v0.5.4.rst
 .. include:: whatsnew/v0.5.3.rst
 .. include:: whatsnew/v0.5.2.rst
 .. include:: whatsnew/v0.5.1.rst

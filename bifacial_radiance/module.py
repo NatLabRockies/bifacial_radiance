@@ -6,11 +6,41 @@ ModuleObj class for defining module geometry
 
 """
 import os
+import tempfile
+import time
+from contextlib import contextmanager
 import numpy as np
 import pvlib
 import pandas as pd
 
 from bifacial_radiance.main import _missingKeyWarning, _popen, DATA_PATH
+
+
+@contextmanager
+def _module_registry_lock(lockfile):
+    with open(lockfile, 'a+') as lock:
+        if os.name == 'nt':
+            import msvcrt
+
+            lock.seek(0, os.SEEK_END)
+            if lock.tell() == 0:
+                lock.write('0')
+                lock.flush()
+            lock.seek(0)
+            msvcrt.locking(lock.fileno(), msvcrt.LK_LOCK, 1)
+            try:
+                yield
+            finally:
+                lock.seek(0)
+                msvcrt.locking(lock.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
+            try:
+                yield
+            finally:
+                fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
 
 # Import pyradiance availability from main module
 # TODO: remove this if/else and just have the import
@@ -330,13 +360,33 @@ class ModuleObj(SuperClass):
         
         if json:
             filedir = os.path.join(DATA_PATH, 'module.json') 
-            with open(filedir) as configfile:
-                data = jsonmodule.load(configfile)
+            with _module_registry_lock(filedir + '.lock'):
+                with open(filedir) as configfile:
+                    data = jsonmodule.load(configfile)
     
-            data.update({self.name:savedata})
-            with open(os.path.join(DATA_PATH, 'module.json') ,'w') as configfile:
-                jsonmodule.dump(data, configfile, indent=4, sort_keys=True, 
-                                cls=MyEncoder)
+                data.update({self.name:savedata})
+                temporary_fd, temporary_path = tempfile.mkstemp(
+                    dir=DATA_PATH, prefix='module-', suffix='.json')
+                try:
+                    with os.fdopen(temporary_fd, 'w') as configfile:
+                        jsonmodule.dump(data, configfile, indent=4, sort_keys=True,
+                                        cls=MyEncoder)
+                        configfile.flush()
+                        os.fsync(configfile.fileno())
+                    for attempt in range(10):
+                        try:
+                            os.replace(temporary_path, filedir)
+                            break
+                        except PermissionError:
+                            if attempt == 9:
+                                raise
+                            time.sleep(0.01)
+                except Exception:
+                    try:
+                        os.unlink(temporary_path)
+                    except FileNotFoundError:
+                        pass
+                    raise
     
             print('Module {} updated in module.json'.format(self.name))
         # check that self.modulefile is not none

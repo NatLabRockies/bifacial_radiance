@@ -20,6 +20,7 @@ import bifacial_radiance as br
 import os
 import pandas as pd
 import numpy as np
+from bifacial_radiance.spectral_utils import spectral_property
 
 # try navigating to tests directory so tests run from here.
 try:
@@ -86,6 +87,46 @@ def test_nonspectral_albedo():
     assert np.round(weighted_alb.iloc[12],3) == 0.129 #this had been ~0.12855 previously?
     #assert((weighted_alb[12] <= 0.1286) & (weighted_alb[12] >= 0.1285))
     assert(len(weighted_alb) == 16)
+
+
+def test_spectral_property_lookup_and_units(capsys):
+    spectrum = spectral_property([1.0, 3.0], [0.4, 0.5], index_units='um',
+                                 interpolation='linear')
+
+    assert spectral_property.to_nm(1, 'um') == 1000
+    assert spectral_property.to_nm(400, 'unknown') == 400
+    assert 'Unknown unit specified' in capsys.readouterr().out
+    assert spectrum.range() == (400.0, 500.0)
+    assert spectrum[400] == 1.0
+    assert spectrum[450] == 2.0
+    assert np.array_equal(spectrum[[400, 500]], np.array([1.0, 3.0]))
+    assert spectrum[300] is None
+
+
+def test_spectral_property_interpolation_methods():
+    expected_values = {
+        'nearest': 10.0,
+        'lower': 10.0,
+        'upper': 20.0,
+    }
+
+    for interpolation, expected in expected_values.items():
+        spectrum = spectral_property([10.0, 20.0], [400, 500],
+                                     interpolation=interpolation)
+        assert spectrum[450] == expected
+
+
+def test_spectral_property_scale_and_file_roundtrip(tmp_path):
+    spectrum = spectral_property([1.0, 2.0], [400, 500],
+                                 interpolation='linear')
+    spectrum.scale_values(2)
+    filepath = tmp_path / 'spectrum.txt'
+    spectrum.to_file(filepath)
+
+    loaded = spectral_property.load_file(filepath)
+    assert loaded.interpolation_type == 'linear'
+    assert loaded.range() == (400.0, 500.0)
+    assert np.array_equal(loaded[[400, 500]], np.array([2.0, 4.0]))
 
 
 def test_integrated_spectrum():
