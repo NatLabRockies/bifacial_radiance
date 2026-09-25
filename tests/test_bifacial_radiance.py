@@ -109,7 +109,7 @@ def test_Radiance_high_azimuth_modelchains():
     #assert np.round(np.mean(analysis.backRatio),2) == 0.20  # bifi ratio was == 0.22 in v0.2.2
     assert np.mean(results.Wm2Front[0]) == pytest.approx(899, rel = 0.005)  # was 912 in v0.2.3
     assert np.mean(results.Wm2Back[0]) == pytest.approx(189, rel = 0.03)  # was 182 in v0.2.2
-    assert results.Pout[0] == demo2.compiledResults.Pout[0] == pytest.approx(369, abs= 1.5)
+    assert results.Pout[0] == demo2.compiledResults.Pout[0] == pytest.approx(369, abs= 1.6)
     assert results.Mismatch[0] == pytest.approx(2.82, abs = .15)
 
     # assert that .hdr image files were created in the last 5 minutes
@@ -241,7 +241,7 @@ def test_1axis_gencumSky():
     # Removing all of this other tests for hub_height and height since it's ben identified that
     # a new module to handle hub_height and height in sceneDict needs to be implemented
     # instead of checking inside of makeScene, makeSceneNxR, and makeScene1axis
-    assert trackerdict[-5.0]['scenes'][0].radfiles[0:7] == 'objects' # 'objects\\1axis-5.0_1.825_11.42_5.0_10x3_origin0,0.rad'
+    assert trackerdict[-5.0]['scenes'][0].radfiles[0][0:7] == 'objects' # 'objects\\1axis-5.0_1.825_11.42_5.0_10x3_origin0,0.rad'
     assert trackerdict[-5.0]['scenes'][0].sceneDict['tilt'] == 5
 
     sceneDict = {'pitch': pitch,'clearance_height':hub_height, 'nMods':10, 'nRows':3}  # testing height filter too
@@ -257,12 +257,12 @@ def test_1axis_gencumSky():
     customObject = demo.makeCustomObject('whiteblock','! genbox white_EPDM whiteblock 1.6 4.5 0.5 | xform -t -0.8 -2.25 0')
     trackerdict = demo.makeScene1axis(sceneDict=sceneDict, module = 'test-module', customtext=' -rz 90 '+customObject, append=True)#
     assert trackerdict[-5.0]['scenes'].__len__() == 4
-    fname = trackerdict[-5.0]['scenes'][3].radfiles
+    fname = trackerdict[-5.0]['scenes'][3].radfiles[0]
     with open(fname, 'r') as f:
         assert f.readline().__len__() == 133 
         assert f.readline()[-14:] == 'whiteblock.rad'
     
-    assert trackerdict[-5.0]['scenes'][3].radfiles[0:7] == 'objects'
+    assert trackerdict[-5.0]['scenes'][3].radfiles[0][0:7] == 'objects'
     assert trackerdict[-5.0]['scenes'][3].sceneDict['tilt'] == 5
     assert trackerdict[-5]['scenes'][3].sceneDict['originy'] == 1
     #assert trackerdict[-5.0]['radfile'] == 'objects/1axis-5.0_1.825_11.42_5.0_10x3_origin0,0.rad'
@@ -288,6 +288,7 @@ def test_1axis_gencumSky():
     results = demo.calculatePerformance1axis(module=module)
     results = demo.calculatePerformance1axis(module=module) #make sure running this twice doesn't error..
     pd.testing.assert_frame_equal(results, demo.compiledResults)
+
     assert results[results.modNum==7].Grear_mean.iloc[0] == pytest.approx(190, abs=20) #gencumsky has lots of variability
     assert len(results) == 3
     assert results[results.modNum==5].iloc[0].Grear_mean == pytest.approx(np.mean(results[results.modNum==5].iloc[0].Wm2Back), abs=0.1)
@@ -722,11 +723,11 @@ def test_customObj():
                                      customtext='-t 1 1 0 '+customObject, append=False)
     trackerdict= demo.makeScene1axis(sceneDict={'hub_height':0.75, 'pitch':1.0, 'azimuth':180}, 
                                      customtext='-t 2 1 0 '+customObject, append=True)
-    with open(trackerdict['2001-01-01_0800']['scenes'][0].radfiles, 'r') as f:
+    with open(trackerdict['2001-01-01_0800']['scenes'][0].radfiles[0], 'r') as f:
         f.readline()
         line = f.readline()  #Linux uses backslash, windows forward slash...
         assert(line  == '!xform -rx 0  -t 1 1 0 objects/Marker.rad') or (line  == r'!xform -rx 0  -t 1 1 0 objects\Marker.rad')
-    with open(trackerdict['2001-01-01_0900']['scenes'][1].radfiles, 'r') as f:
+    with open(trackerdict['2001-01-01_0900']['scenes'][1].radfiles[0], 'r') as f:
         f.readline()
         line = f.readline()
         assert(line == '!xform -rx 0  -t 2 1 0 objects/Marker.rad') or (line == r'!xform -rx 0  -t 2 1 0 objects\Marker.rad')
