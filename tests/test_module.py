@@ -89,6 +89,7 @@ def test_concurrent_module_registry_updates(tmp_path, monkeypatch):
     registry = tmp_path / 'module.json'
     registry.write_text('{}', encoding='utf-8')
     monkeypatch.setattr(module_module, 'DATA_PATH', str(tmp_path))
+    module_names = [f'module-{index}' for index in range(8)]
 
     def save_module(name):
         module = object.__new__(module_module.ModuleObj)
@@ -98,10 +99,10 @@ def test_concurrent_module_registry_updates(tmp_path, monkeypatch):
         module._saveModule({'x': 1}, rewriteModulefile=False)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
-        list(executor.map(save_module, (f'module-{index}' for index in range(8))))
+        list(executor.map(save_module, module_names))
 
     saved_modules = json.loads(registry.read_text(encoding='utf-8'))
-    assert saved_modules
+    assert saved_modules == {name: {'x': 1} for name in module_names}
 
 def test_moduleFrameandOmegas():  
     # test moduleFrameandOmegas. Requires metdata for boulder. 
