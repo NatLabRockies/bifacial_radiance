@@ -1,0 +1,554 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+# This information helps with debugging and getting support :)
+import sys, platform
+import pandas as pd
+import bifacial_radiance as br
+print("Working on a ", platform.system(), platform.release())
+print("Python version ", sys.version)
+print("Pandas version ", pd.__version__)
+print("bifacial_radiance version ", br.__version__)
+
+
+# In[2]:
+
+
+import os
+from pathlib import Path
+
+testfolder = 'TEMP'
+if not os.path.exists(testfolder):
+    os.makedirs(testfolder)
+
+print ("Your simulation will be stored in %s" % testfolder)
+
+
+# In[3]:
+
+
+import bifacial_radiance
+import numpy as np
+
+rad_obj = bifacial_radiance.RadianceObj('Si', str(testfolder)) 
+
+
+# <a id='step1'></a>
+
+# ## 1. Making Collectors for each number panel and xgap case
+
+# In[4]:
+
+
+rad_obj.setGround(0.2)  # This prints available materials.
+
+
+# In[5]:
+
+
+epwfile = rad_obj.getEPW(lat = 42.98, lon = -81.24)
+
+
+# In[6]:
+
+
+startdate = '04_01'     
+enddate = '10_31'
+metdata = rad_obj.readWeatherFile(epwfile, coerce_year=2025, starttime=startdate, endtime=enddate)
+
+
+# In[7]:
+
+
+metdata
+
+
+# In[8]:
+
+
+#rad_obj.genCumSky() # entire year.
+metdata.datetime[1035] # Selected for having GHI = 982 , clear sky day. # ('2025-06-13 13:00:00-0500', tz='UTC-05:00')
+timeindex = metdata.datetime.index(pd.to_datetime('2025-06-13 13:00:00 -5'))
+rad_obj.gendaylit(timeindex)  # Noon, June 17th (timepoint # 4020)
+
+
+# ## CdTe
+# Order:  G B R
+# 
+# ORDER: # G60 G70 G80  B60 B70 B80 R40 R50 R70 R80
+# 
+# 
+
+# In[9]:
+
+
+#Module width: 1.2m; spacing 0.15
+G60_x =  -(1.2*4 + 4*0.15)
+G70_x = -(1.2*3 + 3*0.15)
+G80_x = -(1.2*2 + 2*0.15)
+B60_x = -(1.2*1 + 1*0.15)
+B70_x = 0
+B80_x = 1.2*1 + 1*0.15
+R40_x = 1.2*2 + 2*0.15
+R50_x = 1.2*3 + 3*0.15
+R70_x = 1.2*4 + 4*0.15
+R80_x = 1.2*5 + 5*0.15
+
+
+# In[10]:
+
+
+description = 'G60'
+materialname = 'G60'
+RTrans = 0.6
+GTrans = 0.6 
+BTrans = 0.6
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'G70'
+materialname = 'G70'
+RTrans = 0.7
+GTrans = 0.7 
+BTrans = 0.7
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'G80'
+materialname = 'G80'
+RTrans = 0.8
+GTrans = 0.8 
+BTrans = 0.8
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'B60'
+materialname = 'B60'
+RTrans = 0.6
+GTrans = 0.6 
+BTrans = 0.6
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'B70'
+materialname = 'B70'
+RTrans = 0.7
+GTrans = 0.7 
+BTrans = 0.7
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'B80'
+materialname = 'B80'
+RTrans = 0.8
+GTrans = 0.8 
+BTrans = 0.8
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'R40'
+materialname = 'R40'
+RTrans = 0.4
+GTrans = 0.4 
+BTrans = 0.4
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'R50'
+materialname = 'R50'
+RTrans = 0.5
+GTrans = 0.5 
+BTrans = 0.5
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+
+description = 'R70'
+materialname = 'R70'
+RTrans = 0.7
+GTrans = 0.7 
+BTrans = 0.7
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'R80'
+materialname = 'R80'
+RTrans = 0.8
+GTrans = 0.8 
+BTrans = 0.8
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+
+# In[11]:
+
+
+'''
+description = 'CdTe 60percent transmission'
+materialname = 'cdte_60trans'
+RTrans = 0.6
+GTrans = 0.6 
+BTrans = 0.6
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'CdTe 60percent transmission'
+materialname = 'cdte_60trans'
+RTrans = 0.6
+GTrans = 0.6 
+BTrans = 0.6
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'CdTe 70percent transmission'
+materialname = 'cdte_70trans'
+RTrans = 0.7
+GTrans = 0.7 
+BTrans = 0.7
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+description = 'CdTe 80percent transmission'
+materialname = 'cdte_80trans'
+RTrans = 0.8
+GTrans = 0.8 
+BTrans = 0.8
+materialtype = 'glass'
+rad_obj.addMaterial(material=materialname, Rrefl=RTrans, Grefl=GTrans, Brefl=BTrans, materialtype='glass', comment=description)
+
+cdTe60 = rad_obj.makeModule(name='cdTe60',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='cdte_60trans')
+cdTe70 = rad_obj.makeModule(name='cdTe70',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='cdte_70trans')
+cdTe80 = rad_obj.makeModule(name='cdTe80r',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='cdte_80trans')
+
+sceneDict1 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 3, 'nRows': 1, 'originx': -4.05, 'originy': 0, 'appendRadfile':True} 
+sceneDict2 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 3, 'nRows': 1, 'originx': 0, 'originy': 0, 'appendRadfile':True} 
+sceneDict3 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 4, 'nRows': 1, 'originx': 4.05, 'originy': 0, 'appendRadfile':True}
+
+
+sceneObj1 = rad_obj.makeScene(cdTe60, sceneDict1)  
+sceneObj2 = rad_obj.makeScene(cdTe70, sceneDict2, append=True)  
+sceneObj3 = rad_obj.makeScene(cdTe80, sceneDict3, append=True)  
+
+'''
+
+
+# In[12]:
+
+
+#G60 G70 G80  B60 B70 B80 R40 R50 R70 R80
+G60 = rad_obj.makeModule(name='G60',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='G60')
+G70 = rad_obj.makeModule(name='G70',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='G70')
+G80 = rad_obj.makeModule(name='G80',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='G80')
+
+B60 = rad_obj.makeModule(name='B60',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='B60')
+B70 = rad_obj.makeModule(name='B70',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='B70')
+B80 = rad_obj.makeModule(name='B80',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='B80')
+
+R40 = rad_obj.makeModule(name='R40',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='R40')
+R50 = rad_obj.makeModule(name='R50',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='R50')
+R70 = rad_obj.makeModule(name='R70',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='R70')
+R80 = rad_obj.makeModule(name='R80',x=1.2,y=0.6, numpanels=2, xgap = 0.15, modulematerial='R80')
+
+
+# In[13]:
+
+
+#G60 G70 G80  B60 B70 B80 R40 R50 R70 R80
+sceneDict1 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 1, 'nRows': 1, 'originx': G60_x, 'originy': 0, 'appendRadfile':True} 
+sceneDict2 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 1, 'nRows': 1, 'originx': G70_x, 'originy': 0, 'appendRadfile':True} 
+sceneDict3 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 1, 'nRows': 1, 'originx': G80_x, 'originy': 0, 'appendRadfile':True}
+sceneDict4 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 1, 'nRows': 1, 'originx': B60_x, 'originy': 0, 'appendRadfile':True}
+sceneDict5 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 1, 'nRows': 1, 'originx': B70_x, 'originy': 0, 'appendRadfile':True}
+sceneDict6 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 1, 'nRows': 1, 'originx': B80_x, 'originy': 0, 'appendRadfile':True}
+sceneDict7 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 1, 'nRows': 1, 'originx': R40_x, 'originy': 0, 'appendRadfile':True}
+sceneDict8 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 1, 'nRows': 1, 'originx': R50_x, 'originy': 0, 'appendRadfile':True}
+sceneDict9 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 1, 'nRows': 1, 'originx': R70_x, 'originy': 0, 'appendRadfile':True}
+sceneDict10 = {'tilt':34,'pitch':5.69,'clearance_height':2.0,'azimuth':180, 'nMods': 1, 'nRows': 1, 'originx': R80_x, 'originy': 0, 'appendRadfile':True}
+
+sceneObj1 = rad_obj.makeScene(G60, sceneDict1)  
+sceneObj2 = rad_obj.makeScene(G70, sceneDict2, append=True)  
+sceneObj3 = rad_obj.makeScene(G80, sceneDict3, append=True)  
+sceneObj4 = rad_obj.makeScene(B60, sceneDict4, append=True)  
+sceneObj5 = rad_obj.makeScene(B70, sceneDict5, append=True)  
+sceneObj6 = rad_obj.makeScene(B80, sceneDict6, append=True)  
+sceneObj7 = rad_obj.makeScene(R40, sceneDict7, append=True)  
+sceneObj8 = rad_obj.makeScene(R50, sceneDict8, append=True)  
+sceneObj9 = rad_obj.makeScene(R70, sceneDict9, append=True)  
+sceneObj10 = rad_obj.makeScene(R80, sceneDict10, append=True)  
+
+
+# In[14]:
+
+
+octfile = rad_obj.makeOct(rad_obj.getfilelist()) 
+
+
+# In[15]:
+
+
+rad_obj.getfilelist()
+
+
+# In[16]:
+
+
+#!objview materials\ground.rad objects\\Si_44_C_0.70_rtr_5.69_tilt_34_3modsx1rows_origin3.827,0.rad
+
+
+# In[33]:
+
+
+#!rvu -vf views\front.vp -e .02 -pe 0.3 -vp 0 -13.5 18.5 -vd 0 0.7 -0.7 Si.oct
+
+
+# In[18]:
+
+
+analysis = bifacial_radiance.AnalysisObj()
+
+
+# In[19]:
+
+
+groundscan = analysis.groundAnalysis(sceneObj2, modWanted=1, rowWanted=1, sensorsground=2, sensorsgroundx=2)
+
+
+# In[20]:
+
+
+groundscan
+
+
+# In[21]:
+
+
+# Faster
+#groundscan['xstart'] = -6.4
+#groundscan['ystart'] = -1.2
+#groundscan['Nx'] = 12
+#groundscan['Ny'] = 26
+#groundscan['yinc'] = 0.5
+#groundscan['sx_xinc'] = 0.5
+#groundscan['sx_yinc'] = 0.0
+
+
+# In[22]:
+
+
+# SUPER RESOLUTION 5 cm
+groundscan['xstart'] = -7
+groundscan['ystart'] = -1
+groundscan['Nx'] = 307
+groundscan['Ny'] = 120
+groundscan['yinc'] = 0.05
+groundscan['sx_xinc'] = 0.05
+groundscan['sx_yinc'] = 0.0
+
+
+# In[23]:
+
+
+#irr__CdTE_test_noon_5cm_Row1_Module2
+
+
+# In[24]:
+
+
+analysis.analysis(octfile, '_SingleHour_', groundscan)  # compare the back vs front irradiance
+
+
+# In[25]:
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- Load CSV ---
+df = pd.read_csv(r'C:\Users\sayala\Documents\GitHub\bifacial_radiance\docs\Studies\TEMP\results\irr__SingleHour__Row1_Module1.csv')   # columns: x, y, z, mattype, Wm2Front
+
+# --- Sort so y increases first, then x ---
+df = df.sort_values(['x', 'y'])
+
+# --- Get unique coordinate axes ---
+xs = np.sort(df['x'].unique())
+ys = np.sort(df['y'].unique())
+
+# --- Reshape Wm2Front into 2D array ---
+# IMPORTANT: df is sorted so reshape works correctly
+Z = df['Wm2Front'].values.reshape(len(xs), len(ys))
+
+# --- Plot heatmap ---
+plt.figure(figsize=(8,6))
+plt.imshow(Z.T, origin='lower',
+           extent=[xs.min(), xs.max(), ys.min(), ys.max()],
+           aspect='auto')
+
+plt.colorbar(label='Ground Irradiance W/m²')
+plt.xlabel('X coordinate (West <-> East) [m]')
+plt.ylabel('yY coordinate (South <-> North) [m]')
+#plt.title('Ground Irradiance')
+plt.show()
+
+
+# In[26]:
+
+
+## Seasonal
+rad_obj.genCumSky() # entire year.
+octfile = rad_obj.makeOct(rad_obj.getfilelist()) 
+rad_obj.getfilelist()
+
+
+# In[27]:
+
+
+analysis.analysis(octfile, '__Full_Year_5cm', groundscan)  # compare the back vs front irradiance
+
+
+# In[28]:
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- Load CSV ---
+df = pd.read_csv(r'C:\Users\sayala\Documents\GitHub\bifacial_radiance\docs\Studies\TEMP\results\irr___Full_Year_5cm_Row1_Module1.csv')
+
+# --- Sort so y increases first, then x ---
+df = df.sort_values(['x', 'y'])
+
+# --- Get unique coordinate axes ---
+xs = np.sort(df['x'].unique())
+ys = np.sort(df['y'].unique())
+
+# --- Reshape Wm2Front into 2D array ---
+Z = df['Wm2Front'].values.reshape(len(xs), len(ys))
+
+# --- Convert Wh/m² → kWh/m² ---
+Z = Z / 1000.0     # <<< THIS LINE FIXES THE 1e6 SCALE ISSUE
+
+# --- Plot heatmap ---
+plt.figure(figsize=(8,6))
+plt.imshow(Z.T, origin='lower',
+           extent=[xs.min(), xs.max(), ys.min(), ys.max()],
+           aspect='auto')
+
+plt.colorbar(label='Ground Insolation kWh/m²-season')
+plt.xlabel('X coordinate (West <-> East) [m]')
+plt.ylabel('Y coordinate (South <-> North) [m]')
+plt.show()
+
+
+# In[34]:
+
+
+print("Max Wh/m²-season:", df['Wm2Front'].max())
+print("Max kWh/m²-season:", df['Wm2Front'].max() / 1000)
+
+
+# In[35]:
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- Load CSV ---
+#df = pd.read_csv(r'C:\Users\sayala\Documents\GitHub\bifacial_radiance\docs\Studies\TEMP\results\irr__CdTE_test_Season_5cm_Row1_Module2.csv')
+#df = pd.read_csv(r'C:\Users\sayala\Documents\GitHub\bifacial_radiance\docs\Studies\TEMP\results\irr___Full_Year_5cm_Row1_Module1.csv')
+
+# --- Sort so y increases first, then x ---
+df = df.sort_values(['x', 'y'])
+
+# --- Get unique coordinate axes ---
+xs = np.sort(df['x'].unique())
+ys = np.sort(df['y'].unique())
+
+# --- Reshape Wm2Front into 2D array ---
+Z = df['Wm2Front'].values.reshape(len(xs), len(ys))
+
+# --- Normalize by max to get Insolation Fraction ---
+Zmax = Z.max()
+Z = Z / Zmax       # values now between 0 and 1
+
+# --- Plot heatmap ---
+plt.figure(figsize=(8,6))
+plt.imshow(Z.T, origin='lower',
+           extent=[xs.min(), xs.max(), ys.min(), ys.max()],
+           aspect='auto',
+           vmin=0, vmax=1)   # enforce 0–1 scale
+
+plt.colorbar(label='Insolation Fraction (0–1)')
+plt.xlabel('X coordinate (West <-> East) [m]')
+plt.ylabel('Y coordinate (South <-> North) [m]')
+plt.show()
+
+print("Max value in dataset:", Zmax)
+
+
+# In[36]:
+
+
+target_x = -4
+target_y = 0.2
+
+# compute distance to each row
+df['dist'] = np.sqrt((df['x'] - target_x)**2 + (df['y'] - target_y)**2)
+
+# pick closest row
+closest = df.loc[df['dist'].idxmin()]
+
+print("Closest grid point:", closest[['x', 'y']].to_dict())
+print("Wm2Front value:", closest['Wm2Front'])
+print("Normalized value:", closest['Wm2Front'] / df['Wm2Front'].max())
+
+
+# In[37]:
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- Load CSV ---
+#df = pd.read_csv(r'C:\Users\sayala\Documents\GitHub\bifacial_radiance\docs\Studies\TEMP\results\irr__CdTE_test_Season_5cm_Row1_Module2.csv')
+
+# --- Sort so y increases first, then x ---
+df = df.sort_values(['x', 'y'])
+
+# --- Get coordinate grids ---
+xs = np.sort(df['x'].unique())
+ys = np.sort(df['y'].unique())
+
+# --- Reshape data ---
+Z = df['Wm2Front'].values.reshape(len(xs), len(ys))
+
+# --- Normalize for Insolation Fraction ---
+Zmax = Z.max()
+Znorm = Z / Zmax
+
+# --- Create meshgrid for contour plot ---
+X, Y = np.meshgrid(xs, ys, indexing='ij')
+
+# --- Plot contour ---
+plt.figure(figsize=(8,6))
+contour = plt.contourf(X, Y, Znorm, levels=20, cmap='viridis')
+
+plt.colorbar(contour, label='Insolation Fraction (0–1)')
+plt.xlabel('X coordinate (m)')
+plt.ylabel('Y coordinate (m)')
+plt.title('Insolation Fraction Contour Plot')
+
+plt.show()
+
+
+# In[ ]:
+
+
+
+
