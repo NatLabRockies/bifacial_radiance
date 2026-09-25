@@ -13,6 +13,9 @@ to run coverage tests, run py.test --cov-report term-missing --cov=bifacial_radi
 """
 
 #from bifacial_radiance import RadianceObj, SceneObj, AnalysisObj
+import concurrent.futures
+import importlib
+import json
 import bifacial_radiance
 import numpy as np
 import pytest
@@ -78,6 +81,28 @@ def test_TorqueTubes_Module():
     module.addTorquetube(tubetype='oct', axisofrotation=False, recompile=False)
     module.compileText(rewriteModulefile=False, json=False)
     assert module.text[0:30] == '! genbox black oct 1.59 0.95 0'
+
+
+# test Issue #600 - concurrent read/write to module.json
+def test_concurrent_module_registry_updates(tmp_path, monkeypatch):
+    module_module = importlib.import_module('bifacial_radiance.module')
+    registry = tmp_path / 'module.json'
+    registry.write_text('{}', encoding='utf-8')
+    monkeypatch.setattr(module_module, 'DATA_PATH', str(tmp_path))
+    module_names = [f'module-{index}' for index in range(8)]
+
+    def save_module(name):
+        module = object.__new__(module_module.ModuleObj)
+        module.name = name
+        module.modulefile = str(tmp_path / f'{name}.rad')
+        module.text = ''
+        module._saveModule({'x': 1}, rewriteModulefile=False)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        list(executor.map(save_module, module_names))
+
+    saved_modules = json.loads(registry.read_text(encoding='utf-8'))
+    assert saved_modules == {name: {'x': 1} for name in module_names}
 
 def test_moduleFrameandOmegas():  
     # test moduleFrameandOmegas. Requires metdata for boulder. 
