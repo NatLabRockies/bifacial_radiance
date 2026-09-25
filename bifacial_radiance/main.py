@@ -72,10 +72,10 @@ try:
     # and pextrem for falsecolor extrema scaling.
     # patch no longer needed if pyradiance.__version__ >= 1.2.1
     # which requires python >= 3.10
-    from bifacial_radiance.pyradiance_gendaylit import gendaylit as _gendaylit
-    from bifacial_radiance.pyradiance_gendaylit import pextrem as _pextrem
-    pyradiance.gendaylit = _gendaylit
-    pyradiance.pextrem = _pextrem
+    #from bifacial_radiance.pyradiance_gendaylit import gendaylit as _gendaylit
+    #from bifacial_radiance.pyradiance_gendaylit import pextrem as _pextrem
+    #pyradiance.gendaylit = _gendaylit
+    #pyradiance.pextrem = _pextrem
     PYRADIANCE_AVAILABLE = True
 except ImportError:
     PYRADIANCE_AVAILABLE = False
